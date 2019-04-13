@@ -1,3 +1,7 @@
+happy_olds_main:
+    resource: "@HappyOldsMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
