@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('HappyOldsMainBundle:Default:index.html.twig');
+        return $this->render('@HappyOldsMain/Default/index.html.twig');
     }
 }
