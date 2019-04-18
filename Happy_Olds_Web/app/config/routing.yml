@@ -1,3 +1,7 @@
+chat_room:
+    resource: "@ChatRoomBundle/Resources/config/routing.yml"
+    prefix:   /chatRoom
+
 happy_olds_main:
     resource: "@HappyOldsMainBundle/Resources/config/routing.yml"
     prefix:   /
