@@ -1,3 +1,6 @@
+happy_olds_main_login:
+    path:     /home
+    defaults: { _controller: HappyOldsMainBundle:Default:accueil }
 happy_olds_main_homepage:
     path:     /
     defaults: { _controller: HappyOldsMainBundle:Default:index }
