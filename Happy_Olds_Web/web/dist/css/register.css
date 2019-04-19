@@ -1,0 +1,27 @@
+.register-page {
+    background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+html, body {
+    height: 0;
+}
+
+.register-box {
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: -2%;
+}
+
+.checkbox.icheck {
+    color: black;
+}
+
+.register-box-body {
+    background: #ffffffd5;
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+}

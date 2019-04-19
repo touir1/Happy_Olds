@@ -1,6 +1,22 @@
-happy_olds_main_login:
+# home page
+happy_olds_main_accueil:
     path:     /home
     defaults: { _controller: HappyOldsMainBundle:Default:accueil }
-happy_olds_main_homepage:
+
+# redirect to login for now until implementation of FOSUserBundle
+# TODO
+happy_olds_main_root:
     path:     /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /login
+        permanent: true
+
+# login and register pages
+happy_olds_main_login:
+    path:     /login
     defaults: { _controller: HappyOldsMainBundle:Default:index }
+happy_olds_main_register:
+    path:     /register
+    defaults: { _controller: HappyOldsMainBundle:Default:register }
+

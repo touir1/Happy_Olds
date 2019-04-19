@@ -10,6 +10,10 @@ class DefaultController extends Controller
     {
         return $this->render('@HappyOldsMain/Default/login.html.twig');
     }
+    public function registerAction()
+    {
+        return $this->render('@HappyOldsMain/Default/register.html.twig');
+    }
     public function accueilAction()
     {
         return $this->render('@HappyOldsMain/Default/index.html.twig');

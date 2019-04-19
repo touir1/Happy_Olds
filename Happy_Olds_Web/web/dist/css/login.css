@@ -1,0 +1,28 @@
+.login-page {
+    background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+html, body {
+    height: 0;
+}
+
+.checkbox.icheck {
+    color: black;
+}
+
+.login-box {
+    margin: auto;
+    margin-top: 7%;
+    margin-bottom: -7%;
+}
+
+
+.login-box-body {
+    background: #ffffffb5;
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+}
