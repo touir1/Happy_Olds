@@ -1,5 +1,5 @@
 # home page
-happy_olds_main_accueil:
+happy_olds_main_homepage:
     path:     /home
     defaults: { _controller: HappyOldsMainBundle:Default:accueil }
 
