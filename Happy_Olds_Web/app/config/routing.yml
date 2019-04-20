@@ -1,6 +1,18 @@
+medical:
+    resource: "@MedicalBundle/Resources/config/routing.yml"
+    prefix:   /medical
+
+services:
+    resource: "@ServicesBundle/Resources/config/routing.yml"
+    prefix:   /services
+
+events:
+    resource: "@EventsBundle/Resources/config/routing.yml"
+    prefix:   /events
+
 chat_room:
     resource: "@ChatRoomBundle/Resources/config/routing.yml"
-    prefix:   /chatRoom
+    prefix:   /chat
 
 happy_olds_main:
     resource: "@HappyOldsMainBundle/Resources/config/routing.yml"

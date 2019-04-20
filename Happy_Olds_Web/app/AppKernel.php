@@ -19,6 +19,9 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new HappyOldsMainBundle\HappyOldsMainBundle(),
             new ChatRoomBundle\ChatRoomBundle(),
+            new EventsBundle\EventsBundle(),
+            new ServicesBundle\ServicesBundle(),
+            new MedicalBundle\MedicalBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
