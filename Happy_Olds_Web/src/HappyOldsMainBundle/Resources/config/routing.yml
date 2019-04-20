@@ -19,4 +19,9 @@ happy_olds_main_login:
 happy_olds_main_register:
     path:     /register
     defaults: { _controller: HappyOldsMainBundle:Default:register }
-
+happy_olds_main_jeune:
+    path:     /homejeune
+    defaults: { _controller: HappyOldsMainBundle:Default:accueiljeune }
+happy_olds_main_admin:
+    path:     /homeadmin
+    defaults: { _controller: HappyOldsMainBundle:Default:accueiladmin }

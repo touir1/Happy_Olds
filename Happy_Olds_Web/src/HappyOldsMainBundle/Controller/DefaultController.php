@@ -18,4 +18,12 @@ class DefaultController extends Controller
     {
         return $this->render('@HappyOldsMain/Default/index.html.twig');
     }
+    public function accueiljeuneAction()
+    {
+        return $this->render('@HappyOldsMain/Default/indexjeune.html.twig');
+    }
+    public function accueiladminAction()
+    {
+        return $this->render('@HappyOldsMain/Default/indexadmin.html.twig');
+    }
 }
