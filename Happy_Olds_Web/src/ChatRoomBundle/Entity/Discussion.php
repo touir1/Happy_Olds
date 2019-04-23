@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({"discussionIndiv" = "DiscussionIndiv", "discussionGroupe" = "DiscussionGroupe"})
  * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\DiscussionRepository")
  */
-class Discussion
+abstract class Discussion
 {
     /**
      * @var int
