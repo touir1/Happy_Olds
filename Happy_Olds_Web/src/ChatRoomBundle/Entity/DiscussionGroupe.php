@@ -7,29 +7,37 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DiscussionGroupe
  *
- * @ORM\Table(name="discussion_groupe")
  * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\DiscussionGroupeRepository")
  */
-class DiscussionGroupe
+class DiscussionGroupe extends Discussion
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\ManyToOne(targetEntity="Groupe")
+     * @ORM\JoinColumn(name="groupe_id", referencedColumnName="id")
      */
-    private $id;
-
+    private $groupe;
 
     /**
-     * Get id
+     * Set groupe
      *
-     * @return int
+     * @param \ChatRoomBundle\Entity\Groupe $groupe
+     *
+     * @return DiscussionGroupe
      */
-    public function getId()
+    public function setGroupe(\ChatRoomBundle\Entity\Groupe $groupe = null)
     {
-        return $this->id;
+        $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * Get groupe
+     *
+     * @return \ChatRoomBundle\Entity\Groupe
+     */
+    public function getGroupe()
+    {
+        return $this->groupe;
     }
 }
-

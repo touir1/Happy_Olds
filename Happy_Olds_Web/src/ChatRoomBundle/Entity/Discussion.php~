@@ -35,3 +35,4 @@ class Discussion
         return $this->id;
     }
 }
+

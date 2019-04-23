@@ -2,3 +2,5 @@ services:
 #    chat_room.example:
 #        class: ChatRoomBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+parameters:
+    messages_fichier_joint_directory: '%kernel.project_dir%/public/uploads/ChatRoom/messages_fichiers_joints'

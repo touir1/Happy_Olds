@@ -44,3 +44,4 @@ class Live extends  PublicationGroupe
         return $this->fin;
     }
 }
+

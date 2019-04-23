@@ -1,0 +1,19 @@
+<?php
+
+namespace ChatRoomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DiscussionGroupe
+ *
+ * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\DiscussionGroupeRepository")
+ */
+class DiscussionGroupe extends Discussion
+{
+    /**
+     * @ORM\ManyToOne(targetEntity="Groupe")
+     * @ORM\JoinColumn(name="groupe_id", referencedColumnName="id")
+     */
+    private $groupe;
+}

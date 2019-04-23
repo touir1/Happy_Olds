@@ -99,28 +99,5 @@ class Message
     {
         return $this->pieceJointe;
     }
-
-    /**
-     * Set discussion
-     *
-     * @param \ChatRoomBundle\Entity\Discussion $discussion
-     *
-     * @return Message
-     */
-    public function setDiscussion(\ChatRoomBundle\Entity\Discussion $discussion = null)
-    {
-        $this->discussion = $discussion;
-
-        return $this;
-    }
-
-    /**
-     * Get discussion
-     *
-     * @return \ChatRoomBundle\Entity\Discussion
-     */
-    public function getDiscussion()
-    {
-        return $this->discussion;
-    }
 }
+
