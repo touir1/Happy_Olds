@@ -76,11 +76,11 @@ sensio_framework_extra:
         annotations: false
 # app/config/config.yml
 fos_user:
- db_driver: orm # other valid values are 'mongodb' and 'couchdb'
- firewall_name: main
- user_class: AppBundle\Entity\User
- service:
-    mailer: fos_user.mailer.twig_swift
- from_email:
-    address: "mohamedamine.sadfi@esprit.tn"
-    sender_name: "Happy-olds"
+   db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+   firewall_name: main
+   user_class: HappyOldsMainBundle\Entity\User
+   service:
+      mailer: fos_user.mailer.twig_swift
+   from_email:
+      address: "mohamedamine.sadfi@esprit.tn"
+      sender_name: "Happy-olds"
