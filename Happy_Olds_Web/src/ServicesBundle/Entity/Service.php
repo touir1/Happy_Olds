@@ -42,6 +42,35 @@ class Service
      */
     private $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     */
+
+    private $user;
+
+    /**
+     * Get user
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \HappyOldsMainBundle\Entity\User $user
+     *
+     * @return Service
+     */
+    public function setUser(\ServicesBundle\Entity\Service $user = null)
+    {
+        $this->user = $user;
+    }
+
 
     /**
      * Get id
@@ -66,7 +95,6 @@ class Service
 
         return $this;
     }
-
     /**
      * Get description
      *
@@ -124,5 +152,6 @@ class Service
     {
         return $this->type;
     }
+
 }
 

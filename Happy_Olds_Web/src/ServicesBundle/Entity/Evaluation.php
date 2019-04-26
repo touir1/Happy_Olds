@@ -30,6 +30,63 @@ class Evaluation
 
 
     /**
+     * @ORM\OneToOne(targetEntity=Service::class,cascade={"remove"})
+     * @ORM\JoinColumn(name="service_id",referencedColumnName="id")
+     */
+    private $service;
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     */
+
+    private $user;
+
+    /**
+     * Get user
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \HappyOldsMainBundle\Entity\User $user
+     *
+     * @return Evaluation
+     */
+    public function setUser(\HappyOldsMainBundle\Entity\Service $user = null)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \ServicesBundle\Entity\Service
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * Set service
+     *
+     * @param \ServicesBundle\Entity\Service $service
+     *
+     * @return Postuler
+     */
+    public function setService(\ServicesBundle\Entity\Service $service = null)
+    {
+        $this->service = $service;
+    }
+
+
+    /**
      * Get id
      *
      * @return int
