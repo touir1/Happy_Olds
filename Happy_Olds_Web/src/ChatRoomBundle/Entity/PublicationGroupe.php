@@ -59,6 +59,12 @@ class PublicationGroupe
     private $groupe;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
      * Get id
      *
      * @return int
@@ -186,5 +192,29 @@ class PublicationGroupe
     public function getGroupe()
     {
         return $this->groupe;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \HappyOldsMainBundle\Entity\User $user
+     *
+     * @return PublicationGroupe
+     */
+    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

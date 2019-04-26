@@ -175,28 +175,4 @@ class Groupe
     {
         return $this->members;
     }
-
-    /**
-     * Set creator
-     *
-     * @param \HappyOldsMainBundle\Entity\User $creator
-     *
-     * @return Groupe
-     */
-    public function setCreator(\HappyOldsMainBundle\Entity\User $creator = null)
-    {
-        $this->creator = $creator;
-
-        return $this;
-    }
-
-    /**
-     * Get creator
-     *
-     * @return \HappyOldsMainBundle\Entity\User
-     */
-    public function getCreator()
-    {
-        return $this->creator;
-    }
 }

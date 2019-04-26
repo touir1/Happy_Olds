@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({"discussionIndiv" = "DiscussionIndiv", "discussionGroupe" = "DiscussionGroupe"})
  * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\DiscussionRepository")
  */
-class Discussion
+abstract class Discussion
 {
     /**
      * @var int
@@ -23,6 +23,11 @@ class Discussion
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="discussion")
+     */
+    private $messages;
 
 
     /**
@@ -35,4 +40,3 @@ class Discussion
         return $this->id;
     }
 }
-

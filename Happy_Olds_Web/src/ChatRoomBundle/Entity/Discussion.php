@@ -24,6 +24,11 @@ abstract class Discussion
      */
     private $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="discussion")
+     */
+    private $messages;
+
 
     /**
      * Get id
@@ -33,5 +38,46 @@ abstract class Discussion
     public function getId()
     {
         return $this->id;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add message
+     *
+     * @param \ChatRoomBundle\Entity\Message $message
+     *
+     * @return Discussion
+     */
+    public function addMessage(\ChatRoomBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \ChatRoomBundle\Entity\Message $message
+     */
+    public function removeMessage(\ChatRoomBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

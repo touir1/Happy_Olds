@@ -36,10 +36,16 @@ class Message
     private $pieceJointe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Discussion")
+     * @ORM\ManyToOne(targetEntity="Discussion", inversedBy="messages")
      * @ORM\JoinColumn(name="discussion_id", referencedColumnName="id")
      */
     private $discussion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
 
     /**
@@ -122,5 +128,29 @@ class Message
     public function getDiscussion()
     {
         return $this->discussion;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \HappyOldsMainBundle\Entity\User $user
+     *
+     * @return Message
+     */
+    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
