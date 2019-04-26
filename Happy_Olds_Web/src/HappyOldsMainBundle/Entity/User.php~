@@ -2,6 +2,7 @@
 
 namespace HappyOldsMainBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="HappyOldsMainBundle\Repository\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -19,7 +20,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -27,6 +28,26 @@ class User
      * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
+
+    /**
+ * @var string
+ *
+ * @ORM\Column(name="nom", type="string", length=255)
+ */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
+     */
+    private $date_naissance;
 
     /**
      * @var int
@@ -100,5 +121,34 @@ class User
     {
         return $this->scorefinal;
     }
-}
 
+    /**
+     * Set job
+     *
+     * @param string $job
+     *
+     * @return User
+     */
+    public function setJob($job)
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    /**
+     * Get job
+     *
+     * @return string
+     */
+    public function getJob()
+    {
+        return $this->job;
+    }
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+}
