@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% trans_default_domain 'FOSUserBundle' %}
+
 <html lang="en">
 <head>
     <title>Happy Olds - Inscription</title>
@@ -48,16 +50,24 @@
         </div>
 
         <div class="wrap-login100">
-            <form class="login100-form validate-form" method="POST" action="{{ path('happy_olds_main_homepage') }}">
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register login100-form validate-form'}}) }}
+            {#<form class="login100-form validate-form" method="POST" action="{{ path('happy_olds_main_homepage') }}">#}
 					<span class="login100-form-title p-b-59">
                      S'inscrire
                 </span>
 
                 <div class="wrap-input100 validate-input" data-validate="Nom requis">
-                    <span class="label-input100">Nom complet</span>
-                    <input class="input100" type="text" name="name" placeholder="Nom...">
+                    <span class="label-input100">Nom</span>
+                    {{ form_widget(form.nom, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_nom', 'name' : 'fos_user_registration_form[nom]', 'placeholder': 'Nom...'}}) }}
+                    {#<input class="input100" type="text" id="fos_user_registration_form_nom" name="fos_user_registration_form[nom]" placeholder="Nom...">#}
                     <span class="focus-input100"></span>
                 </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Prenom requis">
+                <span class="label-input100">Prenom</span>
+                <input class="input100" type="text" id="fos_user_registration_form_prenom" name="fos_user_registration_form[prenom]" placeholder="Prenom...">
+                <span class="focus-input100"></span>
+            </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Email valide requis: ex@abc.xyz">
                     <span class="label-input100">Email</span>
@@ -112,7 +122,8 @@
                         <i class="fa fa-long-arrow-right m-l-5"></i>
                     </a>
                 </div>
-            </form>
+            {{ form_end(form) }}
+            {#</form>#}
         </div>
     </div>
 </div>

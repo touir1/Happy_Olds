@@ -1,5 +1,3 @@
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 medical:
     resource: "@MedicalBundle/Resources/config/routing.yml"
@@ -20,3 +18,6 @@ chat_room:
 happy_olds_main:
     resource: "@HappyOldsMainBundle/Resources/config/routing.yml"
     prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
