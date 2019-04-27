@@ -4,13 +4,20 @@ namespace HappyOldsMainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Notification
  *
  * @ORM\Table(name="notification")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type_notif", type="string")
+ * @ORM\DiscriminatorMap({"notificationservice" = "\ServicesBundle\Entity\NotificationService",
+ *     "notificationevents" = "\EventsBundle\Entity\NotificationEvents",
+ *     "notificationmedical" = "\MedicalBundle\Entity\NotificationMedical",
+ *     "notificationchat" = "\ChatRoomBundle\Entity\NotificationChat"})
  * @ORM\Entity(repositoryClass="HappyOldsMainBundle\Repository\NotificationRepository")
  */
-class Notification
+abstract class Notification
 {
     /**
      * @var int
@@ -34,12 +41,7 @@ class Notification
      * @ORM\Column(name="Description", type="string", length=255)
      */
     private $description;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="TypeNotif", type="string", length=255)
-     */
-    private $typeNotif;
+
 
     /**
      * @var \DateTime
@@ -88,29 +90,6 @@ class Notification
     public function getTitre()
     {
         return $this->titre;
-    }
-    /**
-     * Set typeNotif
-     *
-     * @param string $TypeNotif
-     *
-     * @return Notification
-     */
-    public function setTypeNotif($TypeNotif)
-    {
-        $this->typeNotif = $TypeNotif;
-
-        return $this;
-    }
-
-    /**
-     * Get typeNotif
-     *
-     * @return string
-     */
-    public function getTypeNotif()
-    {
-        return $this->typeNotif;
     }
 
     /**
