@@ -8,6 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
  * Commentaire
  *
  * @ORM\Table(name="commentaire")
+ * @ORM\DiscriminatorColumn(name="type_commentaire", type="string")
+ * @ORM\DiscriminatorMap({"commentaireservice" = "\ServicesBundle\Entity\CommentaireService",
+ *                        "commentaireevents" = "\EventsBundle\Entity\CommentaireEvents",
+ *                        "commentairechat" = "\ChatRoomBundle\Entity\CommentaireChat",
+ *                        "commentairemedical" = "\MedicalBundle\Entity\CommentaireMedical"})
  * @ORM\Entity(repositoryClass="HappyOldsMainBundle\Repository\CommentaireRepository")
  */
 class Commentaire
