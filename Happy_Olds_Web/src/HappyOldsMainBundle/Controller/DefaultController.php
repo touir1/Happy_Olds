@@ -2,9 +2,14 @@
 
 namespace HappyOldsMainBundle\Controller;
 
+use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
 use HappyOldsMainBundle\Entity\User;
 use HappyOldsMainBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -45,12 +50,69 @@ class DefaultController extends Controller
             'error' => $error,
         ]);
     }
-    public function registerAction()
+    public function registerAction(Request $request)
     {
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        /** @var $userManager UserManagerInterface */
+        $userManager = $this->get('fos_user.user_manager');
+
         $user = new User();
+        $user->setEnabled(true);
+
         $form = $this->createForm(UserType::class, $user);
+
+        $event = new GetResponseUserEvent($user, $request);
+
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $event = new FormEvent($form, $request);
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+
+                try{
+                    $userManager->updateUser($user);
+                }
+                catch (\Exception $exception){
+                    if(strpos($exception->getMessage(),'Integrity constraint violation')){
+                        return $this->render('@HappyOldsMain/Default/register.html.twig', [
+                            'form' => $form->createView(),
+                            'error' => 'Compte existe déjà'
+                        ]);
+                    }
+                }
+
+
+                if (null === $response = $event->getResponse()) {
+                    $url = $this->generateUrl('happy_olds_main_homepage');
+                    $response = new RedirectResponse($url);
+                }
+
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+                return $response;
+            }
+
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_FAILURE, $event);
+
+            if (null !== $response = $event->getResponse()) {
+                return $response;
+            }
+        }
+
+
         return $this->render('@HappyOldsMain/Default/register.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'error' => null
         ]);
     }
     public function accueilAction()

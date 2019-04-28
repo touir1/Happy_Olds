@@ -592,3 +592,19 @@ iframe {
     padding-right: 15px;
   }
 }
+
+.datepicker {
+  font-family: "Times New Roman";
+}
+
+select {
+  font-family: "Times New Roman" !important;
+  font-size: 18px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+  padding-top: 5px;
+}
+.select2-container--default .select2-selection--single {
+  height: 40px;
+}

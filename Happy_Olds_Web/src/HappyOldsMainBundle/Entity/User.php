@@ -47,7 +47,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="scorefinal", type="integer", nullable=true)
      */
-    private $scorefinal;
+    private $scorefinal = 0;
 
     /**
      * @var string
@@ -191,5 +191,15 @@ class User extends BaseUser
     public function getDateNaissance()
     {
         return $this->date_naissance;
+    }
+
+    public function getRole() {
+        if(isset($this->roles) && isset($this->roles[0]))
+            return $this->roles[0];
+        return "";
+    }
+
+    public function setRole($role) {
+        $this->setRoles(array($role));
     }
 }

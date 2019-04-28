@@ -4,6 +4,7 @@ namespace HappyOldsMainBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -19,8 +20,26 @@ class UserType extends AbstractType
     {
         $builder->add('nom')
             ->add('prenom')
-            ->add('date_naissance')
-            ->add('job')
+            ->add('date_naissance', DateType::class, array(
+                'widget' => 'single_text',
+
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],
+            ))
+            ->add('job',ChoiceType::class, array(
+                'label' => 'Travail',
+                'choices' => array(
+                    'Medecin' => 'medecin',
+                    'Ingénieur' => 'ingenieur',
+                    'Autre' => 'autre'
+                ),
+                'required' => true,
+                'multiple' => false,
+                'data' => 'autre',
+            ))
             ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('plainPassword', RepeatedType::class, array(
@@ -36,10 +55,10 @@ class UserType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
 
-            ->add('roles', ChoiceType::class, array(
+            ->add('role', ChoiceType::class, array(
                 'label' => 'Type',
                 'choices' => array(
-                    ' Jeune' => 'ROLE_JEUNE',
+                    'Jeune' => 'ROLE_JEUNE',
                     'Agé' => 'ROLE_AGE'
                 ),
                 'required' => true,

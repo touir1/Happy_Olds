@@ -27,6 +27,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('Login_v13/vendor/daterangepicker/daterangepicker.css') }}">
     <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('Login_v13/vendor/js-datepicker/bootstrap-datepicker.css') }}">
+    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('Login_v13/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Login_v13/css/register-main.css') }}">
     <!--===============================================================================================-->
@@ -50,64 +52,126 @@
         </div>
 
         <div class="wrap-login100">
-            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register login100-form validate-form'}}) }}
+            {{ form_start(form, {'method': 'post', 'action': path('happy_olds_main_register'), 'attr': {'class': 'fos_user_registration_register login100-form validate-form'}}) }}
             {#<form class="login100-form validate-form" method="POST" action="{{ path('happy_olds_main_homepage') }}">#}
-					<span class="login100-form-title p-b-59">
-                     S'inscrire
+                <span class="login100-form-title p-b-59">
+                    S'inscrire
                 </span>
 
                 <div class="wrap-input100 validate-input" data-validate="Nom requis">
                     <span class="label-input100">Nom</span>
-                    {{ form_widget(form.nom, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_nom', 'name' : 'fos_user_registration_form[nom]', 'placeholder': 'Nom...'}}) }}
+                    {{
+                        form_widget(form.nom, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_nom',
+                            'name' : 'fos_user_registration_form[nom]', 'placeholder': 'Nom...'}})
+                    }}
                     {#<input class="input100" type="text" id="fos_user_registration_form_nom" name="fos_user_registration_form[nom]" placeholder="Nom...">#}
                     <span class="focus-input100"></span>
                 </div>
 
-            <div class="wrap-input100 validate-input" data-validate="Prenom requis">
-                <span class="label-input100">Prenom</span>
-                <input class="input100" type="text" id="fos_user_registration_form_prenom" name="fos_user_registration_form[prenom]" placeholder="Prenom...">
-                <span class="focus-input100"></span>
-            </div>
+                <div class="wrap-input100 validate-input" data-validate="Prénom requis">
+                    <span class="label-input100">Prénom</span>
+                    {{
+                        form_widget(form.prenom, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_prenom',
+                            'name' : 'fos_user_registration_form[prenom]', 'placeholder': 'Prénom...'}})
+                    }}
+                    {#<input class="input100" type="text" id="fos_user_registration_form_prenom" name="fos_user_registration_form[prenom]" placeholder="Prenom...">#}
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Date de naissance requise">
+                    <span class="label-input100">Date de naissance</span>
+                    {{
+                    form_widget(form.date_naissance, {'attr' : {'class' : 'input100 js-datepicker', 'id' : 'fos_user_registration_form_date_naissance',
+                        'name' : 'fos_user_registration_form[date_naissance]', 'placeholder': 'Date de naissance...'}})
+                    }}
+                    {#<input class="input100" type="text" id="fos_user_registration_form_prenom" name="fos_user_registration_form[prenom]" placeholder="Prenom...">#}
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100">
+                    <span class="label-input100">Travail</span>
+                    {{
+                    form_widget(form.job, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_job',
+                        'name' : 'fos_user_registration_form[job]', 'placeholder': 'Travail...'}})
+                    }}
+                    {#<input class="input100" type="text" name="email" placeholder="Adresse email...">#}
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100">
+                    <span class="label-input100">Status</span>
+                    {{
+                    form_widget(form.role, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_role',
+                        'name' : 'fos_user_registration_form[role]', 'placeholder': 'Status...'}})
+                    }}
+                    {#<input class="input100" type="text" name="email" placeholder="Adresse email...">#}
+                    <span class="focus-input100"></span>
+                </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Email valide requis: ex@abc.xyz">
                     <span class="label-input100">Email</span>
-                    <input class="input100" type="text" name="email" placeholder="Adresse email...">
+                    {{
+                        form_widget(form.email, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_email',
+                            'name' : 'fos_user_registration_form[email]', 'placeholder': 'Adresse email...'}})
+                    }}
+                    {#<input class="input100" type="text" name="email" placeholder="Adresse email...">#}
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Nom d'utilisateur requis">
                     <span class="label-input100">Nom d'utilisateur</span>
-                    <input class="input100" type="text" name="username" placeholder="Nom d'utilisateur...">
+                    {{
+                        form_widget(form.username, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_username',
+                            'name' : 'fos_user_registration_form[username]', 'placeholder': 'Nom d\'utilisateur...'}})
+                    }}
+                    {#<input class="input100" type="text" name="username" placeholder="Nom d'utilisateur...">#}
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Mot de passe requis">
                     <span class="label-input100">Mot de passe</span>
-                    <input class="input100" type="password" name="pass" placeholder="*************">
+                    {{
+                        form_widget(form.plainPassword.first, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_password',
+                            'name' : 'fos_user_registration_form[password]', 'placeholder': '*************'}})
+                    }}
+                    {#<input class="input100" type="password" name="pass" placeholder="*************">#}
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Comfirmation mot de passe requis">
                     <span class="label-input100">Confirmation mot de passe</span>
-                    <input class="input100" type="password" name="repeat-pass" placeholder="*************">
+                    {{
+                    form_widget(form.plainPassword.second, {'attr' : {'class' : 'input100', 'id' : 'fos_user_registration_form_password_confirmation',
+                        'name' : 'fos_user_registration_form[password_confirmation]', 'placeholder': '*************'}})
+                    }}
+                    {#<input class="input100" type="password" name="repeat-pass" placeholder="*************">#}
                     <span class="focus-input100"></span>
                 </div>
 
+
+            <!--
                 <div class="flex-m w-full p-b-33">
-                    <div class="contact100-form-checkbox">
+                    <div class="contact100-form-checkbox" data-validate = "champ requis">
                         <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
                         <label class="label-checkbox100" for="ckb1">
-								<span class="txt1">
-									J'accepte les
-									<a href="#" class="txt2 hov1">
-										termes et conditions
-									</a>
-								</span>
+                                <span class="txt1">
+                                    J'accepte les
+                                    <a href="#" class="txt2 hov1">
+                                        termes et conditions
+                                    </a>
+                                </span>
                         </label>
                     </div>
 
 
-                </div>
+                </div>-->
+
+
+                {% if error %}
+                    <div style="color: red"><h5>{{ error }}</h5></div>
+                    <br><br>
+                {% endif %}
+
 
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
@@ -140,6 +204,8 @@
 <!--===============================================================================================-->
 <script src="{{ asset('Login_v13/vendor/daterangepicker/moment.min.js') }}"></script>
 <script src="{{ asset('Login_v13/vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('Login_v13/vendor/js-datepicker/bootstrap-datepicker.js') }}"></script>
 <!--===============================================================================================-->
 <script src="{{ asset('Login_v13/vendor/countdowntime/countdowntime.js') }}"></script>
 <!--===============================================================================================-->

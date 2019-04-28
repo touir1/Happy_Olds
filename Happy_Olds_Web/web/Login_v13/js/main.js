@@ -60,6 +60,11 @@
                 return false;
             }
         }
+        else if($(input).attr('type') == 'checkbox'){
+            if(!$(input).val().is(":checked")){
+                return false;
+            }
+        }
         else {
             if($(input).val().trim() == ''){
                 return false;
@@ -78,7 +83,16 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-    
 
+    $('select').select2({
+        minimumResultsForSearch: -1
+    });
+
+
+    $('.js-datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        endDate: new Date(),
+        language: "fr"
+    });
 
 })(jQuery);

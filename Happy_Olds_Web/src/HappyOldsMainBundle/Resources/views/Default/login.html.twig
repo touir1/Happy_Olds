@@ -1,8 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +85,11 @@
 
 
                 </div>
+
+                {% if error %}
+                    <div style="color: red"><h5>{{ error.messageKey|trans(error.messageData, 'security') }}</h5></div>
+                    <br><br>
+                {% endif %}
 
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
