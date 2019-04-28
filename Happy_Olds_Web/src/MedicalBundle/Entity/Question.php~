@@ -22,6 +22,13 @@ class Question
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="User_id",referencedColumnName="id")
+     */
+
+    private $user;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Sujet")
      * @ORM\JoinColumn(name="sujet_id",referencedColumnName="id")
      */
@@ -69,5 +76,28 @@ class Question
     {
         return $this->text;
     }
-}
 
+    /**
+     * Set sujet
+     *
+     * @param \MedicalBundle\Entity\Sujet $sujet
+     *
+     * @return Question
+     */
+    public function setSujet(\MedicalBundle\Entity\Sujet $sujet = null)
+    {
+        $this->sujet = $sujet;
+
+        return $this;
+    }
+
+    /**
+     * Get sujet
+     *
+     * @return \MedicalBundle\Entity\Sujet
+     */
+    public function getSujet()
+    {
+        return $this->sujet;
+    }
+}

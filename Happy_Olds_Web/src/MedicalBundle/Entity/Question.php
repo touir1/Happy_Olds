@@ -22,6 +22,13 @@ class Question
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     */
+
+    private $user;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Sujet")
      * @ORM\JoinColumn(name="sujet_id",referencedColumnName="id")
      */
@@ -92,5 +99,29 @@ class Question
     public function getSujet()
     {
         return $this->sujet;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \MedicalBundle\Entity\User $user
+     *
+     * @return Question
+     */
+    public function setUser(\MedicalBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \MedicalBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
