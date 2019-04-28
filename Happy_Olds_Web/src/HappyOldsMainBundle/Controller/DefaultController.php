@@ -26,7 +26,18 @@ class DefaultController extends Controller
         {
             $this->container->get('profiler')->disable();
         }
-        return $this->render('@HappyOldsMain/Default/accueil.html.twig');
+        if( $this->isGranted('IS_AUTHENTICATED_FULLY') ){
+            if($this->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('happy_olds_main_admin');
+            }
+            else
+            {
+                return $this->redirectToRoute('happy_olds_main_homepage');
+            }
+        }
+        else{
+            return $this->render('@HappyOldsMain/Default/accueil.html.twig');
+        }
     }
 
     public function indexAction(Request $request)
