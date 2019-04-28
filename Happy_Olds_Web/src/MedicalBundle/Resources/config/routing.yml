@@ -1,3 +1,31 @@
 medical_homepage:
     path:     /
     defaults: { _controller: MedicalBundle:Default:index }
+
+medical_affichage:
+    path:     /affichage
+    defaults: { _controller: MedicalBundle:Question:affichage }
+
+medical_supprimer:
+    path:     /supprimer
+    defaults: { _controller: MedicalBundle:Question:supprimer }
+
+medical_modifier:
+    path:     /modifier
+    defaults: { _controller: MedicalBundle:Question:modifier }
+
+medical_ajouter:
+    path:     /ajouter
+    defaults: { _controller: MedicalBundle:Question:ajouter }
+
+medical_detail:
+    path:     /detail
+    defaults: { _controller: MedicalBundle:Question:detail }
+
+medical_affiche:
+    path:     /affiche
+    defaults: { _controller: MedicalBundle:Question:affiche }
+
+medical_historique:
+    path:     /historique
+    defaults: { _controller: MedicalBundle:Question:historique }

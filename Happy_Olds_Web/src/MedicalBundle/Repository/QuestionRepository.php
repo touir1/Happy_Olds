@@ -10,4 +10,10 @@ namespace MedicalBundle\Repository;
  */
 class QuestionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function MyfindAll($titre){
+        $query=$this->getEntityManager()
+            ->createQuery("Select q from MedicalBundle:Question q where q.titre LIKE :t ")
+            ->setParameter(':t','%'.$titre.'%');
+        return $query->getResult();
+    }
 }

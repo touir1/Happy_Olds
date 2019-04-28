@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<font size="14">Formulaire des réponses  :</font>
+<br>
+  {#  <strong>Sujet </strong> :{{ tab.getsujet }}#}
+
+<br>
+<strong>Titre </strong> :{{ tab.gettitre }}
+<br>
+<strong>Description </strong> :{{ tab.gettext }}
+<br>
+
+{{ form_start(form) }}
+<table>
+    <tr>
+        <td>Réponse:</td>
+        <td>{{ form_widget(form.text) }}</td>
+    </tr>
+<br>
+    <br>
+    <tr>
+        <td></td>
+        <td>{{ form_widget(form.ajouter) }}</td>
+    </tr>
+</table>
+
+
+<br>
+
+{{ form_end(form) }}
+
+{% endblock %}

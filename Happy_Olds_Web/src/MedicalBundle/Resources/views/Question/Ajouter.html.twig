@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    <table>
+        <tr>
+            <td>sujet:</td>
+            <td>{{ form_widget(form.sujet) }}</td>
+        </tr>
+        <tr>
+            <td>titre:</td>
+            <td>{{ form_widget(form.titre) }}</td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td>
+                   {{ form_widget(form.text) }}
+
+                </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ form_widget(form.Valider) }}</td>
+        </tr>
+    </table>
+
+
+    <br>
+
+    {{ form_end(form) }}
+
+
+
+
+
+
+{% endblock %}

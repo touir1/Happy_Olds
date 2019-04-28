@@ -1,0 +1,37 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+<form action="" method="post">
+    Titre : <input type="text" name="titre"/>
+    <input type="submit" value="chercher"/> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <a href="{{ path('medical_ajouter') }}" ><input type="button" value="Ajouter un nouvelle question"></a><a href="{{ path('medical_historique') }}" ><input type="button" value="Historique"></a>
+</form>
+    <table>
+       <tr>
+           <td>
+
+           </td>
+       </tr>
+    </table>
+
+<br>
+    <br>
+    <br>
+<table border="2">
+    <thead>
+    <th> titre </th>
+    <th colspan="4"> action </th>
+    </thead>
+    {% for i in tab %}
+
+        <tr> <td> {{ i.gettitre() }} </td>
+            <td><a href="{{ path('medical_supprimer',{'id':i.id}) }}" ><input type="button" value="Supprimer"></a></td>
+            <td><a href="{{ path('medical_modifier',{'id':i.id}) }}" ><input type="button" value="Modifier"></a></td>
+            <td><a href="{{ path('medical_detail',{'id':i.id}) }}" ><input type="button" value="Détails"></a></td>
+            <td><a href="{{ path('medical_affiche',{'id':i.id}) }}" ><input type="button" value="Répondre"></a></td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+
+{% endblock %}
