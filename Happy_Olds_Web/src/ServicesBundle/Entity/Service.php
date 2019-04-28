@@ -66,7 +66,7 @@ class Service
      *
      * @return Service
      */
-    public function setUser(\ServicesBundle\Entity\Service $user = null)
+    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
     {
         $this->user = $user;
     }

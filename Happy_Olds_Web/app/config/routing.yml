@@ -1,4 +1,3 @@
-
 medical:
     resource: "@MedicalBundle/Resources/config/routing.yml"
     prefix:   /medical
