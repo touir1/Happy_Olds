@@ -3,3 +3,6 @@ services:
 #        class: HappyOldsMainBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
 
+    authentication.handler.login_success_handler:
+        class:  HappyOldsMainBundle\Security\LoginSuccessHandler
+        arguments:  ['@router', '@security.authorization_checker']
