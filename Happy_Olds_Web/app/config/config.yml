@@ -37,6 +37,8 @@ framework:
         log: true
     templating:
         engines: ['twig']
+    serializer:
+        enabled: true
 
 
 # Twig Configuration
@@ -77,6 +79,7 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+   view: { annotations: false }
 # app/config/config.yml
 fos_user:
    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
@@ -87,3 +90,11 @@ fos_user:
    from_email:
       address: "mohamedamine.sadfi@esprit.tn"
       sender_name: "Happy-olds"
+
+fos_rest:
+    body_converter:
+        enabled: true
+    view:
+        formats: { json: true, xml: false, rss: false }
+    serializer:
+        serialize_null: true
