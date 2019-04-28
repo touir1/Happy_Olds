@@ -31,11 +31,14 @@ security:
               #default_target_path:    happy_olds_main_homepage
           logout: true
           anonymous: true
+          access_denied_handler: access.handler.access_denied_handler
 
     access_control:
+      - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-      - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-      - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-      - { path: ^/admin/, role: ROLE_ADMIN }
-      - { path: ^/affichage, role: ROLE_JEUNE }
+      - { path: ^/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/admin, role: ROLE_ADMIN }
+      - { path: ^/, role: ROLE_USER }
+      #- { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      #- { path: ^/affichage, role: ROLE_JEUNE }
 

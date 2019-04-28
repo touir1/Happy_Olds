@@ -20,6 +20,15 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class DefaultController extends Controller
 {
 
+    public function mainPageAction(Request $request)
+    {
+        if ($this->container->has('profiler'))
+        {
+            $this->container->get('profiler')->disable();
+        }
+        return $this->render('@HappyOldsMain/Default/accueil.html.twig');
+    }
+
     public function indexAction(Request $request)
     {
         /** @var $session Session */

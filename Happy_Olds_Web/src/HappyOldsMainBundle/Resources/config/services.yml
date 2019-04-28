@@ -6,3 +6,8 @@ services:
     authentication.handler.login_success_handler:
         class:  HappyOldsMainBundle\Security\LoginSuccessHandler
         arguments:  ['@router', '@security.authorization_checker']
+    access.handler.access_denied_handler:
+        class: HappyOldsMainBundle\Security\AccessDeniedHandler
+        public: false
+        arguments: ["@templating","@router","@session"]
+
