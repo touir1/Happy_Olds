@@ -1,0 +1,7 @@
+chat_room_api_group_list:
+    path:     /
+    defaults: { _controller: ChatRoomBundle:Groupe:_liste }
+
+chat_room_api_group_consult:
+    path:     /group
+    defaults: { _controller: ChatRoomBundle:Groupe:_consult }

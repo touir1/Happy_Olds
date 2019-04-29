@@ -3,6 +3,7 @@
 namespace ChatRoomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Groupe

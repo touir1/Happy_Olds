@@ -1,4 +1,10 @@
 {% extends 'base.html.twig' %}
-
-{% block body %}{% endblock %}
-
+{% block stylesheets %}{% endblock %}
+{% block body %}
+    <h2>services</h2>
+    <ul>
+        <li><a href="{{ path('chat_room_group_list') }}">Groupes</a></li>
+        <li><a href="{{ path('chat_room_chat_homepage') }}">Chat</a></li>
+    </ul>
+{% endblock %}
+{% block scripts %}{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}{% endblock %}
+{% block body %}
+    Groupe: {{ groupe.titre }}
+    Description: {{ groupe.description }}
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/consult.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,12 @@
+# main page
+chat_room_homepage:
+    path:     /
+    defaults: { _controller: ChatRoomBundle:Default:index }
+
+chat_room_groups:
+    resource: "@ChatRoomBundle/Resources/config/views/groups_routing.yml"
+    prefix:   /groups
+
+chat_room_chat:
+    resource: "@ChatRoomBundle/Resources/config/views/chat_routing.yml"
+    prefix:   /chatRoom

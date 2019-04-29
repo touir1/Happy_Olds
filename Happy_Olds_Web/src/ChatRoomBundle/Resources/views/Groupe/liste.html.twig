@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}{% endblock %}
+{% block body %}
+    <h2>Groupes</h2>
+
+    <table class="table table-bordered">
+        <tbody id="group_list">
+        <tr>
+            <th hidden="true">id</th>
+            <th style="width: 10px">#</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th style="width: 40px">Type</th>
+            <th style="width: 10px">Membres</th>
+            <th>Créateur</th>
+            <th>Action</th>
+        </tr>
+        {% for g in liste %}
+            <tr>
+                <td hidden="true">g.id</td>
+                <td>{{ loop.index }}.</td>
+                <td>{{ g.titre }}</td>
+                <td>{{ g.description }}</td>
+                <td>{{ g.type }}</td>
+                <td>{{ g.members.count }}</td>
+                <td>{{ g.creator.nom }} {{ g.creator.prenom }}</td>
+                <td>
+                    <a class="btn btn-block btn-info" href="{{ path('chat_room_group_consult',{'id': g.id}) }}">Consulter</a>
+                    {#<a class="btn btn-app" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i>Consulter</a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        <!--
+        <tr>
+            <td hidden="true">id</td>
+            <td>1.</td>
+            <td>Titre</td>
+            <td>Description</td>
+            <td>Type</td>
+            <td>Membres</td>
+            <td>Createur</td>
+            <td>Action</td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>Clean database</td>
+            <td>
+                <div class="progress progress-xs">
+                    <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                </div>
+            </td>
+            <td><span class="badge bg-yellow">70%</span></td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>Cron job running</td>
+            <td>
+                <div class="progress progress-xs progress-striped active">
+                    <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+                </div>
+            </td>
+            <td><span class="badge bg-light-blue">30%</span></td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>Fix and squish bugs</td>
+            <td>
+                <div class="progress progress-xs progress-striped active">
+                    <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+                </div>
+            </td>
+            <td><span class="badge bg-green">90%</span></td>
+        </tr>
+        -->
+        </tbody>
+    </table>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+
+    <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/index.js') }}"></script>
+{% endblock %}

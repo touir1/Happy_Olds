@@ -1,6 +1,7 @@
 <?php
 
 namespace ChatRoomBundle\Repository;
+use ChatRoomBundle\Utils\GroupeTypes;
 
 /**
  * GroupeRepository
@@ -10,4 +11,46 @@ namespace ChatRoomBundle\Repository;
  */
 class GroupeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllAccessible($user_id)
+    {
+        //return $this->findAll();
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
+                ."LEFT JOIN g.members m "
+                ."WHERE g.type in (:privateT, :publicT) "
+                ."OR m.id = :member "
+                ."OR g.creator = :creator ")
+            ->setParameter(':privateT', GroupeTypes::PrivateGroup)
+            ->setParameter(':publicT',GroupeTypes::PublicGroup)
+            ->setParameter(':member',$user_id)
+            ->setParameter(':creator', $user_id);
+        return $query->getResult();
+    }
+
+    public function findAllAsMember($user_id)
+    {
+        //return $this->findAll();
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
+                ."LEFT JOIN g.members m "
+                ."WHERE :member = m.id "
+                ."OR :creator = g.creator")
+            ->setParameter(':member',$user_id)
+            ->setParameter(':creator', $user_id);
+        return $query->getResult();
+    }
+
+    public function findAccessible($user_id, $group_id)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
+                ."LEFT JOIN g.members m "
+                ."WHERE (:member = m.id "
+                ."      OR :creator = g.creator) "
+                ."AND g.id = :id")
+            ->setParameter(':member', $user_id)
+            ->setParameter(':creator', $user_id)
+            ->setParameter(':id', $group_id);
+        return $query->getResult();
+    }
 }
