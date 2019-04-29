@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Postulers list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for postuler in postulers %}
+            <tr>
+                <td><a href="{{ path('services_postuler_show', { 'id': postuler.id }) }}">{{ postuler.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('services_postuler_show', { 'id': postuler.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('services_postuler_edit', { 'id': postuler.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('services_postuler_new') }}">Create a new postuler</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,24 @@
+services_commentaire_index:
+    path:     /
+    defaults: { _controller: "ServicesBundle:CommentaireService:index" }
+    methods:  GET
+
+services_commentaire_show:
+    path:     /{id}/show
+    defaults: { _controller: "ServicesBundle:CommentaireService:show" }
+    methods:  GET
+
+services_commentaire_new:
+    path:     /new
+    defaults: { _controller: "ServicesBundle:CommentaireService:new" }
+    methods:  [GET, POST]
+
+services_commentaire_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ServicesBundle:CommentaireService:edit" }
+    methods:  [GET, POST]
+
+services_commentaire_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ServicesBundle:CommentaireService:delete" }
+    methods:  DELETE

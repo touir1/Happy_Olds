@@ -1,0 +1,24 @@
+services_postuler_index:
+    path:     /
+    defaults: { _controller: "ServicesBundle:Postuler:index" }
+    methods:  GET
+
+services_postuler_show:
+    path:     /{id}/show
+    defaults: { _controller: "ServicesBundle:Postuler:show" }
+    methods:  GET
+
+services_postuler_new:
+    path:     /new
+    defaults: { _controller: "ServicesBundle:Postuler:new" }
+    methods:  [GET, POST]
+
+services_postuler_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ServicesBundle:Postuler:edit" }
+    methods:  [GET, POST]
+
+services_postuler_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ServicesBundle:Postuler:delete" }
+    methods:  DELETE

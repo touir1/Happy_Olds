@@ -42,46 +42,5 @@ class NotificationService extends Notification
     {
         return $this->id;
     }
-
-    /**
-     * Set user
-     *
-     * @param \HappyOldsMainBundle\Entity\User $user
-     *
-     * @return NotificationService
-     */
-    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \HappyOldsMainBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTypeNotif()
-    {
-        return $this->typeNotif;
-    }
-
-    /**
-     * @param mixed $typeNotif
-     */
-    public function setTypeNotif($typeNotif)
-    {
-        $this->typeNotif = $typeNotif;
-    }
-
-
 }
+

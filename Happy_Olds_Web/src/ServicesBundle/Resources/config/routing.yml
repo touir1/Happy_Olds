@@ -1,3 +1,16 @@
 services_services:
     resource: "@ServicesBundle/Resources/config/routing/service.yml"
     prefix:   /service
+services_postuler:
+    resource: "@ServicesBundle/Resources/config/routing/postuler.yml"
+    prefix:   /postuler
+services_evaluation:
+    resource: "@ServicesBundle/Resources/config/routing/evaluation.yml"
+    prefix:   /evaluation
+services_commentaire:
+    resource: "@ServicesBundle/Resources/config/routing/commentaireservice.yml"
+    prefix:   /commentaire
+services_notification:
+    resource: "@ServicesBundle/Resources/config/routing/notificationservice.yml"
+    prefix:   /notification
+

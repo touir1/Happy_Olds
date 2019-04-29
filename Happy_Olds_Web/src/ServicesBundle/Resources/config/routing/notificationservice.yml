@@ -1,0 +1,24 @@
+services_notification_index:
+    path:     /
+    defaults: { _controller: "ServicesBundle:NotificationService:index" }
+    methods:  GET
+
+services_notification_show:
+    path:     /{id}/show
+    defaults: { _controller: "ServicesBundle:NotificationService:show" }
+    methods:  GET
+
+services_notification_new:
+    path:     /new
+    defaults: { _controller: "ServicesBundle:NotificationService:new" }
+    methods:  [GET, POST]
+
+services_notification_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ServicesBundle:NotificationService:edit" }
+    methods:  [GET, POST]
+
+services_notification_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ServicesBundle:NotificationService:delete" }
+    methods:  DELETE

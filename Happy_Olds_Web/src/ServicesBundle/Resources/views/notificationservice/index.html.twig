@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Notificationservices list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notificationService in notificationServices %}
+            <tr>
+                <td><a href="{{ path('services_notification_show', { 'id': notificationService.id }) }}">{{ notificationService.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('services_notification_show', { 'id': notificationService.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('services_notification_edit', { 'id': notificationService.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('services_notification_new') }}">Create a new notificationService</a>
+        </li>
+    </ul>
+{% endblock %}

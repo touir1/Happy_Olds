@@ -1,0 +1,24 @@
+services_evaluation_index:
+    path:     /
+    defaults: { _controller: "ServicesBundle:Evaluation:index" }
+    methods:  GET
+
+services_evaluation_show:
+    path:     /{id}/show
+    defaults: { _controller: "ServicesBundle:Evaluation:show" }
+    methods:  GET
+
+services_evaluation_new:
+    path:     /new
+    defaults: { _controller: "ServicesBundle:Evaluation:new" }
+    methods:  [GET, POST]
+
+services_evaluation_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ServicesBundle:Evaluation:edit" }
+    methods:  [GET, POST]
+
+services_evaluation_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ServicesBundle:Evaluation:delete" }
+    methods:  DELETE

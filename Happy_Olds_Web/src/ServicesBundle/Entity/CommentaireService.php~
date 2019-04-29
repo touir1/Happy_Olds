@@ -46,52 +46,5 @@ class CommentaireService extends Commentaire
     {
         return $this->id;
     }
-
-    /**
-     * Set user
-     *
-     * @param \HappyOldsMainBundle\Entity\User $user
-     *
-     * @return CommentaireService
-     */
-    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \HappyOldsMainBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set service
-     *
-     * @param \ServicesBundle\Entity\Service $service
-     *
-     * @return CommentaireService
-     */
-    public function setService(\ServicesBundle\Entity\Service $service = null)
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    /**
-     * Get service
-     *
-     * @return \ServicesBundle\Entity\Service
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
 }
+
