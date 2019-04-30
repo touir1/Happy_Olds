@@ -53,7 +53,7 @@ class PublicationGroupe
     private $datePublication;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Groupe")
+     * @ORM\ManyToOne(targetEntity="Groupe", inversedBy="publications")
      * @ORM\JoinColumn(name="groupe_id", referencedColumnName="id")
      */
     private $groupe;

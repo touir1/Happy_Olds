@@ -2,13 +2,17 @@
 
 namespace HappyOldsMainBundle\Controller;
 
+use DateTime;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use HappyOldsMainBundle\Entity\User;
 use HappyOldsMainBundle\Form\UserType;
+use HappyOldsMainBundle\Utils\JobTypes;
+use HappyOldsMainBundle\Utils\RoleTypes;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -135,6 +139,78 @@ class DefaultController extends Controller
             'error' => null
         ]);
     }
+
+    public function _registerAction(Request $request)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+
+        $post = $request->request;
+
+        $email = $post->get('email');
+        $username = $post->get('user');
+        $password = $post->get('password');
+
+        $nom = $post->get('nom');
+        $prenom = $post->get('prenom');
+        $date_naissance = DateTime::createFromFormat("Y-m-d",$post->get('date_naissance'));
+        $job = $post->get('job');
+        $role = $post->get('role');
+
+
+        $email_exist = $userManager->findUserByEmail($email);
+        $username_exist = $userManager->findUserByUsername($username);
+
+        if($email_exist || $username_exist){
+            $response = new JsonResponse();
+            $response->setData("Username/Email ".$username."/".$email." existent déjà");
+            return $response;
+        }
+
+        $user = $userManager->createUser();
+        $user->setNom($nom);
+        $user->setPrenom($prenom);
+        $user->setDateNaissance($date_naissance);
+        $user->setJob($job);
+        $user->setRole($role);
+        $user->setUsername($username);
+        $user->setEmail($email);
+
+        if(!$this->validateUserData($user)){
+            $response = new JsonResponse();
+            $response->setData("Données/format incorrectes");
+            return $response;
+        }
+
+        $user->setLocked(false);
+        $user->setEnabled(true);
+        $user->setPlainPassword($password);
+        $userManager->updateUser($user, true);
+
+        $response = new JsonResponse();
+        $response->setData("User: ".$user->getUsername()." ajouté");
+        return $response;
+    }
+
+    public function _loginAction(Request $request)
+    {
+
+    }
+
+    private function validateUserData(User $user)
+    {
+        if(!in_array($user->getJob(),JobTypes::getArray())){
+            return false;
+        }
+        if(!in_array($user->getRole(),RoleTypes::getArray())){
+            return false;
+        }
+        if(is_null($user->getNom())){} return false;
+        if(is_null($user->getPrenom())) return false;
+        if(is_null($user->getDateNaissance())) return false;
+
+        return true;
+    }
+
     public function accueilAction()
     {
         return $this->render('@HappyOldsMain/Default/index.html.twig');

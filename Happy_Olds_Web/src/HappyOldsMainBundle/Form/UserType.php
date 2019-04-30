@@ -2,6 +2,8 @@
 
 namespace HappyOldsMainBundle\Form;
 
+use HappyOldsMainBundle\Utils\JobTypes;
+use HappyOldsMainBundle\Utils\RoleTypes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -32,9 +34,9 @@ class UserType extends AbstractType
             ->add('job',ChoiceType::class, array(
                 'label' => 'Travail',
                 'choices' => array(
-                    'Medecin' => 'medecin',
-                    'Ingénieur' => 'ingenieur',
-                    'Autre' => 'autre'
+                    'Medecin' => JobTypes::Medecin,
+                    'Ingénieur' => JobTypes::Ingenieur,
+                    'Autre' => JobTypes::Autre
                 ),
                 'required' => true,
                 'multiple' => false,
@@ -58,12 +60,12 @@ class UserType extends AbstractType
             ->add('role', ChoiceType::class, array(
                 'label' => 'Type',
                 'choices' => array(
-                    'Jeune' => 'ROLE_JEUNE',
-                    'Agé' => 'ROLE_AGE'
+                    'Jeune' => RoleTypes::Jeune,
+                    'Agé' => RoleTypes::Age
                 ),
                 'required' => true,
                 'multiple' => false,
-                'data' => 'ROLE_JEUNE',
+                'data' => RoleTypes::Jeune,
              ));
     }/**
      * {@inheritdoc}

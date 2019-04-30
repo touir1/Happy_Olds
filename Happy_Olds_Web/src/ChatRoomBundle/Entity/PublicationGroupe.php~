@@ -53,13 +53,13 @@ class PublicationGroupe
     private $datePublication;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Groupe")
+     * @ORM\ManyToOne(targetEntity="Groupe", inversedBy="publications")
      * @ORM\JoinColumn(name="groupe_id", referencedColumnName="id")
      */
     private $groupe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -192,5 +192,29 @@ class PublicationGroupe
     public function getGroupe()
     {
         return $this->groupe;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \HappyOldsMainBundle\Entity\User $user
+     *
+     * @return PublicationGroupe
+     */
+    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

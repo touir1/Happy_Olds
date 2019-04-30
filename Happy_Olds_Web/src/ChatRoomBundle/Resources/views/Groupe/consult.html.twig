@@ -1,8 +1,34 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}{% endblock %}
 {% block body %}
-    Groupe: {{ groupe.titre }}
-    Description: {{ groupe.description }}
+    Groupe: <b>{{ groupe.titre }}</b><br>
+    Description: {{ groupe.description }}<br>
+    Type: {{ groupe.type }}<br>
+    Créateur: {{ groupe.creator.prenom }} {{ groupe.creator.nom }}<br>
+    <br>
+    <h2>Publications</h2>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th hidden="true">id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Pièce jointe</th>
+                <th>Date publication</th>
+                <th>Utilisateur</th>
+            </tr>
+            {% for p in groupe.publications %}
+            <tr>
+                <td hidden="true">{{ p.id }}</td>
+                <td>{{ p.titre }}</td>
+                <td>{{ p.description }}</td>
+                <td>{{ p.pieceJointe }}</td>
+                <td>{{ p.datePublication }}</td>
+                <td>{{ p.user.prenom }} {{ p.user.nom }} ({{ p.user.username }})</td>
+            </tr>
+            {%  endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>

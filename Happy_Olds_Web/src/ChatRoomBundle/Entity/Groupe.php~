@@ -3,6 +3,7 @@
 namespace ChatRoomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Groupe
@@ -52,6 +53,11 @@ class Groupe
      * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
      */
     private $creator;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PublicationGroupe", mappedBy="groupe")
+     */
+    private $publications;
 
     /**
      * Get id
@@ -174,5 +180,29 @@ class Groupe
     public function getMembers()
     {
         return $this->members;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \HappyOldsMainBundle\Entity\User $creator
+     *
+     * @return Groupe
+     */
+    public function setCreator(\HappyOldsMainBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getCreator()
+    {
+        return $this->creator;
     }
 }

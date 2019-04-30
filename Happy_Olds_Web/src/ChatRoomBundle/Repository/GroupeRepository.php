@@ -17,11 +17,9 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE g.type in (:privateT, :publicT) "
+                ."WHERE g.type in ('private', 'public') "
                 ."OR m.id = :member "
                 ."OR g.creator = :creator ")
-            ->setParameter(':privateT', GroupeTypes::PrivateGroup)
-            ->setParameter(':publicT',GroupeTypes::PublicGroup)
             ->setParameter(':member',$user_id)
             ->setParameter(':creator', $user_id);
         return $query->getResult();

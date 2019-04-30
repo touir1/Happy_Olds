@@ -44,7 +44,7 @@ class Groupe
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="MembreGroupe", mappedBy="groupe")
+     * @ORM\OneToMany(targetEntity="MembreGroupe", mappedBy="groupe", cascade={"persist"})
      */
     private $members;
 
@@ -53,6 +53,11 @@ class Groupe
      * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
      */
     private $creator;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PublicationGroupe", mappedBy="groupe")
+     */
+    private $publications;
 
     /**
      * Get id
@@ -199,5 +204,39 @@ class Groupe
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Add publication
+     *
+     * @param \ChatRoomBundle\Entity\PublicationGroupe $publication
+     *
+     * @return Groupe
+     */
+    public function addPublication(\ChatRoomBundle\Entity\PublicationGroupe $publication)
+    {
+        $this->publications[] = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Remove publication
+     *
+     * @param \ChatRoomBundle\Entity\PublicationGroupe $publication
+     */
+    public function removePublication(\ChatRoomBundle\Entity\PublicationGroupe $publication)
+    {
+        $this->publications->removeElement($publication);
+    }
+
+    /**
+     * Get publications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublications()
+    {
+        return $this->publications;
     }
 }

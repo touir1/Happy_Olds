@@ -14,4 +14,13 @@ abstract class GroupeTypes
     const PrivateGroup = "private";
     const PublicGroup = "public";
     const ClosedGroup = "closed";
+
+    public static function getArray()
+    {
+        return [
+            GroupeTypes::PrivateGroup,
+            GroupeTypes::PublicGroup,
+            GroupeTypes::ClosedGroup
+        ];
+    }
 }
