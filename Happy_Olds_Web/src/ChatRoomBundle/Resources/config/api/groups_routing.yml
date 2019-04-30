@@ -1,6 +1,6 @@
 chat_room_api_group_list:
     path:     /
-    defaults: { _controller: ChatRoomBundle:Groupe:_liste }
+    defaults: { _controller: ChatRoomBundle:Groupe:_list }
 
 chat_room_api_group_consult:
     path:     /group
@@ -9,3 +9,11 @@ chat_room_api_group_consult:
 chat_room_api_group_add:
     path:     /add
     defaults: { _controller: ChatRoomBundle:Groupe:_add }
+
+chat_room_api_group_update:
+    path:     /update
+    defaults: { _controller: ChatRoomBundle:Groupe:_update }
+
+chat_room_api_group_delete:
+    path:     /delete
+    defaults: { _controller: ChatRoomBundle:Groupe:_delete }

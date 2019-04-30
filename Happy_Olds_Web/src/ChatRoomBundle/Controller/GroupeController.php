@@ -33,15 +33,17 @@ class GroupeController extends UtilsController
             'chat_room_group_consult',
             'chat_room_group_list',
             'chat_room_group_add',
+            'chat_room_group_update',
             'chat_room_api_group_list',
             'chat_room_api_group_consult',
             'chat_room_api_group_add',
+            'chat_room_api_group_update',
         ];
 
     }
 
     // get list of authorized groups
-    private function liste()
+    private function listAccessible()
     {
         return $this->getDoctrine()
             ->getRepository(Groupe::class)
@@ -49,10 +51,10 @@ class GroupeController extends UtilsController
     }
 
     // liste view
-    public function listeAction()
+    public function listAction()
     {
-        $liste = $this->liste();
-        return $this->render( '@ChatRoom/Groupe/liste.html.twig',[
+        $liste = $this->listAccessible();
+        return $this->render( '@ChatRoom/Groupe/list.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
             ],
@@ -61,19 +63,19 @@ class GroupeController extends UtilsController
     }
 
     // liste json
-    public function _listeAction()
+    public function _listAction()
     {
-        $liste = $this->liste();
+        $liste = $this->listAccessible();
 
         return $this->getJsonResponse($liste,[]);
         //return $this->json($liste);
     }
 
     // get element
-    private function consult($id = null)
+    private function consult($groupe_id = null)
     {
         return $this->getDoctrine()->getRepository(Groupe::class)
-            ->find($id);
+            ->find($groupe_id);
     }
 
     // consult view
@@ -151,5 +153,91 @@ class GroupeController extends UtilsController
         return new JsonResponse([
             "status" => "ok"
         ],JsonResponse::HTTP_CREATED,[]);
+    }
+
+    // update
+    private function update($groupe)
+    {
+        $oldGroupe = $this->consult($groupe->getId());
+        if(!isset($oldGroupe) || is_null($oldGroupe)) return;
+
+        $old_creator = $oldGroupe->getCreator()->getId();
+
+        if($old_creator != $this->getUser()->getId()) return;
+        if($groupe->getCreator()->getId() != $old_creator) return;
+
+        $doctrineManager = $this->getDoctrine()->getManager();
+        $doctrineManager->persist($groupe);
+        $doctrineManager->flush();
+    }
+
+    // update view
+    public function updateAction(Request $request)
+    {
+        $id = $request->get('id');
+        $groupe = $this->consult($id);
+
+        $form = $this->createForm(GroupeType::class, $groupe);
+        $form = $form->handleRequest($request);
+
+        if($form->isValid())
+        {
+            $this->update($groupe);
+            return $this->redirectToRoute('chat_room_group_consult',[
+                'id'=>$groupe->getId()
+            ]);
+        }
+        return $this->render('@ChatRoom/Groupe/update.html.twig',array(
+            'data' => [
+                'routes' => $this->getRoutesAsUrls()
+            ],
+            'groupe' => $groupe,
+            'form' => $form->createView()
+        ));
+    }
+
+    // update api
+    public function _updateAction(Request $request)
+    {
+        $groupe = $this->getObjectFromRequest($request,Groupe::class);
+        $this->update($groupe);
+
+        return new JsonResponse([
+            "status" => "ok"
+        ],JsonResponse::HTTP_ACCEPTED,[]);
+
+    }
+
+    private function delete($groupe_id = null)
+    {
+        $groupe = $this->getDoctrine()
+            ->getRepository(Groupe::class)
+            ->find($groupe_id);
+
+        if($groupe->getCreator()->getId() != $this->getUser()->getId()) return;
+
+        $doctrineManager = $this->getDoctrine()->getManager();
+
+        $doctrineManager->remove($groupe);
+
+        $doctrineManager->flush();
+    }
+
+    public function deleteAction(Request $request)
+    {
+        $id = $request->get('id');
+        $this->delete($id);
+
+        return $this->redirectToRoute('chat_room_group_list');
+    }
+
+    public function _deleteAction(Request $request)
+    {
+        $id = $request->get('id');
+        $this->delete($id);
+
+        return new JsonResponse([
+            "status" => "ok"
+        ],JsonResponse::HTTP_ACCEPTED,[]);
     }
 }

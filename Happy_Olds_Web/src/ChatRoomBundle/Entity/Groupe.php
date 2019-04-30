@@ -44,7 +44,7 @@ class Groupe
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="MembreGroupe", mappedBy="groupe", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="MembreGroupe", mappedBy="groupe", cascade={"persist","remove"})
      */
     private $members;
 

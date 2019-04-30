@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
+{% endblock %}
 {% block body %}
     <h2>Groupes</h2>
     <div class="box">
-        <a href="{{ path('chat_room_group_add') }}" class="btn btn-success" style="position: relative; float: right"><i class="fa fa-plus"></i> Ajouter</a>
+        <a href="{{ path('chat_room_group_add') }}" class="btn btn-success go-right"><i class="fa fa-plus"></i> Ajouter</a>
     </div>
     <br>
 
@@ -29,7 +31,12 @@
                 <td>{{ g.members.count }}</td>
                 <td>{{ g.creator.prenom }} {{ g.creator.nom }}</td>
                 <td>
-                    <a class="btn btn-info" href="{{ path('chat_room_group_consult',{'id': g.id}) }}">Consulter</a>
+                    <a class="btn btn-info" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i> Consulter</a>
+                    {% if app.user.id == g.creator.id %}
+                        <a class="btn btn-warning" href="{{ path('chat_room_group_update',{'id': g.id}) }}"><i class="fa fa-cog"></i> Modifier</a>
+                        <a class="btn btn-danger" href="{{ path('chat_room_group_delete',{'id': g.id}) }}"><i class="fa fa-close"></i> Supprimer</a>
+                    {% endif %}
+
                     {#<a class="btn btn-app" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i>Consulter</a>#}
                 </td>
             </tr>
