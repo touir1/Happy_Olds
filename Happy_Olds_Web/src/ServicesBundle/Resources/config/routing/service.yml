@@ -2,6 +2,10 @@ services_index:
     path:     /
     defaults: { _controller: "ServicesBundle:Service:index" }
     methods:  GET
+services_publier:
+    path:     /publier
+    defaults: { _controller: "ServicesBundle:Service:publier" }
+    methods:  GET
 
 services_show:
     path:     /{id}/show

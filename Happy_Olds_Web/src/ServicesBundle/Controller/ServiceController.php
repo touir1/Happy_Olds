@@ -26,6 +26,16 @@ class ServiceController extends Controller
             'services' => $services,
         ));
     }
+    public function publierAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $services = $em->getRepository('ServicesBundle:Service')->findAll();
+
+        return $this->render('@Services/service/publier.html.twig', array(
+            'services' => $services,
+        ));
+    }
 
     /**
      * Creates a new service entity.
@@ -38,7 +48,7 @@ class ServiceController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $service->setUser($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($service);
             $em->flush();

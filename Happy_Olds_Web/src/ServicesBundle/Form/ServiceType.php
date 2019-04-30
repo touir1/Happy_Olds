@@ -2,9 +2,15 @@
 
 namespace ServicesBundle\Form;
 
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class ServiceType extends AbstractType
 {
@@ -13,7 +19,18 @@ class ServiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('description')->add('date')->add('type')->add('user');
+        $builder->add('description',TextareaType::class)->add('date',DateTimeType::class)
+            ->add('type',ChoiceType::class, array(
+            'label' => 'Type de service',
+            'choices' => array(
+                'Covoiturage' => 'Covoiturage',
+                'Faites vous livrer' => 'Faites vous livrer',
+                'Autre' => 'autre'
+            ),
+            'required' => true,
+            'multiple' => false,
+            'data' => 'autre',
+        ))->add('Publier',SubmitType::class);
     }/**
      * {@inheritdoc}
      */
