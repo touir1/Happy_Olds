@@ -21,6 +21,7 @@ class QuestionType extends AbstractType
             ->add('sujet',EntityType::class,array('class'=>'MedicalBundle:Sujet',
                 'choice_label'=>'type',
                 'multiple'=>false))
+            ->add('file')
             ->add('Valider',SubmitType::class);
 
         ;

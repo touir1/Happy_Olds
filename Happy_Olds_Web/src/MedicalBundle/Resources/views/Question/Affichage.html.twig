@@ -1,8 +1,17 @@
 
 {% extends 'base.html.twig' %}
 {% block body %}
+
+<div class="box box-warning">
+    <div class="box-header with-border">
+        <h3 class="box-title">La liste des questions </h3>
+    </div>
+
 <form action="" method="post">
-    Titre : <input type="text" name="titre"/>
+    <div class="form-group">
+        <label>Titre</label>
+        <input type="text" name="titre" class="form-control" placeholder="Enter ...">
+    </div>
     <input type="submit" value="chercher"/> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <a href="{{ path('medical_ajouter') }}" ><input type="button" value="Ajouter un nouvelle question"></a><a href="{{ path('medical_historique') }}" ><input type="button" value="Historique"></a>
 </form>
     <table>

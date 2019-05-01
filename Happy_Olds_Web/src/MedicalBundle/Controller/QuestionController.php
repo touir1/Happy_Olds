@@ -68,6 +68,7 @@ class QuestionController extends Controller
         if ($form->isValid()){
             //2.b insertion dans la BD
             $em=$this->getDoctrine()->getManager();
+            $question->upload();
             $em->persist($question);
             $em->flush();
             return $this->redirectToRoute('medical_affichage');
