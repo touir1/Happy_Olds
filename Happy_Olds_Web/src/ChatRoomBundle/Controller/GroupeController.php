@@ -7,6 +7,7 @@ use ChatRoomBundle\Entity\MembreGroupe;
 use ChatRoomBundle\Form\GroupeType;
 use ChatRoomBundle\Utils\GroupeTypes;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use HappyOldsMainBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,10 +35,12 @@ class GroupeController extends UtilsController
             'chat_room_group_list',
             'chat_room_group_add',
             'chat_room_group_update',
+            'chat_room_group_delete',
             'chat_room_api_group_list',
             'chat_room_api_group_consult',
             'chat_room_api_group_add',
             'chat_room_api_group_update',
+            'chat_room_api_group_delete',
         ];
 
     }
@@ -83,12 +86,18 @@ class GroupeController extends UtilsController
     {
         $id=$request->get('id');
         $groupe = $this->consult($id);
+        $join = $this->getDoctrine()->getRepository(Groupe::class)
+            ->checkIfAuthorizedToJoin($id,$this->getUser()->getId());
+        $invite = $this->getDoctrine()->getRepository(Groupe::class)
+            ->checkIfAuthorizedToInvite($id,$this->getUser()->getId());
 
         return $this->render( '@ChatRoom/Groupe/consult.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
             ],
-            'groupe' => $groupe
+            'groupe' => $groupe,
+            'join' => $join,
+            'invite' => $invite,
         ]);
     }
 
@@ -240,4 +249,51 @@ class GroupeController extends UtilsController
             "status" => "ok"
         ],JsonResponse::HTTP_ACCEPTED,[]);
     }
+
+    public function join($groupe_id = null, $user_id = null)
+    {
+        $groupeRepo = $this->getDoctrine()->getRepository(Groupe::class);
+
+        $authorized = $groupeRepo->checkIfAuthorizedToJoin($groupe_id,$user_id);
+        if($authorized)
+        {
+            $groupe = $groupeRepo->find($groupe_id);
+            $user = $this->getDoctrine()->getRepository(User::class)
+                ->find($user_id);
+            $member = new MembreGroupe();
+            $member->setGroupe($groupe);
+            $member->setUser($user);
+            $member->setBanned(false);
+            if($groupe->getType() == GroupeTypes::PublicGroup) $member->setAuthorized(true);
+            else $member->setAuthorized(false);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($member);
+            $em->flush();
+        }
+    }
+
+    public function joinAction(Request $request)
+    {
+        $id = $request->get('id');
+        $this->join($id, $this->getUser()->getId());
+
+        return $this->redirectToRoute('chat_room_group_consult',[
+            'id' => $id
+        ]);
+    }
+
+    public function _joinAction(Request $request)
+    {
+        $id = $request->get('id');
+        $this->join($id, $this->getUser()->getId());
+
+        return new JsonResponse([
+            "status" => "ok"
+        ],JsonResponse::HTTP_ACCEPTED,[]);
+    }
+
+
+
+
 }

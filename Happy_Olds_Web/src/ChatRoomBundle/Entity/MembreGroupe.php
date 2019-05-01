@@ -7,7 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MembreGroupe
  *
- * @ORM\Table(name="membre_groupe")
+ * @ORM\Table(name="membre_groupe",
+ *     uniqueConstraints={
+ *        @ORM\UniqueConstraint(name="user_groupe_unique",
+ *            columns={"user_id", "groupe_id"})
+ *    })
  * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\MembreGroupeRepository")
  */
 class MembreGroupe

@@ -10,4 +10,41 @@ namespace ChatRoomBundle\Repository;
  */
 class MembreGroupeRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getListGroupMembers($groupe_id,$user_id)
+    {
+        //return $this->findAll();
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT m FROM ChatRoomBundle:MembreGroupe m "
+                ."JOIN m.groupe g "
+                ."WHERE m.groupe = :groupe "
+                ."AND g.creator = :member "
+                ."OR g.creator = :creator ")
+            ->setParameter(':member',$user_id)
+            ->setParameter(':creator', $user_id)
+            ->setParameter(':groupe',$groupe_id);
+        return $query->getResult();
+    }
+
+    public function getListOfUsersToInvite($groupe_id,$username,$nom,$prenom,$offset =0, $maxResult = 100)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT u.id, u.username, u.nom, u.prenom from HappyOldsMainBundle:User u "
+                ."WHERE u.username LIKE :username "
+                ."AND u.prenom LIKE :prenom "
+                ."AND u.nom LIKE :nom "
+                ."AND u.id NOT IN ("
+                    ."SELECT u2.id FROM ChatRoomBundle:MembreGroupe m "
+                    ."JOIN m.user u2 "
+                    ."JOIN m.groupe g "
+                    ."WHERE g.id = :groupe "
+                .") ")
+            ->setParameter(":groupe",$groupe_id)
+            ->setParameter(":username","%".$username."%")
+            ->setParameter(":nom","%".$nom."%")
+            ->setParameter(":prenom","%".$prenom."%")
+            ->setFirstResult($offset)
+            ->setMaxResults($maxResult);
+        return $query->getResult();
+    }
 }

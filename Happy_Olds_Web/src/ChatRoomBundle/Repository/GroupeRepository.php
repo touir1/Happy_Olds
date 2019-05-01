@@ -18,7 +18,7 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
                 ."WHERE g.type in ('private', 'public') "
-                ."OR m.id = :member "
+                ."OR m.user = :member "
                 ."OR g.creator = :creator ")
             ->setParameter(':member',$user_id)
             ->setParameter(':creator', $user_id);
@@ -31,7 +31,7 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE :member = m.id "
+                ."WHERE :member = m.user "
                 ."OR :creator = g.creator")
             ->setParameter(':member',$user_id)
             ->setParameter(':creator', $user_id);
@@ -43,12 +43,39 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE (:member = m.id "
+                ."WHERE (:member = m.user "
                 ."      OR :creator = g.creator) "
                 ."AND g.id = :id")
             ->setParameter(':member', $user_id)
             ->setParameter(':creator', $user_id)
             ->setParameter(':id', $group_id);
         return $query->getResult();
+    }
+
+    public function checkIfAuthorizedToInvite($groupe_id, $member_id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT count(1) as result from ChatRoomBundle:Groupe g "
+                ."WHERE g.creator = :member "
+                ."AND g.id = :groupe ")
+            ->setParameter(":member",$member_id)
+            ->setParameter(":groupe",$groupe_id);
+        return $query->getOneOrNullResult()["result"] > 0;
+    }
+
+    public function checkIfAuthorizedToJoin($groupe_id, $user_id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT count(1) as result from ChatRoomBundle:Groupe g "
+                ."WHERE :member NOT IN ( "
+                    ."SELECT u.id from ChatRoomBundle:MembreGroupe m2 "
+                    ."LEFT JOIN m2.user u "
+                    ."WHERE m2.groupe = :groupe "
+                .") "
+                ."AND g.id = :groupe "
+                ."AND g.type in ('private','public')")
+            ->setParameter(":member",$user_id)
+            ->setParameter(":groupe",$groupe_id);
+        return $query->getOneOrNullResult()["result"] > 0;
     }
 }

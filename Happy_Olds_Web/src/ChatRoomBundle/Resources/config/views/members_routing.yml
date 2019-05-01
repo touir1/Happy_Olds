@@ -1,0 +1,7 @@
+chat_room_member_list_invite:
+    path:     /listInvite
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:listInvite }
+
+chat_room_member_invite:
+    path:     /invite
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:invite }
