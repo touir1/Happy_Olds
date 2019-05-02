@@ -40,10 +40,17 @@
                  </div>
                  <!-- /.attachment-pushed -->
              </div>
+             {% if service.postuler is not empty%}
+                {% for p in service.postuler %}
+                    {% if p.getUser().getId()  == user.id%}
+                         <a class="btn btn-default btn-xs" href=""><i class="fa fa-share"></i> Vous avez déjà postulé à ce service </a>
+                    {% endif %}
+                 {% endfor %}
+             {% else %}
+                 <a class="btn btn-default btn-xs" href="{{ path('services_postuler',{'id':service.id}) }}"><i class="fa fa-share"></i> Postuler</a>
+             {% endif %}
              <!-- /.attachment-block -->
-
-             <!-- Social sharing buttons -->
-             <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Postuler</button>
+                 <!-- Social sharing buttons -->
 
              <span class="pull-right text-muted"> 2 comments</span>
          </div>

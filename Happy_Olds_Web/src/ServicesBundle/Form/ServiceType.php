@@ -30,14 +30,18 @@ class ServiceType extends AbstractType
             'required' => true,
             'multiple' => false,
             'data' => 'autre',
-        ))->add('Publier',SubmitType::class);
+        ))
+            ->add('Publier',SubmitType::class);
+
+
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ServicesBundle\Entity\Service'
+            'data_class' => 'ServicesBundle\Entity\Service',
+
         ));
     }
 

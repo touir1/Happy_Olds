@@ -6,6 +6,10 @@ services_publier:
     path:     /publier
     defaults: { _controller: "ServicesBundle:Service:publier" }
     methods:  GET
+services_postuler:
+    path:     /postuler
+    defaults: { _controller: "ServicesBundle:Service:postuler" }
+    methods:  GET
 
 services_show:
     path:     /{id}/show

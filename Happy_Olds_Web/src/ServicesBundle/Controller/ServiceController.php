@@ -2,6 +2,7 @@
 
 namespace ServicesBundle\Controller;
 
+use ServicesBundle\Entity\Postuler;
 use ServicesBundle\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ class ServiceController extends Controller
         $services = $em->getRepository('ServicesBundle:Service')->findAll();
 
         return $this->render('@Services/service/index.html.twig', array(
-            'services' => $services,
+            'services' => $services
         ));
     }
     public function publierAction()
@@ -33,8 +34,30 @@ class ServiceController extends Controller
         $services = $em->getRepository('ServicesBundle:Service')->findAll();
 
         return $this->render('@Services/service/publier.html.twig', array(
-            'services' => $services,
+            'services' => $services,'user'=>$this->getUser()
         ));
+    }
+    public function postulerAction(Request $req){
+        $id=$req->get('id');
+
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+        $postuler= new Postuler();
+        $postuler->setUser($this->getUser());
+        $postuler->setService($service);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postuler);
+        $em->flush();
+       $service->addPostuler($postuler);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($service);
+        $em->flush();
+        foreach ($service->getPostuler()->toArray() as $dept){
+            print ((string)$dept->getId());
+        }
+
+
+
+        //return $this->redirectToRoute('services_publier');
     }
 
     /**
