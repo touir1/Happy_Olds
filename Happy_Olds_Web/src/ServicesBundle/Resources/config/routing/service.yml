@@ -27,6 +27,6 @@ services_edit:
     methods:  [GET, POST]
 
 services_delete:
-    path:     /{id}/delete
+    path:     /delete
     defaults: { _controller: "ServicesBundle:Service:delete" }
-    methods:  DELETE
+    methods:  [GET, POST]

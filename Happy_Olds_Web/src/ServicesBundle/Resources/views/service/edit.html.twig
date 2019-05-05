@@ -1,30 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="box box-warning">
-    <div class="box-header with-border">
-        <h3 class="box-title">Service edit</h3>
+
+    <div class="box box-warning" style="margin-left: 14%;border-top-color: #b8b4af;width: 75%;">
+        <div class="box-header with-border">
+            <h3 class="text-muted"> Demander un Service </h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            {{ form_start(edit_form) }}
+            <div class="form-group">
+                <label class="text-muted">Type de service</label>
+                {{ form_widget(edit_form.type,{'attr':{'class':'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                <label class="text-muted">Description detaillée de service </label>
+                {{
+                form_widget(edit_form.description, {'attr' : {'class' : 'form-control', 'rows':'3',
+                    'placeholder': 'Enter ...'}})
+                }}
+            </div>
+            <div class="form-group">
+                <label class="text-muted">Choisir la date et l'heure de (Livraison,Couvoiturage,Autre) </label>
+                {{
+                form_widget(edit_form.date, {'attr' : {'style' : 'display: -webkit-box'}})
+                }}
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <div class="form-group">
+                {{
+                form_widget(edit_form.Publier, {'attr' : {'class' : 'btn btn-block btn-danger btn-lg','style':'width: 18%;'}})
+                }}
+            </div>
+            {{ form_end(edit_form) }}
+        </div>
+
     </div>
-    <!-- /.box-header -->
-    <div class="box-body">
 
+{% endblock %}
+{% block scripts %}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('services_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-    </div>
-</div>
-    
 {% endblock %}
