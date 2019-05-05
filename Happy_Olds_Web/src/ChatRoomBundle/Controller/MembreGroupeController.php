@@ -34,13 +34,19 @@ class MembreGroupeController extends UtilsController
         $this->routes = [
             'chat_room_member_invite',
             'chat_room_member_list_invite',
+            'chat_room_member_list_members',
             'chat_room_api_member_invite',
+            'chat_room_member_delete',
+            'chat_room_member_bann',
             'chat_room_api_member_list_invite',
+            'chat_room_api_member_list_members',
+            'chat_room_api_member_delete',
+            'chat_room_member_bann',
         ];
 
     }
 
-    public function invite($groupe_id = null,$user_inviting_id = null, $user_invited_id = null)
+    private function invite($groupe_id = null,$user_inviting_id = null, $user_invited_id = null)
     {
         if(is_null($groupe_id) || is_null($user_invited_id) ||is_null($user_inviting_id)) return;
         if($user_inviting_id == $user_invited_id) return;
@@ -87,7 +93,7 @@ class MembreGroupeController extends UtilsController
         ],JsonResponse::HTTP_ACCEPTED,[]);
     }
 
-    public function listInvite($groupe_id = null,$user_inviting_id = null, $username = "", $nom = "", $prenom = "", $offset = 0, $maxResults = 0)
+    private function listInvite($groupe_id = null,$user_inviting_id = null, $username = "", $nom = "", $prenom = "", $offset = 0, $maxResults = 100)
     {
         $groupeRepo = $this->getDoctrine()->getRepository(Groupe::class);
 
@@ -113,8 +119,7 @@ class MembreGroupeController extends UtilsController
         if(!isset($prenom)) $prenom = "";
         if(!isset($username)) $username = "";
 
-        $list = $this->getDoctrine()->getRepository(MembreGroupe::class)
-            ->getListOfUsersToInvite($groupe_id,$username,$nom,$prenom,0, 10);
+        $list = $this->listInvite($groupe_id,$this->getUser()->getId(),$username,$nom,$prenom,0, 10);
 
         return $this->render('@ChatRoom/Groupe/MembreGroupe/list_invite.html.twig',array(
             'data' => [
@@ -135,17 +140,94 @@ class MembreGroupeController extends UtilsController
         $prenom = $request->get("prenom");
         $username = $request->get("username");
 
-        $groupe = $this->getDoctrine()->getRepository(Groupe::class)
-            ->find($groupe_id);
+        if(!isset($nom)) $nom = "";
+        if(!isset($prenom)) $prenom = "";
+        if(!isset($username)) $username = "";
+
+        $list = $this->listInvite($groupe_id,$this->getUser()->getId(),$username,$nom,$prenom,0, 10);
+
+        return $this->getJsonResponse($list);
+    }
+
+    private function listMembers($groupe_id = null, $username = "", $nom = "", $prenom = "", $offset = 0, $maxResults = 100)
+    {
+        return $this->getDoctrine()->getRepository(MembreGroupe::class)
+            ->getListGroupMembers($groupe_id,$this->getUser()->getId(),$username,$nom,$prenom,$offset, $maxResults);
+    }
+
+    public function listMembersAction(Request $request)
+    {
+        $groupe_id = $request->get("group_id");
+        $nom = $request->get("nom");
+        $prenom = $request->get("prenom");
+        $username = $request->get("username");
 
         if(!isset($nom)) $nom = "";
         if(!isset($prenom)) $prenom = "";
         if(!isset($username)) $username = "";
 
-        $list = $this->getDoctrine()->getRepository(MembreGroupe::class)
-            ->getListOfUsersToInvite($groupe_id,$username,$nom,$prenom,0, 10);
+        $list = $this->listMembers($groupe_id,$username,$nom,$prenom,0, 10);
+
+        $groupe = $this->getDoctrine()->getRepository(Groupe::class)
+            ->find($groupe_id);
+
+        return $this->render('@ChatRoom/Groupe/MembreGroupe/list_members.html.twig',array(
+            'data' => [
+                'routes' => $this->getRoutesAsUrls()
+            ],
+            'groupe' => $groupe,
+            'liste' => $list,
+            'nom' =>$nom,
+            'prenom' => $prenom,
+            'username' => $username,
+        ));
+
+    }
+
+    public function _listMembersAction(Request $request)
+    {
+        $groupe_id = $request->get("group_id");
+        $nom = $request->get("nom");
+        $prenom = $request->get("prenom");
+        $username = $request->get("username");
+
+        if(!isset($nom)) $nom = "";
+        if(!isset($prenom)) $prenom = "";
+        if(!isset($username)) $username = "";
+
+        $list = $this->listMembers($groupe_id,$username,$nom,$prenom,0, 10);
 
         return $this->getJsonResponse($list);
+    }
+
+    private function delete($groupe_id, $user_id)
+    {
+
+    }
+
+    public function deleteAction(Request $request)
+    {
+
+    }
+
+    public function _deleteAction(Request $request)
+    {
+
+    }
+
+    private function bann($groupe_id, $user_id)
+    {
+
+    }
+
+    public function bannAction(Request $request)
+    {
+
+    }
+
+    public function _bannAction(Request $request)
+    {
+
     }
 
 

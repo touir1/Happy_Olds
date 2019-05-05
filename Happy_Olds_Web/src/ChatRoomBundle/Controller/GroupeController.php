@@ -78,7 +78,7 @@ class GroupeController extends UtilsController
     private function consult($groupe_id = null)
     {
         return $this->getDoctrine()->getRepository(Groupe::class)
-            ->find($groupe_id);
+            ->consult($groupe_id,$this->getUser()->getId());
     }
 
     // consult view

@@ -2,6 +2,18 @@ chat_room_member_list_invite:
     path:     /listInvite
     defaults: { _controller: ChatRoomBundle:MembreGroupe:listInvite }
 
+chat_room_member_list_members:
+    path:     /listMembers
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:listMembers }
+
 chat_room_member_invite:
     path:     /invite
     defaults: { _controller: ChatRoomBundle:MembreGroupe:invite }
+
+chat_room_member_delete:
+    path:     /delete
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:delete }
+
+chat_room_member_bann:
+    path:     /bann
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:bann }

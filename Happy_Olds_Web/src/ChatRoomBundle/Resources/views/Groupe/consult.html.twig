@@ -9,20 +9,18 @@
     Créateur: {{ groupe.creator.prenom }} {{ groupe.creator.nom }}<br>
     <br>
 
-    {% if app.user.id == groupe.creator.id %}
-        <div class="box">
+    <div class="box">
+        {% if app.user.id == groupe.creator.id %}
             {% if invite %}
                 <a class="btn btn-success go-right" href="{{ path('chat_room_member_list_invite',{'groupe_id': groupe.id}) }}"><i class="fa fa-plus"></i> Inviter</a>
             {% endif %}
             <a class="btn btn-warning go-right" href="{{ path('chat_room_group_update',{'id': groupe.id}) }}"><i class="fa fa-cog"></i> Modifier</a>
             <a class="btn btn-danger go-right" href="{{ path('chat_room_group_delete',{'id': groupe.id}) }}"><i class="fa fa-close"></i> Supprimer</a>
-        </div>
-    {% elseif join %}
-        <div class="box">
+        {% elseif join %}
             <a class="btn btn-success go-right" href="{{ path('chat_room_group_join',{'id': groupe.id}) }}"><i class="fa fa-flag"></i> Rejoindre</a>
-        </div>
-    {% endif %}
-
+        {% endif %}
+        <a class="btn btn-info" href="{{ path('chat_room_member_list_members',{'group_id': groupe.id}) }}"><i class="fa fa-group"></i> Membres</a>
+    </div>
     <br>
     <h2>Publications</h2>
     <table class="table table-bordered">

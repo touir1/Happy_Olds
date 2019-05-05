@@ -19,10 +19,25 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
                 ."LEFT JOIN g.members m "
                 ."WHERE g.type in ('private', 'public') "
                 ."OR m.user = :member "
-                ."OR g.creator = :creator ")
-            ->setParameter(':member',$user_id)
-            ->setParameter(':creator', $user_id);
+                ."OR g.creator = :member ")
+            ->setParameter(':member',$user_id);
         return $query->getResult();
+    }
+
+    public function consult($groupe_id,$user_id)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
+                ."LEFT JOIN g.members m "
+                ."WHERE g.id = :groupe "
+                ."AND (".
+                    " g.type in ('private', 'public') "
+                    ."OR m.user = :member "
+                    ."OR g.creator = :member "
+                .")")
+            ->setParameter(':member',$user_id)
+            ->setParameter(':groupe', $groupe_id);
+        return $query->getOneOrNullResult();
     }
 
     public function findAllAsMember($user_id)
@@ -32,9 +47,8 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
                 ."WHERE :member = m.user "
-                ."OR :creator = g.creator")
-            ->setParameter(':member',$user_id)
-            ->setParameter(':creator', $user_id);
+                ."OR :member = g.creator")
+            ->setParameter(':member',$user_id);
         return $query->getResult();
     }
 
@@ -44,10 +58,9 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
                 ."WHERE (:member = m.user "
-                ."      OR :creator = g.creator) "
+                ."      OR :member = g.creator) "
                 ."AND g.id = :id")
             ->setParameter(':member', $user_id)
-            ->setParameter(':creator', $user_id)
             ->setParameter(':id', $group_id);
         return $query->getResult();
     }

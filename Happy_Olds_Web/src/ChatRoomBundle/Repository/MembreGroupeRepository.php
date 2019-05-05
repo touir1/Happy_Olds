@@ -11,18 +11,33 @@ namespace ChatRoomBundle\Repository;
 class MembreGroupeRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getListGroupMembers($groupe_id,$user_id)
+    public function getListGroupMembers($groupe_id, $user_id,$username,$nom,$prenom,$offset =0, $maxResult = 100)
     {
         //return $this->findAll();
         $query=$this->getEntityManager()
-            ->createQuery("SELECT m FROM ChatRoomBundle:MembreGroupe m "
+            ->createQuery("SELECT u.id, u.username, u.nom, u.prenom FROM ChatRoomBundle:MembreGroupe m "
                 ."JOIN m.groupe g "
+                ."JOIN m.user u "
                 ."WHERE m.groupe = :groupe "
-                ."AND g.creator = :member "
-                ."OR g.creator = :creator ")
-            ->setParameter(':member',$user_id)
-            ->setParameter(':creator', $user_id)
-            ->setParameter(':groupe',$groupe_id);
+                ."AND u.username LIKE :username "
+                ."AND u.prenom LIKE :prenom "
+                ."AND u.nom LIKE :nom "
+                ."AND ( "
+                    ."g.type in ('private','public')"
+                    ."OR :user_id in ("
+                        ."SELECT u2.id FROM ChatRoomBundle:MembreGroupe m2 "
+                        ."JOIN m2.user u2 "
+                        ."JOIN m2.groupe g2 "
+                        ."WHERE g2.id = :groupe "
+                    .") "
+                .") ")
+            ->setParameter(':groupe',$groupe_id)
+            ->setParameter(':user_id',$user_id)
+            ->setParameter(":username","%".$username."%")
+            ->setParameter(":nom","%".$nom."%")
+            ->setParameter(":prenom","%".$prenom."%")
+            ->setFirstResult($offset)
+            ->setMaxResults($maxResult);
         return $query->getResult();
     }
 
