@@ -30,3 +30,7 @@ services_delete:
     path:     /delete
     defaults: { _controller: "ServicesBundle:Service:delete" }
     methods:  [GET, POST]
+services_condidat:
+    path:     /condidats
+    defaults: { _controller: "ServicesBundle:Service:listcondidat" }
+    methods:  [GET, POST]

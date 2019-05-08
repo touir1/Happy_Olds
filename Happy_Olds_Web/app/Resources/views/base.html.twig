@@ -76,9 +76,16 @@ desired effect
 
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
+
             <ul class="nav navbar-nav">
                 <li><a href="{{ path('happy_olds_main_homepage') }}"><i class="fa fa-fw fa-home"></i> <span>Accueil</span></a></li>
-                <li><a href="{{ path('services_index') }}"><i class="fa fa-fw fa-child"></i> <span>Service</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-child"></i> <span>Service</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('services_new') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Demander un service</font></font></a></li>
+                        <li><a href="{{ path('services_publier') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font>Services</font></a></li>
+                    </ul>
+                </li>
                 <li><a href="#"><i class="fa fa-fw fa-group"></i> <span>Événement</span></a></li>
                 <li><a href="#"><i class="fa fa-fw fa-heartbeat"></i> <span>Forum médical</span></a></li>
                 <li><a href="{{ path('chat_room_homepage') }}"><i class="fa fa-fw fa-commenting"></i> <span>Chat Room</span></a></li>

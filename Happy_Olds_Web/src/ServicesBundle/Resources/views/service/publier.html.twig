@@ -34,7 +34,9 @@
                  <!-- /.attachment-pushed -->
              </div>
              {% set test = 'false' %}
+             {% set nbCondidat=0 %}
                 {% for p in service.postuler %}
+                    {% set nbCondidat = nbCondidat + 1 %}
                     {% if p.getUser().getId()  == user.id%}
                          <h4 class="btn btn-default btn-xs" href=""><i class="fa fa-share"></i> Vous avez déjà postulé à ce service </h4>
                         {% set test = 'true' %}
@@ -47,13 +49,20 @@
                  <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('services_delete',{'id':service.id}) }}"><i class="fa fa-share"></i> Supprimer </a>
 
              {% endif %}
-            {% if test=='false' %}
+            {% if test=='false' and 'JEUNE' in user.getRole() %}
                  <a class="btn btn-default btn-xs" href="{{ path('services_postuler',{'id':service.id}) }}"><i class="fa fa-share"></i> Postuler</a>
              {% endif %}
              <!-- /.attachment-block -->
                  <!-- Social sharing buttons -->
-
-             <span class="pull-right text-muted"> 2 comments</span>
+             {% if service.getUser().getId() == user.id %}
+                <span class="pull-right text-muted" style="margin-left: 3px;">   {{ nbCondidat }} condidateure/s  </span>
+                {% if nbCondidat > 0 %}
+                    <span class="pull-right text-muted" style="margin-left: 3px;"> <a href="{{ path('services_condidat',{'id':service.id}) }}">  | List condidats | </a> </span>
+                 {% endif %}
+                 <span class="pull-right text-muted" style="margin-left: 3px;">  2 comments </span>
+             {% else %}
+                <span class="pull-right text-muted" style="margin-left: 3px;"> 2 comments</span>
+             {% endif %}
          </div>
          <!-- /.box-body -->
          <div class="box-footer box-comments">

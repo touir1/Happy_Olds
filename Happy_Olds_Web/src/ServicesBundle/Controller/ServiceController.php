@@ -57,9 +57,17 @@ class ServiceController extends Controller
 
 
 
-        //return $this->redirectToRoute('services_publier');
+        return $this->redirectToRoute('services_publier');
     }
+    public function listcondidatAction(Request $req){
+        $id=$req->get('id');
 
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+
+       return $this->render('@Services/service/listCondidature.html.twig',array(
+            'service' => $service
+        ));
+    }
     /**
      * Creates a new service entity.
      *
