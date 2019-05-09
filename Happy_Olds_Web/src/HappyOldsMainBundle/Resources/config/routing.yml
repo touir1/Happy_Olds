@@ -20,3 +20,7 @@ happy_olds_main_jeune:
 happy_olds_main_admin:
     path:     /admin
     defaults: { _controller: HappyOldsMainBundle:Default:accueiladmin }
+
+forbidden_403:
+    path:     /forbidden
+    defaults: { _controller: HappyOldsMainBundle:Default:error403 }

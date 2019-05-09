@@ -90,6 +90,8 @@ class GroupeController extends UtilsController
             ->checkIfAuthorizedToJoin($id,$this->getUser()->getId());
         $invite = $this->getDoctrine()->getRepository(Groupe::class)
             ->checkIfAuthorizedToInvite($id,$this->getUser()->getId());
+        $leave = $this->getDoctrine()->getRepository(Groupe::class)
+            ->checkIfAuthorizedToLeave($id,$this->getUser()->getId());
 
         return $this->render( '@ChatRoom/Groupe/consult.html.twig',[
             'data' => [
@@ -98,6 +100,7 @@ class GroupeController extends UtilsController
             'groupe' => $groupe,
             'join' => $join,
             'invite' => $invite,
+            'leave' => $leave,
         ]);
     }
 
@@ -293,7 +296,39 @@ class GroupeController extends UtilsController
         ],JsonResponse::HTTP_ACCEPTED,[]);
     }
 
+    public function leave($groupe_id = null, $user_id = null)
+    {
+        $groupeRepo = $this->getDoctrine()->getRepository(Groupe::class);
 
+        $authorized = $groupeRepo->checkIfAuthorizedToLeave($groupe_id,$user_id);
+        if($authorized)
+        {
+            $member = $this->getDoctrine()->getRepository(MembreGroupe::class)
+                ->findMember($groupe_id,$user_id);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($member);
+            $em->flush();
+        }
+    }
+
+    public function leaveAction(Request $request)
+    {
+        $id = $request->get('id');
+        $this->leave($id, $this->getUser()->getId());
+
+        return $this->redirectToRoute('chat_room_group_list');
+    }
+
+    public function _leaveAction(Request $request)
+    {
+        $id = $request->get('id');
+        $this->leave($id, $this->getUser()->getId());
+
+        return new JsonResponse([
+            "status" => "ok"
+        ],JsonResponse::HTTP_ACCEPTED,[]);
+    }
 
 
 }

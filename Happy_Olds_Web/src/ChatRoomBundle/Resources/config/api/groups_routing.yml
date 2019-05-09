@@ -18,6 +18,10 @@ chat_room_api_group_delete:
     path:     /delete
     defaults: { _controller: ChatRoomBundle:Groupe:_delete }
 
-chat_room_group_join:
+chat_room_api_group_join:
     path:     /join
-    defaults: { _controller: ChatRoomBundle:Groupe:join }
+    defaults: { _controller: ChatRoomBundle:Groupe:_join }
+
+chat_room_api_group_leave:
+    path:     /leave
+    defaults: { _controller: ChatRoomBundle:Groupe:_leave }

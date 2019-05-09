@@ -22,13 +22,19 @@
             <th>Action</th>
         </tr>
         {% for g in liste %}
+            {% set member_count = 0 %}
+            {% for m in g.members %}
+                {% if m.authorized == 1 and m.banned != 1 %}
+                    {% set member_count = member_count + 1 %}
+                {% endif  %}
+            {% endfor %}
             <tr>
                 <td hidden="true">g.id</td>
                 <td>{{ loop.index }}.</td>
                 <td>{{ g.titre }}</td>
                 <td>{{ g.description }}</td>
                 <td>{{ g.type }}</td>
-                <td>{{ g.members.count }}</td>
+                <td>{{ member_count }}</td>
                 <td>{{ g.creator.prenom }} {{ g.creator.nom }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i> Consulter</a>

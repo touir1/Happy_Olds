@@ -17,8 +17,8 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE g.type in ('private', 'public') "
-                ."OR m.user = :member "
+                ."WHERE (m.banned != 1 AND g.type in ('private', 'public')) "
+                ."OR (m.banned != 1 AND m.user = :member) "
                 ."OR g.creator = :member ")
             ->setParameter(':member',$user_id);
         return $query->getResult();
@@ -31,8 +31,8 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
                 ."LEFT JOIN g.members m "
                 ."WHERE g.id = :groupe "
                 ."AND (".
-                    " g.type in ('private', 'public') "
-                    ."OR m.user = :member "
+                    "(m.banned != 1 AND g.type in ('private', 'public')) "
+                    ."OR (m.banned != 1 AND m.user = :member) "
                     ."OR g.creator = :member "
                 .")")
             ->setParameter(':member',$user_id)
@@ -46,7 +46,7 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE :member = m.user "
+                ."WHERE ((:member = m.user AND m.banned != 1) "
                 ."OR :member = g.creator")
             ->setParameter(':member',$user_id);
         return $query->getResult();
@@ -57,7 +57,7 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE (:member = m.user "
+                ."WHERE ((:member = m.user and m.banned != 1) "
                 ."      OR :member = g.creator) "
                 ."AND g.id = :id")
             ->setParameter(':member', $user_id)
@@ -87,6 +87,24 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
                 .") "
                 ."AND g.id = :groupe "
                 ."AND g.type in ('private','public')")
+            ->setParameter(":member",$user_id)
+            ->setParameter(":groupe",$groupe_id);
+        return $query->getOneOrNullResult()["result"] > 0;
+    }
+
+    public function checkIfAuthorizedToLeave($groupe_id, $user_id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT count(1) as result from ChatRoomBundle:Groupe g "
+                ."WHERE :member IN ( "
+                    ."SELECT u.id from ChatRoomBundle:MembreGroupe m2 "
+                    ."LEFT JOIN m2.user u "
+                    ."WHERE m2.groupe = :groupe "
+                    ."AND m2.authorized = 1 "
+                    ."ANd m2.banned != 1 "
+                .") "
+                ."AND g.id = :groupe "
+                ."AND g.creator != :member")
             ->setParameter(":member",$user_id)
             ->setParameter(":groupe",$groupe_id);
         return $query->getOneOrNullResult()["result"] > 0;

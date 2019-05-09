@@ -6,6 +6,14 @@ chat_room_member_list_members:
     path:     /listMembers
     defaults: { _controller: ChatRoomBundle:MembreGroupe:listMembers }
 
+chat_room_member_list_request:
+    path:     /listRequest
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:listRequest }
+
+chat_room_member_list_bann:
+    path:     /listBann
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:listBann }
+
 chat_room_member_invite:
     path:     /invite
     defaults: { _controller: ChatRoomBundle:MembreGroupe:invite }
@@ -17,3 +25,15 @@ chat_room_member_delete:
 chat_room_member_bann:
     path:     /bann
     defaults: { _controller: ChatRoomBundle:MembreGroupe:bann }
+
+chat_room_member_remove_bann:
+    path:     /removeBann
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:removeBann }
+
+chat_room_member_accept:
+    path:     /accept
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:accept }
+
+chat_room_member_decline:
+    path:     /decline
+    defaults: { _controller: ChatRoomBundle:MembreGroupe:decline }

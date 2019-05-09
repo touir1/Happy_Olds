@@ -3,6 +3,7 @@
     <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
+
     <h2>Groupe: </h2>
     <div class="box">
         Groupe: <b>{{ groupe.titre }}</b><br>
@@ -11,7 +12,7 @@
     <br>
 
     <div class="box">
-        <form action="{{ path('chat_room_member_list_members',{'group_id' : groupe.id,}) }}" method="post">
+        <form action="{{ path('chat_room_member_list_bann',{'group_id' : groupe.id,}) }}" method="post">
             <table>
                 <tr>
                     <td>Nom d'utilisateur: </td>
@@ -50,9 +51,8 @@
                 <td>{{ u.nom }}</td>
                 <td>{{ u.prenom }}</td>
                 <td>
-                    {% if app.user.id == groupe.creator.id and u.id != app.user.id %}
-                        <a class="btn btn-danger" href="{{ path('chat_room_member_delete',{'group_id': groupe.id, 'member_id': u.id}) }}"><i class="fa fa-sign-out"></i> Faire sortir</a>
-                        <a class="btn btn-danger" href="{{ path('chat_room_member_bann',{'group_id': groupe.id, 'member_id': u.id}) }}"><i class="fa fa-close"></i> Bannir</a>
+                    {% if app.user.id == groupe.creator.id %}
+                        <a class="btn btn-warning" href="{{ path('chat_room_member_remove_bann',{'group_id': groupe.id, 'member_id': u.id}) }}"><i class="fa fa-undo"></i> Enlever Bann</a>
                     {% endif %}
                 </td>
             </tr>
@@ -76,5 +76,5 @@
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
-    <script src="{{ asset('ChatRoom/js/groupe/membreGroupe/list_members.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/membreGroupe/list_bann.js') }}"></script>
 {% endblock %}

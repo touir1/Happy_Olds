@@ -223,4 +223,9 @@ class DefaultController extends Controller
     {
         return $this->render('@HappyOldsMain/Default/indexadmin.html.twig');
     }
+
+    public function error403Action()
+    {
+        return $this->render('@HappyOldsMain/UtilityPages/403.html.twig');
+    }
 }
