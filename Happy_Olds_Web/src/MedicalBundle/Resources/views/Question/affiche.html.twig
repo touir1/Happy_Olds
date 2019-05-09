@@ -1,32 +1,60 @@
+
+
 {% extends 'base.html.twig' %}
 {% block body %}
-<font size="14">Formulaire des réponses  :</font>
-<br>
+
+    <script src="https://cdn.ckeditor.com/4.11.4/full-all/ckeditor.js"></script>
+
+    <div class="box box-warning">
+    <div class="box-header with-border">
+        <h3 class="box-title">Ajouter une réponse </h3>
+    </div>
   {#  <strong>Sujet </strong> :{{ tab.getsujet }}#}
-
+    </div>
 <br>
-<strong>Titre </strong> :{{ tab.gettitre }}
+    <div class="box-body pad">
+    <label class="text-muted"> Titre </label>
+    <div class="form-control" disabled="disabled"> {{ tab.gettitre }} </div>
 <br>
-<strong>Description </strong> :{{ tab.gettext }}
+    <label class="text-muted" id="ckeditor"> Description </label>
+   <div class="form-control" disabled="disabled"> {{ tab.gettext }}</div>
 <br>
-
+    </div>
 {{ form_start(form) }}
-<table>
-    <tr>
-        <td>Réponse:</td>
-        <td>{{ form_widget(form.text) }}</td>
-    </tr>
+
+    <div class="pull-right box-tools">
+        <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                title="Collapse">
+            <i class="fa fa-minus"></i></button>
+        <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                title="Remove">
+            <i class="fa fa-times"></i></button>
+    </div>
+
+    <div class="box-body pad">
+
+    <div class="form-group">
+
+        <label class="text-muted"> Réponse </label>
+
+        {{
+        form_widget(form.text,{'attr' : {'class' : 'form-control', 'rows':'5','id':'editor1','name':' editor1',
+                'placeholder': 'Enter ...'}})
+        }}
+    </div>
+    </div>
+
 <br>
     <br>
-    <tr>
-        <td></td>
-        <td>{{ form_widget(form.ajouter) }}</td>
-    </tr>
-</table>
 
+        {{ form_widget(form.ajouter , {'attr' : {'class' : 'btn btn-block btn-danger','style':'width: 12%;'}}) }}
 
 <br>
 
 {{ form_end(form) }}
+
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
 
 {% endblock %}

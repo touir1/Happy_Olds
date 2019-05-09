@@ -22,11 +22,18 @@ class Reponse
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Question")
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="reponses")
      * @ORM\JoinColumn(name="question_id",referencedColumnName="id")
      */
-
     private $question;
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     */
+
+    private $user;
+
+
     /**
      * @var string
      *
@@ -91,5 +98,29 @@ class Reponse
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \HappyOldsMainBundle\Entity\User $user
+     *
+     * @return Reponse
+     */
+    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

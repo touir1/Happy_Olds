@@ -10,10 +10,20 @@ namespace MedicalBundle\Repository;
  */
 class QuestionRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function MyfindAll($titre){
-        $query=$this->getEntityManager()
+    public function MyfindAll($titre)
+    {
+        $query = $this->getEntityManager()
             ->createQuery("Select q from MedicalBundle:Question q where q.titre LIKE :t ")
-            ->setParameter(':t','%'.$titre.'%');
+            ->setParameter(':t', '%' . $titre . '%');
         return $query->getResult();
+    }
+
+    public function listereponse($id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("Select r from MedicalBundle:Reponse r where r.question =:s ")
+            ->setParameter(':s', $id);
+        return $query->getResult();
+
     }
 }

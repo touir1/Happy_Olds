@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+
+    <script src="https://cdn.ckeditor.com/4.11.4/full-all/ckeditor.js"></script>
+
     <div class="box box-warning">
         <div class="box-header with-border">
             <h3 class="box-title">Ajouter une nouvelle question </h3>
         </div>
 
-    <div class="box-body">
+        <div class="box-body pad">
     {{ form_start(form) }}
 
     <div class="form-group">
@@ -19,14 +22,29 @@
         form_widget(form.titre, {'attr' : {'class' : 'form-control', 'rows':'1',
             'placeholder': 'Enter ...'}})
         }}
-
     </div>
+        </div>
+        <div class="pull-right box-tools">
+            <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+                <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                    title="Remove">
+                <i class="fa fa-times"></i></button>
+        </div>
+
+        <div class="box-body pad">
+
     <div class="form-group">
     <label class="text-muted">Description detaillée de la question </label>
+
     {{
-    form_widget(form.text, {'attr' : {'class' : 'form-control', 'rows':'3',
+
+    form_widget(form.text, {'attr' : {'class' : 'form-control', 'rows':'3','id':'editor1','name':' editor1',
         'placeholder': 'Enter ...'}})
     }}
+<br>
+        <br>
     </div>
         <div class="form-group">
             {{
@@ -37,18 +55,22 @@
         <br/>
         <div class="form-group">
             {{
-            form_widget(form.Valider, {'attr' : {'class' : 'btn btn-block btn-danger btn-lg','style':'width: 18%;'}})
+            form_widget(form.Valider, {'attr' : {'class' : 'btn btn-block btn-danger','style':'width: 12%;'}})
             }}
         </div>
-
-
+        </div>
+    </div>
+    </div>
     <br>
 
     {{ form_end(form) }}
 
 
-</div>
 
-</div>
+
+
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
 
 {% endblock %}

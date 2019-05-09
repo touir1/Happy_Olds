@@ -3,6 +3,8 @@
 namespace MedicalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Question
@@ -44,12 +46,29 @@ class Question
 
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $path;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
 
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Reponse", mappedBy="question")
+     */
+    private $reponses;
     /**
      * Get id
      *
@@ -130,5 +149,168 @@ class Question
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     *
+     * @return Question
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/documents';
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->getFile()->getClientOriginalName()
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->path = $this->getFile()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Question
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Add reponse
+     *
+     * @param \MedicalBundle\Entity\Question $reponse
+     *
+     * @return Question
+     */
+    public function addReponse(\MedicalBundle\Entity\Question $reponse)
+    {
+        $this->reponses[] = $reponse;
+
+        return $this;
+    }
+
+    /**
+     * Remove reponse
+     *
+     * @param \MedicalBundle\Entity\Question $reponse
+     */
+    public function removeReponse(\MedicalBundle\Entity\Question $reponse)
+    {
+        $this->reponses->removeElement($reponse);
+    }
+
+    /**
+     * Get reponses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReponses()
+    {
+        return $this->reponses;
     }
 }

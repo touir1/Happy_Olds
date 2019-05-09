@@ -2,11 +2,14 @@
 
 namespace MedicalBundle\Form;
 
+
+
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use FOS\CKEditorBundle\FOSCKEditorBundle;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 class ReponseType extends AbstractType
 {
     /**
@@ -14,7 +17,8 @@ class ReponseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('text')->add('ajouter',SubmitType::class);
+        $builder->add('text',CKEditorType::class)
+        ->add('ajouter',SubmitType::class);
     }/**
      * {@inheritdoc}
      */

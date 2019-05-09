@@ -95,6 +95,7 @@ class QuestionController extends Controller
         //2.b insertion dans la BD
 
         $reponse->setQuestion($question);
+        $reponse->setUser($this->getUser());
         $em->persist($reponse);
         $em->flush();
         return $this->redirectToRoute('medical_affiche',array(
@@ -116,6 +117,17 @@ class QuestionController extends Controller
         return $this->render( '@Medical/Question/historique.html.twig',array(
             'tab'=>$questions
         ));
+    }
+
+    public function detailAction(Request $req){
+        $id=$req->get('id');
+        $question=$this->getDoctrine()->getRepository(Question::class)->find($id);
+        $list=$this->getDoctrine()
+            ->getRepository(Question::class)
+            ->listereponse($id);
+        return $this->render( '@Medical/Question/detail.html.twig',array(
+            'tab'=>$list,
+            'question' =>$question));
     }
 
 

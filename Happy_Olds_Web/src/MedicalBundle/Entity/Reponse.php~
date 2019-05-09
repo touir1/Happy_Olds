@@ -26,6 +26,13 @@ class Reponse
      * @ORM\JoinColumn(name="question_id",referencedColumnName="id")
      */
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     */
+
+    private $user;
+
     private $question;
     /**
      * @var string
@@ -68,5 +75,28 @@ class Reponse
     {
         return $this->text;
     }
-}
 
+    /**
+     * Set question
+     *
+     * @param \MedicalBundle\Entity\Question $question
+     *
+     * @return Reponse
+     */
+    public function setQuestion(\MedicalBundle\Entity\Question $question = null)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \MedicalBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+}

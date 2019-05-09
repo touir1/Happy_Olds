@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="box-body pad">
+    <label class="text-muted"> Titre </label>
+    <div class="form-control" disabled="disabled"> {{ question.titre }} </div>
+    <br>
+    <label class="text-muted" id="ckeditor"> Description </label>
+    <div class="form-control" disabled="disabled"> {{ question.text }}</div>
+    <br>
+</div>
+    <table>
+    <tr>
+        <th>nom</th>
+        <th>text</th>
+    </tr>
+{% for i in question.reponses %}
+<tr>
+    <td>{{ i.user.prenom }} {{ i.user.nom }}</td>
+    <td> {{ i.text | raw  }} </td>
+</tr>
+
+{% endfor %}
+    </table>
+{% endblock %}

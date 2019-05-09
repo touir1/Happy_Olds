@@ -46,6 +46,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+            - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -99,3 +101,29 @@ fos_rest:
         formats: { json: true, xml: false, rss: false }
     serializer:
         serialize_null: true
+
+ivory_ck_editor:
+    configs:
+        full_config:
+            jquery: true
+            height: '900px'
+            language: fr
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
+            extraPlugins: 'lineutils,widget,dialog,codesnippet,widgetselection'
+        basic_config:
+            jquery: true
+            heihgt: '250px'
+            language: fr
+            toolbar: basic
+
+fos_ck_editor :
+    configs :
+        my_config :
+            toolbar : full
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~

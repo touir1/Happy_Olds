@@ -63,6 +63,12 @@ class Question
      */
     private $titre;
 
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Reponse", mappedBy="question")
+     */
+    private $reponses;
     /**
      * Get id
      *
@@ -241,5 +247,70 @@ class Question
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Question
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Add reponse
+     *
+     * @param \MedicalBundle\Entity\Question $reponse
+     *
+     * @return Question
+     */
+    public function addReponse(\MedicalBundle\Entity\Question $reponse)
+    {
+        $this->reponses[] = $reponse;
+
+        return $this;
+    }
+
+    /**
+     * Remove reponse
+     *
+     * @param \MedicalBundle\Entity\Question $reponse
+     */
+    public function removeReponse(\MedicalBundle\Entity\Question $reponse)
+    {
+        $this->reponses->removeElement($reponse);
+    }
+
+    /**
+     * Get reponses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReponses()
+    {
+        return $this->reponses;
     }
 }

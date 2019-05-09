@@ -23,6 +23,9 @@ class AppKernel extends Kernel
             new MedicalBundle\MedicalBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
         ];
 
