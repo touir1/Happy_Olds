@@ -42,6 +42,38 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'data' => 'autre',
             ))
+            ->add('ville',ChoiceType::class, array(
+                'label' => 'Ville',
+                'choices' => array(
+                    'Tunis' => 'Tunis',
+                    'Ariana' => 'Ariana',
+                    'Ben Arous' => 'Ben Arous',
+                    'Béja' => 'Béja',
+                    'Bizerte' => 'Bizerte',
+                    'Gabes' => 'Gabes',
+                    'Jandouba' => 'Jandouba',
+                    'Gafsa' => 'Gafsa',
+                    'Kairouan' => 'Kairouan',
+                    'kasserine' => 'kasserine',
+                    'Kebili' => 'Kebili',
+                    'La manouba' => 'La manouba',
+                    'le kef' => 'le kef',
+                    'Mahdia' => 'Mahdia',
+                    'Médenine' => 'Médenine',
+                    'Monastir' => 'Monastir',
+                    'Nabeul' => 'Nabeul',
+                    'Sfax' => 'Sfax',
+                    'Sidi Bouzid' => 'Sidi Bouzid',
+                    'Siliana' => 'Siliana',
+                    'Sousse' => 'Sousse',
+                    'Tataouine' => 'Tataouine',
+                    'Tozeur' => 'Tozeur',
+                    'Zaghouan' => 'Zaghouan',
+                ),
+                'required' => true,
+                'multiple' => false,
+                'data' => 'Tunis',
+            ))
             ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('plainPassword', RepeatedType::class, array(

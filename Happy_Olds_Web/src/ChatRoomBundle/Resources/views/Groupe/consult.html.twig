@@ -8,14 +8,37 @@
     Type: {{ groupe.type }}<br>
     Créateur: {{ groupe.creator.prenom }} {{ groupe.creator.nom }}<br>
     <br>
+    {% set member_count = 0 %}
+    {% set banned_count = 0 %}
+    {% set to_authorize_count = 0 %}
+    {% for m in groupe.members %}
+        {% if m.authorized != 1 %}
+            {% set to_authorize_count = to_authorize_count + 1 %}
+        {% elseif m.banned == 1 %}
+            {% set banned_count = banned_count + 1 %}
+        {% else %}
+            {% set member_count = member_count + 1 %}
+        {% endif  %}
+    {% endfor %}
 
-    {% if app.user.id == groupe.creator.id %}
-        <div class="box">
+    <div class="box">
+        {% if app.user.id == groupe.creator.id %}
+            {% if invite %}
+                <a class="btn btn-success go-right" href="{{ path('chat_room_member_list_invite',{'groupe_id': groupe.id}) }}"><i class="fa fa-plus"></i> Inviter</a>
+            {% endif %}
             <a class="btn btn-warning go-right" href="{{ path('chat_room_group_update',{'id': groupe.id}) }}"><i class="fa fa-cog"></i> Modifier</a>
             <a class="btn btn-danger go-right" href="{{ path('chat_room_group_delete',{'id': groupe.id}) }}"><i class="fa fa-close"></i> Supprimer</a>
-        </div>
-    {% endif %}
-
+        {% elseif join %}
+            <a class="btn btn-success go-right" href="{{ path('chat_room_group_join',{'id': groupe.id}) }}"><i class="fa fa-flag"></i> Rejoindre</a>
+        {% elseif leave %}
+            <a class="btn btn-warning go-right" href="{{ path('chat_room_group_leave',{'id': groupe.id}) }}"><i class="fa fa-flag"></i> Sortir du groupe</a>
+        {% endif %}
+        <a class="btn btn-info" href="{{ path('chat_room_member_list_members',{'group_id': groupe.id}) }}"><i class="fa fa-group"></i> Membres</a>
+        {% if app.user.id == groupe.creator.id %}
+            <a class="btn btn-success {% if to_authorize_count == 0 %}disabled{% endif %}" href="{{ path('chat_room_member_list_request',{'group_id': groupe.id}) }}"><i class="fa fa-check"></i> Liste des demandes ({{ to_authorize_count }})</a>
+            <a class="btn btn-danger {% if banned_count == 0 %}disabled{% endif %}" href="{{ path('chat_room_member_list_bann',{'group_id': groupe.id}) }}"><i class="fa fa-ban"></i> Liste des bann ({{ banned_count }})</a>
+        {% endif %}
+    </div>
     <br>
     <h2>Publications</h2>
     <table class="table table-bordered">

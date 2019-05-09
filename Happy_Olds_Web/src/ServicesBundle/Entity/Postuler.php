@@ -33,7 +33,7 @@ class Postuler
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Service")
+     * @ORM\ManyToOne(targetEntity="Service",inversedBy="postuler")
      * @ORM\JoinColumn(name="service_id",referencedColumnName="id")
      */
 

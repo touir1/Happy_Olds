@@ -2,6 +2,7 @@
 
 namespace ServicesBundle\Controller;
 
+use ServicesBundle\Entity\Postuler;
 use ServicesBundle\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ class ServiceController extends Controller
         $services = $em->getRepository('ServicesBundle:Service')->findAll();
 
         return $this->render('@Services/service/index.html.twig', array(
-            'services' => $services,
+            'services' => $services
         ));
     }
     public function publierAction()
@@ -33,10 +34,40 @@ class ServiceController extends Controller
         $services = $em->getRepository('ServicesBundle:Service')->findAll();
 
         return $this->render('@Services/service/publier.html.twig', array(
-            'services' => $services,
+            'services' => $services,'user'=>$this->getUser()
         ));
     }
+    public function postulerAction(Request $req){
+        $id=$req->get('id');
 
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+        $postuler= new Postuler();
+        $postuler->setUser($this->getUser());
+        $postuler->setService($service);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postuler);
+        $em->flush();
+       $service->addPostuler($postuler);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($service);
+        $em->flush();
+        foreach ($service->getPostuler()->toArray() as $dept){
+            print ((string)$dept->getId());
+        }
+
+
+
+        return $this->redirectToRoute('services_publier');
+    }
+    public function listcondidatAction(Request $req){
+        $id=$req->get('id');
+
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+
+       return $this->render('@Services/service/listCondidature.html.twig',array(
+            'service' => $service
+        ));
+    }
     /**
      * Creates a new service entity.
      *
@@ -89,7 +120,7 @@ class ServiceController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('services_edit', array('id' => $service->getId()));
+            return $this->redirectToRoute('services_publier', array('id' => $service->getId()));
         }
 
         return $this->render('@Services/service/edit.html.twig', array(
@@ -103,18 +134,15 @@ class ServiceController extends Controller
      * Deletes a service entity.
      *
      */
-    public function deleteAction(Request $request, Service $service)
-    {
-        $form = $this->createDeleteForm($service);
-        $form->handleRequest($request);
+    public function deleteAction(Request $request)
+    {   $id=$request->get('id');
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($service);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($service);
-            $em->flush();
-        }
 
-        return $this->redirectToRoute('services_index');
+        return $this->redirectToRoute('services_publier');
     }
 
     /**

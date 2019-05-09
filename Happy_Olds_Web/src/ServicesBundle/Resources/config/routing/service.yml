@@ -6,6 +6,10 @@ services_publier:
     path:     /publier
     defaults: { _controller: "ServicesBundle:Service:publier" }
     methods:  GET
+services_postuler:
+    path:     /postuler
+    defaults: { _controller: "ServicesBundle:Service:postuler" }
+    methods:  GET
 
 services_show:
     path:     /{id}/show
@@ -23,6 +27,10 @@ services_edit:
     methods:  [GET, POST]
 
 services_delete:
-    path:     /{id}/delete
+    path:     /delete
     defaults: { _controller: "ServicesBundle:Service:delete" }
-    methods:  DELETE
+    methods:  [GET, POST]
+services_condidat:
+    path:     /condidats
+    defaults: { _controller: "ServicesBundle:Service:listcondidat" }
+    methods:  [GET, POST]

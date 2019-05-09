@@ -92,18 +92,16 @@ class PostulerController extends Controller
      * Deletes a postuler entity.
      *
      */
-    public function deleteAction(Request $request, Postuler $postuler)
+    public function deleteAction(Request $request)
     {
-        $form = $this->createDeleteForm($postuler);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+            $id=$request->get('id');
+             $postuler=$this->getDoctrine()->getRepository(Postuler::class)->find($id);
             $em = $this->getDoctrine()->getManager();
             $em->remove($postuler);
             $em->flush();
-        }
 
-        return $this->redirectToRoute('services_postuler_index');
+
+        return $this->redirectToRoute('services_condidat',array('id'=>$request->get('idService')));
     }
 
     /**

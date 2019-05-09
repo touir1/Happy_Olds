@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <h2>Groupe: </h2>
+    <div class="box">
+        Groupe: <b>{{ groupe.titre }}</b><br>
+        Description: {{ groupe.description }}<br>
+    </div>
+    <br>
+
+    <div class="box">
+        <form action="{{ path('chat_room_member_list_invite',{'groupe_id' : groupe.id,}) }}" method="post">
+        <table>
+            <tr>
+                <td>Nom d'utilisateur: </td>
+                <td><input type="text" value="{{ username }}" name="username" id="username"></td>
+            </tr>
+            <tr>
+                <td>Nom: </td>
+                <td><input type="text" value="{{ nom }}" name="nom" id="nom"></td>
+            </tr>
+            <tr>
+                <td>Prenom: </td>
+                <td><input type="text" value="{{ prenom }}" name="prenom" id="prenom"></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td></td><td><input class="btn btn-info" type="submit" value="Rechercer"></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+
+    <table class="table table-bordered">
+        <tbody id="group_list">
+        <tr>
+            <th hidden="true">id</th>
+            <th>Nom d'utilisateur</th>
+            <th>Nom</th>
+            <th style="width: 40px">Prenom</th>
+            <th>Action</th>
+        </tr>
+        {% for u in liste %}
+            <tr>
+                <td hidden="true">u.id</td>
+                <td>{{ u.username }}</td>
+                <td>{{ u.nom }}</td>
+                <td>{{ u.prenom }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('chat_room_member_invite',{'group_id': groupe.id, 'member_id': u.id}) }}"><i class="fa fa-plus"></i> Inviter</a>
+                    {#<a class="btn btn-app" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i>Consulter</a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+    -->
+
+    <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/membreGroupe/list_invite.js') }}"></script>
+{% endblock %}

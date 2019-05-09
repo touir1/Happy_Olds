@@ -17,3 +17,11 @@ chat_room_group_update:
 chat_room_group_delete:
     path:     /delete
     defaults: { _controller: ChatRoomBundle:Groupe:delete }
+
+chat_room_group_join:
+    path:     /join
+    defaults: { _controller: ChatRoomBundle:Groupe:join }
+
+chat_room_group_leave:
+    path:     /leave
+    defaults: { _controller: ChatRoomBundle:Groupe:leave }

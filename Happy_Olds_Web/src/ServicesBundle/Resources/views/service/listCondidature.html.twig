@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div style="width: 100%;text-align: center" >
+
+            {% for post in service.postuler %}
+    <div class="col-md-3" style="display: inline-block;zoom: 1">
+
+        <!-- Profile Image -->
+        <div class="box box-danger">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="Photo de profil de l'utilisateur">
+
+                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ post.user.nom }} {{ post.user.prenom }}</font></font></h3>
+
+                <p class="text-muted text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ post.user.job}}</font></font></p>
+
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ville </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ post.user.ville}}</font></font></a>
+                    </li>
+                    <li class="list-group-item">
+                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Total score </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ post.user.scorefinal }}</font></font></a>
+                    </li>
+                    <li class="list-group-item">
+                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Date de naissance </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ post.user.getDateNaissance()|date('Y-m-d') }}</font></font></a>
+                    </li>
+
+
+                </ul>
+
+                <a href="#" class="btn btn-primary btn-block"><b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Accepter</font></font></b></a>
+                <a href="{{ path('services_postuler_delete',{'id':post.id,'idService':post.service.id}) }}" class="btn btn-danger btn-block"><b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ignorer </font></font></b></a>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+        <!-- About Me Box -->
+
+        <!-- /.box -->
+    </div>
+            {% endfor %}
+
+
+    </div>
+{% endblock %}

@@ -2,7 +2,9 @@
 
 namespace ServicesBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * Service
@@ -48,6 +50,15 @@ class Service
      */
 
     private $user;
+
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Postuler", mappedBy="service")
+     */
+     private $postuler;
+    public function __construct() {
+        $this->postuler = new ArrayCollection();
+    }
 
     /**
      * Get user
@@ -153,5 +164,38 @@ class Service
         return $this->type;
     }
 
-}
 
+    /**
+     * Add postuler
+     *
+     * @param \ServicesBundle\Entity\Postuler $postuler
+     *
+     * @return Service
+     */
+    public function addPostuler(\ServicesBundle\Entity\Postuler $postuler)
+    {
+        $this->postuler[] = $postuler;
+
+        return $this;
+    }
+
+    /**
+     * Remove postuler
+     *
+     * @param \ServicesBundle\Entity\Postuler $postuler
+     */
+    public function removePostuler(\ServicesBundle\Entity\Postuler $postuler)
+    {
+        $this->postuler->removeElement($postuler);
+    }
+
+    /**
+     * Get postuler
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPostuler()
+    {
+        return $this->postuler;
+    }
+}

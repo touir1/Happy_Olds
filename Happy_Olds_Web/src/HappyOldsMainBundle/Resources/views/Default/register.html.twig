@@ -97,6 +97,15 @@
                     {#<input class="input100" type="text" name="email" placeholder="Adresse email...">#}
                     <span class="focus-input100"></span>
                 </div>
+            <div class="wrap-input100">
+                <span class="label-input100">Ville</span>
+                {{
+                form_widget(form.ville, {'attr' : {'class' : 'input100',
+                     'placeholder': 'Ville...'}})
+                }}
+                {#<input class="input100" type="text" name="email" placeholder="Adresse email...">#}
+                <span class="focus-input100"></span>
+            </div>
 
                 <div class="wrap-input100">
                     <span class="label-input100">Status</span>

@@ -55,7 +55,12 @@ class User extends BaseUser
      * @ORM\Column(name="job", type="string", length=255)
      */
     private $job;
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=255)
+     */
+    private $ville;
 
     /**
      * Get id
@@ -201,5 +206,29 @@ class User extends BaseUser
 
     public function setRole($role) {
         $this->setRoles(array($role));
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     *
+     * @return User
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string
+     */
+    public function getVille()
+    {
+        return $this->ville;
     }
 }

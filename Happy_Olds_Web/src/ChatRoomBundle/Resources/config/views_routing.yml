@@ -7,6 +7,10 @@ chat_room_groups:
     resource: "@ChatRoomBundle/Resources/config/views/groups_routing.yml"
     prefix:   /groups
 
+chat_room_members:
+    resource: "@ChatRoomBundle/Resources/config/views/members_routing.yml"
+    prefix:   /members
+
 chat_room_chat:
     resource: "@ChatRoomBundle/Resources/config/views/chat_routing.yml"
     prefix:   /chatRoom
