@@ -69,6 +69,17 @@ class Question
      * @ORM\OneToMany(targetEntity="Reponse", mappedBy="question")
      */
     private $reponses;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateQ", type="date")
+     */
+
+
+    private $dateQ;
+
+
     /**
      * Get id
      *
@@ -312,5 +323,34 @@ class Question
     public function getReponses()
     {
         return $this->reponses;
+    }
+
+    /**
+     * Set dateQ
+     *
+     * @param \DateTime $dateQ
+     *
+     * @return Question
+     */
+    public function setDateQ($dateQ)
+    {
+        $this->dateQ = $dateQ;
+
+        return $this;
+    }
+
+    /**
+     * Get dateQ
+     *
+     * @return \DateTime
+     */
+    public function getDateQ()
+    {
+        return $this->dateQ;
+    }
+
+    public function _construct()
+    {
+        $this->dateQ = new \DateTime('now');
     }
 }

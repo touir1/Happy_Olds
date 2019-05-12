@@ -33,6 +33,14 @@ class Reponse
 
     private $user;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateR", type="date")
+     */
+
+
+    private $dateR;
 
     /**
      * @var string
@@ -122,5 +130,34 @@ class Reponse
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set dateR
+     *
+     * @param \DateTime $dateR
+     *
+     * @return Reponse
+     */
+    public function setDateR($dateR)
+    {
+        $this->dateR = $dateR;
+
+        return $this;
+    }
+
+    /**
+     * Get dateR
+     *
+     * @return \DateTime
+     */
+    public function getDateR()
+    {
+        return $this->dateR;
+    }
+
+    public function __construct()
+    {
+        $this->dateR = new \DateTime('now');
     }
 }

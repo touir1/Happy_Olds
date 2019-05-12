@@ -1,24 +1,48 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="box-body pad">
-    <label class="text-muted"> Titre </label>
-    <div class="form-control" disabled="disabled"> {{ question.titre }} </div>
-    <br>
-    <label class="text-muted" id="ckeditor"> Description </label>
-    <div class="form-control" disabled="disabled"> {{ question.text }}</div>
-    <br>
-</div>
-    <table>
-    <tr>
-        <th>nom</th>
-        <th>text</th>
-    </tr>
-{% for i in question.reponses %}
-<tr>
-    <td>{{ i.user.prenom }} {{ i.user.nom }}</td>
-    <td> {{ i.text | raw  }} </td>
-</tr>
+    <div class="box-body pad">
+        <label class="text-muted"> Titre </label>
+        <div class="form-control" disabled="disabled"> {{ question.titre }} </div>
+        <br>
+        <label class="text-muted" id="ckeditor"> Description </label>
+        <div class="form-control" disabled="disabled"> {{ question.text }}</div>
+        <br>
+    </div>
+        {% for i in question.reponses %}
+        <div class="box-footer box-comments">
+            <div class="box-header with-border">
+            <div class="box-tools">
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="box-comment">
+                <!-- User image -->
+                <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
 
-{% endfor %}
-    </table>
+                <div class="comment-text">
+            {% if i.user.job=='médecin' %}
+                <div class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a> </div>
+            {% endif %}
+                      <span class="username">
+                        {{ i.user.prenom }} {{ i.user.nom }}
+
+                      </span><!-- /.username -->
+                </div>
+                <span class="text-muted pull-right">{{ i.dateR|date('Y-m-d') }}</span>
+                    {{ i.text | raw  }}
+                </div>
+                <!-- /.comment-text -->
+            </div>
+        </div>
+
+
+         {#   <tr>
+                {% if i.user.job=='médecin' %}
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                {% endif %}
+                <td>{{ i.user.prenom }} {{ i.user.nom }}</td>
+                <td> {{ i.text | raw  }} </td>
+
+            </tr>#}
+
+        {% endfor %}
 {% endblock %}

@@ -58,10 +58,15 @@
                         <tr>
                               <td> {{ i.getid() }} </td>
                                <td> {{ i.gettitre() }} </td>
+                            {% if app.user.username %}
                             <td><a href="{{ path('medical_supprimer',{'id':i.id}) }}" class="glyphicon glyphicon-trash"> </a></td>
                             <td><a href="{{ path('medical_modifier',{'id':i.id}) }}" class="glyphicon glyphicon-pencil"></a></td>
                             <td><a href="{{ path('medical_detail',{'id':i.id}) }}" class="glyphicon glyphicon-zoom-in"> </a></td>
                             <td><a href="{{ path('medical_affiche',{'id':i.id}) }}" class="glyphicon glyphicon-plus"> </a></td>
+                            {% else %}
+                            <td><a href="{{ path('medical_detail',{'id':i.id}) }}" class="glyphicon glyphicon-zoom-in"> </a></td>
+                            <td><a href="{{ path('medical_affiche',{'id':i.id}) }}" class="glyphicon glyphicon-plus"> </a></td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
