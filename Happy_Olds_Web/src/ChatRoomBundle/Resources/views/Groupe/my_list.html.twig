@@ -5,7 +5,6 @@
 {% block body %}
     <h2>Groupes</h2>
     <div class="box">
-        <a href="{{ path('chat_room_group_my_list') }}" class="btn btn-info"><i class="fa fa-group"></i> Mes groupes</a>
         <a href="{{ path('chat_room_group_add') }}" class="btn btn-success go-right"><i class="fa fa-plus"></i> Ajouter</a>
     </div>
     <br>
@@ -67,5 +66,5 @@
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
-    <script src="{{ asset('ChatRoom/js/groupe/index.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/my_list.js') }}"></script>
 {% endblock %}

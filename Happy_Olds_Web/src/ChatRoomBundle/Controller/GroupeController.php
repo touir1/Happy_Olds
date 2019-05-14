@@ -33,10 +33,12 @@ class GroupeController extends UtilsController
         $this->routes = [
             'chat_room_group_consult',
             'chat_room_group_list',
+            'chat_room_group_my_list',
             'chat_room_group_add',
             'chat_room_group_update',
             'chat_room_group_delete',
             'chat_room_api_group_list',
+            'chat_room_api_group_my_list',
             'chat_room_api_group_consult',
             'chat_room_api_group_add',
             'chat_room_api_group_update',
@@ -69,6 +71,35 @@ class GroupeController extends UtilsController
     public function _listAction()
     {
         $liste = $this->listAccessible();
+
+        return $this->getJsonResponse($liste,[]);
+        //return $this->json($liste);
+    }
+
+    // get list of authorized groups
+    private function myListAccessible()
+    {
+        return $this->getDoctrine()
+            ->getRepository(Groupe::class)
+            ->findAllMineAccessible($this->getUser()->getId());
+    }
+
+    // liste view
+    public function myListAction()
+    {
+        $liste = $this->myListAccessible();
+        return $this->render( '@ChatRoom/Groupe/my_list.html.twig',[
+            'data' => [
+                'routes' => $this->getRoutesAsUrls()
+            ],
+            'liste' => $liste
+        ]);
+    }
+
+    // liste json
+    public function _myListAction()
+    {
+        $liste = $this->myListAccessible();
 
         return $this->getJsonResponse($liste,[]);
         //return $this->json($liste);

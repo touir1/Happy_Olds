@@ -24,6 +24,16 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function findAllMineAccessible($user_id)
+    {
+        //return $this->findAll();
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
+                ."WHERE g.creator = :member ")
+            ->setParameter(':member',$user_id);
+        return $query->getResult();
+    }
+
     public function consult($groupe_id,$user_id)
     {
         $query=$this->getEntityManager()
