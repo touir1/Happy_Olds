@@ -28,7 +28,7 @@
 
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Accepter</font></font></b></a>
+                <a href="{{ path('services_Acceptcondidat',{'id':post.id,'idService':post.service.id,'iduser':post.user.id}) }}" class="btn btn-primary btn-block"><b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Accepter</font></font></b></a>
                 <a href="{{ path('services_postuler_delete',{'id':post.id,'idService':post.service.id}) }}" class="btn btn-danger btn-block"><b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ignorer </font></font></b></a>
 
             </div>

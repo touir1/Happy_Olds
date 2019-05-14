@@ -29,6 +29,12 @@ class Service
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valider", type="string", length=255)
+     */
+    private $valider;
 
     /**
      * @var \DateTime
@@ -50,6 +56,13 @@ class Service
      */
 
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_associe",referencedColumnName="id")
+     */
+
+    private $userAssocie;
 
     /**
      * One product has many features. This is the inverse side.
@@ -197,5 +210,53 @@ class Service
     public function getPostuler()
     {
         return $this->postuler;
+    }
+
+    /**
+     * Set userAssocie
+     *
+     * @param \HappyOldsMainBundle\Entity\User $userAssocie
+     *
+     * @return Service
+     */
+    public function setUserAssocie(\HappyOldsMainBundle\Entity\User $userAssocie = null)
+    {
+        $this->userAssocie = $userAssocie;
+
+        return $this;
+    }
+
+    /**
+     * Get userAssocie
+     *
+     * @return \HappyOldsMainBundle\Entity\User
+     */
+    public function getUserAssocie()
+    {
+        return $this->userAssocie;
+    }
+
+    /**
+     * Set valider
+     *
+     * @param string $valider
+     *
+     * @return Service
+     */
+    public function setValider($valider)
+    {
+        $this->valider = $valider;
+
+        return $this;
+    }
+
+    /**
+     * Get valider
+     *
+     * @return string
+     */
+    public function getValider()
+    {
+        return $this->valider;
     }
 }

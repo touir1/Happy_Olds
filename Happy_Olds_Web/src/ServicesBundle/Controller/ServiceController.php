@@ -2,6 +2,7 @@
 
 namespace ServicesBundle\Controller;
 
+use HappyOldsMainBundle\Entity\User;
 use ServicesBundle\Entity\Postuler;
 use ServicesBundle\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,9 +52,6 @@ class ServiceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($service);
         $em->flush();
-        foreach ($service->getPostuler()->toArray() as $dept){
-            print ((string)$dept->getId());
-        }
 
 
 
@@ -97,6 +95,64 @@ class ServiceController extends Controller
      * Finds and displays a service entity.
      *
      */
+    public function acceptcondidatAction(Request $request){
+
+        $idservice=$request->get('idService');
+        $iduser=$request->get('iduser');
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($idservice);
+        $user=$this->getDoctrine()->getRepository(User::class)->find($iduser);
+        $service->setUserAssocie($user);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($service);
+        $em->flush();
+        return $this->redirectToRoute('services_publier');
+    }
+    public function historyAction(Request $request){
+        if($this->getUser()->getRole()=="ROLE_AGE"){
+            $service=$this->getDoctrine()->getRepository(Service::class)->historiqueAge($this->getUser()->getId());
+
+            return $this->render('@Services/service/history.html.twig',array(
+                'service' => $service
+            ));
+        }
+        else{
+            $service=$this->getDoctrine()->getRepository(Service::class)->historiqueJeune($this->getUser()->getId());
+
+            return $this->render('@Services/service/history.html.twig',array(
+                'service' => $service
+            ));
+
+        }
+    }
+
+    public function evalAction(Request $request){
+        $note=0;
+        $idservice=$request->get('idService');
+        $iduser=$request->get('iduser');
+        $refNote=$request->get('id');
+        if($refNote==2){
+            $note=250;
+        }
+        elseif ($refNote==3){
+            $note=500;
+        }
+        elseif ($refNote==4){
+            $note=1000;
+        }
+        else{
+            $note=0;
+        }
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($idservice);
+        $user=$this->getDoctrine()->getRepository(User::class)->find($iduser);
+        $service->setValider("valider");
+        $user->setScorefinal($user->getScorefinal()+ $note);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($service);
+        $em->flush();
+        return $this->redirectToRoute('services_publier');
+    }
     public function showAction(Service $service)
     {
         $deleteForm = $this->createDeleteForm($service);

@@ -34,3 +34,15 @@ services_condidat:
     path:     /condidats
     defaults: { _controller: "ServicesBundle:Service:listcondidat" }
     methods:  [GET, POST]
+services_Acceptcondidat:
+    path:     /accept
+    defaults: { _controller: "ServicesBundle:Service:acceptcondidat" }
+    methods:  [GET, POST]
+services_Eval:
+    path:     /eval
+    defaults: { _controller: "ServicesBundle:Service:eval" }
+    methods:  [GET, POST]
+services_history:
+    path:     /history
+    defaults: { _controller: "ServicesBundle:Service:history" }
+    methods:  [GET, POST]

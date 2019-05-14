@@ -33,37 +33,82 @@
                  </iframe>
                  <!-- /.attachment-pushed -->
              </div>
-             {% set test = 'false' %}
-             {% set nbCondidat=0 %}
+             {% if service.userAssocie == null %}
+                {% set test = 'false' %}
+                {% set nbCondidat=0 %}
                 {% for p in service.postuler %}
                     {% set nbCondidat = nbCondidat + 1 %}
                     {% if p.getUser().getId()  == user.id%}
                          <h4 class="btn btn-default btn-xs" href=""><i class="fa fa-share"></i> Vous avez déjà postulé à ce service </h4>
                         {% set test = 'true' %}
                     {% endif %}
-                 {% endfor %}
-             {% if service.getUser().getId() == user.id %}
-                 {% set test = 'true' %}
-                 <a class="btn btn-default btn bg-olive btn-xs" href="{{ path('services_edit',{'id':service.id}) }}"><i class="fa fa-share"></i> Modifier </a>
+                {% endfor %}
+                {% if service.getUser().getId() == user.id %}
+                     {% set test = 'true' %}
+                    <a class="btn btn-default btn bg-olive btn-xs" href="{{ path('services_edit',{'id':service.id}) }}"><i class="fa fa-share"></i> Modifier </a>
 
-                 <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('services_delete',{'id':service.id}) }}"><i class="fa fa-share"></i> Supprimer </a>
+                    <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('services_delete',{'id':service.id}) }}"><i class="fa fa-share"></i> Supprimer </a>
 
-             {% endif %}
-            {% if test=='false' and 'JEUNE' in user.getRole() %}
-                 <a class="btn btn-default btn-xs" href="{{ path('services_postuler',{'id':service.id}) }}"><i class="fa fa-share"></i> Postuler</a>
-             {% endif %}
+                {% endif %}
+                {% if test=='false' and 'JEUNE' in user.getRole() %}
+                     <a class="btn btn-default btn-xs" href="{{ path('services_postuler',{'id':service.id}) }}"><i class="fa fa-share"></i> Postuler</a>
+                 {% endif %}
              <!-- /.attachment-block -->
                  <!-- Social sharing buttons -->
-             {% if service.getUser().getId() == user.id %}
-                <span class="pull-right text-muted" style="margin-left: 3px;">   {{ nbCondidat }} condidateure/s  </span>
+                {% if service.getUser().getId() == user.id %}
+                    <span class="pull-right text-muted" style="margin-left: 3px;">   {{ nbCondidat }} condidateure/s  </span>
                 {% if nbCondidat > 0 %}
                     <span class="pull-right text-muted" style="margin-left: 3px;"> <a href="{{ path('services_condidat',{'id':service.id}) }}">  | List condidats | </a> </span>
                  {% endif %}
-                 <span class="pull-right text-muted" style="margin-left: 3px;">  2 comments </span>
+                    <span class="pull-right text-muted" style="margin-left: 3px;">  2 comments </span>
+                {% else %}
+                    <span class="pull-right text-muted" style="margin-left: 3px;"> 2 comments</span>
+                {% endif %}
+             {% elseif service.getUser().getId() == user.id  %}
+                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Noté {{ service.userAssocie.prenom }} {{ service.userAssocie.nom }}</button>
+                 <span class="pull-right text-muted" style="margin-left: 3px;"> 2 comments</span>
+                 <!-- Modal -->
+                 <div id="myModal" class="modal fade" role="dialog">
+                     <div class="modal-dialog">
+
+                         <!-- Modal content-->
+                         <div class="modal-content" style="position: absolute;    margin-left: -48px;">
+                             <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                 <h4 class="modal-title">Evaluation</h4>
+                             </div>
+                             <div class="modal-body">
+                                 <p>Avez-vous apprécié la prestation du {{ service.userAssocie.prenom }} {{ service.userAssocie.nom }} ? </p>
+                                 <table>
+                                     <tr>
+                                         <th><a href="{{ path('services_Eval',{'id':1,'idService':service.id,'iduser':service.userAssocie.id}) }}"><p style="font-size:100px;margin: 3px 24px 10px;">&#128532;</p></a></th>
+                                         <th><a href="{{ path('services_Eval',{'id':2,'idService':service.id,'iduser':service.userAssocie.id}) }}"><p style="font-size:100px;margin: 3px 24px 10px;">&#128527;</p></a></th>
+                                         <th><a href="{{ path('services_Eval',{'id':3,'idService':service.id,'iduser':service.userAssocie.id}) }}"><p style="font-size:100px;margin: 3px 24px 10px;">&#128522;</p></a></th>
+                                         <th><a href="{{ path('services_Eval',{'id':4,'idService':service.id,'iduser':service.userAssocie.id}) }}"><p style="font-size:100px;margin: 3px 24px 10px;">&#128516;</p></a></th>
+                                     </tr>
+                                     <tr>
+                                         <td><p style="text-align: center">Insuffisant</p></td>
+                                         <td><p style="text-align: center">Moyen</p></td>
+                                         <td><p style="text-align: center">Bon</p></td>
+                                         <td><p style="text-align: center">Excellent</p></td>
+                                     </tr>
+                                 </table>
+
+
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                             </div>
+                         </div>
+
+                     </div>
+                 </div>
              {% else %}
                 <span class="pull-right text-muted" style="margin-left: 3px;"> 2 comments</span>
              {% endif %}
+
          </div>
+
          <!-- /.box-body -->
          <div class="box-footer box-comments">
              <div class="box-comment">

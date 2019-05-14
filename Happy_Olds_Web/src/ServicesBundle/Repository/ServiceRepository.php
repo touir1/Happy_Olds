@@ -10,4 +10,20 @@ namespace ServicesBundle\Repository;
  */
 class ServiceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function historiqueJeune($id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("Select s from ServicesBundle:Service s where s.userAssocie.id =:k ")
+            ->setParameter(':k', $id);
+        return $query->getResult();
+
+    }
+    public function historiqueAge($id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("Select s from ServicesBundle:Service s where s.user.id =:k ")
+            ->setParameter(':k', $id);
+        return $query->getResult();
+
+    }
 }

@@ -104,6 +104,7 @@ class PostulerController extends Controller
         return $this->redirectToRoute('services_condidat',array('id'=>$request->get('idService')));
     }
 
+
     /**
      * Creates a form to delete a postuler entity.
      *

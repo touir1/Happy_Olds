@@ -13,4 +13,3 @@ services_commentaire:
 services_notification:
     resource: "@ServicesBundle/Resources/config/routing/notificationservice.yml"
     prefix:   /notification
-
