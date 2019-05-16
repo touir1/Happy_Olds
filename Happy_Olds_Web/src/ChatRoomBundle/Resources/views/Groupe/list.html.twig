@@ -3,7 +3,17 @@
     <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-    <h2>Groupes</h2>
+    <section class="content-header">
+        <h1>
+            Groupes
+            <small>liste</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li class="active">Groupes</li>
+        </ol>
+    </section>
+    <section class="content">
     <div class="box">
         <a href="{{ path('chat_room_group_my_list') }}" class="btn btn-primary"><i class="fa fa-group"></i> Mes groupes</a>
          <a href="{{ path('chat_room_group_subscribed_list') }}" class="btn btn-info"><i class="fa fa-group"></i> Mes inscriptions</a>
@@ -19,6 +29,7 @@
             <th>Titre</th>
             <th>Description</th>
             <th style="width: 40px">Type</th>
+            <th style="width: 40px">Sujet</th>
             <th style="width: 10px">Membres</th>
             <th>Créateur</th>
             <th>Action</th>
@@ -36,6 +47,7 @@
                 <td>{{ g.titre }}</td>
                 <td>{{ g.description }}</td>
                 <td>{{ g.type }}</td>
+                <td>{{ g.sujet.label }}</td>
                 <td>{{ member_count }}</td>
                 <td>{{ g.creator.prenom }} {{ g.creator.nom }}</td>
                 <td>
@@ -64,7 +76,7 @@
     -->
 
     <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
-
+    </section>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>

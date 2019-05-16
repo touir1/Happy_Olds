@@ -11,8 +11,16 @@ events:
     prefix:   /events
 
 chat_room:
-    resource: "@ChatRoomBundle/Resources/config/routing.yml"
-    prefix:   /chat
+    resource: "@ChatRoomBundle/Resources/config/views_routing.yml"
+    prefix:   /entertainment
+
+chat_room_api:
+    resource: "@ChatRoomBundle/Resources/config/api_routing.yml"
+    prefix:   /api/entertainment
+
+chat_room_admin:
+    resource: "@ChatRoomBundle/Resources/config/admin_routing.yml"
+    prefix:   /admin/entertainment
 
 happy_olds_main:
     resource: "@HappyOldsMainBundle/Resources/config/routing.yml"

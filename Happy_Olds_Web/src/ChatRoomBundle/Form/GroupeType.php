@@ -3,6 +3,7 @@
 namespace ChatRoomBundle\Form;
 
 use ChatRoomBundle\Utils\GroupeTypes;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,15 +22,16 @@ class GroupeType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('type', ChoiceType::class, array(
                 'label' => 'Type',
-                'choices' => array(
-                    'Privé' => GroupeTypes::PrivateGroup,
-                    'Publique' => GroupeTypes::PublicGroup,
-                    'Fermé' => GroupeTypes::ClosedGroup,
-                ),
+                'choices' => GroupeTypes::getNamedArray(),
                 'required' => true,
                 'multiple' => false,
-                'data' => GroupeTypes::ClosedGroup,
+                'data' => GroupeTypes::getDefault(),
             ))
+            ->add('sujet',EntityType::class, [
+                'class' => 'ChatRoomBundle:GroupeSujet',
+                'choice_label' => 'label',
+                'multiple' => false,
+            ])
             ->add('valider', SubmitType::class);
     }/**
      * {@inheritdoc}

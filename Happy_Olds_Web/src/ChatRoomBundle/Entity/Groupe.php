@@ -44,6 +44,12 @@ class Groupe
     private $type;
 
     /**
+     * @ORM\ManyToOne(targetEntity="GroupeSujet")
+     * @ORM\JoinColumn(name="sujet_id", referencedColumnName="id")
+     */
+    private $sujet;
+
+    /**
      * @ORM\OneToMany(targetEntity="MembreGroupe", mappedBy="groupe", cascade={"persist","remove"})
      */
     private $members;
@@ -250,5 +256,30 @@ class Groupe
             /** @var  Email $element If the two email compared as strings are equals, return true. */
             return ($element->getUser()->getId() === $user->getId() && !$element->getAuthorized() && !$element->getBanned());
         });
+    }
+
+
+    /**
+     * Set sujet
+     *
+     * @param \ChatRoomBundle\Entity\GroupeSujet $sujet
+     *
+     * @return Groupe
+     */
+    public function setSujet(\ChatRoomBundle\Entity\GroupeSujet $sujet = null)
+    {
+        $this->sujet = $sujet;
+
+        return $this;
+    }
+
+    /**
+     * Get sujet
+     *
+     * @return \ChatRoomBundle\Entity\GroupeSujet
+     */
+    public function getSujet()
+    {
+        return $this->sujet;
     }
 }

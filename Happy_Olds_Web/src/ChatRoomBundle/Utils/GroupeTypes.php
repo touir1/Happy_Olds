@@ -23,4 +23,18 @@ abstract class GroupeTypes
             GroupeTypes::ClosedGroup
         ];
     }
+
+    public static function getNamedArray()
+    {
+        return [
+            'Privé' => GroupeTypes::PrivateGroup,
+            'Publique' => GroupeTypes::PublicGroup,
+            'Fermé' => GroupeTypes::ClosedGroup,
+        ];
+    }
+
+    public static function getDefault()
+    {
+        return GroupeTypes::ClosedGroup;
+    }
 }

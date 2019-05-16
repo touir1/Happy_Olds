@@ -17,6 +17,7 @@
             <th>Titre</th>
             <th>Description</th>
             <th style="width: 40px">Type</th>
+            <th style="width: 40px">Sujet</th>
             <th style="width: 10px">Membres</th>
             <th>Créateur</th>
             <th>Action</th>
@@ -34,6 +35,7 @@
                 <td>{{ g.titre }}</td>
                 <td>{{ g.description }}</td>
                 <td>{{ g.type }}</td>
+                <td>{{ g.sujet.label }}</td>
                 <td>{{ member_count }}</td>
                 <td>{{ g.creator.prenom }} {{ g.creator.nom }}</td>
                 <td>

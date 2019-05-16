@@ -1,7 +1,0 @@
-chat_room_api:
-    resource: "@ChatRoomBundle/Resources/config/api_routing.yml"
-    prefix:   /api
-
-chat_room_views:
-    resource: "@ChatRoomBundle/Resources/config/views_routing.yml"
-    prefix:   /
