@@ -90,7 +90,18 @@ desired effect
                 </li>
                 <li><a href="#"><i class="fa fa-fw fa-group"></i> <span>Événement</span></a></li>
                 <li><a href="{{ path('medical_affichage') }}"><i class="fa fa-fw fa-heartbeat"></i> <span>Forum médical</span></a></li>
-                <li><a href="{{ path('chat_room_homepage') }}"><i class="fa fa-fw fa-commenting"></i> <span>Chat Room</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-leaf"></i> <span>Divertissement</span>
+                    </a>
+                    {#<a href="{{ path('chat_room_homepage') }}"><i class="fa fa-fw fa-commenting"></i> <span>Chat Room</span></a>#}
+                    <ul class="dropdown-menu" style="min-width: 210px">
+                        <li><a href="{{ path('chat_room_group_list') }}" style="padding-left: 10px"><i class="fa fa-search"> Rechercher groupe</i></a></li>
+                        <li><a href="{{ path('chat_room_group_subscribed_list') }}" style="padding-left: 10px"><i class="fa fa-fw fa-group"> Mes inscriptions aux groupes</i></a></li>
+                        <li><a href="{{ path('chat_room_group_my_list') }}" style="padding-left: 10px"><i class="fa fa-fw fa-cog"> Gérer mes groupes</i></a></li>
+                        <li><a href="{{ path('chat_room_chat_homepage') }}" style="padding-left: 10px"><i class="fa fa-fw fa-commenting"> Conversations</i></a></li>
+                    </ul>
+                </li>
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
                     <!-- Menu toggle button -->

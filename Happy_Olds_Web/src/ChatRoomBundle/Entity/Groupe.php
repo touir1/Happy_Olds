@@ -239,4 +239,16 @@ class Groupe
     {
         return $this->publications;
     }
+
+    /*
+     *
+     * @param \HappyOldsMainBundle\Entity\User $user
+     */
+    public function isInWaitingList(\HappyOldsMainBundle\Entity\User $user)
+    {
+        return $this->members->exists(function($key, $element) use ($user) {
+            /** @var  Email $element If the two email compared as strings are equals, return true. */
+            return ($element->getUser()->getId() === $user->getId() && !$element->getAuthorized() && !$element->getBanned());
+        });
+    }
 }

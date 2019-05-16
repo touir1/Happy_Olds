@@ -3,10 +3,7 @@
     <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-    <h2>Mes groupes</h2>
-    <div class="box">
-        <a href="{{ path('chat_room_group_add') }}" class="btn btn-success go-right"><i class="fa fa-plus"></i> Ajouter</a>
-    </div>
+    <h2>Mes inscriptions</h2>
     <br>
 
     <table class="table table-bordered">
@@ -20,6 +17,7 @@
             <th style="width: 10px">Membres</th>
             <th>Créateur</th>
             <th>Action</th>
+            <th>Etat</th>
         </tr>
         {% for g in liste %}
             {% set member_count = 0 %}
@@ -38,12 +36,15 @@
                 <td>{{ g.creator.prenom }} {{ g.creator.nom }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i> Consulter</a>
-                    {% if app.user.id == g.creator.id %}
-                        <a class="btn btn-warning" href="{{ path('chat_room_group_update',{'id': g.id}) }}"><i class="fa fa-cog"></i> Modifier</a>
-                        <a class="btn btn-danger" href="{{ path('chat_room_group_delete',{'id': g.id}) }}"><i class="fa fa-close"></i> Supprimer</a>
-                    {% endif %}
 
                     {#<a class="btn btn-app" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i>Consulter</a>#}
+                </td>
+                <td>
+                {% if g.isInWaitingList(app.user) %}
+                    <span class="badge badge-warning">En attente d'acceptation</span>
+                {% else %}
+                    <span class="badge badge-success">Membre</span>
+                {% endif %}
                 </td>
             </tr>
         {% endfor %}
@@ -66,5 +67,5 @@
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
-    <script src="{{ asset('ChatRoom/js/groupe/my_list.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/subscribed_list.js') }}"></script>
 {% endblock %}

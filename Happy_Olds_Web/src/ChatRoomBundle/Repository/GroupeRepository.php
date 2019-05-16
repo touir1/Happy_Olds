@@ -34,6 +34,18 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function findSubscribedAccessible($user_id)
+    {
+        //return $this->findAll();
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
+                ."LEFT JOIN g.members m "
+                ."WHERE g.creator = :member "
+                ."OR (m.banned !=1 AND m.user = :member) ")
+            ->setParameter(':member',$user_id);
+        return $query->getResult();
+    }
+
     public function consult($groupe_id,$user_id)
     {
         $query=$this->getEntityManager()

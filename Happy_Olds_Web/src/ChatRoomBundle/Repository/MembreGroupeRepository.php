@@ -43,6 +43,19 @@ class MembreGroupeRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function isInWaitingList($groupe_id, $member_id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT count(1) as result from ChatRoomBundle:MembreGroupe m "
+                ."WHERE m.groupe = :groupe "
+                ."AND m.user = :member "
+                ."AND m.authorized != 1 "
+                ."AND m.banned != 1 ")
+            ->setParameter(":member",$member_id)
+            ->setParameter(":groupe",$groupe_id);
+        return $query->getOneOrNullResult()["result"] > 0;
+    }
+
     public function getListToAuthorizeGroupMembers($groupe_id, $user_id,$username,$nom,$prenom,$offset =0, $maxResult = 100)
     {
         //return $this->findAll();

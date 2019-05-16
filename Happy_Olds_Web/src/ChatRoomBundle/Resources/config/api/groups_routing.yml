@@ -6,6 +6,10 @@ chat_room_api_group_my_list:
     path:     /myGroups
     defaults: { _controller: ChatRoomBundle:Groupe:_myList }
 
+chat_room_api_group_subscribed_list:
+    path:     /subscribedGroups
+    defaults: { _controller: ChatRoomBundle:Groupe:_subscribedList }
+
 chat_room_api_group_consult:
     path:     /group
     defaults: { _controller: ChatRoomBundle:Groupe:_consult }
