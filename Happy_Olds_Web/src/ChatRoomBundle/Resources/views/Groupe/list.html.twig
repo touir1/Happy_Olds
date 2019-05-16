@@ -5,7 +5,8 @@
 {% block body %}
     <h2>Groupes</h2>
     <div class="box">
-        <a href="{{ path('chat_room_group_my_list') }}" class="btn btn-info"><i class="fa fa-group"></i> Mes groupes</a>
+        <a href="{{ path('chat_room_group_my_list') }}" class="btn btn-primary"><i class="fa fa-group"></i> Mes groupes</a>
+         <a href="{{ path('chat_room_group_subscribed_list') }}" class="btn btn-info"><i class="fa fa-group"></i> Mes inscriptions</a>
         <a href="{{ path('chat_room_group_add') }}" class="btn btn-success go-right"><i class="fa fa-plus"></i> Ajouter</a>
     </div>
     <br>
