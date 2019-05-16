@@ -69,9 +69,16 @@ class Service
      * @ORM\OneToMany(targetEntity="Postuler", mappedBy="service")
      */
      private $postuler;
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="CommentaireService", mappedBy="service")
+     */
+    private $commentaires;
     public function __construct() {
         $this->postuler = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
+
 
     /**
      * Get user
@@ -258,5 +265,39 @@ class Service
     public function getValider()
     {
         return $this->valider;
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \ServicesBundle\Entity\CommentaireService $commentaire
+     *
+     * @return Service
+     */
+    public function addCommentaire(\ServicesBundle\Entity\CommentaireService $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \ServicesBundle\Entity\CommentaireService $commentaire
+     */
+    public function removeCommentaire(\ServicesBundle\Entity\CommentaireService $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

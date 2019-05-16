@@ -46,3 +46,15 @@ services_history:
     path:     /history
     defaults: { _controller: "ServicesBundle:Service:history" }
     methods:  [GET, POST]
+services_list:
+    path:     /list
+    defaults: { _controller: "ServicesBundle:Service:list" }
+    methods:  [GET, POST]
+services_DeleteAdm:
+    path:     /list
+    defaults: { _controller: "ServicesBundle:Service:DeleteAdm" }
+    methods:  [GET, POST]
+commentaire:
+    path:     /commentaire
+    defaults: { _controller: "ServicesBundle:Service:addCom" }
+    methods:  [GET, POST]

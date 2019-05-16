@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
         ];
 

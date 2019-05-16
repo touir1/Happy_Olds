@@ -47,7 +47,7 @@
                      {% set test = 'true' %}
                     <a class="btn btn-default btn bg-olive btn-xs" href="{{ path('services_edit',{'id':service.id}) }}"><i class="fa fa-share"></i> Modifier </a>
 
-                    <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('services_delete',{'id':service.id}) }}"><i class="fa fa-share"></i> Supprimer </a>
+                    <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('services_delete',{'id':service.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
 
                 {% endif %}
                 {% if test=='false' and 'JEUNE' in user.getRole() %}
@@ -111,45 +111,32 @@
 
          <!-- /.box-body -->
          <div class="box-footer box-comments">
+             {% for c in service.commentaires %}
              <div class="box-comment">
                  <!-- User image -->
                  <img class="img-circle img-sm" src="{{ asset('/dist/img/user3-128x128.jpg') }}" alt="User Image">
 
                  <div class="comment-text">
                       <span class="username">
-                        Maria Gonzales
+                        {{ c.user.username }}
                         <span class="text-muted pull-right">8:03 PM Today</span>
                       </span><!-- /.username -->
-                     It is a long established fact that a reader will be distracted
-                     by the readable content of a page when looking at its layout.
+                     {{ c.texte }}
                  </div>
                  <!-- /.comment-text -->
              </div>
              <!-- /.box-comment -->
-             <div class="box-comment">
-                 <!-- User image -->
-                 <img class="img-circle img-sm" src="{{ asset('dist/img/user5-128x128.jpg') }}" alt="User Image">
-
-                 <div class="comment-text">
-                      <span class="username">
-                        Nora Havisham
-                        <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span><!-- /.username -->
-                     The point of using Lorem Ipsum is that it has a more-or-less
-                     normal distribution of letters, as opposed to using
-                     'Content here, content here', making it look like readable English.
-                 </div>
-                 <!-- /.comment-text -->
-             </div>
              <!-- /.box-comment -->
+             {% endfor %}
          </div>
          <!-- /.box-footer -->
          <div class="box-footer">
-             <form action="#" method="post">
+             <form action="{{ path('commentaire',{'idservice':service.id}) }}" method="post">
                  <img class="img-responsive img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="Alt Text">
                  <!-- .img-push is used to add margin to elements next to floating images -->
                  <div class="img-push">
-                     <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+                     <input type="text"  name="commentaire" class="form-control input-sm" placeholder="Press enter to post comment">
+
                  </div>
              </form>
          </div>

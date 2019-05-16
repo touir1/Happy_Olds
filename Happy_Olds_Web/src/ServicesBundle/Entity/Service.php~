@@ -69,9 +69,16 @@ class Service
      * @ORM\OneToMany(targetEntity="Postuler", mappedBy="service")
      */
      private $postuler;
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="CommentaireService", mappedBy="service")
+     */
+    private $commentaires;
     public function __construct() {
         $this->postuler = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
+
 
     /**
      * Get user
@@ -234,5 +241,29 @@ class Service
     public function getUserAssocie()
     {
         return $this->userAssocie;
+    }
+
+    /**
+     * Set valider
+     *
+     * @param string $valider
+     *
+     * @return Service
+     */
+    public function setValider($valider)
+    {
+        $this->valider = $valider;
+
+        return $this;
+    }
+
+    /**
+     * Get valider
+     *
+     * @return string
+     */
+    public function getValider()
+    {
+        return $this->valider;
     }
 }

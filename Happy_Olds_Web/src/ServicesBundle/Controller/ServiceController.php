@@ -3,6 +3,7 @@
 namespace ServicesBundle\Controller;
 
 use HappyOldsMainBundle\Entity\User;
+use ServicesBundle\Entity\CommentaireService;
 use ServicesBundle\Entity\Postuler;
 use ServicesBundle\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,6 +27,25 @@ class ServiceController extends Controller
 
         return $this->render('@Services/service/index.html.twig', array(
             'services' => $services
+        ));
+    }
+    public function listAction(Request $request)
+    {
+       // $em = $this->getDoctrine()->getManager();
+
+        //$services = $em->getRepository('ServicesBundle:Service')->findAll();
+         $em = $this->get('doctrine.orm.entity_manager');
+        $query=$em->createQuery("Select s from ServicesBundle:Service s");
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 2)/*page number*/
+
+        );
+
+        return $this->render('@Services/service/delete.html.twig', array(
+            'services' => $pagination
         ));
     }
     public function publierAction()
@@ -57,6 +77,25 @@ class ServiceController extends Controller
 
         return $this->redirectToRoute('services_publier');
     }
+    public function addComAction(Request $req){
+        $commenatire=$req->get('commentaire');
+        $id=$req->get('idservice');
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+        $cs =new CommentaireService();
+        $cs->setUser($this->getUser());
+        $cs->setTexte($commenatire);
+        $cs->setService($service);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($cs);
+        $em->flush();
+        $service->addCommentaire($cs);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($service);
+        $em->flush();
+
+
+        return $this->redirectToRoute('services_publier');
+    }
     public function listcondidatAction(Request $req){
         $id=$req->get('id');
 
@@ -82,7 +121,7 @@ class ServiceController extends Controller
             $em->persist($service);
             $em->flush();
 
-            return $this->redirectToRoute('services_show', array('id' => $service->getId()));
+            return $this->redirectToRoute('services_publier');
         }
 
         return $this->render('@Services/service/new.html.twig', array(
@@ -200,6 +239,16 @@ class ServiceController extends Controller
 
         return $this->redirectToRoute('services_publier');
     }
+    public function DeleteAdmAction(Request $request){
+    $id=$request->get('id');
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($service);
+        $em->flush();
+
+
+        return $this->redirectToRoute('services_list');
+}
 
     /**
      * Creates a form to delete a service entity.

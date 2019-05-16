@@ -1,0 +1,45 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ services.getTotalItemCount }} Services</font></font></h3>
+
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody><tr>
+                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ knp_pagination_sortable(services, 'Utilisateur', 's.user.Username') }}</font></font></th>
+                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ knp_pagination_sortable(services, 'type service', 's.type') }}</font></font></th>
+                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ knp_pagination_sortable(services, 'Description', 's.description') }}</font></font></th>
+                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ knp_pagination_sortable(services, 'Date publication', 's.date') }}</font></font></th>
+                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Action</font></font></th>
+                        </tr>
+                        {% for service in services %}
+                        <tr>
+
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ service.user.Username }} </font></font></td>
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ service.type }}</font></font></td>
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ service.description}}</font></font></td>
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{service.date|date('Y-m-d')  }}</font></font></td>
+                                <td> <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('services_DeleteAdm',{'id':service.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
+                                </td>
+
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(services) }}
+    </div>
+{% endblock %}
