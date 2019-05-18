@@ -24,16 +24,6 @@ class NotificationService extends Notification
     private $typeNotif;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
-     */
-
-    private $user;
-
-
-
-
-    /**
      * Get id
      *
      * @return int
@@ -43,29 +33,6 @@ class NotificationService extends Notification
         return $this->id;
     }
 
-    /**
-     * Set user
-     *
-     * @param \HappyOldsMainBundle\Entity\User $user
-     *
-     * @return NotificationService
-     */
-    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \HappyOldsMainBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 
     /**
      * @return mixed

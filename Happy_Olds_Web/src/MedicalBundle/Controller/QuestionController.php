@@ -8,6 +8,7 @@ use MedicalBundle\Form\QuestionType;
 use MedicalBundle\Form\ReponseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Date;
 
 class QuestionController extends Controller
 {
@@ -93,7 +94,6 @@ class QuestionController extends Controller
     $form=$form->handleRequest($req);
     if ($form->isValid()){
         //2.b insertion dans la BD
-
         $reponse->setQuestion($question);
         $reponse->setUser($this->getUser());
         $em->persist($reponse);
@@ -110,13 +110,24 @@ class QuestionController extends Controller
     ));
 }
 
-    public function historiqueAction(){
-            $user=$this->getUser();
-        $questions=$this->getDoctrine()
-            ->getRepository(Question::class)->findAll($user);
-        return $this->render( '@Medical/Question/historique.html.twig',array(
-            'tab'=>$questions
-        ));
+    public function historiqueAction(Request $request)
+    {
+        $titre=$request->get('titre');
+        $user = $this->getUser();
+        if (isset($titre) && !empty($titre)){
+            $question=$this->getDoctrine()
+                ->getRepository(Question::class)
+                ->MyfindAll($titre);
+            return $this->render( '@Medical/Question/historique.html.twig',array(
+                'tab'=>$question));
+        }
+        $rp = $this->getDoctrine()
+            ->getRepository(Question::class);
+        $questions=$rp->findAll($user);
+
+        return $this->render('@Medical/Question/historique.html.twig',array(
+            'rp' =>$rp,
+            'tab'=>$questions));
     }
 
     public function detailAction(Request $req){
@@ -129,6 +140,7 @@ class QuestionController extends Controller
             'tab'=>$list,
             'question' =>$question));
     }
+
 
 
 

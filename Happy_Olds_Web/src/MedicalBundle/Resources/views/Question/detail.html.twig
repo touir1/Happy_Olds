@@ -12,14 +12,17 @@
         <div class="box-footer box-comments">
             <div class="box-header with-border">
             <div class="box-tools">
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            {% if app.user.username %}
+                <a href="{{ path('Reponse_supprimer',{'id':i.id}) }}" class="glyphicon glyphicon-trash"> </a> &nbsp &nbsp
+                <a href="{{ path('Reponse_modifier',{'id':i.id}) }}" class="glyphicon glyphicon-pencil"></a>
+                {% endif %}
             </div>
             <div class="box-comment">
                 <!-- User image -->
                 <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
 
                 <div class="comment-text">
-            {% if i.user.job=='médecin' %}
+            {% if i.user.job=='medecin' %}
                 <div class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a> </div>
             {% endif %}
                       <span class="username">

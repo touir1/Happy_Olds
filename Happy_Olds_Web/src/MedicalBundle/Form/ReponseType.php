@@ -18,7 +18,7 @@ class ReponseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('text',CKEditorType::class)
-        ->add('ajouter',SubmitType::class);
+        ->add('Valider',SubmitType::class);
     }/**
      * {@inheritdoc}
      */

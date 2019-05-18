@@ -141,11 +141,11 @@ class Question
     /**
      * Set user
      *
-     * @param \MedicalBundle\Entity\User $user
+     * @param \HappyOldsMainBundle\Entity\User $user
      *
      * @return Question
      */
-    public function setUser(\MedicalBundle\Entity\User $user = null)
+    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -155,7 +155,7 @@ class Question
     /**
      * Get user
      *
-     * @return \MedicalBundle\Entity\User
+     * @return \HappyOldsMainBundle\Entity\User
      */
     public function getUser()
     {

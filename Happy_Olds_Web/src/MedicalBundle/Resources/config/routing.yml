@@ -29,3 +29,11 @@ medical_affiche:
 medical_historique:
     path:     /historique
     defaults: { _controller: MedicalBundle:Question:historique }
+
+Reponse_supprimer:
+    path:     /delete
+    defaults: { _controller: MedicalBundle:Reponse:delete }
+
+Reponse_modifier:
+    path:     /update
+    defaults: { _controller: MedicalBundle:Reponse:update }

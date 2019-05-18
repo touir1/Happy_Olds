@@ -5,7 +5,6 @@ namespace MedicalBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use HappyOldsMainBundle\Entity\Notification;
 
-
 /**
  * NotificationMedical
  *
@@ -23,6 +22,12 @@ class NotificationMedical extends Notification
      */
     private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     */
+
+    private $user;
 
     /**
      * Get id
@@ -33,6 +38,5 @@ class NotificationMedical extends Notification
     {
         return $this->id;
     }
-
 }
 
