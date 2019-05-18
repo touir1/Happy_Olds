@@ -100,7 +100,7 @@
                                 </td>
                                 <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
                                 <td class="mailbox-name"><a href="read-mail.html">{{ i.gettitre() }}</a></td>
-                                <td class="mailbox-subject">{{ i.gettext() }}
+                                <td class="mailbox-subject">{{ i.gettext() |raw}}
                                 </td>
                                 <td class="mailbox-attachment"></td>
                                 <td class="mailbox-date">{{ i.dateQ|date('Y-m-d') }}</td>

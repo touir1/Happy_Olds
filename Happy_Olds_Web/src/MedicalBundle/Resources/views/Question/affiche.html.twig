@@ -17,7 +17,7 @@
     <div class="form-control" disabled="disabled"> {{ tab.gettitre }} </div>
 <br>
     <label class="text-muted" id="ckeditor"> Description </label>
-   <div class="form-control" disabled="disabled"> {{ tab.gettext }}</div>
+   <div class="form-control" disabled="disabled"> {{ tab.gettext |raw}}</div>
 <br>
     </div>
 {{ form_start(form) }}

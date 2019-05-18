@@ -62,6 +62,8 @@ class QuestionController extends Controller
         public function ajouterAction(Request $request){
         //1.a-création d'un objet vide
         $question=new Question();
+        $question->setUser($this->getUser());
+        $question->setDateQ(new \DateTime('now'));
         //1.b-préparer notre form
         $form=$this->createForm(QuestionType::class,$question);
         //2.a recuperer les données
@@ -98,7 +100,7 @@ class QuestionController extends Controller
         $reponse->setUser($this->getUser());
         $em->persist($reponse);
         $em->flush();
-        return $this->redirectToRoute('medical_affiche',array(
+        return $this->redirectToRoute('medical_affichage',array(
             'id' => $id
         ));
     }

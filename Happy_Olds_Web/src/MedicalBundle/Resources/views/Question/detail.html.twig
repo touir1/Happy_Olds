@@ -5,16 +5,21 @@
         <div class="form-control" disabled="disabled"> {{ question.titre }} </div>
         <br>
         <label class="text-muted" id="ckeditor"> Description </label>
-        <div class="form-control" disabled="disabled"> {{ question.text }}</div>
+        <div class="form-control" disabled="disabled"> {{ question.text|raw }}</div>
         <br>
     </div>
         {% for i in question.reponses %}
         <div class="box-footer box-comments">
             <div class="box-header with-border">
             <div class="box-tools">
+
             {% if app.user.username %}
+
                 <a href="{{ path('Reponse_supprimer',{'id':i.id}) }}" class="glyphicon glyphicon-trash"> </a> &nbsp &nbsp
                 <a href="{{ path('Reponse_modifier',{'id':i.id}) }}" class="glyphicon glyphicon-pencil"></a>
+                {% if i.user.job=='medecin' %}
+                    <div class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a> </div>
+                {% endif %}
                 {% endif %}
             </div>
             <div class="box-comment">
@@ -22,16 +27,17 @@
                 <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
 
                 <div class="comment-text">
-            {% if i.user.job=='medecin' %}
-                <div class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a> </div>
-            {% endif %}
+
                       <span class="username">
+
                         {{ i.user.prenom }} {{ i.user.nom }}
+
 
                       </span><!-- /.username -->
                 </div>
                 <span class="text-muted pull-right">{{ i.dateR|date('Y-m-d') }}</span>
                     {{ i.text | raw  }}
+
                 </div>
                 <!-- /.comment-text -->
             </div>
