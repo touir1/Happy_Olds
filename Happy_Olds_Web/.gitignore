@@ -110,3 +110,6 @@ fabric.properties
 
 # ignore .idea completely
 .idea/
+
+# ignore uploads
+web/uploads/

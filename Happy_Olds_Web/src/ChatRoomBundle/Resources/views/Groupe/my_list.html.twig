@@ -3,9 +3,61 @@
     <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-    <h2>Mes groupes</h2>
+<section class="content-header">
+    <h1>
+        Mes groupes
+        <small>liste</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+        <li><a href="{{ path('chat_room_group_list') }}"> Groupes</a></li>
+        <li class="active"> Mes groupes</li>
+    </ol>
+</section>
+<section class="content">
     <div class="box">
         <a href="{{ path('chat_room_group_add') }}" class="btn btn-success go-right"><i class="fa fa-plus"></i> Ajouter</a>
+    </div>
+    <br>
+
+    <div class="box">
+        <form action="{{ path('chat_room_group_list') }}" method="post">
+            <table>
+                <tr>
+                    <td>Titre: </td>
+                    <td><input type="text" value="{{ titre }}" name="titre" id="titre"></td>
+                </tr>
+                <tr>
+                    <td>Type: </td>
+                    <td>
+                        <select name="type">
+                            <option value="all" {% if type == "all" %}selected{% endif %}>Tous</option>
+                            {% for t in types %}
+                                <option value="{{ t }}" {% if type == t %}selected{% endif %}>{{ t }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sujet: </td>
+                    <td>
+                        <select name="sujet">
+                            <option value="0" {% if sujet == 0 %}selected{% endif %}>Tous</option>
+                            {% for s in sujets %}
+                                <option value="{{ s.id }}" {% if sujet == s.id %}selected{% endif %}>{{ s.label }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <td></td><td><input class="btn btn-info" type="submit" value="Rechercer">
+                        {#<a class="btn" href="{{ path('chat_room_group_list') }}"><i class="fa fa-retweet"></i></a>#}
+                    </td>
+                </tr>
+            </table>
+        </form>
+
     </div>
     <br>
 
@@ -64,7 +116,7 @@
     -->
 
     <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
-
+</section>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>

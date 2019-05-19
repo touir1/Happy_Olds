@@ -3,10 +3,12 @@
 namespace ChatRoomBundle\Controller;
 
 use ChatRoomBundle\Entity\Groupe;
+use ChatRoomBundle\Entity\GroupeSujet;
 use ChatRoomBundle\Entity\MembreGroupe;
 use ChatRoomBundle\Form\GroupeType;
 use ChatRoomBundle\Utils\GroupeTypes;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\UserBundle\Model\Group;
 use HappyOldsMainBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,87 +52,162 @@ class GroupeController extends UtilsController
     }
 
     // get list of authorized groups
-    private function listAccessible()
+    private function listAccessible($titre,$type,$sujet)
     {
         return $this->getDoctrine()
             ->getRepository(Groupe::class)
-            ->findAllAccessible($this->getUser()->getId());
+            ->findAllAccessible($this->getUser()->getId(),$titre,$type,$sujet);
     }
 
     // liste view
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $liste = $this->listAccessible();
+        $titre = $request->get('titre');
+        $type = $request->get('type');
+        $sujet = $request->get('sujet');
+
+        if(!isset($titre) || is_null($titre)) $titre = "";
+        if(!isset($type) || is_null($type)) $type="all";
+        if(!isset($sujet) || is_null($sujet)) $sujet="0";
+
+        $types = GroupeTypes::getArray();
+        $sujets = $this->getDoctrine()->getRepository(GroupeSujet::class)
+            ->findAll();
+
+        $liste = $this->listAccessible($titre,$type,$sujet);
         return $this->render( '@ChatRoom/Groupe/list.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
             ],
-            'liste' => $liste
+            'liste' => $liste,
+
+            'types' => $types,
+            'sujets' => $sujets,
+            'titre' => $titre,
+            'type' => $type,
+            'sujet' => $sujet,
         ]);
     }
 
     // liste json
-    public function _listAction()
+    public function _listAction(Request $request)
     {
-        $liste = $this->listAccessible();
+        $titre = $request->get('titre');
+        $type = $request->get('type');
+        $sujet = $request->get('sujet');
+
+        if(!isset($titre) || is_null($titre)) $titre = "";
+        if(!isset($type) || is_null($type)) $type="all";
+        if(!isset($sujet) || is_null($sujet)) $sujet="0";
+        $liste = $this->listAccessible($titre,$type,$sujet);
 
         return $this->getJsonResponse($liste,[]);
         //return $this->json($liste);
     }
 
     // get list of authorized groups
-    private function myListAccessible()
+    private function myListAccessible($titre,$type,$sujet)
     {
         return $this->getDoctrine()
             ->getRepository(Groupe::class)
-            ->findAllMineAccessible($this->getUser()->getId());
+            ->findAllMineAccessible($this->getUser()->getId(),$titre,$type,$sujet);
     }
 
     // liste view
-    public function myListAction()
+    public function myListAction(Request $request)
     {
-        $liste = $this->myListAccessible();
+        $titre = $request->get('titre');
+        $type = $request->get('type');
+        $sujet = $request->get('sujet');
+
+        if(!isset($titre) || is_null($titre)) $titre = "";
+        if(!isset($type) || is_null($type)) $type="all";
+        if(!isset($sujet) || is_null($sujet)) $sujet="0";
+
+        $types = GroupeTypes::getArray();
+        $sujets = $this->getDoctrine()->getRepository(GroupeSujet::class)
+            ->findAll();
+
+        $liste = $this->myListAccessible($titre,$type,$sujet);
         return $this->render( '@ChatRoom/Groupe/my_list.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
             ],
-            'liste' => $liste
+            'liste' => $liste,
+
+            'types' => $types,
+            'sujets' => $sujets,
+            'titre' => $titre,
+            'type' => $type,
+            'sujet' => $sujet,
         ]);
     }
 
     // liste json
-    public function _myListAction()
+    public function _myListAction(Request $request)
     {
-        $liste = $this->myListAccessible();
+        $titre = $request->get('titre');
+        $type = $request->get('type');
+        $sujet = $request->get('sujet');
+
+        if(!isset($titre) || is_null($titre)) $titre = "";
+        if(!isset($type) || is_null($type)) $type="all";
+        if(!isset($sujet) || is_null($sujet)) $sujet="0";
+        $liste = $this->myListAccessible($titre,$type,$sujet);
 
         return $this->getJsonResponse($liste,[]);
         //return $this->json($liste);
     }
 
     // get list of authorized groups
-    private function subscribedListAccessible()
+    private function subscribedListAccessible($titre,$type,$sujet)
     {
         return $this->getDoctrine()
             ->getRepository(Groupe::class)
-            ->findSubscribedAccessible($this->getUser()->getId());
+            ->findSubscribedAccessible($this->getUser()->getId(),$titre,$type,$sujet);
     }
 
     // liste view
-    public function subscribedListAction()
+    public function subscribedListAction(Request $request)
     {
-        $liste = $this->subscribedListAccessible();
+        $titre = $request->get('titre');
+        $type = $request->get('type');
+        $sujet = $request->get('sujet');
+
+        if(!isset($titre) || is_null($titre)) $titre = "";
+        if(!isset($type) || is_null($type)) $type="all";
+        if(!isset($sujet) || is_null($sujet)) $sujet="0";
+
+        $types = GroupeTypes::getArray();
+        $sujets = $this->getDoctrine()->getRepository(GroupeSujet::class)
+            ->findAll();
+
+        $liste = $this->subscribedListAccessible($titre,$type,$sujet);
         return $this->render( '@ChatRoom/Groupe/subscribed_list.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
             ],
-            'liste' => $liste
+            'liste' => $liste,
+
+            'types' => $types,
+            'sujets' => $sujets,
+            'titre' => $titre,
+            'type' => $type,
+            'sujet' => $sujet,
         ]);
     }
 
     // liste json
-    public function _subscribedListAction()
+    public function _subscribedListAction(Request $request)
     {
-        $liste = $this->subscribedListAccessible();
+        $titre = $request->get('titre');
+        $type = $request->get('type');
+        $sujet = $request->get('sujet');
+
+        if(!isset($titre) || is_null($titre)) $titre = "";
+        if(!isset($type) || is_null($type)) $type="all";
+        if(!isset($sujet) || is_null($sujet)) $sujet="0";
+        $liste = $this->subscribedListAccessible($titre,$type,$sujet);
 
         return $this->getJsonResponse($liste,[]);
         //return $this->json($liste);

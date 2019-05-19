@@ -14,68 +14,109 @@
         </ol>
     </section>
     <section class="content">
-    <div class="box">
-        <a href="{{ path('chat_room_group_my_list') }}" class="btn btn-primary"><i class="fa fa-group"></i> Mes groupes</a>
-         <a href="{{ path('chat_room_group_subscribed_list') }}" class="btn btn-info"><i class="fa fa-group"></i> Mes inscriptions</a>
-        <a href="{{ path('chat_room_group_add') }}" class="btn btn-success go-right"><i class="fa fa-plus"></i> Ajouter</a>
-    </div>
-    <br>
+        <div class="box">
+            <a href="{{ path('chat_room_group_my_list') }}" class="btn btn-primary"><i class="fa fa-group"></i> Mes groupes</a>
+             <a href="{{ path('chat_room_group_subscribed_list') }}" class="btn btn-info"><i class="fa fa-group"></i> Mes inscriptions</a>
+            <a href="{{ path('chat_room_group_add') }}" class="btn btn-success go-right"><i class="fa fa-plus"></i> Ajouter</a>
+        </div>
+        <br>
 
-    <table class="table table-bordered">
-        <tbody id="group_list">
-        <tr>
-            <th hidden="true">id</th>
-            <th style="width: 10px">#</th>
-            <th>Titre</th>
-            <th>Description</th>
-            <th style="width: 40px">Type</th>
-            <th style="width: 40px">Sujet</th>
-            <th style="width: 10px">Membres</th>
-            <th>Créateur</th>
-            <th>Action</th>
-        </tr>
-        {% for g in liste %}
-            {% set member_count = 0 %}
-            {% for m in g.members %}
-                {% if m.authorized == 1 and m.banned != 1 %}
-                    {% set member_count = member_count + 1 %}
-                {% endif  %}
-            {% endfor %}
+        <div class="box">
+            <form action="{{ path('chat_room_group_list') }}" method="post">
+                <table>
+                    <tr>
+                        <td>Titre: </td>
+                        <td><input type="text" value="{{ titre }}" name="titre" id="titre"></td>
+                    </tr>
+                    <tr>
+                        <td>Type: </td>
+                        <td>
+                            <select name="type">
+                                <option value="all" {% if type == "all" %}selected{% endif %}>Tous</option>
+                                {% for t in types %}
+                                    <option value="{{ t }}" {% if type == t %}selected{% endif %}>{{ t }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sujet: </td>
+                        <td>
+                            <select name="sujet">
+                                <option value="0" {% if sujet == 0 %}selected{% endif %}>Tous</option>
+                                {% for s in sujets %}
+                                    <option value="{{ s.id }}" {% if sujet == s.id %}selected{% endif %}>{{ s.label }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td></td><td><input class="btn btn-info" type="submit" value="Rechercer">
+                            {#<a class="btn" href="{{ path('chat_room_group_list') }}"><i class="fa fa-retweet"></i></a>#}
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+        <br>
+
+        <table class="table table-bordered">
+            <tbody id="group_list">
             <tr>
-                <td hidden="true">g.id</td>
-                <td>{{ loop.index }}.</td>
-                <td>{{ g.titre }}</td>
-                <td>{{ g.description }}</td>
-                <td>{{ g.type }}</td>
-                <td>{{ g.sujet.label }}</td>
-                <td>{{ member_count }}</td>
-                <td>{{ g.creator.prenom }} {{ g.creator.nom }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i> Consulter</a>
-                    {% if app.user.id == g.creator.id %}
-                        <a class="btn btn-warning" href="{{ path('chat_room_group_update',{'id': g.id}) }}"><i class="fa fa-cog"></i> Modifier</a>
-                        <a class="btn btn-danger" href="{{ path('chat_room_group_delete',{'id': g.id}) }}"><i class="fa fa-close"></i> Supprimer</a>
-                    {% endif %}
-
-                    {#<a class="btn btn-app" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i>Consulter</a>#}
-                </td>
+                <th hidden="true">id</th>
+                <th style="width: 10px">#</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th style="width: 40px">Type</th>
+                <th style="width: 40px">Sujet</th>
+                <th style="width: 10px">Membres</th>
+                <th>Créateur</th>
+                <th>Action</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <!--
-    <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
-    </div>
-    -->
+            {% for g in liste %}
+                {% set member_count = 0 %}
+                {% for m in g.members %}
+                    {% if m.authorized == 1 and m.banned != 1 %}
+                        {% set member_count = member_count + 1 %}
+                    {% endif  %}
+                {% endfor %}
+                <tr>
+                    <td hidden="true">g.id</td>
+                    <td>{{ loop.index }}.</td>
+                    <td>{{ g.titre }}</td>
+                    <td>{{ g.description }}</td>
+                    <td>{{ g.type }}</td>
+                    <td>{{ g.sujet.label }}</td>
+                    <td>{{ member_count }}</td>
+                    <td>{{ g.creator.prenom }} {{ g.creator.nom }}</td>
+                    <td>
+                        <a class="btn btn-info" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i> Consulter</a>
+                        {% if app.user.id == g.creator.id %}
+                            <a class="btn btn-warning" href="{{ path('chat_room_group_update',{'id': g.id}) }}"><i class="fa fa-cog"></i> Modifier</a>
+                            <a class="btn btn-danger" href="{{ path('chat_room_group_delete',{'id': g.id}) }}"><i class="fa fa-close"></i> Supprimer</a>
+                        {% endif %}
 
-    <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+                        {#<a class="btn btn-app" href="{{ path('chat_room_group_consult',{'id': g.id}) }}"><i class="fa fa-search"></i>Consulter</a>#}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!--
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+        -->
+
+        <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
     </section>
 {% endblock %}
 {% block scripts %}

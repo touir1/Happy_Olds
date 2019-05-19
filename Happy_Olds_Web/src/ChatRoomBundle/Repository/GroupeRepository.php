@@ -11,16 +11,22 @@ use ChatRoomBundle\Utils\GroupeTypes;
  */
 class GroupeRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAllAccessible($user_id)
+    public function findAllAccessible($user_id,$titre,$type,$sujet)
     {
         //return $this->findAll();
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE (m.banned != 1 AND g.type in ('private', 'public')) "
+                ."WHERE ((m.banned != 1 AND g.type in ('private', 'public')) "
                 ."OR (m.banned != 1 AND m.user = :member) "
-                ."OR g.creator = :member ")
-            ->setParameter(':member',$user_id);
+                ."OR g.creator = :member) "
+                ."AND g.titre LIKE :titre "
+                ."AND (:type = 'all' OR g.type = :type) "
+                ."AND (:sujet = '0' OR g.sujet = :sujet) ")
+            ->setParameter(':member',$user_id)
+            ->setParameter(':titre',"%".$titre."%")
+            ->setParameter(':type',$type)
+            ->setParameter(':sujet',$sujet);
         return $query->getResult();
     }
 
