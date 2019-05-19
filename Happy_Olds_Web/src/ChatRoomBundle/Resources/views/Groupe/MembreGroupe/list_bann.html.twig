@@ -3,76 +3,88 @@
     <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
+    <section class="content-header">
+        <h1>
+            Bann
+            <small>liste</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('happy_olds_main_homepage') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li><a href="{{ path('chat_room_group_my_list') }}"> Mes groupes</a></li>
+            <li><a href="{{ path('chat_room_group_consult', {'id': groupe.id}) }}"> Groupe</a></li>
+            <li class="active"> Liste bann</li>
+        </ol>
+    </section>
+    <section class="content">
+        <br>
+        <div class="box">
+            Groupe: <b>{{ groupe.titre }}</b><br>
+            Description: {{ groupe.description }}<br>
+        </div>
+        <br>
 
-    <h2>Groupe: </h2>
-    <div class="box">
-        Groupe: <b>{{ groupe.titre }}</b><br>
-        Description: {{ groupe.description }}<br>
-    </div>
-    <br>
+        <div class="box">
+            <form action="{{ path('chat_room_member_list_bann',{'group_id' : groupe.id,}) }}" method="post">
+                <table>
+                    <tr>
+                        <td>Nom d'utilisateur: </td>
+                        <td><input type="text" value="{{ username }}" name="username" id="username"></td>
+                    </tr>
+                    <tr>
+                        <td>Nom: </td>
+                        <td><input type="text" value="{{ nom }}" name="nom" id="nom"></td>
+                    </tr>
+                    <tr>
+                        <td>Prenom: </td>
+                        <td><input type="text" value="{{ prenom }}" name="prenom" id="prenom"></td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td></td><td><input class="btn btn-info" type="submit" value="Rechercer"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
 
-    <div class="box">
-        <form action="{{ path('chat_room_member_list_bann',{'group_id' : groupe.id,}) }}" method="post">
-            <table>
-                <tr>
-                    <td>Nom d'utilisateur: </td>
-                    <td><input type="text" value="{{ username }}" name="username" id="username"></td>
-                </tr>
-                <tr>
-                    <td>Nom: </td>
-                    <td><input type="text" value="{{ nom }}" name="nom" id="nom"></td>
-                </tr>
-                <tr>
-                    <td>Prenom: </td>
-                    <td><input type="text" value="{{ prenom }}" name="prenom" id="prenom"></td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <td></td><td><input class="btn btn-info" type="submit" value="Rechercer"></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-
-    <table class="table table-bordered">
-        <tbody id="group_list">
-        <tr>
-            <th hidden="true">id</th>
-            <th>Nom d'utilisateur</th>
-            <th>Nom</th>
-            <th style="width: 40px">Prenom</th>
-
-            <th>Action</th>
-        </tr>
-        {% for u in liste %}
+        <table class="table table-bordered">
+            <tbody id="group_list">
             <tr>
-                <td hidden="true">u.id</td>
-                <td>{{ u.username }}</td>
-                <td>{{ u.nom }}</td>
-                <td>{{ u.prenom }}</td>
-                <td>
-                    {% if app.user.id == groupe.creator.id %}
-                        <a class="btn btn-warning" href="{{ path('chat_room_member_remove_bann',{'group_id': groupe.id, 'member_id': u.id}) }}"><i class="fa fa-undo"></i> Enlever Bann</a>
-                    {% endif %}
-                </td>
+                <th hidden="true">id</th>
+                <th>Nom d'utilisateur</th>
+                <th>Nom</th>
+                <th style="width: 40px">Prenom</th>
+
+                <th>Action</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <!--
-    <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
-    </div>
-    -->
+            {% for u in liste %}
+                <tr>
+                    <td hidden="true">u.id</td>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.nom }}</td>
+                    <td>{{ u.prenom }}</td>
+                    <td>
+                        {% if app.user.id == groupe.creator.id %}
+                            <a class="btn btn-warning" href="{{ path('chat_room_member_remove_bann',{'group_id': groupe.id, 'member_id': u.id}) }}"><i class="fa fa-undo"></i> Enlever Bann</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!--
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+        -->
 
-    <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
-
+        <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+    </section>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>

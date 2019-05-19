@@ -3,34 +3,47 @@
     <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
+    <section class="content-header">
+        <h1>
+            Modification
+            <small>groupe</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('happy_olds_main_homepage') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li><a href="{{ path('chat_room_group_my_list') }}"> Mes groupes</a></li>
+            <li class="active"> Modification</li>
+        </ol>
+    </section>
+    <section class="content">
+        <br>
 
-    <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+        <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
 
-    {{ form_start(form) }}
-    <table>
-        <tr>
-            <td>Titre: </td>
-            <td>{{ form_widget(form.titre) }}</td>
-        </tr>
-        <tr>
-            <td>Description: </td>
-            <td> {{ form_widget(form.description) }}</td>
-        </tr>
-        <tr>
-            <td>Type: </td>
-            <td>{{ form_widget(form.type) }}</td>
-        </tr>
-        <tr>
-            <td>Sujet: </td>
-            <td>{{ form_widget(form.sujet) }}</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>{{ form_widget(form.valider,{ 'label': 'Modifier' }) }}</td>
-        </tr>
-    </table>
-    {{ form_end(form) }}
-
+        {{ form_start(form) }}
+        <table>
+            <tr>
+                <td>Titre: </td>
+                <td>{{ form_widget(form.titre) }}</td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td> {{ form_widget(form.description) }}</td>
+            </tr>
+            <tr>
+                <td>Type: </td>
+                <td>{{ form_widget(form.type) }}</td>
+            </tr>
+            <tr>
+                <td>Sujet: </td>
+                <td>{{ form_widget(form.sujet) }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>{{ form_widget(form.valider,{ 'label': 'Modifier' }) }}</td>
+            </tr>
+        </table>
+        {{ form_end(form) }}
+    </section>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
