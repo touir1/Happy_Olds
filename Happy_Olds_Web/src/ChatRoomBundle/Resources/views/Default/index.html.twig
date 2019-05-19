@@ -1,10 +1,28 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}{% endblock %}
-{% block body %}
-    <h2>services</h2>
-    <ul>
-        <li><a href="{{ path('chat_room_group_list') }}">Groupes</a></li>
-        <li><a href="{{ path('chat_room_chat_homepage') }}">Chat</a></li>
-    </ul>
+{% block stylesheets %}
+    <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
 {% endblock %}
-{% block scripts %}{% endblock %}
+{% block body %}
+    <section class="content-header">
+        <h1>
+            File d'actualité
+            <small>accueil</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-dashboard"></i> Accueil</li>
+        </ol>
+    </section>
+    <section class="content">
+        <br>
+        <ul>
+            <li><a href="{{ path('chat_room_group_list') }}">Groupes</a></li>
+            <li><a href="{{ path('chat_room_chat_homepage') }}">Chat</a></li>
+        </ul>
+
+        <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/membreGroupe/index.js') }}"></script>
+{% endblock %}

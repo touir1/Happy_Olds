@@ -75,28 +75,4 @@ abstract class Commentaire
     {
         return $this->texte;
     }
-
-    /**
-     * Set user
-     *
-     * @param \HappyOldsMainBundle\Entity\User $user
-     *
-     * @return Commentaire
-     */
-    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \HappyOldsMainBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }

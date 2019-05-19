@@ -23,13 +23,6 @@ class CommentaireService extends Commentaire
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
-     */
-
-    private $user;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Service")
      * @ORM\JoinColumn(name="service_id",referencedColumnName="id")
      */
@@ -45,30 +38,6 @@ class CommentaireService extends Commentaire
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \HappyOldsMainBundle\Entity\User $user
-     *
-     * @return CommentaireService
-     */
-    public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \HappyOldsMainBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 
     /**

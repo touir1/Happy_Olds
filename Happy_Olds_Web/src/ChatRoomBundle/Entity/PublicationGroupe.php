@@ -27,13 +27,6 @@ class PublicationGroupe
     /**
      * @var string
      *
-     * @ORM\Column(name="titre", type="string", length=255)
-     */
-    private $titre;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -41,7 +34,7 @@ class PublicationGroupe
     /**
      * @var string
      *
-     * @ORM\Column(name="pieceJointe", type="string", length=255)
+     * @ORM\Column(name="pieceJointe", type="string", length=255, nullable=true)
      */
     private $pieceJointe;
 
@@ -65,6 +58,11 @@ class PublicationGroupe
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="CommentaireChat", mappedBy="publication", cascade={"persist","remove"})
+     */
+    private $commentaires;
+
+    /**
      * Get id
      *
      * @return int
@@ -72,30 +70,6 @@ class PublicationGroupe
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return PublicationGroupe
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
     }
 
     /**
@@ -216,5 +190,46 @@ class PublicationGroupe
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \ChatRoomBundle\Entity\CommentaireChat $commentaire
+     *
+     * @return PublicationGroupe
+     */
+    public function addCommentaire(\ChatRoomBundle\Entity\CommentaireChat $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \ChatRoomBundle\Entity\CommentaireChat $commentaire
+     */
+    public function removeCommentaire(\ChatRoomBundle\Entity\CommentaireChat $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

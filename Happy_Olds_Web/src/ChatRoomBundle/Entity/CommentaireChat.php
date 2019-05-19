@@ -14,7 +14,14 @@ class CommentaireChat extends Commentaire
 {
 
     /**
-     * @ORM\ManyToOne(targetEntity="PublicationGroupe")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCommentaire", type="datetime")
+     */
+    private $dateCommentaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PublicationGroupe", inversedBy="commentaires")
      * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
      */
     private $publication;
@@ -41,5 +48,29 @@ class CommentaireChat extends Commentaire
     public function getPublication()
     {
         return $this->publication;
+    }
+
+    /**
+     * Set dateCommentaire
+     *
+     * @param \DateTime $dateCommentaire
+     *
+     * @return CommentaireChat
+     */
+    public function setDateCommentaire($dateCommentaire)
+    {
+        $this->dateCommentaire = $dateCommentaire;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCommentaire
+     *
+     * @return \DateTime
+     */
+    public function getDateCommentaire()
+    {
+        return $this->dateCommentaire;
     }
 }

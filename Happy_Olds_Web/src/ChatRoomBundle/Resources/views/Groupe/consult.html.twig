@@ -9,7 +9,7 @@
             <small>groupe: {{ groupe.titre }}</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ path('happy_olds_main_homepage') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li><a href="{{ path('chat_room_homepage') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
             <li><a href="{{ path('chat_room_group_list') }}"> Groupes</a></li>
             <li class="active"> Consultation</li>
         </ol>
@@ -54,6 +54,7 @@
         </div>
         <br>
         <h2>Publications</h2>
+        {#
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -76,6 +77,86 @@
                 {%  endfor %}
             </tbody>
         </table>
+        #}
+        {% for p in groupe.publications %}
+        <div class="box box-widget" style="width: 50%;left: 26%;">
+            <div class="box-header with-border">
+                <div class="user-block">
+                    <img class="img-circle" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
+                    <span class="username"><a href="#">{{ p.user.nom | upper }} {{ p.user.prenom | capitalize }}</a></span>
+                    <span class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="box-tools">
+                    <!--
+                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                        <i class="fa fa-circle-o"></i></button>
+                     -->
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <!--
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    -->
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <!-- post text -->
+                <p>{{ p.description }}</p>
+
+                <!-- Attachment -->
+                <div class="attachment-block clearfix">
+                    {#
+                    <iframe  width="100%"
+                             height="300"  frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBoVSG3FplX2Ckbl672m4HWjnKK4WS5j2w&q={{ service.getUser().getVille() }}" >
+                    </iframe>
+                    #}
+                    <!-- /.attachment-pushed -->
+                </div>
+                {% if app.user.id == p.user.id %}
+                    <a class="btn btn-default btn bg-olive btn-xs" href="#"><i class="fa fa-share"></i> Modifier </a>
+                    <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="#"><i class="fa fa-trash"></i> Supprimer </a>
+                {% endif %}
+                <!-- /.attachment-block -->
+                <!-- Social sharing buttons -->
+                <span class="pull-right text-muted" style="margin-left: 3px;"> 2 comments</span>
+            </div>
+
+            <!-- /.box-body -->
+            <div class="box-footer box-comments">
+                {% for c in p.commentaires %}
+                    <div class="box-comment">
+                        <!-- User image -->
+                        <img class="img-circle img-sm" src="{{ asset('/dist/img/user3-128x128.jpg') }}" alt="User Image">
+
+                        <div class="comment-text">
+                      <span class="username">
+                        {{ c.user.nom | upper }} {{ c.user.prenom | capitalize }}
+                          <span class="text-muted pull-right">{{ c.dateCommentaire | date('Y-m-d h:m:s') }}</span>
+                      </span><!-- /.username -->
+                            {{ c.texte }}
+                        </div>
+                        <!-- /.comment-text -->
+                    </div>
+                    <!-- /.box-comment -->
+                    <!-- /.box-comment -->
+                {% endfor %}
+            </div>
+            <!-- /.box-footer -->
+            <div class="box-footer">
+                <form action="#" method="post">
+                    <img class="img-responsive img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="Alt Text">
+                    <!-- .img-push is used to add margin to elements next to floating images -->
+                    <div class="img-push">
+                        <input type="text"  name="commentaire" class="form-control input-sm" placeholder="Press enter to post comment">
+
+                    </div>
+                </form>
+            </div>
+            <!-- /.box-footer -->
+        </div>
+        {% endfor %}
     </section>
 {% endblock %}
 {% block scripts %}
