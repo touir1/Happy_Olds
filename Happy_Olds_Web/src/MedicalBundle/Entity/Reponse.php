@@ -3,6 +3,8 @@
 namespace MedicalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use SBC\NotificationsBundle\Builder\NotificationBuilder;
+use SBC\NotificationsBundle\Model\NotifiableInterface;
 
 /**
  * Reponse
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="reponse")
  * @ORM\Entity(repositoryClass="MedicalBundle\Repository\ReponseRepository")
  */
-class Reponse
+class Reponse implements NotifiableInterface
 {
     /**
      * @var int
@@ -159,5 +161,36 @@ class Reponse
     public function __construct()
     {
         $this->dateR = new \DateTime('now');
+    }
+
+    public function notificationsOnCreate(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnCreate() method.
+        $notification=New NotificationMedical();
+        $notification->setTitle("Nouvelle reponse")
+            ->setDescription($this->getText())
+            ->setRoute('medical_detail')
+            ->setParameters(array('id'=>$this->getId()));
+        $builder->addNotification($notification);
+
+        return $builder ;
+
+    }
+    public function notificationsOnUpdate(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnUpdate() method.
+        $notification=New NotificationMedical();
+        $notification->setTitle("mise à jour reponse")
+            ->setDescription($this->getText())
+            ->setRoute('medical_detail')
+            ->setParameters(array('id'=>$this->getId()));
+        $builder->addNotification($notification);
+
+        return $builder ;
+    }
+    public function notificationsOnDelete(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnDelete() method.
+        return $builder;
     }
 }

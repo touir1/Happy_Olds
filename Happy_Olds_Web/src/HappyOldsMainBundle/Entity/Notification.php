@@ -3,6 +3,7 @@
 namespace HappyOldsMainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use SBC\NotificationsBundle\Model\BaseNotification;
 
 
 /**
@@ -17,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "notificationchat" = "\ChatRoomBundle\Entity\NotificationChat"})
  * @ORM\Entity(repositoryClass="HappyOldsMainBundle\Repository\NotificationRepository")
  */
-abstract class Notification
+abstract class Notification extends BaseNotification implements \JsonSerializable
 {
     /**
      * @var int
@@ -29,36 +30,6 @@ abstract class Notification
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="Titre", type="string", length=255)
-     */
-    private $titre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Description", type="string", length=255)
-     */
-    private $description;
-
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="Date", type="date")
-     */
-    private $date;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="Vue", type="boolean")
-     */
-    private $vue;
-
-
-    /**
      * Get id
      *
      * @return int
@@ -68,100 +39,11 @@ abstract class Notification
         return $this->id;
     }
 
-    /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return Notification
-     */
-    public function setTitre($titre)
+    function jsonSerialize()
     {
-        $this->titre = $titre;
-
-        return $this;
+        // TODO: Implement jsonSerialize() method.
+        return get_object_vars($this);
     }
 
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Notification
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Notification
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set vue
-     *
-     * @param boolean $vue
-     *
-     * @return Notification
-     */
-    public function setVue($vue)
-    {
-        $this->vue = $vue;
-
-        return $this;
-    }
-
-    /**
-     * Get vue
-     *
-     * @return bool
-     */
-    public function getVue()
-    {
-        return $this->vue;
-    }
 }
 

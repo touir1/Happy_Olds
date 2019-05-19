@@ -6,6 +6,7 @@ use MedicalBundle\Entity\Question;
 use MedicalBundle\Entity\Reponse;
 use MedicalBundle\Form\QuestionType;
 use MedicalBundle\Form\ReponseType;
+use SBC\NotificationsBundle\Model\NotifiableInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Date;
@@ -144,6 +145,32 @@ class QuestionController extends Controller
     }
 
 
+    public function listAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $query=$em->createQuery("Select q from MedicalBundle:Question q");
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 2)/*page number*/
 
+        );
+
+        return $this->render('@Medical/Question/delete.html.twig', array(
+            'questions' => $pagination
+        ));
+    }
+
+    public function DeleteAdmAction(Request $request){
+        $id=$request->get('id');
+        $question=$this->getDoctrine()->getRepository(Question::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($question);
+        $em->flush();
+
+
+        return $this->redirectToRoute('Question_list');
+    }
 
 }

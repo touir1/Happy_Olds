@@ -37,3 +37,17 @@ Reponse_supprimer:
 Reponse_modifier:
     path:     /update
     defaults: { _controller: MedicalBundle:Reponse:update }
+
+Notification:
+    path:     /notification
+    defaults: { _controller: MedicalBundle:Notification:display }
+
+Question_list:
+    path:     /list
+    defaults: { _controller: "MedicalBundle:Question:list" }
+    methods:  [GET, POST]
+
+Question_DeleteAdm:
+    path:     /list
+    defaults: { _controller: "MedicalBundle:Question:DeleteAdm" }
+    methods:  [GET, POST]
