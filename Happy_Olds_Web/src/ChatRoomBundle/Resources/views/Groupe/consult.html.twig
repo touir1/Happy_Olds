@@ -175,7 +175,7 @@
 
                             <div class="comment-text">
                           <span class="username">
-                            {{ c.user.nom | upper }} {{ c.user.prenom | capitalize }}
+                            <a href="#">{{ c.user.nom | upper }} {{ c.user.prenom | capitalize }}</a>
                               <span class="text-muted pull-right">{{ c.dateCommentaire | date('Y-m-d h:m:s') }}</span>
                           </span><!-- /.username -->
                                 <div class="with-emotes">
@@ -201,7 +201,7 @@
 
                         <div class="comment-text">
                             <span class="username">
-                            {{ app.user.nom | upper }} {{ app.user.prenom | capitalize }}
+                                <a href="#">{{ app.user.nom | upper }} {{ app.user.prenom | capitalize }}</a>
                                 <span class="text-muted pull-right">{{ 'now' | date('Y-m-d h:m:s') }}</span>
                             </span><!-- /.username -->
                             <div>
