@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="publication_type", type="string")
  * @ORM\DiscriminatorMap({"publicationGroupe" = "PublicationGroupe", "live" = "Live"})
  * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\PublicationGroupeRepository")
+ *
  */
 class PublicationGroupe
 {
@@ -32,9 +33,8 @@ class PublicationGroupe
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pieceJointe", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="PublicationPieceJointe")
+     * @ORM\JoinColumn(name="publication_piece_jointe_id", referencedColumnName="id")
      */
     private $pieceJointe;
 
@@ -94,30 +94,6 @@ class PublicationGroupe
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set pieceJointe
-     *
-     * @param string $pieceJointe
-     *
-     * @return PublicationGroupe
-     */
-    public function setPieceJointe($pieceJointe)
-    {
-        $this->pieceJointe = $pieceJointe;
-
-        return $this;
-    }
-
-    /**
-     * Get pieceJointe
-     *
-     * @return string
-     */
-    public function getPieceJointe()
-    {
-        return $this->pieceJointe;
     }
 
     /**
@@ -191,4 +167,46 @@ class PublicationGroupe
     {
         return $this->user;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \ChatRoomBundle\Entity\CommentaireChat $commentaire
+     *
+     * @return PublicationGroupe
+     */
+    public function addCommentaire(\ChatRoomBundle\Entity\CommentaireChat $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \ChatRoomBundle\Entity\CommentaireChat $commentaire
+     */
+    public function removeCommentaire(\ChatRoomBundle\Entity\CommentaireChat $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+
 }

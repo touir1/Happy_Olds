@@ -1,0 +1,3 @@
+chat_room_api_comment_add:
+    path:     /add
+    defaults: { _controller: ChatRoomBundle:CommentaireChat:_add }

@@ -9,3 +9,11 @@ chat_room_members:
 chat_room_chat:
     resource: "@ChatRoomBundle/Resources/config/api/chat_routing.yml"
     prefix:   /chatRoom
+
+chat_room_comment:
+    resource: "@ChatRoomBundle/Resources/config/api/comment_routing.yml"
+    prefix:   /comments
+
+chat_room_publication:
+    resource: "@ChatRoomBundle/Resources/config/api/publication_routing.yml"
+    prefix:    /publications

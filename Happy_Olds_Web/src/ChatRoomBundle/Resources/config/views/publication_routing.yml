@@ -1,0 +1,3 @@
+chat_room_publication_add:
+    path:     /add
+    defaults: { _controller: ChatRoomBundle:PublicationGroupe:add }

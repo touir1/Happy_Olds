@@ -5,7 +5,9 @@ namespace ChatRoomBundle\Controller;
 use ChatRoomBundle\Entity\Groupe;
 use ChatRoomBundle\Entity\GroupeSujet;
 use ChatRoomBundle\Entity\MembreGroupe;
+use ChatRoomBundle\Entity\PublicationGroupe;
 use ChatRoomBundle\Form\GroupeType;
+use ChatRoomBundle\Form\PublicationGroupeType;
 use ChatRoomBundle\Utils\GroupeTypes;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\UserBundle\Model\Group;
@@ -47,6 +49,7 @@ class GroupeController extends UtilsController
             'chat_room_api_group_add',
             'chat_room_api_group_update',
             'chat_room_api_group_delete',
+            'chat_room_api_comment_add',
         ];
 
     }
@@ -232,10 +235,13 @@ class GroupeController extends UtilsController
         $leave = $this->getDoctrine()->getRepository(Groupe::class)
             ->checkIfAuthorizedToLeave($id,$this->getUser()->getId());
 
+        $form = $this->createForm(PublicationGroupeType::class, new PublicationGroupe());
+
         return $this->render( '@ChatRoom/Groupe/consult.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
             ],
+            'form' => $form->createView(),
             'groupe' => $groupe,
             'join' => $join,
             'invite' => $invite,
@@ -253,7 +259,7 @@ class GroupeController extends UtilsController
     }
 
     // add
-    public function add($groupe)
+    private function add($groupe)
     {
         $groupe->setCreator($this->getUser());
         $member = new MembreGroupe();

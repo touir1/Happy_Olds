@@ -1,0 +1,60 @@
+<?php
+
+namespace ChatRoomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * PublicationPieceJointe
+ *
+ * @ORM\Table(name="publication_piece_jointe")
+ * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\PublicationPieceJointeRepository")
+ * @Gedmo\Uploadable(filenameGenerator="SHA1", allowOverwrite=true, appendNumber=true)
+ */
+class PublicationPieceJointe
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="path", type="string")
+     * @Gedmo\UploadableFilePath
+     */
+    private $path;
+
+    /**
+     * @ORM\Column(name="name", type="string")
+     * @Gedmo\UploadableFileName
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(name="mime_type", type="string")
+     * @Gedmo\UploadableFileMimeType
+     */
+    private $mimeType;
+
+    /**
+     * @ORM\Column(name="size", type="decimal")
+     * @Gedmo\UploadableFileSize
+     */
+    private $size;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+}

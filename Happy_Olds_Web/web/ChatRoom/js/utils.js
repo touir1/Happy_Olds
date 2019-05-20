@@ -13,6 +13,20 @@ var Utils = function(){
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
+    utility.getNextSibling = function (elem, selector) {
+
+        // Get the next sibling element
+        var sibling = elem.nextElementSibling;
+
+        // If the sibling matches our selector, use it
+        // If not, jump to the next sibling and continue the loop
+        while (sibling) {
+            if (sibling.matches(selector)) return sibling;
+            sibling = sibling.nextElementSibling
+        }
+
+    };
+
     utility.setUrlParameter = function(url, key, value) {
         var key = encodeURIComponent(key),
             value = encodeURIComponent(value);

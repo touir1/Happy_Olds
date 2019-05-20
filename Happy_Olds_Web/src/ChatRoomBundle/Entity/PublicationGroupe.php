@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="publication_type", type="string")
  * @ORM\DiscriminatorMap({"publicationGroupe" = "PublicationGroupe", "live" = "Live"})
  * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\PublicationGroupeRepository")
+ *
  */
 class PublicationGroupe
 {
@@ -32,9 +33,8 @@ class PublicationGroupe
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pieceJointe", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="PublicationPieceJointe", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="publication_piece_jointe_id", referencedColumnName="id")
      */
     private $pieceJointe;
 
@@ -94,30 +94,6 @@ class PublicationGroupe
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set pieceJointe
-     *
-     * @param string $pieceJointe
-     *
-     * @return PublicationGroupe
-     */
-    public function setPieceJointe($pieceJointe)
-    {
-        $this->pieceJointe = $pieceJointe;
-
-        return $this;
-    }
-
-    /**
-     * Get pieceJointe
-     *
-     * @return string
-     */
-    public function getPieceJointe()
-    {
-        return $this->pieceJointe;
     }
 
     /**
@@ -231,5 +207,30 @@ class PublicationGroupe
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+
+
+    /**
+     * Set pieceJointe
+     *
+     * @param \ChatRoomBundle\Entity\PublicationPieceJointe $pieceJointe
+     *
+     * @return PublicationGroupe
+     */
+    public function setPieceJointe(\ChatRoomBundle\Entity\PublicationPieceJointe $pieceJointe = null)
+    {
+        $this->pieceJointe = $pieceJointe;
+
+        return $this;
+    }
+
+    /**
+     * Get pieceJointe
+     *
+     * @return \ChatRoomBundle\Entity\PublicationPieceJointe
+     */
+    public function getPieceJointe()
+    {
+        return $this->pieceJointe;
     }
 }

@@ -148,3 +148,9 @@ notifications:
      app_secret: 2d26c1c9da9143d94232
      cluster:    eu
 
+stof_doctrine_extensions:
+    orm:
+        default:
+            uploadable: true
+    uploadable:
+        default_file_path: "%kernel.root_dir%/../web/uploads"

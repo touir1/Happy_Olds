@@ -14,3 +14,7 @@ chat_room_members:
 chat_room_chat:
     resource: "@ChatRoomBundle/Resources/config/views/chat_routing.yml"
     prefix:   /chatRoom
+
+chat_room_publication:
+    resource: "@ChatRoomBundle/Resources/config/views/publication_routing.yml"
+    prefix:    /publications
