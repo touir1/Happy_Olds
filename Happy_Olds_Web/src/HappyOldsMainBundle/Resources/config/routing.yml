@@ -24,3 +24,8 @@ happy_olds_main_admin:
 forbidden_403:
     path:     /forbidden
     defaults: { _controller: HappyOldsMainBundle:Default:error403 }
+
+modifier_profil:
+    path:     /profil
+    defaults: { _controller: HappyOldsMainBundle:Default:profil }
+

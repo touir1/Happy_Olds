@@ -60,7 +60,7 @@
                               <td> {{ i.getid() }} </td>
                                <td> {{ i.gettitre() }} </td>
 
-                            {% if app.user.username %}
+                            {% if app.user.id == i.user.id%}
 
                             <td><a href="{{ path('medical_supprimer',{'id':i.id}) }}" class="glyphicon glyphicon-trash"> </a></td>
                             <td><a href="{{ path('medical_modifier',{'id':i.id}) }}" class="glyphicon glyphicon-pencil"></a></td>

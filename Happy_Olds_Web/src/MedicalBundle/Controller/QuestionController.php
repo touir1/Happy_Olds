@@ -52,6 +52,8 @@ class QuestionController extends Controller
         $form=$form->handleRequest($req);
         if ($form->isValid()){
             $em=$this->getDoctrine()->getManager();
+            $question->upload();
+            $em->persist($question);
             $em->flush();
             return $this->redirectToRoute('medical_affichage');
         }
@@ -126,7 +128,7 @@ class QuestionController extends Controller
         }
         $rp = $this->getDoctrine()
             ->getRepository(Question::class);
-        $questions=$rp->findAll($user);
+        $questions=$rp->recherche($user);
 
         return $this->render('@Medical/Question/historique.html.twig',array(
             'rp' =>$rp,

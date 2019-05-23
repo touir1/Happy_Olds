@@ -6,25 +6,25 @@
         <!-- Profile Image -->
         <div class="box box-danger">
             <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="Photo de profil de l'utilisateur">
+                <img class="profile-user-img img-responsive img-circle" src="{{ asset('uploads/documents/~') }}" alt="Photo de profil de l'utilisateur">
 
-                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nina Mcintire</font></font></h3>
+                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ app.user.prenom }} {{ app.user.nom }}</font></font></h3>
 
-                <p class="text-muted text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ingénieur logiciel</font></font></p>
+                <p class="text-muted text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ app.user.job }}</font></font></p>
 
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Abonnés Abonnés </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 322</font></font></a>
+                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Username </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ app.user.username }}</font></font></a>
                     </li>
                     <li class="list-group-item">
-                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">À la suite de </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">543</font></font></a>
+                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Score finale </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ app.user.scorefinal }}</font></font></a>
                     </li>
                     <li class="list-group-item">
-                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Amis </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">13 287</font></font></a>
+                        <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Role </font></font></b> <a class="pull-right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ app.user.role }}</font></font></a>
                     </li>
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Suivre</font></font></b></a>
+                <a href="{{ path('modifier_profil',{'id':app.user.id}) }}" class="btn btn-primary btn-block"><b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Modifier profil</font></font></b></a>
             </div>
             <!-- /.box-body -->
         </div>
@@ -38,35 +38,29 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <strong><i class="fa fa-book margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Éducation</font></font></strong>
+                <strong><i class="fa fa-book margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Nom Prénom </font></font></strong>
 
                 <p class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                            BS en informatique de l'Université du Tennessee à Knoxville
+                            {{ app.user.nom }} {{ app.user.prenom }}
                         </font></font></p>
 
                 <hr>
 
-                <strong><i class="fa fa-map-marker margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Emplacement</font></font></strong>
+                <strong><i class="fa fa-map-marker margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Ville</font></font></strong>
 
-                <p class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Malibu, Californie</font></font></p>
-
-                <hr>
-
-                <strong><i class="fa fa-pencil margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Compétences</font></font></strong>
-
-                <p>
-                    <span class="label label-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">D' interfaces de </font></font></span>
-                    <span class="label label-success"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">codage </font></font></span>
-                    <span class="label label-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Javascript </font></font></span>
-                    <span class="label label-warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PHP </font></font></span>
-                    <span class="label label-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Node.js</font></font></span>
-                </p>
+                <p class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ app.user.ville }}</font></font></p>
 
                 <hr>
 
-                <strong><i class="fa fa-file-text-o margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Remarques</font></font></strong>
+                <strong><i class="fa fa-pencil margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Date de naissance </font></font></strong>
 
-                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem ipsum dolor sit amet, consectetur elip adipiscing elit. </font><font style="vertical-align: inherit;">Etiam fermentum enim neque.</font></font></p>
+                <p class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></p>
+
+                <hr>
+
+                <strong><i class="fa fa-file-text-o margin-r-5"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Email</font></font></strong>
+
+                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ app.user.email }} </font></font></p>
             </div>
             <!-- /.box-body -->
         </div>

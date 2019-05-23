@@ -26,4 +26,13 @@ class QuestionRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
 
     }
+
+    public function recherche($user)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("Select r from MedicalBundle:Question r where r.user =:s ")
+            ->setParameter(':s', $user);
+        return $query->getResult();
+
+    }
 }
