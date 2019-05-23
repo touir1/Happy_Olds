@@ -307,8 +307,8 @@ class User extends BaseUser
         // move takes the target directory and then the
         // target filename to move to
         $this->getFile()->move(
-            $this->getUploadRootDir(),
-            $this->getFile()->getClientOriginalName()
+            $this->getUploadRootDir(),md5(uniqid($this->getUsername()."_profil",true)).".".
+            $this->getFile()->guessClientExtension()
         );
 
         // set the path property to the filename where you've saved the file
