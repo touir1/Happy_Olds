@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
+    <link href="{{ asset('bower_components/wdt-emoji-bundle/wdt-emoji-bundle.css') }}" rel="stylesheet">
+    <link href="{{ asset('ChatRoom/css/publication_consult.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <section class="content-header">
+        <h1>
+            Consultation Publication
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('chat_room_homepage') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li><a href="{{ path('chat_room_group_list') }}"> Groupes</a></li>
+            <li><a href="{{ path('chat_room_group_consult',{'id': publication.groupe.id }) }}"> Groupe: {{ publication.groupe.titre }}</a></li>
+            <li class="active"> Consultation publication</li>
+        </ol>
+    </section>
+    <section class="content">
+        <br>
+
+        <div class="box box-widget" style="width: 75%;left: 13%;">
+            <div class="box-header with-border">
+                <div class="user-block">
+                    <img class="img-circle" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
+                    <span class="username"><a href="#">{{ publication.user.nom | upper }} {{ publication.user.prenom | capitalize }}</a></span>
+                    <span class="description">publié le {{publication.datePublication | date('Y-m-d h:m:s')  }}</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="box-tools">
+                    <!--
+                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                        <i class="fa fa-circle-o"></i></button>
+                     -->
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <!--
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    -->
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <!-- post text -->
+                <p class="with-emotes">{{ publication.description }}</p>
+
+                <!-- Attachment -->
+                {% if not publication.pieceJointe is empty and not publication.pieceJointe.path is empty %}
+                    <div class="attachment-block clearfix">
+                        {% if publication.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg'] %}
+                            <center>
+                                <img class="publication_img" src="{{ asset(publication.pieceJointe.webPath) }}" style="max-width: 100%;height: auto;" alt="{{ publication.description }}">
+                            </center>
+                        {% endif %}
+                        <!-- /.attachment-pushed -->
+                    </div>
+                {% endif %}
+                {% if app.user.id == publication.user.id %}
+                    <a class="btn btn-default btn bg-olive btn-xs" href="#"><i class="fa fa-share"></i> Modifier </a>
+                    <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('chat_room_publication_delete',{'id': publication.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
+                {% endif %}
+                <!-- /.attachment-block -->
+                <!-- Social sharing buttons -->
+                <span href="{{ path('chat_room_publication_consult',{'id':publication.id}) }}" class="pull-right text-muted" style="margin-left: 3px;"> <i class="fa fa-comments-o margin-r-5"></i> commentaires (<span id="nb-comments-{{ publication.id }}">{{ publication.commentaires.count }}</span>)</span>
+            </div>
+
+            <!-- /.box-body -->
+            <div class="box-footer box-comments">
+                {% for c in publication.commentaires %}
+                    <div class="box-comment">
+                        <!-- User image -->
+                        <img class="img-circle img-sm" src="{{ asset('/dist/img/user3-128x128.jpg') }}" alt="User Image">
+
+                        <div class="comment-text">
+                      <span class="username">
+                        <a href="#">{{ c.user.nom | upper }} {{ c.user.prenom | capitalize }}</a>
+                          <span class="text-muted pull-right">{{ c.dateCommentaire | date('Y-m-d h:m:s') }}</span>
+                      </span><!-- /.username -->
+                            <div class="with-emotes">
+                                {{ c.texte }}
+                                {% if app.user.id == c.user.id %}
+                                    <a class="btn btn-default  btn-xs pull-right" style="background-color:#3c8dbc;color:#fff; " href="#"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        <!-- /.comment-text -->
+                    </div>
+                    <!-- /.box-comment -->
+                    <!-- /.box-comment -->
+                {% endfor %}
+                <!-- for added comments -->
+                <div class="box-comment" id="new-comments-{{ publication.id }}" hidden>
+
+                </div>
+                <div class="box-comment" id="box-comment-{{ publication.id }}" hidden>
+                    <!-- User image -->
+                    <img class="img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="User Image">
+
+                    <div class="comment-text">
+                        <span class="username">
+                            <a href="#">{{ app.user.nom | upper }} {{ app.user.prenom | capitalize }}</a>
+                            <span class="text-muted pull-right">{{ 'now' | date('Y-m-d h:m:s') }}</span>
+                        </span><!-- /.username -->
+                        <div>
+                            <span id="emoji-preview-{{ publication.id }}" class="with-emotes"></span>
+                            <a id="remove-comment-{{ publication.id }}" class="btn btn-default btn-xs pull-right"
+                               style="background-color:#3c8dbc;color:#fff; display:none;" href="#"><i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.comment-text -->
+                </div>
+            </div>
+            <!-- /.box-footer -->
+            <div class="box-footer">
+                <form action="#" method="post">
+                    <img class="img-responsive img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="Alt Text">
+                    <!-- .img-push is used to add margin to elements next to floating images -->
+                    <div class="img-push">
+                        <input type="text" name="commentaire" data-id="{{ publication.id }}" class="form-control input-sm using-emoji comment-input" placeholder="Press enter to post comment">
+                    </div>
+
+                </form>
+            </div>
+            <!-- /.box-footer -->
+        </div>
+
+    </section>
+    <div class="wdt-emoji-popup">
+        <a href="#" class="wdt-emoji-popup-mobile-closer"> × </a>
+        <div class="wdt-emoji-menu-content">
+            <div id="wdt-emoji-menu-header">
+                <a class="wdt-emoji-tab active" data-group-name="Recent"></a>
+                <a class="wdt-emoji-tab" data-group-name="People"></a>
+                <a class="wdt-emoji-tab" data-group-name="Nature"></a>
+                <a class="wdt-emoji-tab" data-group-name="Foods"></a>
+                <a class="wdt-emoji-tab" data-group-name="Activity"></a>
+                <a class="wdt-emoji-tab" data-group-name="Places"></a>
+                <a class="wdt-emoji-tab" data-group-name="Objects"></a>
+                <a class="wdt-emoji-tab" data-group-name="Symbols"></a>
+                <a class="wdt-emoji-tab" data-group-name="Flags"></a>
+                <a class="wdt-emoji-tab" data-group-name="Custom"></a>
+            </div>
+            <div class="wdt-emoji-scroll-wrapper">
+                <div id="wdt-emoji-menu-items">
+                    <input id="wdt-emoji-search" type="text" placeholder="Search">
+                    <h3 id="wdt-emoji-search-result-title">Search Results</h3>
+                    <div class="wdt-emoji-sections"></div>
+                    <div id="wdt-emoji-no-result">No emoji found</div>
+                </div>
+            </div>
+            <div id="wdt-emoji-footer">
+                <div id="wdt-emoji-preview">
+                    <span id="wdt-emoji-preview-img"></span>
+                    <div id="wdt-emoji-preview-text">
+                        <span id="wdt-emoji-preview-name"></span><br>
+                        <span id="wdt-emoji-preview-aliases"></span>
+                    </div>
+                </div>
+                <div id="wdt-emoji-preview-bundle">
+                    <span>WDT Emoji Bundle</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+
+    <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{{ asset('bower_components/wdt-emoji-bundle/emoji.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/wdt-emoji-bundle/wdt-emoji-bundle.min.js') }}"></script>
+    <script>
+        wdtEmojiBundle.defaults.emojiSheets.apple = "{{ asset('bower_components/wdt-emoji-bundle/sheets/sheet_apple_64_indexed_128.png') }}";
+    </script>
+    <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/groupe/publication_groupe/consult.js') }}"></script>
+
+{% endblock %}

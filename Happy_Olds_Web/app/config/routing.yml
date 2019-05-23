@@ -2,13 +2,37 @@ medical:
     resource: "@MedicalBundle/Resources/config/routing.yml"
     prefix:   /medical
 
+medical_api:
+    resource: "@MedicalBundle/Resources/config/api_routing.yml"
+    prefix:   /api/medical
+
+medical_admin:
+    resource: "@MedicalBundle/Resources/config/admin_routing.yml"
+    prefix:   /admin/medical
+
 services:
     resource: "@ServicesBundle/Resources/config/routing.yml"
     prefix:   /services
 
+services_api:
+    resource: "@ServicesBundle/Resources/config/api_routing.yml"
+    prefix:   /api/services
+
+services_admin:
+    resource: "@ServicesBundle/Resources/config/admin_routing.yml"
+    prefix:   /admin/services
+
 events:
     resource: "@EventsBundle/Resources/config/routing.yml"
     prefix:   /events
+
+events_api:
+    resource: "@EventsBundle/Resources/config/api_routing.yml"
+    prefix:   /api/events
+
+events_admin:
+    resource: "@EventsBundle/Resources/config/admin_routing.yml"
+    prefix:   /admin/events
 
 chat_room:
     resource: "@ChatRoomBundle/Resources/config/views_routing.yml"

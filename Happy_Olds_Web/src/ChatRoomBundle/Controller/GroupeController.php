@@ -12,6 +12,7 @@ use ChatRoomBundle\Utils\GroupeTypes;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\UserBundle\Model\Group;
 use HappyOldsMainBundle\Entity\User;
+use ChatRoomBundle\Utils\ChatRoomRoutes;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,6 +21,7 @@ class GroupeController extends UtilsController
 
     public function __construct()
     {
+        parent::__construct();
         // this is an object to remove params from json when serialized
         $this->callbacks = [
             'members' => function($object){
@@ -31,25 +33,6 @@ class GroupeController extends UtilsController
             'publications' => function($object){
                 return $object->count();
             }
-        ];
-
-        // this is sent to the view so that we can use the routes if we need them
-        $this->routes = [
-            'chat_room_group_consult',
-            'chat_room_group_list',
-            'chat_room_group_my_list',
-            'chat_room_group_subscribed_list',
-            'chat_room_group_add',
-            'chat_room_group_update',
-            'chat_room_group_delete',
-            'chat_room_api_group_list',
-            'chat_room_api_group_my_list',
-            'chat_room_api_group_subscribed_list',
-            'chat_room_api_group_consult',
-            'chat_room_api_group_add',
-            'chat_room_api_group_update',
-            'chat_room_api_group_delete',
-            'chat_room_api_comment_add',
         ];
 
     }
@@ -286,7 +269,7 @@ class GroupeController extends UtilsController
 
             $this->add($groupe);
 
-            return $this->redirectToRoute('chat_room_group_consult', [
+            return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult, [
                 'id' => $groupe->getId()
             ]);
         }
@@ -340,7 +323,7 @@ class GroupeController extends UtilsController
         if($form->isValid())
         {
             $this->update($groupe);
-            return $this->redirectToRoute('chat_room_group_consult',[
+            return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult,[
                 'id'=>$groupe->getId()
             ]);
         }
@@ -385,7 +368,7 @@ class GroupeController extends UtilsController
         $id = $request->get('id');
         $this->delete($id);
 
-        return $this->redirectToRoute('chat_room_group_list');
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_list);
     }
 
     public function _deleteAction(Request $request)
@@ -426,7 +409,7 @@ class GroupeController extends UtilsController
         $id = $request->get('id');
         $this->join($id, $this->getUser()->getId());
 
-        return $this->redirectToRoute('chat_room_group_consult',[
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult,[
             'id' => $id
         ]);
     }
@@ -462,7 +445,7 @@ class GroupeController extends UtilsController
         $id = $request->get('id');
         $this->leave($id, $this->getUser()->getId());
 
-        return $this->redirectToRoute('chat_room_group_list');
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_list);
     }
 
     public function _leaveAction(Request $request)

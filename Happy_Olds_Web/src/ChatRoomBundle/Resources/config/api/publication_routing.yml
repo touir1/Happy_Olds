@@ -1,3 +1,11 @@
 chat_room_api_publication_add:
     path:     /add
     defaults: { _controller: ChatRoomBundle:PublicationGroupe:_add }
+
+chat_room_api_publication_delete:
+    path:     /delete
+    defaults: { _controller: ChatRoomBundle:PublicationGroupe:_delete }
+
+chat_room_api_publication_consult:
+    path:      /consult
+    defaults: { _controller: ChatRoomBundle:PublicationGroupe:consult }

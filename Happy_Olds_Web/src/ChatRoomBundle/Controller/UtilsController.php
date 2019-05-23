@@ -10,6 +10,7 @@ namespace ChatRoomBundle\Controller;
 
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use ChatRoomBundle\Utils\ChatRoomRoutes;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,14 @@ class UtilsController extends Controller
 {
     protected $callbacks;
     protected $routes;
+
+    public function __construct()
+    {
+        // this is an object to remove params from json when serialized
+        $this->callbacks = [];
+        // this is sent to the view so that we can use the routes if we need them
+        $this->routes = ChatRoomRoutes::getArrayAll();
+    }
 
     protected function getJsonResponse($object, $context = [])
     {

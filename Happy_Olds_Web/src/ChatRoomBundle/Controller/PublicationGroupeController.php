@@ -8,6 +8,8 @@ use ChatRoomBundle\Entity\PublicationGroupe;
 use ChatRoomBundle\Entity\PublicationPieceJointe;
 use ChatRoomBundle\Form\PublicationGroupeType;
 use ChatRoomBundle\Form\PublicationPieceJointeType;
+use ChatRoomBundle\Utils\ChatRoomRoutes;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class PublicationGroupeController extends UtilsController
@@ -15,15 +17,40 @@ class PublicationGroupeController extends UtilsController
 
     public function __construct()
     {
+        parent::__construct();
         // this is an object to remove params from json when serialized
         $this->callbacks = [
 
         ];
 
-        // this is sent to the view so that we can use the routes if we need them
-        $this->routes = [
+    }
 
-        ];
+    public function consult($publication_id = null)
+    {
+        return $this->getDoctrine()->getRepository(PublicationGroupe::class)
+            ->findAccessible($publication_id, $this->getUser()->getId());
+    }
+
+    public function consultAction(Request $request)
+    {
+        $id_publication = $request->get('id');
+
+        $publication = $this->consult($id_publication);
+
+        return $this->render( '@ChatRoom/Groupe/PublicationGroupe/consult.html.twig',[
+            'data' => [
+                'routes' => $this->getRoutesAsUrls()
+            ],
+            'publication' => $publication,
+        ]);
+    }
+
+    public function _consultAction(Request $request)
+    {
+        $id_publication = $request->get('id');
+
+        $publication = $this->consult($id_publication);
+
 
     }
 
@@ -60,12 +87,11 @@ class PublicationGroupeController extends UtilsController
         if ($form->isSubmitted() && $form->isValid())
         {
 
-
             $publication->setGroupe($groupe);
 
             $this->add($publication);
 
-            return $this->redirectToRoute('chat_room_group_consult', [
+            return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult, [
                 'id' => $groupe->getId()
             ]);
 
@@ -80,6 +106,71 @@ class PublicationGroupeController extends UtilsController
 
     public function _addAction(Request $request)
     {
+        $groupe_id = $request->get('id');
 
+        $publication = $this->getObjectFromRequest($request,PublicationGroupe::class);
+
+        $groupe = $this->getDoctrine()->getRepository(Groupe::class)
+            ->consult($groupe_id,$this->getUser()->getId());
+
+        if(isset($groupe) && !is_null($groupe) && isset($publication) && !is_null($groupe))
+        {
+            $publication->setGroupe($groupe);
+
+            $this->add($publication);
+
+            return new JsonResponse([
+                "status" => "ok"
+            ],JsonResponse::HTTP_ACCEPTED,[]);
+        }
+
+        return new JsonResponse([
+            "status" => "ko"
+        ],JsonResponse::HTTP_BAD_REQUEST,[]);
+
+    }
+
+    private function delete($id_publication  = null)
+    {
+        $publication = $this->getDoctrine()->getRepository(PublicationGroupe::class)
+            ->find($id_publication);
+
+        $groupe_id = null;
+
+        if(isset($publication) && !is_null($publication))
+        {
+            $groupe_id = $publication->getGroupe()->getId();
+
+            if ($this->getUser()->getId() == $publication->getUser()->getId()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($publication);
+                $em->flush();
+            }
+        }
+
+        return $groupe_id;
+    }
+
+    public function deleteAction(Request $request)
+    {
+        $id_publication = $request->get('id');
+
+        $id_groupe = $this->delete($id_publication);
+
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult,[
+            'id' => $id_groupe
+        ]);
+
+    }
+
+    public function _deleteAction(Request $request)
+    {
+        $id_publication = $request->get('id');
+
+        $this->delete($id_publication);
+
+        return new JsonResponse([
+            "status" => "ok"
+        ],JsonResponse::HTTP_ACCEPTED,[]);
     }
 }

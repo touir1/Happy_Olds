@@ -12,6 +12,7 @@ namespace ChatRoomBundle\Controller;
 use ChatRoomBundle\Entity\Groupe;
 use ChatRoomBundle\Entity\MembreGroupe;
 use HappyOldsMainBundle\Entity\User;
+use ChatRoomBundle\Utils\ChatRoomRoutes;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,8 +20,8 @@ class MembreGroupeController extends UtilsController
 {
     public function __construct()
     {
+        parent::__construct();
         // this is an object to remove params from json when serialized
-
         $this->callbacks = [
             'user' => function($object){
                 return $object->getId();
@@ -29,32 +30,6 @@ class MembreGroupeController extends UtilsController
                 return $object->getId();
             },
 
-        ];
-
-        // this is sent to the view so that we can use the routes if we need them
-        $this->routes = [
-            'forbidden_403',
-            'chat_room_member_invite',
-            'chat_room_member_list_invite',
-            'chat_room_member_list_members',
-            'chat_room_member_list_request',
-            'chat_room_member_list_bann',
-            'chat_room_member_invite',
-            'chat_room_member_delete',
-            'chat_room_member_bann',
-            'chat_room_member_remove_bann',
-            'chat_room_member_accept',
-            'chat_room_member_decline',
-            'chat_room_api_member_list_invite',
-            'chat_room_api_member_list_members',
-            'chat_room_api_member_list_request',
-            'chat_room_api_member_list_bann',
-            'chat_room_api_member_invite',
-            'chat_room_api_member_delete',
-            'chat_room_api_member_bann',
-            'chat_room_api_member_remove_bann',
-            'chat_room_api_member_accept',
-            'chat_room_api_member_decline',
         ];
 
     }
@@ -90,7 +65,7 @@ class MembreGroupeController extends UtilsController
         $member_id = $request->get('member_id');
         $this->invite($group_id,$this->getUser()->getId(),$member_id);
 
-        return $this->redirectToRoute('chat_room_group_consult',[
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult,[
             'id' => $group_id
         ]);
     }
@@ -238,7 +213,7 @@ class MembreGroupeController extends UtilsController
 
         $this->delete($groupe_id,$user_id);
 
-        return $this->redirectToRoute('chat_room_group_consult',[
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult,[
             'id' => $groupe_id
         ]);
     }
@@ -282,7 +257,7 @@ class MembreGroupeController extends UtilsController
 
         $this->bann($groupe_id,$user_id);
 
-        return $this->redirectToRoute('chat_room_group_consult',[
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_group_consult,[
             'id' => $groupe_id
         ]);
     }
@@ -326,7 +301,7 @@ class MembreGroupeController extends UtilsController
 
         $this->removeBann($groupe_id,$user_id);
 
-        return $this->redirectToRoute('chat_room_member_list_members',[
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_member_list_members,[
             'group_id' => $groupe_id
         ]);
     }
@@ -472,7 +447,7 @@ class MembreGroupeController extends UtilsController
 
         $this->accept($groupe_id,$user_id);
 
-        return $this->redirectToRoute('chat_room_member_list_request',[
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_member_list_request,[
             'group_id' => $groupe_id
         ]);
     }
@@ -514,7 +489,7 @@ class MembreGroupeController extends UtilsController
 
         $this->decline($groupe_id,$user_id);
 
-        return $this->redirectToRoute('chat_room_member_list_request',[
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_member_list_request,[
             'group_id' => $groupe_id
         ]);
     }

@@ -11,7 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="publication_piece_jointe")
  * @ORM\Entity(repositoryClass="ChatRoomBundle\Repository\PublicationPieceJointeRepository")
- * @Gedmo\Uploadable(filenameGenerator="SHA1", allowOverwrite=true, appendNumber=true, maxSize=20971520)
+ * @Gedmo\Uploadable(filenameGenerator="SHA1", allowOverwrite=true, appendNumber=true, maxSize="209715200‬" )
+ *
  */
 class PublicationPieceJointe
 {

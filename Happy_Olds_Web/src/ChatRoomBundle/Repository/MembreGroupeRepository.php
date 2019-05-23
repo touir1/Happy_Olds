@@ -25,7 +25,7 @@ class MembreGroupeRepository extends \Doctrine\ORM\EntityRepository
                 ."AND u.prenom LIKE :prenom "
                 ."AND u.nom LIKE :nom "
                 ."AND ( "
-                    ."g.type in ('private','public')"
+                    ."g.type in ('private','public') "
                     ."OR :user_id in ("
                         ."SELECT u2.id FROM ChatRoomBundle:MembreGroupe m2 "
                         ."JOIN m2.user u2 "

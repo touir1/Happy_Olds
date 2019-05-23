@@ -2,17 +2,15 @@
 
 namespace ChatRoomBundle\Controller;
 
+use ChatRoomBundle\Utils\ChatRoomRoutes;
+
 class DefaultController extends UtilsController
 {
     public function __construct()
     {
+        parent::__construct();
         // this is an object to remove params from json when serialized
         $this->callbacks = [
-
-        ];
-
-        // this is sent to the view so that we can use the routes if we need them
-        $this->routes = [
 
         ];
 

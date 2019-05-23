@@ -16,11 +16,6 @@
     ev.initEvent('input', true, true);
     // ------------------------------------------------------
 
-    var new_publication = document.getElementById('new-publication');
-    new_publication.addEventListener('input',function(){
-        document.getElementById('publication-preview').innerHTML = wdtEmojiBundle.render(this.value);
-    });
-
     var classname = document.getElementsByClassName('using-emoji');
     for (var i = 0; i < classname.length; i++) {
         classname[i].addEventListener('input', function () {
@@ -97,16 +92,14 @@
     var modal = document.getElementById("myModal");
 
     // Get the image and insert it inside the modal - use its "alt" text as a caption
-    //var img = document.getElementById("myImg");
+    var img = document.getElementById("myImg");
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption");
-    document.querySelector('.publication_img').addEventListener('click', function (e) {
+    img.onclick = function(){
         modal.style.display = "block";
         modalImg.src = this.src;
-        //modal.style.height="100%";
-        //modal.style.width="auto";
         captionText.innerHTML = this.alt;
-    });
+    };
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];

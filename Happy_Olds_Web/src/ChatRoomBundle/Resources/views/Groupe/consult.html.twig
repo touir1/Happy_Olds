@@ -2,6 +2,7 @@
 {% block stylesheets %}
     <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/wdt-emoji-bundle/wdt-emoji-bundle.css') }}" rel="stylesheet">
+    <link href="{{ asset('ChatRoom/css/publication_consult.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
     <section class="content-header">
@@ -84,7 +85,7 @@
             {{ form_start(form,{'action': path('chat_room_publication_add',{'id':groupe.id}), 'method': 'POST'}) }}
                 <div class="box-header with-border">
                     <div class="user-block">
-                        <img class="img-circle" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
+                        <img class="img-circle" src="{{ asset(app.user.webPath) }}" alt="User Image">
                         <span class="username">Ajouter une publication</span>
                         {#<span class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>#}
                     </div>
@@ -114,9 +115,9 @@
             <div class="box box-widget" style="width: 75%;left: 13%;">
                 <div class="box-header with-border">
                     <div class="user-block">
-                        <img class="img-circle" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
+                        <img class="img-circle" src="{{ asset(p.user.webPath) }}" alt="User Image">
                         <span class="username"><a href="#">{{ p.user.nom | upper }} {{ p.user.prenom | capitalize }}</a></span>
-                        <span class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>
+                        <span href="{{ path('chat_room_publication_consult',{'id':p.id}) }}" class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>
                     </div>
                     <!-- /.user-block -->
                     <div class="box-tools">
@@ -147,7 +148,7 @@
                             #}
                             {% if p.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg'] %}
                                 <center>
-                                    <img src="{{ asset(p.pieceJointe.webPath) }}" width="50%">
+                                    <img class="publication_img" src="{{ asset(p.pieceJointe.webPath) }}" style="max-width: 100%;height: auto;" alt="{{ p.description }}">
                                 </center>
                             {% endif %}
                             <!-- /.attachment-pushed -->
@@ -155,11 +156,11 @@
                     {% endif %}
                     {% if app.user.id == p.user.id %}
                         <a class="btn btn-default btn bg-olive btn-xs" href="#"><i class="fa fa-share"></i> Modifier </a>
-                        <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="#"><i class="fa fa-trash"></i> Supprimer </a>
+                        <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('chat_room_publication_delete',{'id': p.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
                     {% endif %}
                     <!-- /.attachment-block -->
                     <!-- Social sharing buttons -->
-                    <a href="#" class="pull-right text-muted" style="margin-left: 3px; cursor: pointer;"> <span id="nb-comments-{{ p.id }}">{{ p.commentaires.count }}</span> comments</a>
+                    <a href="{{ path('chat_room_publication_consult',{'id': p.id}) }}" class="pull-right text-muted" style="margin-left: 3px; cursor: pointer;"> <i class="fa fa-comments-o margin-r-5"></i> commentaires (<span id="nb-comments-{{ p.id }}">{{ p.commentaires.count }}</span>)</a>
                 </div>
 
                 <!-- /.box-body -->
@@ -171,7 +172,7 @@
                     {% for c in p.commentaires[beginning:] %}
                         <div class="box-comment">
                             <!-- User image -->
-                            <img class="img-circle img-sm" src="{{ asset('/dist/img/user3-128x128.jpg') }}" alt="User Image">
+                            <img class="img-circle img-sm" src="{{ asset(c.user.webPath) }}" alt="User Image">
 
                             <div class="comment-text">
                           <span class="username">
@@ -197,7 +198,7 @@
                     </div>
                     <div class="box-comment" id="box-comment-{{ p.id }}" hidden>
                         <!-- User image -->
-                        <img class="img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="User Image">
+                        <img class="img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="User Image">
 
                         <div class="comment-text">
                             <span class="username">
@@ -217,7 +218,7 @@
                 <!-- /.box-footer -->
                 <div class="box-footer">
                     <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="Alt Text">
+                        <img class="img-responsive img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="Alt Text">
                         <!-- .img-push is used to add margin to elements next to floating images -->
                         <div class="img-push">
                             <input type="text" name="commentaire" data-id="{{ p.id }}" class="form-control input-sm using-emoji comment-input" placeholder="Press enter to post comment">
@@ -265,6 +266,19 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
     </div>
 
     <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
