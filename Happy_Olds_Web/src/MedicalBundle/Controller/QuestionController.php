@@ -123,8 +123,16 @@ class QuestionController extends Controller
             $question=$this->getDoctrine()
                 ->getRepository(Question::class)
                 ->MyfindAll($titre);
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $question, /* query NOT result */
+                $request->query->getInt('page', 1),
+                $request->query->getInt('limit', 2)/*page number*/
+
+            );
             return $this->render( '@Medical/Question/historique.html.twig',array(
-                'tab'=>$question));
+                'tab'=>$question,
+                'question'=>$pagination));
         }
         $rp = $this->getDoctrine()
             ->getRepository(Question::class);
@@ -132,7 +140,8 @@ class QuestionController extends Controller
 
         return $this->render('@Medical/Question/historique.html.twig',array(
             'rp' =>$rp,
-            'tab'=>$questions));
+            'tab'=>$questions,
+            ));
     }
 
     public function detailAction(Request $req){
