@@ -1,6 +1,0 @@
-all_service:
-  path: service/all
-  defaults: { _controller: "ServicesBundle:Api:all" }
-
-
-api--service
