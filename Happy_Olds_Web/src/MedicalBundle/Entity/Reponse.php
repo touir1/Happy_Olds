@@ -3,6 +3,7 @@
 namespace MedicalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use HappyOldsMainBundle\Entity\Notification;
 use SBC\NotificationsBundle\Builder\NotificationBuilder;
 use SBC\NotificationsBundle\Model\NotifiableInterface;
 
@@ -166,7 +167,7 @@ class Reponse implements NotifiableInterface
     public function notificationsOnCreate(NotificationBuilder $builder)
     {
         // TODO: Implement notificationsOnCreate() method.
-        $notification=New NotificationMedical();
+        $notification=New Notification();
         $notification->setTitle("Nouvelle reponse")
             ->setDescription($this->getText())
             ->setRoute('medical_detail')
@@ -179,7 +180,7 @@ class Reponse implements NotifiableInterface
     public function notificationsOnUpdate(NotificationBuilder $builder)
     {
         // TODO: Implement notificationsOnUpdate() method.
-        $notification=New NotificationMedical();
+        $notification=New Notification();
         $notification->setTitle("mise à jour reponse")
             ->setDescription($this->getText())
             ->setRoute('medical_detail')

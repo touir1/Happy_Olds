@@ -3,6 +3,9 @@
 namespace ServicesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use HappyOldsMainBundle\Entity\Notification;
+use SBC\NotificationsBundle\Builder\NotificationBuilder;
+use SBC\NotificationsBundle\Model\NotifiableInterface;
 
 /**
  * Postuler
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="postuler")
  * @ORM\Entity(repositoryClass="ServicesBundle\Repository\PostulerRepository")
  */
-class Postuler
+class Postuler implements NotifiableInterface
 {
     /**
      * @var int
@@ -93,27 +96,29 @@ class Postuler
         return $this->user;
     }
 
-    /**
-     * Set notifId
-     *
-     * @param \HappyOldsMainBundle\Entity\Notification $notifId
-     *
-     * @return Postuler
-     */
-    public function setNotifId(\HappyOldsMainBundle\Entity\Notification $notifId = null)
-    {
-        $this->notif_id = $notifId;
 
-        return $this;
+    public function notificationsOnCreate(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnCreate() method.
+        $notification=New Notification();
+        $notification->setTitle(  $this->getUser()->getUsername()." a postuler a votre service ")
+            ->setRoute('services_condidat')
+            ->setParameters(array('id'=>$this->getService()->getId()));
+        $builder->addNotification($notification);
+
+        return $builder ;
+
     }
-
-    /**
-     * Get notifId
-     *
-     * @return \HappyOldsMainBundle\Entity\Notification
-     */
-    public function getNotifId()
+    public function notificationsOnUpdate(NotificationBuilder $builder)
     {
-        return $this->notif_id;
+        // TODO: Implement notificationsOnUpdate() method.
+
+
+        return $builder ;
+    }
+    public function notificationsOnDelete(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnDelete() method.
+        return $builder;
     }
 }

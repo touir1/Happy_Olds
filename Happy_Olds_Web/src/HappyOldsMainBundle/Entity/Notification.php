@@ -10,15 +10,9 @@ use SBC\NotificationsBundle\Model\BaseNotification;
  * Notification
  *
  * @ORM\Table(name="notification")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type_notif", type="string")
- * @ORM\DiscriminatorMap({"notificationservice" = "\ServicesBundle\Entity\NotificationService",
- *     "notificationevents" = "\EventsBundle\Entity\NotificationEvents",
- *     "notificationmedical" = "\MedicalBundle\Entity\NotificationMedical",
- *     "notificationchat" = "\ChatRoomBundle\Entity\NotificationChat"})
  * @ORM\Entity(repositoryClass="HappyOldsMainBundle\Repository\NotificationRepository")
  */
-abstract class Notification extends BaseNotification implements \JsonSerializable
+class Notification extends BaseNotification implements \JsonSerializable
 {
     /**
      * @var int

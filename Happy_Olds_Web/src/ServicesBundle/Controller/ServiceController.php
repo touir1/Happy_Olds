@@ -34,19 +34,25 @@ class ServiceController extends Controller
        // $em = $this->getDoctrine()->getManager();
 
         //$services = $em->getRepository('ServicesBundle:Service')->findAll();
-         $em = $this->get('doctrine.orm.entity_manager');
-        $query=$em->createQuery("Select s from ServicesBundle:Service s");
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 2)/*page number*/
+        $connected_user_role=$this->getUser()->getRole();
+        if($connected_user_role=="ROLE_AGE"||$connected_user_role=="ROLE_JEUNE")
 
-        );
+        {return $this->redirectToRoute('forbidden_403');}
+        else {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $query = $em->createQuery("Select s from ServicesBundle:Service s");
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $query, /* query NOT result */
+                $request->query->getInt('page', 1),
+                $request->query->getInt('limit', 1)/*page number*/
+            );
 
-        return $this->render('@Services/service/delete.html.twig', array(
-            'services' => $pagination
-        ));
+
+            return $this->render('@Services/service/delete.html.twig', array(
+                'services' => $pagination
+            ));
+        }
     }
     public function publierAction()
     {
@@ -151,14 +157,14 @@ class ServiceController extends Controller
             $service=$this->getDoctrine()->getRepository(Service::class)->historiqueAge($this->getUser()->getId());
 
             return $this->render('@Services/service/history.html.twig',array(
-                'service' => $service
+                'services' => $service
             ));
         }
         else{
             $service=$this->getDoctrine()->getRepository(Service::class)->historiqueJeune($this->getUser()->getId());
 
             return $this->render('@Services/service/history.html.twig',array(
-                'service' => $service
+                'services' => $service
             ));
 
         }

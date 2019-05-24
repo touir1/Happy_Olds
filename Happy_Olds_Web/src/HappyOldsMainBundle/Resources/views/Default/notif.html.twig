@@ -1,0 +1,39 @@
+{# Call NotificationsBundles's assets #}
+{{ notifications_assets() }}
+<script>
+    /**
+     * After calling notifications_assets() "pusher" is now available
+     * and you can use it this way
+     */
+    function OnNotificationPushed(data) {
+        console.log("data",data);}
+</script>
+<li class="dropdown notifications-menu">
+    <!-- Menu toggle button -->
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-bell-o"></i>
+        <span class="label label-warning">{{ notifications|length }}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="header">You have {{ notifications|length }} notifications</li>
+        <li>
+
+            <!-- Inner Menu: contains the notifications -->
+            <ul class="menu">
+                {% for notif in notifications %}
+
+                <li><!-- start notification -->
+                    <a href="{{ path(notif.Route,notif.Parameters) }}">
+                        <i class="fa fa-users text-aqua"></i> {{ notif.title }}
+
+                    </a>
+                </li>
+                {% endfor %}
+
+                <!-- end notification -->
+            </ul>
+        </li>
+        <li class="footer"><a href="#">View all</a></li>
+    </ul>
+</li>
+

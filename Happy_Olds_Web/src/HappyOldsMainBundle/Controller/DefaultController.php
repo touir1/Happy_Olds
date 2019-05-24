@@ -7,17 +7,13 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
+use HappyOldsMainBundle\Entity\Notification;
 use HappyOldsMainBundle\Entity\User;
 use HappyOldsMainBundle\Form\UserType;
 use HappyOldsMainBundle\Utils\JobTypes;
 use HappyOldsMainBundle\Utils\RoleTypes;
+use MedicalBundle\Entity\NotificationMedical;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -234,125 +230,11 @@ class DefaultController extends Controller
     {
         return $this->render('@HappyOldsMain/UtilityPages/403.html.twig');
     }
+    public function getnotificationAction(){
+        $notification=$this->getDoctrine()->getManager()->getRepository(Notification::class)->findAll();
+        return $this->render('@HappyOldsMain/default/notif.html.twig',
+            array('notifications'=>$notification));
 
-    public function modifierAction(Request $req){
-        //etape 0: recap de l'objet à modifier (on a recup par id)
-        $id=$req->get('id');
-        $question=$this->getDoctrine()->getRepository(Question::class)->find($id);
-        //1.a :la préparation du formulaire
-        $form =$this->createForm(QuestionType::class,$question);
-        //2.a recup des données deja modifié
-        $form=$form->handleRequest($req);
-        if ($form->isValid()){
-            $em=$this->getDoctrine()->getManager();
-            $em->flush();
-            return $this->redirectToRoute('medical_affichage');
-        }
-        return $this->render('@Medical/Question/ajouter.html.twig',array(
-            'form'=>$form->createView()
-        ));
+
     }
-   public function profilAction(Request $req){
-    //etape 0: recap de l'objet à modifier (on a recup par id)
-
-       //$id=$this->getUser()->getId();
-    $id=$req->get('id');
-    $user=$this->getDoctrine()->getRepository(User::class)->find($id);
-    //1.a :la préparation du formulaire
-
-    $form =$this->createFormBuilder($user)
-        ->add('nom')
-        ->add('prenom')
-        ->add('date_naissance', DateType::class, array(
-            'widget' => 'single_text',
-
-            // prevents rendering it as type="date", to avoid HTML5 date pickers
-            'html5' => false,
-
-            // adds a class that can be selected in JavaScript
-            'attr' => ['class' => 'js-datepicker'],
-        ))
-        ->add('job',ChoiceType::class, array(
-            'label' => 'Travail',
-            'choices' => array(
-                'Medecin' => JobTypes::Medecin,
-                'Ingénieur' => JobTypes::Ingenieur,
-                'Autre' => JobTypes::Autre
-            ),
-            'required' => true,
-            'multiple' => false,
-            'data' => 'autre',
-        ))
-        ->add('ville',ChoiceType::class, array(
-            'label' => 'Ville',
-            'choices' => array(
-                'Tunis' => 'Tunis',
-                'Ariana' => 'Ariana',
-                'Ben Arous' => 'Ben Arous',
-                'Béja' => 'Béja',
-                'Bizerte' => 'Bizerte',
-                'Gabes' => 'Gabes',
-                'Jandouba' => 'Jandouba',
-                'Gafsa' => 'Gafsa',
-                'Kairouan' => 'Kairouan',
-                'kasserine' => 'kasserine',
-                'Kebili' => 'Kebili',
-                'La manouba' => 'La manouba',
-                'le kef' => 'le kef',
-                'Mahdia' => 'Mahdia',
-                'Médenine' => 'Médenine',
-                'Monastir' => 'Monastir',
-                'Nabeul' => 'Nabeul',
-                'Sfax' => 'Sfax',
-                'Sidi Bouzid' => 'Sidi Bouzid',
-                'Siliana' => 'Siliana',
-                'Sousse' => 'Sousse',
-                'Tataouine' => 'Tataouine',
-                'Tozeur' => 'Tozeur',
-                'Zaghouan' => 'Zaghouan',
-            ),
-            'required' => true,
-            'multiple' => false,
-            'data' => 'Tunis',
-        ))
-        ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
-        ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
-        ->add('plainPassword', RepeatedType::class, array(
-            'type' => PasswordType::class,
-            'options' => array(
-                'translation_domain' => 'FOSUserBundle',
-                'attr' => array(
-                    'autocomplete' => 'new-password',
-                ),
-            ),
-            'first_options' => array('label' => 'form.password'),
-            'second_options' => array('label' => 'form.password_confirmation'),
-            'invalid_message' => 'fos_user.password.mismatch',
-        ))
-
-        ->add('role', ChoiceType::class, array(
-            'label' => 'Type',
-            'choices' => array(
-                'Jeune' => RoleTypes::Jeune,
-                'Agé' => RoleTypes::Age
-            ),
-            'required' => true,
-            'multiple' => false,
-            'data' => RoleTypes::Jeune,
-        )) ->add('file')
-        ->add('Valider',SubmitType::class)->getForm();
-
-    //2.a recup des données deja modifié
-    $form=$form->handleRequest($req);
-    if ($form->isValid()){
-        $em=$this->getDoctrine()->getManager();
-        $user->upload();
-        $em->persist($user);
-        $em->flush();
-        return $this->redirectToRoute('happy_olds_main_homepage');
-    }
-    return $this->render('@HappyOldsMain/Default/profil.html.twig',array(
-        'form'=>$form->createView()
-    ));
-}
 }

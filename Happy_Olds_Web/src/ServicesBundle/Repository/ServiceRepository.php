@@ -13,7 +13,7 @@ class ServiceRepository extends \Doctrine\ORM\EntityRepository
     public function historiqueJeune($id)
     {
         $query = $this->getEntityManager()
-            ->createQuery("Select s from ServicesBundle:Service s where s.userAssocie.id =:k ")
+            ->createQuery("Select s from ServicesBundle:Service s where s.userAssocie=:k ")
             ->setParameter(':k', $id);
         return $query->getResult();
 
@@ -21,7 +21,7 @@ class ServiceRepository extends \Doctrine\ORM\EntityRepository
     public function historiqueAge($id)
     {
         $query = $this->getEntityManager()
-            ->createQuery("Select s from ServicesBundle:Service s where s.user.id =:k ")
+            ->createQuery("Select s from ServicesBundle:Service s where s.user=:k ")
             ->setParameter(':k', $id);
         return $query->getResult();
 

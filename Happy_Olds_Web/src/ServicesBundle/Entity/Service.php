@@ -32,7 +32,7 @@ class Service
     /**
      * @var string
      *
-     * @ORM\Column(name="valider", type="string", length=255)
+     * @ORM\Column(name="valider", type="string", length=255 ,nullable=true)
      */
     private $valider;
 
