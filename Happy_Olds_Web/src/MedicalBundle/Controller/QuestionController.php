@@ -16,19 +16,35 @@ class QuestionController extends Controller
         public function affichageAction(Request $request){
         $titre=$request->get('titre');
         if (isset($titre) && !empty($titre)){
-            $question=$this->getDoctrine()
-                ->getRepository(Question::class)
-                ->MyfindAll($titre);
-            return $this->render( '@Medical/Question/affichage.html.twig',array(
-                'tab'=>$question));
-        }
-        $rp = $this->getDoctrine()
-            ->getRepository(Question::class);
-        $questions=$rp->findAll();
+            $em = $this->get('doctrine.orm.entity_manager');
+            $query=$em->createQuery("Select q from MedicalBundle:Question q where q.titre LIKE :t") ->setParameter(':t', '%' . $titre . '%');
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $query, /* query NOT result */
+                $request->query->getInt('page', 1),
+                $request->query->getInt('limit', 2)/*page number*/
 
+            );
+           # $question=$this->getDoctrine()
+                #->getRepository(Question::class)
+               # ->MyfindAll($titre);
+            return $this->render( '@Medical/Question/affichage.html.twig',array(
+                'questions'=>$pagination));
+        }
+       # $rp = $this->getDoctrine()
+           # ->getRepository(Question::class);
+       # $questions=$rp->findAll();
+            $em = $this->get('doctrine.orm.entity_manager');
+            $query=$em->createQuery("Select q from MedicalBundle:Question q");
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $query, /* query NOT result */
+                $request->query->getInt('page', 1),
+                $request->query->getInt('limit', 2)/*page number*/
+
+            );
         return $this->render('@Medical/Question/affichage.html.twig',array(
-            'rp' =>$rp,
-            'tab'=>$questions));
+            'questions'=>$pagination));
     }
 
          public function supprimerAction(Request $req){
@@ -120,27 +136,37 @@ class QuestionController extends Controller
         $titre=$request->get('titre');
         $user = $this->getUser();
         if (isset($titre) && !empty($titre)){
-            $question=$this->getDoctrine()
-                ->getRepository(Question::class)
-                ->MyfindAll($titre);
+
+            $em = $this->get('doctrine.orm.entity_manager');
+            $query=$em->createQuery("Select q from MedicalBundle:Question q where q.titre LIKE :t") ->setParameter(':t', '%' . $titre . '%');
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate(
-                $question, /* query NOT result */
+                $query, /* query NOT result */
                 $request->query->getInt('page', 1),
                 $request->query->getInt('limit', 2)/*page number*/
 
             );
+             #$question=$this->getDoctrine()
+                #->getRepository(Question::class)
+              # ->MyfindAll($titre);
             return $this->render( '@Medical/Question/historique.html.twig',array(
-                'tab'=>$question,
                 'question'=>$pagination));
         }
-        $rp = $this->getDoctrine()
-            ->getRepository(Question::class);
-        $questions=$rp->recherche($user);
+        $em = $this->get('doctrine.orm.entity_manager');
+        $query=$em->createQuery("Select r from MedicalBundle:Question r where r.user =:s ")->setParameter(':s', $user);;
+      #{  $rp = $this->getDoctrine()
+           # ->getRepository(Question::class);
+       # $questions=$rp->recherche($user);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 2)/*page number*/
+
+        );
 
         return $this->render('@Medical/Question/historique.html.twig',array(
-            'rp' =>$rp,
-            'tab'=>$questions,
+            'question' =>$pagination,
             ));
     }
 
