@@ -38,6 +38,11 @@ class PublicationPieceJointe
     private $name;
 
     /**
+     * @ORM\Column(name="real_name", type="string")
+     */
+    private $realName;
+
+    /**
      * @Assert\File()
      */
     public $file;
@@ -169,5 +174,38 @@ class PublicationPieceJointe
     public function getWebPath()
     {
         return $this->name ? 'uploads/'.$this->name : '';
+    }
+
+    /**
+     * Set realName
+     *
+     * @param string $realName
+     *
+     * @return PublicationPieceJointe
+     */
+    public function setRealName($realName)
+    {
+        $this->realName = $realName;
+
+        return $this;
+    }
+
+    /**
+     * Get realName
+     *
+     * @return string
+     */
+    public function getRealName()
+    {
+        return $this->realName;
+    }
+
+    public function getFileOriginalName()
+    {
+        if(isset($this->file) && !is_null($this->file))
+        {
+            return $this->file->getClientOriginalName();
+        }
+        return null;
     }
 }

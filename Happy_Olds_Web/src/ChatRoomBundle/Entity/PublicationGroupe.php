@@ -33,8 +33,9 @@ class PublicationGroupe
     private $description;
 
     /**
+     *
      * @ORM\OneToOne(targetEntity="PublicationPieceJointe", cascade={"persist","remove"})
-     * @ORM\JoinColumn(name="publication_piece_jointe_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="publication_piece_jointe_id", referencedColumnName="id", nullable=true)
      */
     private $pieceJointe;
 

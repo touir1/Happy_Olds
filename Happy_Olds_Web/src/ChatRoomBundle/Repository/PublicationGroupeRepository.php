@@ -68,4 +68,21 @@ class PublicationGroupeRepository extends \Doctrine\ORM\EntityRepository
         ->setParameter(':user',$user_id);
         return $query->getOneOrNullResult();
     }
+
+    public function findAllSubscribed($user_id)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT p FROM ChatRoomBundle:PublicationGroupe p "
+                ."LEFT JOIN p.groupe g "
+                ."WHERE EXISTS( "
+                    ."SELECT 1 FROM ChatRoomBundle:MembreGroupe m "
+                    ."WHERE m.groupe = g.id "
+                    ."AND m.user = :user "
+                    ."AND m.authorized = 1 "
+                    ."AND m.banned != 1 "
+                .") "
+                ."ORDER BY p.datePublication DESC ")
+            ->setParameter(':user',$user_id);
+        return $query->getResult();
+    }
 }

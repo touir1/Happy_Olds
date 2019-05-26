@@ -146,16 +146,31 @@
                                      height="300"  frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBoVSG3FplX2Ckbl672m4HWjnKK4WS5j2w&q={{ service.getUser().getVille() }}" >
                             </iframe>
                             #}
-                            {% if p.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg'] %}
+                            {% if p.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg', 'image/bmp', 'image/webp'] %}
                                 <center>
                                     <img class="publication_img" src="{{ asset(p.pieceJointe.webPath) }}" style="max-width: 100%;height: auto;" alt="{{ p.description }}">
                                 </center>
+                            {% elseif p.pieceJointe.mimeType in ['video/mp4','video/webm','video/ogg','video/x-msvideo','video/mpeg'] %}
+                                <center>
+                                    <video class="publication_video" style="max-width: 100%;height: auto;" controls>
+                                        <source src="{{ asset(p.pieceJointe.webPath) }}" type="{{ p.pieceJointe.mimeType }}">
+                                        Your browser does not support the video element.
+                                    </video>
+                                </center>
+                            {% elseif p.pieceJointe.mimeType in ['audio/mpeg', 'audio/ogg', 'audio/wav'] %}
+                                <center>
+                                    <audio controls>
+                                        <source src="{{ asset(p.pieceJointe.webPath) }}" type="{{ p.pieceJointe.mimeType }}">
+                                    </audio>
+                                </center>
+                            {% else %}
+                                <a href="{{ asset(p.pieceJointe.webPath) }}" download="{{ p.pieceJointe.realName }}">Télécharger: {{ p.pieceJointe.realName }}</a>
                             {% endif %}
                             <!-- /.attachment-pushed -->
                         </div>
                     {% endif %}
                     {% if app.user.id == p.user.id %}
-                        <a class="btn btn-default btn bg-olive btn-xs" href="#"><i class="fa fa-share"></i> Modifier </a>
+                        <a class="btn btn-default btn bg-olive btn-xs" href="{{ path('chat_room_publication_update',{'id': p.id}) }}"><i class="fa fa-share"></i> Modifier </a>
                         <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('chat_room_publication_delete',{'id': p.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
                     {% endif %}
                     <!-- /.attachment-block -->
@@ -182,7 +197,7 @@
                                 <div class="with-emotes">
                                     {{ c.texte }}
                                     {% if app.user.id == c.user.id %}
-                                        <a class="btn btn-default  btn-xs pull-right" style="background-color:#3c8dbc;color:#fff; " href="#"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-default  btn-xs pull-right comment_remove" style="background-color:#3c8dbc;color:#fff; " data-id="{{ c.id }}"><i class="fa fa-trash" id="comment_i_{{ c.id }}"></i></a>
                                     {% endif %}
                                 </div>
 

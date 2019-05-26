@@ -1,3 +1,7 @@
 chat_room_api_comment_add:
     path:     /add
     defaults: { _controller: ChatRoomBundle:CommentaireChat:_add }
+
+chat_room_api_comment_remove:
+    path:     /remove
+    defaults: { _controller: ChatRoomBundle:CommentaireChat:_remove }

@@ -38,6 +38,35 @@
         });
     }
 
+    var removeComment = function (e) {
+        e.preventDefault();
+        //console.log(this);
+
+        var commentBox = Utils.findParentBySelector(this,'.box-comment');
+
+        //console.log(commentBox);
+
+        var route = dataFromView['routes']['chat_room_api_comment_remove'];
+        var comment_id = $(this).data('id');
+
+        $('#comment_i_'+comment_id).removeClass('fa-trash').addClass('fa-spinner fa-spin');
+        $(this).addClass('disabled');
+
+        var url = Utils.setUrlParameter(route,'id',comment_id);
+
+        //console.log(url);
+
+        $.get(url,function(result){
+            //console.log(result);
+            if(result['status'] == 'ok') {
+                //remove from html
+                commentBox.parentNode.removeChild(commentBox);
+            }
+        });
+
+
+    };
+
     document.querySelector('.comment-input').addEventListener('keypress', function (e) {
 
         var key = e.which || e.keyCode;
@@ -64,6 +93,11 @@
                         var delete_button = $(clone).find('#remove-comment-'+publication_id);
                         delete_button.removeAttr('id');
                         delete_button.show();
+
+                        delete_button.attr('data-id',res['id']);
+                        delete_button.children('i').attr('id','comment_i_'+res['id']);
+
+                        delete_button.on('click',removeComment);
 
                         div.style.display = 'none';
                         element.value = "";
@@ -108,5 +142,14 @@
     span.onclick = function() {
         modal.style.display = "none";
     };
+
+
+    var commentRemoveElements = document.getElementsByClassName('comment_remove');
+
+    for(var i=0;i<commentRemoveElements.length;i++)
+    {
+        commentRemoveElements[i].addEventListener('click', removeComment,false);
+    }
+
 
 })(jQuery);

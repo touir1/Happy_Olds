@@ -8,4 +8,8 @@ chat_room_api_publication_delete:
 
 chat_room_api_publication_consult:
     path:      /consult
-    defaults: { _controller: ChatRoomBundle:PublicationGroupe:consult }
+    defaults: { _controller: ChatRoomBundle:PublicationGroupe:_consult }
+
+chat_room_api_publication_update:
+    path:      /update
+    defaults: { _controller: ChatRoomBundle:PublicationGroupe:_update }

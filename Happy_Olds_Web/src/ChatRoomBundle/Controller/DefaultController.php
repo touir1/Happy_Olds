@@ -2,6 +2,7 @@
 
 namespace ChatRoomBundle\Controller;
 
+use ChatRoomBundle\Entity\PublicationGroupe;
 use ChatRoomBundle\Utils\ChatRoomRoutes;
 
 class DefaultController extends UtilsController
@@ -18,10 +19,14 @@ class DefaultController extends UtilsController
 
     public function indexAction()
     {
+        $publications = $this->getDoctrine()->getRepository(PublicationGroupe::class)
+            ->findAllSubscribed($this->getUser()->getId());
+
         return $this->render('@ChatRoom/Default/index.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
             ],
+            'publications' => $publications,
         ]);
     }
 }

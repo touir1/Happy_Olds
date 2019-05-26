@@ -43,12 +43,14 @@ abstract class ChatRoomRoutes
             self::chat_room_api_publication_add,
             self::chat_room_api_publication_delete,
             self::chat_room_api_publication_consult,
+            self::chat_room_api_comment_remove,
         ];
     }
 
     public static function getViewsArray()
     {
         return [
+            self::chat_room_homepage,
             self::chat_room_chat_homepage,
             self::chat_room_group_add,
             self::chat_room_group_consult,
@@ -78,6 +80,7 @@ abstract class ChatRoomRoutes
     /** API **/
     // comments
     const chat_room_api_comment_add = 'chat_room_api_comment_add';
+    const chat_room_api_comment_remove = 'chat_room_api_comment_remove';
     // groups
     const chat_room_api_group_list = 'chat_room_api_group_list';
     const chat_room_api_group_my_list = 'chat_room_api_group_my_list';
@@ -104,7 +107,9 @@ abstract class ChatRoomRoutes
     const chat_room_api_publication_delete = 'chat_room_api_publication_delete';
     const chat_room_api_publication_consult = 'chat_room_api_publication_consult';
 
+
     /** VIEWS **/
+    const chat_room_homepage = 'chat_room_homepage';
     const chat_room_chat_homepage = 'chat_room_chat_homepage';
     // groups
     const chat_room_group_list = 'chat_room_group_list';

@@ -11,3 +11,8 @@ services:
         public: false
         arguments: ["@templating","@router","@session"]
 
+    security.auth_handler:
+        class:      HappyOldsMainBundle\Security\AuthenticationHandler
+        public:     false
+        arguments:  ['@router','@session','@security.authorization_checker']
+

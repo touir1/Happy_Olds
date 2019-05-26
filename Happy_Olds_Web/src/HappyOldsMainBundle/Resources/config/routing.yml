@@ -11,6 +11,10 @@ happy_olds_main_page:
 happy_olds_main_login:
     path:     /login
     defaults: { _controller: HappyOldsMainBundle:Default:index }
+happy_olds_main_api_login:
+    path:     /api/login
+    defaults: { _controller: HappyOldsMainBundle:Default:_login }
+    methods: POST
 happy_olds_main_register:
     path:     /register
     defaults: { _controller: HappyOldsMainBundle:Default:register }

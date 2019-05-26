@@ -52,9 +52,47 @@ class CommentaireChatController extends UtilsController
                 $this->add($commentaire);
 
                 return new JsonResponse([
-                    "status" => "ok"
+                    "status" => "ok",
+                    "id" => $commentaire->getId(),
                 ],JsonResponse::HTTP_CREATED,[]);
             }
         }
+    }
+
+    private function remove($commentaire_id)
+    {
+        $commentaire = $this->getDoctrine()->getRepository(CommentaireChat::class)
+            ->find($commentaire_id);
+
+        $id_publication = $commentaire->getPublication()->getId();
+
+        if(isset($commentaire) && !is_null($commentaire))
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($commentaire);
+            $em->flush();
+        }
+
+        return $id_publication;
+    }
+
+    public function _removeAction(Request $request)
+    {
+        $id = $request->get('id');
+        $this->remove($id);
+
+        return new JsonResponse([
+            "status" => "ok"
+        ],JsonResponse::HTTP_CREATED,[]);
+    }
+
+    public function removeAction(Request $request)
+    {
+        $id = $request->get('id');
+        $id_publication = $this->remove($id);
+
+        return $this->redirectToRoute(ChatRoomRoutes::chat_room_publication_consult, [
+            'id' => $id_publication
+        ]);
     }
 }

@@ -16,11 +16,6 @@
     ev.initEvent('input', true, true);
     // ------------------------------------------------------
 
-    var new_publication = document.getElementById('new-publication');
-    new_publication.addEventListener('input',function(){
-        document.getElementById('publication-preview').innerHTML = wdtEmojiBundle.render(this.value);
-    });
-
     var classname = document.getElementsByClassName('using-emoji');
     for (var i = 0; i < classname.length; i++) {
         classname[i].addEventListener('input', function () {
@@ -122,7 +117,7 @@
                     clone.id = "some_id";
                     document.body.appendChild(clone);
                     */
-            });
+                });
         }
     });
 

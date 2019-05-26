@@ -22,7 +22,7 @@
         <div class="box box-widget" style="width: 75%;left: 13%;">
             <div class="box-header with-border">
                 <div class="user-block">
-                    <img class="img-circle" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
+                    <img class="img-circle" src="{{ asset(publication.user.webPath) }}" alt="User Image">
                     <span class="username"><a href="#">{{ publication.user.nom | upper }} {{ publication.user.prenom | capitalize }}</a></span>
                     <span class="description">publié le {{publication.datePublication | date('Y-m-d h:m:s')  }}</span>
                 </div>
@@ -48,16 +48,31 @@
                 <!-- Attachment -->
                 {% if not publication.pieceJointe is empty and not publication.pieceJointe.path is empty %}
                     <div class="attachment-block clearfix">
-                        {% if publication.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg'] %}
+                        {% if publication.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg', 'image/bmp', 'image/webp'] %}
                             <center>
                                 <img class="publication_img" src="{{ asset(publication.pieceJointe.webPath) }}" style="max-width: 100%;height: auto;" alt="{{ publication.description }}">
                             </center>
+                        {% elseif publication.pieceJointe.mimeType in ['video/mp4','video/webm','video/ogg','video/x-msvideo','video/mpeg'] %}
+                            <center>
+                                <video class="publication_video" style="max-width: 100%;height: auto;" controls>
+                                    <source src="{{ asset(publication.pieceJointe.webPath) }}" type="{{ publication.pieceJointe.mimeType }}">
+                                    Your browser does not support the video element.
+                                </video>
+                            </center>
+                        {% elseif publication.pieceJointe.mimeType in ['audio/mpeg', 'audio/ogg', 'audio/wav'] %}
+                            <center>
+                                <audio controls>
+                                    <source src="{{ asset(publication.pieceJointe.webPath) }}" type="{{ publication.pieceJointe.mimeType }}">
+                                </audio>
+                            </center>
+                        {% else %}
+                            <a href="{{ asset(publication.pieceJointe.webPath) }}" download="{{ publication.pieceJointe.realName }}">Télécharger: {{ publication.pieceJointe.realName }}</a>
                         {% endif %}
                         <!-- /.attachment-pushed -->
                     </div>
                 {% endif %}
                 {% if app.user.id == publication.user.id %}
-                    <a class="btn btn-default btn bg-olive btn-xs" href="#"><i class="fa fa-share"></i> Modifier </a>
+                    <a class="btn btn-default btn bg-olive btn-xs" href="{{ path('chat_room_publication_update',{'id': publication.id}) }}"><i class="fa fa-share"></i> Modifier </a>
                     <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('chat_room_publication_delete',{'id': publication.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
                 {% endif %}
                 <!-- /.attachment-block -->
@@ -70,7 +85,7 @@
                 {% for c in publication.commentaires %}
                     <div class="box-comment">
                         <!-- User image -->
-                        <img class="img-circle img-sm" src="{{ asset('/dist/img/user3-128x128.jpg') }}" alt="User Image">
+                        <img class="img-circle img-sm" src="{{ asset(c.user.webPath) }}" alt="User Image">
 
                         <div class="comment-text">
                       <span class="username">
@@ -80,7 +95,7 @@
                             <div class="with-emotes">
                                 {{ c.texte }}
                                 {% if app.user.id == c.user.id %}
-                                    <a class="btn btn-default  btn-xs pull-right" style="background-color:#3c8dbc;color:#fff; " href="#"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-default  btn-xs pull-right" style="background-color:#3c8dbc;color:#fff; " class="comment_remove" data-id="{{ c.id }}"><i class="fa fa-trash"></i></a>
                                 {% endif %}
                             </div>
 
@@ -96,7 +111,7 @@
                 </div>
                 <div class="box-comment" id="box-comment-{{ publication.id }}" hidden>
                     <!-- User image -->
-                    <img class="img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="User Image">
+                    <img class="img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="User Image">
 
                     <div class="comment-text">
                         <span class="username">
@@ -116,7 +131,7 @@
             <!-- /.box-footer -->
             <div class="box-footer">
                 <form action="#" method="post">
-                    <img class="img-responsive img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="Alt Text">
+                    <img class="img-responsive img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="Alt Text">
                     <!-- .img-push is used to add margin to elements next to floating images -->
                     <div class="img-push">
                         <input type="text" name="commentaire" data-id="{{ publication.id }}" class="form-control input-sm using-emoji comment-input" placeholder="Press enter to post comment">

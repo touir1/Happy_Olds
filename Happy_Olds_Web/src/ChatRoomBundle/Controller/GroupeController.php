@@ -19,20 +19,37 @@ use Symfony\Component\HttpFoundation\Request;
 class GroupeController extends UtilsController
 {
 
+    private static function user_mapping($user)
+    {
+
+    }
+
     public function __construct()
     {
         parent::__construct();
         // this is an object to remove params from json when serialized
+
         $this->callbacks = [
             'members' => function($object){
                 return $object->count();
             },
             'creator' => function($object){
-                return $object->getId();
+                return [
+                    "id" => $object->getId(),
+                    "nom" => $object->getNom(),
+                    "prenom" => $object->getPrenom(),
+                ];
             },
             'publications' => function($object){
                 return $object->count();
-            }
+            },
+            'sujet' => function($object){
+                return [
+                    "id" => $object->getId(),
+                    "label" => $object->getLabel(),
+                ];
+            },
+
         ];
 
     }
