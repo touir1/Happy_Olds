@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="service")
  * @ORM\Entity(repositoryClass="ServicesBundle\Repository\ServiceRepository")
  */
-class Service
+class Service implements  \JsonSerializable
 {
     /**
      * @var int
@@ -299,5 +299,12 @@ class Service
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+    function jsonSerialize()
+    {
+        return [
+            "iduser"        => $this->getUser()->getId(),
+            //"userassocier"    => $this->getUserAssocie()->getId(),
+        ];
     }
 }

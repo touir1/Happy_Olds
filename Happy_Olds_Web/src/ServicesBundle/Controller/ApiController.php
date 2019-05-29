@@ -18,15 +18,18 @@ class ApiController extends Controller
 {
     public function allAction(){
         $em = $this->getDoctrine()->getManager();
-        $services=$em->getRepository('ServicesBundle:Service')->findAll();
+        $services=$em->getRepository('ServicesBundle:Service')->find('3');
+
         $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceLimit(1);
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId();
         });
-        $serializer=new Serializer([$normalizer]);
+        $normalizers = array($normalizer);
+        $serializer=new Serializer($normalizers);
 
         $formatted=$serializer->normalize($services);
+
         return new JsonResponse($formatted);
     }
 }

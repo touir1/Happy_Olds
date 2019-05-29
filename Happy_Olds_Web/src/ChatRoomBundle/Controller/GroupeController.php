@@ -81,6 +81,7 @@ class GroupeController extends UtilsController
         return $this->render( '@ChatRoom/Groupe/list.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
+                
             ],
             'liste' => $liste,
 
