@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="AdminLTE.css" />
+<div class="col-md-3">
+
+    <!-- Profile Image -->
+    <div class="box box-danger">
+        <div class="box-body box-profile">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="Photo de profil de l'utilisateur">
+                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }}</p> </font></font></h3>
+            <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                    Tout les événements</li>
+                <li class="list-group-item">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_venir') }}/>
+                    Avenir</li>
+                <li class="list-group-item">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_affiche') }}/>
+                    Mes événements</li>
+                <li class="list-group-item">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                    Voter pour les événements
+                </li>
+                <li class="list-group-item">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                    Statistiques</li>
+            </ul>
+        </div></div></div>
+<div class="col-md-9">
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Modifier l'événement</h1></font></font></h3>
+        </div>
+    <h5 align="right"><a href="{{ path('event_index') }}">Back to the list</a></h5>
+<h5 align="right">{{ form_start(delete_form) }}
+    <input type="submit" value="Delete">
+    {{ form_end(delete_form) }}</h5>
+
+<table align="center">
+    {{ form_start(edit_form) }}
+    <tr>
+        <th>Titre *:</th>
+        <td>{{ form_widget(edit_form.titre) }}</td>
+    </tr>
+    <tr>
+        <th>Description *:</th>
+        <td>{{ form_widget(edit_form.description) }}</td>
+    </tr>
+    <tr>
+        <th>Nombre de participant *:</th>
+        <td>{{ form_widget(edit_form.nbrParticipant) }}</td>
+    </tr>
+    <tr>
+        <th>Date de début *:</th>
+        <td>{{ form_widget(edit_form.dateDebut) }}</td>
+        <th>Date de fin *:</th>
+        <td>{{ form_widget(edit_form.dateFin) }}</td>
+    </tr>
+    <tr><th> Privilége *:</th><td>{{  form_widget(edit_form.privilege) }}</td></tr>
+
+<br>
+     <tr><th></th><th><input type="submit" value="Modifier" /></th>
+            </tr>
+
+
+</table>
+
+
+
+
+
+</div></div></div>
+
+
+    <ul>
+        <!--li>
+            <a href="{{ path('event_index') }}">Back to the list</a>
+        </li-->
+        <!--li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li-->
+    </ul>
+
+{% endblock %}

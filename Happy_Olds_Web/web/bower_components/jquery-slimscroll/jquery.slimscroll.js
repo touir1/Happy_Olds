@@ -312,7 +312,7 @@
           if (!o.alwaysVisible) { bar.hide(); }
         }
 
-        // attach scroll events
+        // attach scroll event
         attachWheel(this);
 
         function _onWheel(e)

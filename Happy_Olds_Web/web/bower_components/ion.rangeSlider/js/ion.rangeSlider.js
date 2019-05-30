@@ -641,7 +641,7 @@
 
         /**
          * Remove slider instance
-         * and unbind all events
+         * and unbind all event
          */
         remove: function () {
             this.$cache.cont.remove();
@@ -670,7 +670,7 @@
         },
 
         /**
-         * bind all slider events
+         * bind all slider event
          */
         bindEvents: function () {
             if (this.no_diapason) {

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link rel="stylesheet" type="text/css" href="AdminLTE.css" />
+    <div class="col-md-3">
+
+        <!-- Profile Image -->
+        <div class="box box-danger">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="Photo de profil de l'utilisateur">
+                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }} </p>  </font></font></h3>
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                        Tout les événements</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_venir') }}/>
+                        Avenir</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_affiche') }}/>
+                        Mes événements</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                        Voter pour les événements
+                    </li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                        Statistiques</li>
+                </ul>
+            </div></div></div>
+    <div class="col-md-9">
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Liste des évenements</h1></font></font></h3>
+            </div>
+            <!--ul>
+        <li align="right">
+           <h5 align="right"><a href="{{ path('event_new') }}">Create a new event</a></h5>
+        </li>
+    </ul-->
+            <h5 align="right"><a href="{{ path('event_new') }}">Creation d'un nouveau évenement</a></h5>
+            <table align="center" border="0" width="75%" >
+                {% for event in events %}
+
+
+
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3> {{ event.titre }}</h3>
+                                <p>{{ event.description }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="{{ path('event_rate', { 'id': event.id }) }}" class="small-box-footer">
+                                More info <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </table>
+
+        </div></div></div>
+
+    <!--ul>
+        <li>
+            <a href="{{ path('event_new') }}">Create a new event</a>
+        </li>
+    </ul-->
+{% endblock %}

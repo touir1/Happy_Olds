@@ -114,13 +114,13 @@
 			// Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
 			maintainAspectRatio: true,
 
-			// Boolean - Determines whether to draw tooltips on the canvas or not - attaches events to touchmove & mousemove
+			// Boolean - Determines whether to draw tooltips on the canvas or not - attaches event to touchmove & mousemove
 			showTooltips: true,
 
 			// Boolean - Determines whether to draw built-in tooltip or call custom tooltip function
 			customTooltips: false,
 
-			// Array - Array of string names to attach tooltip events
+			// Array - Array of string names to attach tooltip event
 			tooltipEvents: ["mousemove", "touchstart", "touchmove", "mouseout"],
 
 			// String - Tooltip background colour
@@ -746,7 +746,7 @@
 			}
 		},
 		bindEvents = helpers.bindEvents = function(chartInstance, arrayOfEvents, handler){
-			// Create the events object if it's not already present
+			// Create the event object if it's not already present
 			if (!chartInstance.events) chartInstance.events = {};
 
 			each(arrayOfEvents,function(eventName){
@@ -2096,7 +2096,7 @@
 
 			this.datasets = [];
 
-			//Set up tooltip events on the chart
+			//Set up tooltip event on the chart
 			if (this.options.showTooltips){
 				helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
 					var activeBars = (evt.type !== 'mouseout') ? this.getBarsAtEvent(evt) : [];
@@ -2381,7 +2381,7 @@
 				y : this.chart.height/2
 			});
 
-			//Set up tooltip events on the chart
+			//Set up tooltip event on the chart
 			if (this.options.showTooltips){
 				helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
 					var activeSegments = (evt.type !== 'mouseout') ? this.getSegmentsAtEvent(evt) : [];
@@ -2582,7 +2582,7 @@
 
 			this.datasets = [];
 
-			//Set up tooltip events on the chart
+			//Set up tooltip event on the chart
 			if (this.options.showTooltips){
 				helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
 					var activePoints = (evt.type !== 'mouseout') ? this.getPointsAtEvent(evt) : [];
@@ -2985,7 +2985,7 @@
 				this.addData(segment,index,true);
 			},this);
 
-			//Set up tooltip events on the chart
+			//Set up tooltip event on the chart
 			if (this.options.showTooltips){
 				helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
 					var activeSegments = (evt.type !== 'mouseout') ? this.getSegmentsAtEvent(evt) : [];
@@ -3213,7 +3213,7 @@
 
 			this.buildScale(data);
 
-			//Set up tooltip events on the chart
+			//Set up tooltip event on the chart
 			if (this.options.showTooltips){
 				helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
 					var activePointsCollection = (evt.type !== 'mouseout') ? this.getPointsAtEvent(evt) : [];

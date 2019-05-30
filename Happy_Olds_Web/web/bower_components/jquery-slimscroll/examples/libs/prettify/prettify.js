@@ -57,7 +57,7 @@
 
 /**
  * Split {@code prettyPrint} into multiple timeouts so as not to interfere with
- * UI events.
+ * UI event.
  * If set to {@code false}, {@code prettyPrint()} is synchronous.
  */
 window['PR_SHOULD_USE_CONTINUATION'] = true;

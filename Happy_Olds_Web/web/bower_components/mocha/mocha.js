@@ -414,7 +414,7 @@ if (typeof module !== 'undefined') {
 
 }); // module: browser/diff.js
 
-require.register("browser/events.js", function(module, exports, require){
+require.register("browser/event.js", function(module, exports, require){
 
 /**
  * Module exports.
@@ -593,7 +593,7 @@ EventEmitter.prototype.emit = function (name) {
 
   return true;
 };
-}); // module: browser/events.js
+}); // module: browser/event.js
 
 require.register("browser/fs.js", function(module, exports, require){
 
@@ -4114,7 +4114,7 @@ require.register("runnable.js", function(module, exports, require){
  * Module dependencies.
  */
 
-var EventEmitter = require('browser/events').EventEmitter
+var EventEmitter = require('browser/event').EventEmitter
   , debug = require('browser/debug')('mocha:runnable')
   , milliseconds = require('./ms');
 
@@ -4348,7 +4348,7 @@ require.register("runner.js", function(module, exports, require){
  * Module dependencies.
  */
 
-var EventEmitter = require('browser/events').EventEmitter
+var EventEmitter = require('browser/event').EventEmitter
   , debug = require('browser/debug')('mocha:runner')
   , Test = require('./test')
   , utils = require('./utils')
@@ -5018,7 +5018,7 @@ require.register("suite.js", function(module, exports, require){
  * Module dependencies.
  */
 
-var EventEmitter = require('browser/events').EventEmitter
+var EventEmitter = require('browser/event').EventEmitter
   , debug = require('browser/debug')('mocha:suite')
   , milliseconds = require('./ms')
   , utils = require('./utils')

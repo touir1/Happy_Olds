@@ -2557,7 +2557,7 @@ function getUrlConfigHtml() {
 	return urlConfigHtml;
 }
 
-// Handle "click" events on toolbar checkboxes and "change" for select menus.
+// Handle "click" event on toolbar checkboxes and "change" for select menus.
 // Updates the URL with the new state of `config.urlConfig` values.
 function toolbarChanged() {
 	var updatedUrl, value, tests,

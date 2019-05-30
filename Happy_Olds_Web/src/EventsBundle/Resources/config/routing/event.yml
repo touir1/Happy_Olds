@@ -1,0 +1,44 @@
+event_index:
+    path:     /
+    defaults: { _controller: "EventsBundle:Event:index" }
+    methods:  GET
+
+event_show:
+    path:     /{id}/show
+    defaults: { _controller: "EventsBundle:Event:show" }
+    methods:  GET
+
+event_new:
+    path:     /new
+    defaults: { _controller: "EventsBundle:Event:new" }
+    methods:  [GET, POST]
+
+event_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EventsBundle:Event:edit" }
+    methods:  [GET, POST]
+
+event_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EventsBundle:Event:delete" }
+    methods:  DELETE
+
+event_affiche:
+    path:     /affiche
+    defaults: { _controller: "EventsBundle:Event:affiche" }
+    methods:  GET
+
+event_voir:
+    path:     /voir
+    defaults: { _controller: "EventsBundle:Event:voir" }
+    methods:  GET
+
+event_rate:
+    path:     /{id}/rate
+    defaults: { _controller: "EventsBundle:Event:rate" }
+    methods:  GET
+
+event_venir:
+    path:     /venir
+    defaults: { _controller: "EventsBundle:Event:venir" }
+    methods:  GET

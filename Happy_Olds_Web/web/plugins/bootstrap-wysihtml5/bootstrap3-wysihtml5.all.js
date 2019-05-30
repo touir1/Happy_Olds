@@ -4328,7 +4328,7 @@ wysihtml5.browser = (function() {
     },
 
     /**
-     * Opera doesn't correctly fire focus/blur events when clicking in- and outside of iframe
+     * Opera doesn't correctly fire focus/blur event when clicking in- and outside of iframe
      */
     supportsEventsInIframeCorrectly: function() {
       return !isOpera;
@@ -4724,7 +4724,7 @@ wysihtml5.browser = (function() {
       }
       this.events[eventName] = newHandlers;
     } else {
-      // Clean up all events
+      // Clean up all event
       this.events = {};
     }
     return this;
@@ -5757,7 +5757,7 @@ wysihtml5.dom.hasElementWithTagName = (function() {
     };
   };
 })(wysihtml5);;/**
- * Method to set dom events
+ * Method to set dom event
  *
  * @example
  *    wysihtml5.dom.observe(iframe.contentWindow.document.body, ["focus", "blur"], function() { ... });
@@ -6832,7 +6832,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  * Please note that this class can't benefit from the HTML5 sandbox attribute for the following reasons:
  *    - sandboxing doesn't work correctly with inlined content (src="javascript:'<html>...</html>'")
  *    - sandboxing of physical documents causes that the dom isn't accessible anymore from the outside (iframe.contentWindow, ...)
- *    - setting the "allow-same-origin" flag would fix that, but then still javascript and dom events refuse to fire
+ *    - setting the "allow-same-origin" flag would fix that, but then still javascript and dom event refuse to fire
  *    - therefore the "allow-scripts" flag is needed, which then would deactivate any security, as the js executed inside the iframe
  *      can do anything as if the sandbox attribute wasn't set
  *
@@ -6918,7 +6918,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
      *  - We can't use HTML5 sandbox for now:
      *    setting it causes that the iframe's dom can't be accessed from the outside
      *    Therefore we need to set the "allow-same-origin" flag which enables accessing the iframe's dom
-     *    But then there's another problem, DOM events (focus, blur, change, keypress, ...) aren't fired.
+     *    But then there's another problem, DOM event (focus, blur, change, keypress, ...) aren't fired.
      *    In order to make this happen we need to set the "allow-scripts" flag.
      *    A combination of allow-scripts and allow-same-origin is almost the same as setting no sandbox attribute at all.
      *  - Chrome & Safari, doesn't seem to support sandboxing correctly when the iframe's html is inlined (no physical document)
@@ -8420,7 +8420,7 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
 })();;/**
  * IE and Opera leave an empty paragraph in the contentEditable element after clearing it
  *
- * @param {Object} contentEditableElement The contentEditable element to observe for clearing events
+ * @param {Object} contentEditableElement The contentEditable element to observe for clearing event
  * @exaple
  *    wysihtml5.quirks.ensureProperClearing(myContentEditableElement);
  */
@@ -12682,10 +12682,10 @@ wysihtml5.views.View = Base.extend(
   };
 })(wysihtml5);
 ;/**
- * Taking care of events
+ * Taking care of event
  *  - Simulating 'change' event on contentEditable element
  *  - Handling drag & drop logic
- *  - Catch paste events
+ *  - Catch paste event
  *  - Dispatch proprietary newword:composer event
  *  - Keyboard shortcuts
  */
@@ -13171,7 +13171,7 @@ wysihtml5.views.View = Base.extend(
           focusout: "blur"
         },
         /**
-         * Calling focus() or blur() on an element doesn't synchronously trigger the attached focus/blur events
+         * Calling focus() or blur() on an element doesn't synchronously trigger the attached focus/blur event
          * This is the case for focusin and focusout, so let's use them whenever possible, kkthxbai
          */
         events = wysihtml5.browser.supportsEvent("focusin") ? ["focusin", "focusout", "change"] : ["focus", "blur", "change"];
@@ -13194,7 +13194,7 @@ wysihtml5.views.View = Base.extend(
  * @param {Element} editableElement Reference to the textarea which should be turned into a rich text interface
  * @param {Object} [config] See defaultConfig object below for explanation of each individual config option
  *
- * @events
+ * @event
  *    load
  *    beforeload (for internal use only)
  *    focus
@@ -13234,7 +13234,7 @@ wysihtml5.views.View = Base.extend(
     showToolbarAfterInit: true,
     // Whether urls, entered by the user should automatically become clickable-links
     autoLink:             true,
-    // Includes table editing events and cell selection tracking
+    // Includes table editing event and cell selection tracking
     handleTables:         true,
     // Tab key inserts tab into text as default behaviour. It can be disabled to regain keyboard navigation
     handleTabKey:         true,
@@ -14687,7 +14687,7 @@ function program17(depth0,data) {
         }
       },
 
-      //sync wysihtml5 events for dialogs with bootstrap events
+      //sync wysihtml5 event for dialogs with bootstrap event
       syncBootstrapDialogEvents: function() {
         var editor = this;
         $.map(this.toolbar.commandMapping, function(value) {

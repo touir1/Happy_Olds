@@ -5,7 +5,7 @@ module('Events on initialization', {
     }
 });
 
-test('When initializing the datepicker, it should trigger no change or changeDate events', function(){
+test('When initializing the datepicker, it should trigger no change or changeDate event', function(){
     var triggered_change = 0,
         triggered_changeDate = 0;
 
@@ -264,7 +264,7 @@ test('format(ix, altformat) returns a formatted date string', function(){
     equal(out, '3/14/11');
 });
 
-test('Clear button: triggers change and changeDate events', function(){
+test('Clear button: triggers change and changeDate event', function(){
     this.input = $('<input type="text" value="31-03-2011">')
                     .appendTo('#qunit-fixture')
                     .datepicker({
@@ -299,7 +299,7 @@ test('Clear button: triggers change and changeDate events', function(){
     equal(triggered_changeDate, 1);
 });
 
-test('setDate: triggers change and changeDate events', function(){
+test('setDate: triggers change and changeDate event', function(){
     this.input = $('<input type="text" value="31-03-2011">')
                     .appendTo('#qunit-fixture')
                     .datepicker({

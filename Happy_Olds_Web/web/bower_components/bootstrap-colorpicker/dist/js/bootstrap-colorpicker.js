@@ -849,13 +849,13 @@
       }
     }, this));
 
-    // Bind click/tap events on the sliders
+    // Bind click/tap event on the sliders
     $picker.find('.colorpicker-saturation, .colorpicker-hue, .colorpicker-alpha')
       .on('mousedown.colorpicker touchstart.colorpicker', $.proxy(this.mousedown, this));
 
     $picker.appendTo(this.container ? this.container : $('body'));
 
-    // Bind other events
+    // Bind other event
     if (this.input !== false) {
       this.input.on({
         'keyup.colorpicker': $.proxy(this.keyup, this)

@@ -101,7 +101,7 @@ return $.widget( "ui.menu", {
 				}
 			},
 			"mouseenter .ui-menu-item": function( event ) {
-				// Ignore mouse events while typeahead is active, see #10458.
+				// Ignore mouse event while typeahead is active, see #10458.
 				// Prevents focusing the wrong item when typeahead causes a scroll while the mouse
 				// is over an item in the menu
 				if ( this.previousFilter ) {

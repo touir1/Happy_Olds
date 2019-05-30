@@ -22,7 +22,7 @@ body .fc {
   opacity: .3; }
 
 .fc-bgevent {
-  /* default look for background events */
+  /* default look for background event */
   background: #8fdf82;
   opacity: .3; }
 
@@ -282,14 +282,14 @@ a[data-goto]:hover {
   z-index: 3; }
 
 /*
-row content (which contains day/week numbers and events) as well as "helper" (which contains
-temporary rendered events).
+row content (which contains day/week numbers and event) as well as "helper" (which contains
+temporary rendered event).
 */
 .fc-row .fc-content-skeleton {
   position: relative;
   z-index: 4;
   padding-bottom: 2px;
-  /* matches the space above the events */ }
+  /* matches the space above the event */ }
 
 .fc-row .fc-helper-skeleton {
   z-index: 5; }
@@ -305,7 +305,7 @@ temporary rendered events).
 
 .fc-row .fc-content-skeleton td,
 .fc-row .fc-helper-skeleton td {
-  /* don't put a border between events and/or the day number */
+  /* don't put a border between event and/or the day number */
   border-bottom: 0; }
 
 .fc-row .fc-content-skeleton tbody td,
@@ -354,7 +354,7 @@ temporary rendered events).
 .fc-event[href],
 .fc-event.fc-draggable {
   cursor: pointer;
-  /* give events with links and draggable events a hand mouse pointer */ }
+  /* give event with links and draggable event a hand mouse pointer */ }
 
 .fc-not-allowed,
 .fc-not-allowed .fc-event {
@@ -422,7 +422,7 @@ temporary rendered events).
   left: 0;
   right: 0; }
 
-/* events that are continuing to/from another week. kill rounded corners and butt up against edge */
+/* event that are continuing to/from another week. kill rounded corners and butt up against edge */
 .fc-ltr .fc-h-event.fc-not-start,
 .fc-rtl .fc-h-event.fc-not-end {
   margin-left: 0;
@@ -490,14 +490,14 @@ temporary rendered events).
   margin-right: -4px;
   /* centers the 8x8 dot on the right edge */ }
 
-/* DayGrid events
+/* DayGrid event
 ----------------------------------------------------------------------------------------------------
 We use the full "fc-day-grid-event" class instead of using descendants because the event won't
 be a descendant of the grid when it is being dragged.
 */
 .fc-day-grid-event {
   margin: 1px 2px 0;
-  /* spacing between events and edges */
+  /* spacing between event and edges */
   padding: 0 1px; }
 
 tr:first-child > td > .fc-day-grid-event {
@@ -519,7 +519,7 @@ tr:first-child > td > .fc-day-grid-event {
   opacity: .25; }
 
 .fc-day-grid-event .fc-content {
-  /* force events to be one-line tall */
+  /* force event to be one-line tall */
   white-space: nowrap;
   overflow: hidden; }
 
@@ -541,7 +541,7 @@ tr:first-child > td > .fc-day-grid-event {
 
 /* Event Limiting
 --------------------------------------------------------------------------------------------------*/
-/* "more" link that represents hidden events */
+/* "more" link that represents hidden event */
 a.fc-more {
   margin: 1px 3px;
   font-size: .85em;
@@ -938,7 +938,7 @@ NOTE: use percentage font sizes or else old IE chokes
 
 .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
   padding-bottom: 1em;
-  /* give space underneath events for clicking/selecting days */ }
+  /* give space underneath event for clicking/selecting days */ }
 
 /* TimeGrid axis running down the side (for both the all-day area and the slot area)
 --------------------------------------------------------------------------------------------------*/
@@ -1041,11 +1041,11 @@ NOTE: use percentage font sizes or else old IE chokes
 /* TimeGrid Event Containment
 --------------------------------------------------------------------------------------------------*/
 .fc-ltr .fc-time-grid .fc-event-container {
-  /* space on the sides of events for LTR (default) */
+  /* space on the sides of event for LTR (default) */
   margin: 0 2.5% 0 2px; }
 
 .fc-rtl .fc-time-grid .fc-event-container {
-  /* space on the sides of events for RTL */
+  /* space on the sides of event for RTL */
   margin: 0 2px 0 2.5%; }
 
 .fc-time-grid .fc-event,
@@ -1055,14 +1055,14 @@ NOTE: use percentage font sizes or else old IE chokes
   /* scope inner z-index's */ }
 
 .fc-time-grid .fc-bgevent {
-  /* background events always span full width */
+  /* background event always span full width */
   left: 0;
   right: 0; }
 
 /* Generic Vertical Event
 --------------------------------------------------------------------------------------------------*/
 .fc-v-event.fc-not-start {
-  /* events that are continuing from another day */
+  /* event that are continuing from another day */
   /* replace space made by the top border with padding */
   border-top-width: 0;
   padding-top: 1px;
@@ -1270,7 +1270,7 @@ be a descendant of the grid when it is being dragged.
   /* hover effect only on titles with hrefs */
   text-decoration: underline; }
 
-/* message when no events */
+/* message when no event */
 .fc-list-empty-wrap2 {
   position: absolute;
   top: 0;

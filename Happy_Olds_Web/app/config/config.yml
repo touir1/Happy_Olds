@@ -154,3 +154,33 @@ stof_doctrine_extensions:
             uploadable: true
     uploadable:
         default_file_path: "%kernel.root_dir%/../web/uploads"
+
+nomaya_social:
+  buttons:
+    twitter:
+        url:            null
+        locale:         "fr"
+        message:        "Je veux partager รงa avec vous"
+        text:           "Tweet"
+        via:            "L'Equipe cartedevisitevirtuelle.fr"
+        tag:            "ttot"
+    facebook:
+        url:            null
+        locale:         "fr_FR"
+        send:           false
+        width:          300
+        showFaces:      false
+        layout:         "button_count"
+    googleplus:
+        url:            null
+        locale :        "fr"
+        size :          "medium"
+        annotation :    "bubble"
+        width :         300
+    linkedin:
+        url:            null
+        locale:         "fr_FR"
+        counter:        "right"
+    pinterest:
+        url:            null
+

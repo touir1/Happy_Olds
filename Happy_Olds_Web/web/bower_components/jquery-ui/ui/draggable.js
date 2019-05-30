@@ -814,7 +814,7 @@ $.ui.plugin.add( "draggable", "connectToSortable", {
 						return ui.helper[ 0 ];
 					};
 
-					// Fire the start events of the sortable with our passed browser event,
+					// Fire the start event of the sortable with our passed browser event,
 					// and our own helper (so it doesn't create a new one)
 					event.target = sortable.currentItem[ 0 ];
 					sortable._mouseCapture( event, true );

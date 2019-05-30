@@ -52,7 +52,7 @@ define([
 
     this.results.position(this.$results, this.$dropdown);
 
-    // Bind events
+    // Bind event
 
     var self = this;
 
@@ -371,7 +371,7 @@ define([
     var changed = false;
     var self = this;
 
-    // Ignore any mutation events raised for elements that aren't options or
+    // Ignore any mutation event raised for elements that aren't options or
     // optgroups. This handles the case when the select element is destroyed
     if (
       evt && evt.target && (
@@ -382,7 +382,7 @@ define([
     }
 
     if (!mutations) {
-      // If mutation events aren't supported, then we can only assume that the
+      // If mutation event aren't supported, then we can only assume that the
       // change affected the selections
       changed = true;
     } else if (mutations.addedNodes && mutations.addedNodes.length > 0) {
@@ -408,8 +408,8 @@ define([
   };
 
   /**
-   * Override the trigger method to automatically trigger pre-events when
-   * there are events that can be prevented.
+   * Override the trigger method to automatically trigger pre-event when
+   * there are event that can be prevented.
    */
   Select2.prototype.trigger = function (name, args) {
     var actualTrigger = Select2.__super__.trigger;
@@ -481,7 +481,7 @@ define([
   };
 
   Select2.prototype.focus = function (data) {
-    // No need to re-trigger focus events if we are already focused
+    // No need to re-trigger focus event if we are already focused
     if (this.hasFocus()) {
       return;
     }

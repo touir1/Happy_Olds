@@ -1223,10 +1223,10 @@
                         isRTL = true;
                     }
 
-                    //unbind all events - to make sure that no other mask will interfere when re-masking
+                    //unbind all event - to make sure that no other mask will interfere when re-masking
                     $el.unbind(".inputmask");
                     $el.removeClass('focus.inputmask');
-                    //bind events
+                    //bind event
                     $el.closest('form').bind("submit", function () { //trigger change on submit if any
                         if (valueOnFocus != getActiveBuffer().join('')) {
                             $el.change();
@@ -1529,7 +1529,7 @@
                                 input._valueSet(maskScope(masksets, activeMasksetIndex, opts, { "action": "unmaskedvalue", "$input": $input, "skipDatepickerCheck": true }));
                                 //clear data
                                 $input.removeData('_inputmask');
-                                //unbind all events
+                                //unbind all event
                                 $input.unbind(".inputmask");
                                 $input.removeClass('focus.inputmask');
                                 //restore the value property

@@ -334,7 +334,7 @@
             // First touch
             touchMove(e);
 
-            // Touch events listeners
+            // Touch event listeners
             k.c.d
                 .bind("touchmove.k", touchMove)
                 .bind(
@@ -363,7 +363,7 @@
             // First click
             mouseMove(e);
 
-            // Mouse events listeners
+            // Mouse event listeners
             k.c.d
                 .bind("mousemove.k", mouseMove)
                 .bind(

@@ -89,7 +89,7 @@
 		this.layer = layer;
 
 		/**
-		 * The minimum time between tap(touchstart and touchend) events
+		 * The minimum time between tap(touchstart and touchend) event
 		 *
 		 * @type number
 		 */
@@ -132,7 +132,7 @@
 		layer.addEventListener('touchcancel', this.onTouchCancel, false);
 
 		// Hack is required for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
-		// which is how FastClick normally stops click events bubbling to callbacks registered on the FastClick
+		// which is how FastClick normally stops click event bubbling to callbacks registered on the FastClick
 		// layer when they are cancelled.
 		if (!Event.prototype.stopImmediatePropagation) {
 			layer.removeEventListener = function(type, callback, capture) {
@@ -245,7 +245,7 @@
 
 			break;
 		case 'label':
-		case 'iframe': // iOS8 homescreen apps can prevent events bubbling into frames
+		case 'iframe': // iOS8 homescreen apps can prevent event bubbling into frames
 		case 'video':
 			return true;
 		}
@@ -401,7 +401,7 @@
 
 		if (deviceIsIOS) {
 
-			// Only trusted events will deselect text on iOS (issue #49)
+			// Only trusted event will deselect text on iOS (issue #49)
 			selection = window.getSelection();
 			if (selection.rangeCount && !selection.isCollapsed) {
 				return true;
@@ -410,12 +410,12 @@
 			if (!deviceIsIOS4) {
 
 				// Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):
-				// when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched
+				// when the user next taps anywhere else on the page, new touchstart and touchend event are dispatched
 				// with the same identifier as the touch event that previously triggered the click that triggered the alert.
-				// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
+				// Sadly, there is an issue on iOS 4 that causes some normal touch event to have the same identifier as an
 				// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
-				// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch events' is set with an iOS device UA string,
-				// which causes all touch events to be ignored. As this block only applies to iOS, and iOS identifiers are always long,
+				// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch event' is set with an iOS device UA string,
+				// which causes all touch event to be ignored. As this block only applies to iOS, and iOS identifiers are always long,
 				// random integers, it's safe to to continue if the identifier is 0 here.
 				if (touch.identifier && touch.identifier === this.lastTouchIdentifier) {
 					event.preventDefault();
@@ -501,7 +501,7 @@
 			return labelElement.control;
 		}
 
-		// All browsers under test that support touch events also support the HTML5 htmlFor attribute
+		// All browsers under test that support touch event also support the HTML5 htmlFor attribute
 		if (labelElement.htmlFor) {
 			return document.getElementById(labelElement.htmlFor);
 		}
@@ -622,7 +622,7 @@
 
 
 	/**
-	 * Determine mouse events which should be permitted.
+	 * Determine mouse event which should be permitted.
 	 *
 	 * @param {Event} event
 	 * @returns {boolean}
@@ -638,13 +638,13 @@
 			return true;
 		}
 
-		// Programmatically generated events targeting a specific element should be permitted
+		// Programmatically generated event targeting a specific element should be permitted
 		if (!event.cancelable) {
 			return true;
 		}
 
 		// Derive and check the target element to see whether the mouse event needs to be permitted;
-		// unless explicitly enabled, prevent non-touch click events from triggering actions,
+		// unless explicitly enabled, prevent non-touch click event from triggering actions,
 		// to prevent ghost/doubleclicks.
 		if (!this.needsClick(this.targetElement) || this.cancelNextClick) {
 

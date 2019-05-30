@@ -86,7 +86,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 		//Let's determine the parent's offset
 		this.offset = this.element.offset();
 
-		//Initialize mouse events for interaction
+		//Initialize mouse event for interaction
 		this._mouseInit();
 
 		this._setHandleClassName();
@@ -284,7 +284,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 
-		//Post "activate" events to possible containers
+		//Post "activate" event to possible containers
 		if( !noActivation ) {
 			for ( i = this.containers.length - 1; i >= 0; i-- ) {
 				this.containers[ i ]._trigger( "activate", event, this._uiHash( this ) );
@@ -413,7 +413,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 			}
 		}
 
-		//Post events to containers
+		//Post event to containers
 		this._contactContainers(event);
 
 		//Interconnect with droppables
@@ -476,7 +476,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 				this.currentItem.show();
 			}
 
-			//Post deactivating events to containers
+			//Post deactivating event to containers
 			for (var i = this.containers.length - 1; i >= 0; i--){
 				this.containers[i]._trigger("deactivate", null, this._uiHash(this));
 				if(this.containers[i].containerCache.over) {
@@ -488,7 +488,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 		if (this.placeholder) {
-			//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL events from the original node!
+			//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL event from the original node!
 			if(this.placeholder[0].parentNode) {
 				this.placeholder[0].parentNode.removeChild(this.placeholder[0]);
 			}
@@ -1194,7 +1194,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 	_clear: function(event, noPropagation) {
 
 		this.reverting = false;
-		// We delay all events that have to be triggered to after the point where the placeholder has been removed and
+		// We delay all event that have to be triggered to after the point where the placeholder has been removed and
 		// everything else normalized again
 		var i,
 			delayedTriggers = [];
@@ -1225,7 +1225,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 		// Check if the items Container has Changed and trigger appropriate
-		// events.
+		// event.
 		if (this !== this.currentContainer) {
 			if(!noPropagation) {
 				delayedTriggers.push(function(event) { this._trigger("remove", event, this._uiHash()); });
@@ -1235,7 +1235,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 
-		//Post events to containers
+		//Post event to containers
 		function delayEvent( type, instance, container ) {
 			return function( event ) {
 				container._trigger( type, event, instance._uiHash( instance ) );
@@ -1269,7 +1269,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 			this._trigger("beforeStop", event, this._uiHash());
 		}
 
-		//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL events from the original node!
+		//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL event from the original node!
 		this.placeholder[0].parentNode.removeChild(this.placeholder[0]);
 
 		if ( !this.cancelHelperRemoval ) {
@@ -1282,7 +1282,7 @@ return $.widget("ui.sortable", $.ui.mouse, {
 		if(!noPropagation) {
 			for (i=0; i < delayedTriggers.length; i++) {
 				delayedTriggers[i].call(this, event);
-			} //Trigger all delayed events
+			} //Trigger all delayed event
 			this._trigger("stop", event, this._uiHash());
 		}
 

@@ -218,7 +218,7 @@ var GcalEventSource = /** @class */ (function (_super) {
     GcalEventSource.prototype.buildUrl = function () {
         return GcalEventSource.API_BASE + '/' +
             encodeURIComponent(this.googleCalendarId) +
-            '/events?callback=?'; // jsonp
+            '/event?callback=?'; // jsonp
     };
     GcalEventSource.prototype.buildRequestParams = function (start, end, timezone) {
         var apiKey = this.googleCalendarApiKey || this.calendar.opt('googleCalendarApiKey');
@@ -229,7 +229,7 @@ var GcalEventSource = /** @class */ (function (_super) {
         }
         // The API expects an ISO8601 datetime with a time and timezone part.
         // Since the calendar's timezone offset isn't always known, request the date in UTC and pad it by a day on each
-        // side, guaranteeing we will receive all events in the desired range, albeit a superset.
+        // side, guaranteeing we will receive all event in the desired range, albeit a superset.
         // .utc() will set a zone and give it a 00:00:00 time.
         if (!start.hasZone()) {
             start = start.clone().utc().add(-1, 'day');

@@ -312,7 +312,7 @@
      [ method ]
      **
      * Removes given function from the list of event listeners assigned to given name.
-     * If no arguments specified all the events will be cleared.
+     * If no arguments specified all the event will be cleared.
      **
      > Arguments
      **

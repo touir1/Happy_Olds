@@ -1207,11 +1207,11 @@
 				this.mouseup = this._mouseup.bind(this);
 
 				if (this.touchCapable) {
-					// Touch: Bind touch events:
+					// Touch: Bind touch event:
 					document.addEventListener("touchmove", this.mousemove, false);
 					document.addEventListener("touchend", this.mouseup, false);
 				}
-				// Bind mouse events:
+				// Bind mouse event:
 				document.addEventListener("mousemove", this.mousemove, false);
 				document.addEventListener("mouseup", this.mouseup, false);
 
@@ -1453,7 +1453,7 @@
 					}
 				}
 
-				/* If JQuery exists, trigger JQuery events */
+				/* If JQuery exists, trigger JQuery event */
 				if($) {
 					this._triggerJQueryEvent(evt, val);
 				}

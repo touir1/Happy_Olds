@@ -23,7 +23,7 @@ test('0 never displays the notice', function (assert) {
   var data = new MaximumInputData(null, zeroOptions);
 
   data.trigger = function () {
-    assert.ok(false, 'No events should be triggered');
+    assert.ok(false, 'No event should be triggered');
   };
 
   data.query({
@@ -49,7 +49,7 @@ test('< 0 never displays the notice', function (assert) {
   var data = new MaximumInputData(null, negativeOptions);
 
   data.trigger = function () {
-    assert.ok(false, 'No events should be triggered');
+    assert.ok(false, 'No event should be triggered');
   };
 
   data.query({

@@ -800,7 +800,7 @@ $.extend(Datepicker.prototype, {
 	/* Generate the date picker content. */
 	_updateDatepicker: function(inst) {
 		this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
-		datepicker_instActive = inst; // for delegate hover events
+		datepicker_instActive = inst; // for delegate hover event
 		inst.dpDiv.empty().append(this._generateHTML(inst));
 		this._attachHandlers(inst);
 
@@ -1993,7 +1993,7 @@ $.extend(Datepicker.prototype, {
 });
 
 /*
- * Bind hover events for datepicker elements.
+ * Bind hover event for datepicker elements.
  * Done via delegate so the binding only occurs once in the lifetime of the parent div.
  * Global datepicker_instActive, set by _updateDatepicker allows the handlers to find their way back to the active picker.
  */

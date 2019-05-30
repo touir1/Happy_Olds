@@ -145,7 +145,7 @@ var Tooltip = function () {
     this.reference = reference;
     this.options = options;
 
-    // get events list
+    // get event list
     var events = typeof options.trigger === 'string' ? options.trigger.split(' ').filter(function (trigger) {
       return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
     }) : [];

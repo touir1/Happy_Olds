@@ -551,7 +551,7 @@ var Carousel = function ($) {
   var TRANSITION_DURATION = 600;
   var ARROW_LEFT_KEYCODE = 37; // KeyboardEvent.which value for left arrow key
   var ARROW_RIGHT_KEYCODE = 39; // KeyboardEvent.which value for right arrow key
-  var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire after touch
+  var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat event to fire after touch
 
   var Default = {
     interval: 5000,
@@ -754,12 +754,12 @@ var Carousel = function ($) {
         });
         if ('ontouchstart' in document.documentElement) {
           // if it's a touch-enabled device, mouseenter/leave are fired as
-          // part of the mouse compatibility events on first tap - the carousel
+          // part of the mouse compatibility event on first tap - the carousel
           // would stop cycling until user tapped out of it;
           // here, we listen for touchend, explicitly pause the carousel
           // (as if it's the second time we tap on it, mouseenter compat event
           // is NOT fired) and after a timeout (to allow for mouse compatibility
-          // events to fire) we explicitly restart cycling
+          // event to fire) we explicitly restart cycling
           $(this._element).on(Event.TOUCHEND, function () {
             _this4.pause();
             if (_this4.touchTimeout) {
@@ -3721,7 +3721,7 @@ var Popover = function ($) {
     Popover.prototype.setContent = function setContent() {
       var $tip = $(this.getTipElement());
 
-      // we use append for html objects to maintain js events
+      // we use append for html objects to maintain js event
       this.setElementContent($tip.find(Selector.TITLE), this.getTitle());
       this.setElementContent($tip.find(Selector.CONTENT), this._getContent());
 

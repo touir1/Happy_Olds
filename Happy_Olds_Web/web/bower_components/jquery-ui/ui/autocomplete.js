@@ -55,12 +55,12 @@ $.widget( "ui.autocomplete", {
 	pending: 0,
 
 	_create: function() {
-		// Some browsers only repeat keydown events, not keypress events,
+		// Some browsers only repeat keydown event, not keypress event,
 		// so we use the suppressKeyPress flag to determine if we've already
 		// handled the keydown event. #7269
 		// Unfortunately the code for & in keypress is the same as the up arrow,
 		// so we use the suppressKeyPressRepeat flag to avoid handling keypress
-		// events when we know the keydown event was used to modify the
+		// event when we know the keydown event was used to modify the
 		// search term. #7799
 		var suppressKeyPress, suppressKeyPressRepeat, suppressInput,
 			nodeName = this.element[ 0 ].nodeName.toLowerCase(),
@@ -281,7 +281,7 @@ $.widget( "ui.autocomplete", {
 				if ( this.element[ 0 ] !== this.document[ 0 ].activeElement ) {
 					this.element.focus();
 					this.previous = previous;
-					// #6109 - IE triggers two focus events and the second
+					// #6109 - IE triggers two focus event and the second
 					// is asynchronous, so we need to reset the previous
 					// term synchronously and asynchronously :-(
 					this._delay(function() {

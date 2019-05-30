@@ -17,7 +17,7 @@ define([
     decorated.call(this, container, $container);
 
     container.on('*', function (name, params) {
-      // Ignore events that should not be relayed
+      // Ignore event that should not be relayed
       if ($.inArray(name, relayEvents) === -1) {
         return;
       }
@@ -32,7 +32,7 @@ define([
 
       self.$element.trigger(evt);
 
-      // Only handle preventable events if it was one
+      // Only handle preventable event if it was one
       if ($.inArray(name, preventableEvents) === -1) {
         return;
       }

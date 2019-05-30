@@ -608,7 +608,7 @@ $.Widget.prototype = {
 				this.widgetFullName + "-disabled " +
 				"ui-state-disabled" );
 
-		// clean up events and states
+		// clean up event and states
 		this.bindings.unbind( this.eventNamespace );
 		this.hoverable.removeClass( "ui-state-hover" );
 		this.focusable.removeClass( "ui-state-focus" );
@@ -2213,7 +2213,7 @@ var menu = $.widget( "ui.menu", {
 				}
 			},
 			"mouseenter .ui-menu-item": function( event ) {
-				// Ignore mouse events while typeahead is active, see #10458.
+				// Ignore mouse event while typeahead is active, see #10458.
 				// Prevents focusing the wrong item when typeahead causes a scroll while the mouse
 				// is over an item in the menu
 				if ( this.previousFilter ) {
@@ -2797,12 +2797,12 @@ $.widget( "ui.autocomplete", {
 	pending: 0,
 
 	_create: function() {
-		// Some browsers only repeat keydown events, not keypress events,
+		// Some browsers only repeat keydown event, not keypress event,
 		// so we use the suppressKeyPress flag to determine if we've already
 		// handled the keydown event. #7269
 		// Unfortunately the code for & in keypress is the same as the up arrow,
 		// so we use the suppressKeyPressRepeat flag to avoid handling keypress
-		// events when we know the keydown event was used to modify the
+		// event when we know the keydown event was used to modify the
 		// search term. #7799
 		var suppressKeyPress, suppressKeyPressRepeat, suppressInput,
 			nodeName = this.element[ 0 ].nodeName.toLowerCase(),
@@ -3023,7 +3023,7 @@ $.widget( "ui.autocomplete", {
 				if ( this.element[ 0 ] !== this.document[ 0 ].activeElement ) {
 					this.element.focus();
 					this.previous = previous;
-					// #6109 - IE triggers two focus events and the second
+					// #6109 - IE triggers two focus event and the second
 					// is asynchronous, so we need to reset the previous
 					// term synchronously and asynchronously :-(
 					this._delay(function() {
@@ -4554,7 +4554,7 @@ $.extend(Datepicker.prototype, {
 	/* Generate the date picker content. */
 	_updateDatepicker: function(inst) {
 		this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
-		datepicker_instActive = inst; // for delegate hover events
+		datepicker_instActive = inst; // for delegate hover event
 		inst.dpDiv.empty().append(this._generateHTML(inst));
 		this._attachHandlers(inst);
 
@@ -5747,7 +5747,7 @@ $.extend(Datepicker.prototype, {
 });
 
 /*
- * Bind hover events for datepicker elements.
+ * Bind hover event for datepicker elements.
  * Done via delegate so the binding only occurs once in the lifetime of the parent div.
  * Global datepicker_instActive, set by _updateDatepicker allows the handlers to find their way back to the active picker.
  */
@@ -6637,7 +6637,7 @@ $.ui.plugin.add( "draggable", "connectToSortable", {
 						return ui.helper[ 0 ];
 					};
 
-					// Fire the start events of the sortable with our passed browser event,
+					// Fire the start event of the sortable with our passed browser event,
 					// and our own helper (so it doesn't create a new one)
 					event.target = sortable.currentItem[ 0 ];
 					sortable._mouseCapture( event, true );
@@ -9334,7 +9334,7 @@ $.ui.ddmanager = {
 	},
 	dragStop: function( draggable, event ) {
 		draggable.element.parentsUntil( "body" ).unbind( "scroll.droppable" );
-		// Call prepareOffsets one final time since IE does not fire return scroll events when overflow was caused by drag (see #5003)
+		// Call prepareOffsets one final time since IE does not fire return scroll event when overflow was caused by drag (see #5003)
 		if ( !draggable.options.refreshPositions ) {
 			$.ui.ddmanager.prepareOffsets( draggable, event );
 		}
@@ -13557,7 +13557,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 		//Let's determine the parent's offset
 		this.offset = this.element.offset();
 
-		//Initialize mouse events for interaction
+		//Initialize mouse event for interaction
 		this._mouseInit();
 
 		this._setHandleClassName();
@@ -13755,7 +13755,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 
-		//Post "activate" events to possible containers
+		//Post "activate" event to possible containers
 		if( !noActivation ) {
 			for ( i = this.containers.length - 1; i >= 0; i-- ) {
 				this.containers[ i ]._trigger( "activate", event, this._uiHash( this ) );
@@ -13884,7 +13884,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 			}
 		}
 
-		//Post events to containers
+		//Post event to containers
 		this._contactContainers(event);
 
 		//Interconnect with droppables
@@ -13947,7 +13947,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 				this.currentItem.show();
 			}
 
-			//Post deactivating events to containers
+			//Post deactivating event to containers
 			for (var i = this.containers.length - 1; i >= 0; i--){
 				this.containers[i]._trigger("deactivate", null, this._uiHash(this));
 				if(this.containers[i].containerCache.over) {
@@ -13959,7 +13959,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 		if (this.placeholder) {
-			//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL events from the original node!
+			//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL event from the original node!
 			if(this.placeholder[0].parentNode) {
 				this.placeholder[0].parentNode.removeChild(this.placeholder[0]);
 			}
@@ -14665,7 +14665,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 	_clear: function(event, noPropagation) {
 
 		this.reverting = false;
-		// We delay all events that have to be triggered to after the point where the placeholder has been removed and
+		// We delay all event that have to be triggered to after the point where the placeholder has been removed and
 		// everything else normalized again
 		var i,
 			delayedTriggers = [];
@@ -14696,7 +14696,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 		// Check if the items Container has Changed and trigger appropriate
-		// events.
+		// event.
 		if (this !== this.currentContainer) {
 			if(!noPropagation) {
 				delayedTriggers.push(function(event) { this._trigger("remove", event, this._uiHash()); });
@@ -14706,7 +14706,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 		}
 
 
-		//Post events to containers
+		//Post event to containers
 		function delayEvent( type, instance, container ) {
 			return function( event ) {
 				container._trigger( type, event, instance._uiHash( instance ) );
@@ -14740,7 +14740,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 			this._trigger("beforeStop", event, this._uiHash());
 		}
 
-		//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL events from the original node!
+		//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL event from the original node!
 		this.placeholder[0].parentNode.removeChild(this.placeholder[0]);
 
 		if ( !this.cancelHelperRemoval ) {
@@ -14753,7 +14753,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 		if(!noPropagation) {
 			for (i=0; i < delayedTriggers.length; i++) {
 				delayedTriggers[i].call(this, event);
-			} //Trigger all delayed events
+			} //Trigger all delayed event
 			this._trigger("stop", event, this._uiHash());
 		}
 
@@ -16397,8 +16397,8 @@ var tooltip = $.widget( "ui.tooltip", {
 		// we have to check first to avoid defining a title if none exists
 		// (we don't want to cause an element to start matching [title])
 		//
-		// We use removeAttr only for key events, to allow IE to export the correct
-		// accessible attributes. For mouse events, set to empty string to avoid
+		// We use removeAttr only for key event, to allow IE to export the correct
+		// accessible attributes. For mouse event, set to empty string to avoid
 		// native tooltip showing up (happens only when removing inside mouseover).
 		if ( target.is( "[title]" ) ) {
 			if ( event && event.type === "mouseover" ) {

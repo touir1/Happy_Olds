@@ -56,7 +56,7 @@
 				y : this.chart.height/2
 			});
 
-			//Set up tooltip events on the chart
+			//Set up tooltip event on the chart
 			if (this.options.showTooltips){
 				helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
 					var activeSegments = (evt.type !== 'mouseout') ? this.getSegmentsAtEvent(evt) : [];

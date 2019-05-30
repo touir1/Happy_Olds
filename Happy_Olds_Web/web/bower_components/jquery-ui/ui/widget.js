@@ -308,7 +308,7 @@ $.Widget.prototype = {
 				this.widgetFullName + "-disabled " +
 				"ui-state-disabled" );
 
-		// clean up events and states
+		// clean up event and states
 		this.bindings.unbind( this.eventNamespace );
 		this.hoverable.removeClass( "ui-state-hover" );
 		this.focusable.removeClass( "ui-state-focus" );

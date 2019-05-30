@@ -135,7 +135,7 @@ Chart.defaults.global = {
 	// Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
 	customTooltips: false,
 
-	// Array - Array of string names to attach tooltip events
+	event
 	tooltipEvents: ["mousemove", "touchstart", "touchmove"],
 
 	// String - Tooltip background colour

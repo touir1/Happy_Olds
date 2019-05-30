@@ -1,3 +1,4 @@
-events_homepage:
-    path:     /
-    defaults: { _controller: EventsBundle:Default:index }
+events_events:
+    resource: "@EventsBundle/Resources/config/routing/event.yml"
+    prefix:   /
+

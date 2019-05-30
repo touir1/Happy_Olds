@@ -223,26 +223,28 @@ class Event
     }
 
     /**
-     * Set idUser
+     * Set id_user
      *
-     * @param \HappyOldsMainBundle\Entity\User $idUser
+     * @param \HappyOldsMainBundle\Entity\User $id_user
      *
      * @return Event
      */
-    public function setIdUser(\HappyOldsMainBundle\Entity\User $idUser = null)
+    public function setIdUser(\HappyOldsMainBundle\Entity\User $id_user = null )
     {
-        $this->id_user = $idUser;
+
+        $this->id_user = $id_user;
 
         return $this;
     }
 
     /**
-     * Get idUser
+     * Get id_user
      *
      * @return \HappyOldsMainBundle\Entity\User
      */
     public function getIdUser()
     {
+
         return $this->id_user;
     }
 }

@@ -72,7 +72,7 @@
      making it look more like 3em. for other browers, it will already be this tall */
   height: 1em; }
 
-/* Undo month-view event limiting. Display all events and hide the "more" links
+/* Undo month-view event limiting. Display all event and hide the "more" links
 --------------------------------------------------------------------------------------------------*/
 .fc-more-cell,
 .fc-more {
@@ -105,11 +105,11 @@
   display: none !important;
   /* important overrides inline declaration */ }
 
-/* let the container that holds the events be naturally positioned and create real height */
+/* let the container that holds the event be naturally positioned and create real height */
 .fc-time-grid .fc-content-skeleton {
   position: static; }
 
-/* in case there are no events, we still want some height */
+/* in case there are no event, we still want some height */
 .fc-time-grid .fc-content-skeleton table {
   height: 4em; }
 
@@ -119,12 +119,12 @@
 
 /* TimeGrid *Event* Restyling
 --------------------------------------------------------------------------------------------------*/
-/* naturally position events, vertically stacking them */
+/* naturally position event, vertically stacking them */
 .fc-time-grid .fc-event {
   position: static !important;
   margin: 3px 2px !important; }
 
-/* for events that continue to a future day, give the bottom border back */
+/* for event that continue to a future day, give the bottom border back */
 .fc-time-grid .fc-event.fc-not-end {
   border-bottom-width: 1px !important; }
 
@@ -132,7 +132,7 @@
 .fc-time-grid .fc-event.fc-not-end:after {
   content: "..."; }
 
-/* for events that are continuations from previous days, give the top border back */
+/* for event that are continuations from previous days, give the top border back */
 .fc-time-grid .fc-event.fc-not-start {
   border-top-width: 1px !important; }
 

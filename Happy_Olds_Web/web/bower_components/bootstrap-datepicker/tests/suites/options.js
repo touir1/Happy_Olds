@@ -1769,7 +1769,7 @@ test('updateViewDate', function() {
     picker.find('.datepicker-days thead th.datepicker-switch').click();
     picker.find('.datepicker-months thead th.next').click();
     picker.find('.datepicker-months tbody .month:first').click();
-    equal(monthShown.text(), 'January 1946', 'changing year must still be possible'); // and must trigger `changeYear` and `changeMonth` events
+    equal(monthShown.text(), 'January 1946', 'changing year must still be possible'); // and must trigger `changeYear` and `changeMonth` event
 });
 test('Week Days: Week days default visibility (or enabled)', function(){
     var input = $('<input />')

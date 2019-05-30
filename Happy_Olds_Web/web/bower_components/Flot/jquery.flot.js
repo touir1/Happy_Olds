@@ -616,7 +616,7 @@ Licensed under the MIT license.
             },
         surface = null,     // the canvas for the plot itself
         overlay = null,     // canvas for interactive stuff on top of plot
-        eventHolder = null, // jQuery object that events should be bound to
+        eventHolder = null, // jQuery object that event should be bound to
         ctx = null, octx = null,
         xaxes = [], yaxes = [],
         plotOffset = { left: 0, right: 0, top: 0, bottom: 0},
@@ -1316,7 +1316,7 @@ Licensed under the MIT license.
             ctx = surface.context;
             octx = overlay.context;
 
-            // define which element we're listening for events on
+            // define which element we're listening for event on
             eventHolder = $(overlay.element).unbind();
 
             // If we're re-using a plot object, shut down the old one
@@ -1333,7 +1333,7 @@ Licensed under the MIT license.
         }
 
         function bindEvents() {
-            // bind events
+            // bind event
             if (options.grid.hoverable) {
                 eventHolder.mousemove(onMouseMove);
 

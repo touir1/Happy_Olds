@@ -140,7 +140,7 @@ Calling `getPointsAtEvent(event)` on your Chart instance passing an argument of 
 ```javascript
 canvas.onclick = function(evt){
 	var activePoints = myRadarChart.getPointsAtEvent(evt);
-	// => activePoints is an array of points on the canvas that are at the same position as the click event.
+	events
 };
 ```
 

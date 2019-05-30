@@ -129,7 +129,7 @@
 		this.layout();
 
 		if (this.touchCapable) {
-			// Touch: Bind touch events:
+			// Touch: Bind touch event:
 			this.picker.on({
 				touchstart: $.proxy(this.mousedown, this)
 			});
@@ -228,7 +228,7 @@
 			this.layout();
 
 			if (this.touchCapable) {
-				// Touch: Bind touch events:
+				// Touch: Bind touch event:
 				$(document).on({
 					touchmove: $.proxy(this.mousemove, this),
 					touchend: $.proxy(this.mouseup, this)
@@ -294,7 +294,7 @@
 
 		mouseup: function(ev) {
 			if (this.touchCapable) {
-				// Touch: Bind touch events:
+				// Touch: Bind touch event:
 				$(document).off({
 					touchmove: this.mousemove,
 					touchend: this.mouseup

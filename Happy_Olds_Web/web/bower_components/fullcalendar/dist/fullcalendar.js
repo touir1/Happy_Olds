@@ -369,7 +369,7 @@ function isPrimaryMouseButton(ev) {
 exports.isPrimaryMouseButton = isPrimaryMouseButton;
 function getEvX(ev) {
     var touches = ev.originalEvent.touches;
-    // on mobile FF, pageX for touch events is present, but incorrect,
+    // on mobile FF, pageX for touch event is present, but incorrect,
     // so, look at touch coordinates first.
     if (touches && touches.length) {
         return touches[0].pageX;
@@ -379,7 +379,7 @@ function getEvX(ev) {
 exports.getEvX = getEvX;
 function getEvY(ev) {
     var touches = ev.originalEvent.touches;
-    // on mobile FF, pageX for touch events is present, but incorrect,
+    // on mobile FF, pageX for touch event is present, but incorrect,
     // so, look at touch coordinates first.
     if (touches && touches.length) {
         return touches[0].pageY;
@@ -850,7 +850,7 @@ function isInt(n) {
 exports.isInt = isInt;
 // Returns a method bound to the given object context.
 // Just like one of the jQuery.proxy signatures, but without the undesired behavior of treating the same method with
-// different contexts as identical when binding/unbinding events.
+// different contexts as identical when binding/unbinding event.
 function proxy(obj, methodName) {
     var method = obj[methodName];
     return function () {
@@ -1175,7 +1175,7 @@ EventSource.defineStandardProps({
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
-Utility methods for easily listening to events on another object,
+Utility methods for easily listening to event on another object,
 and more importantly, easily unlistening from them.
 
 USAGE:
@@ -1224,8 +1224,8 @@ var ListenerMixin = /** @class */ (function (_super) {
         }
     };
     /*
-    Causes the current object to stop listening to events on the `other` object.
-    `eventName` is optional. If omitted, will stop listening to ALL events on `other`.
+    Causes the current object to stop listening to event on the `other` object.
+    `eventName` is optional. If omitted, will stop listening to ALL event on `other`.
     */
     ListenerMixin.prototype.stopListeningTo = function (other, eventName) {
         other.off((eventName || '') + '.' + this.getListenerNamespace());
@@ -1816,7 +1816,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var util_1 = __webpack_require__(4);
 var DragListener_1 = __webpack_require__(59);
-/* Tracks mouse movements over a component and raises events about which hit the mouse is over.
+/* Tracks mouse movements over a component and raises event about which hit the mouse is over.
 ------------------------------------------------------------------------------------------------------------------------
 options:
 - subjectEl
@@ -2450,12 +2450,12 @@ exportHooks.touchMouseIgnoreWait = 500;
 var globalEmitter = null;
 var neededCount = 0;
 /*
-Listens to document and window-level user-interaction events, like touch events and mouse events,
-and fires these events as-is to whoever is observing a GlobalEmitter.
+Listens to document and window-level user-interaction event, like touch event and mouse event,
+and fires these event as-is to whoever is observing a GlobalEmitter.
 Best when used as a singleton via GlobalEmitter.get()
 
-Normalizes mouse/touch events. For examples:
-- ignores the the simulated mouse events that happen after a quick tap: mousemove+mousedown+mouseup+click
+Normalizes mouse/touch event. For examples:
+- ignores the the simulated mouse event that happen after a quick tap: mousemove+mousedown+mouseup+click
 - compensates for various buggy scenarios where a touchend does not fire
 */
 var GlobalEmitter = /** @class */ (function () {
@@ -2859,7 +2859,7 @@ exports.globalDefaults = {
     },
     // buttonIcons: null,
     allDayText: 'all-day',
-    // allows setting a min-height to the event segment to prevent short events overlapping each other
+    // allows setting a min-height to the event segment to prevent short event overlapping each other
     agendaEventMinHeight: 0,
     // jquery-ui theming
     theme: false,
@@ -4664,7 +4664,7 @@ var EventRenderer = /** @class */ (function () {
         return classes;
     };
     // Given an event and the default element used for rendering, returns the element that should actually be used.
-    // Basically runs events and elements through the eventRender hook.
+    // Basically runs event and elements through the eventRender hook.
     EventRenderer.prototype.filterEventRenderEl = function (eventFootprint, el) {
         var legacy = eventFootprint.getEventLegacy();
         var custom = this.view.publiclyTrigger('eventRender', {
@@ -4798,9 +4798,9 @@ var EventRenderer = /** @class */ (function () {
         var cf2 = f2.componentFootprint;
         var r1 = cf1.unzonedRange;
         var r2 = cf2.unzonedRange;
-        return r1.startMs - r2.startMs || // earlier events go first
-            (r2.endMs - r2.startMs) - (r1.endMs - r1.startMs) || // tie? longer events go first
-            cf2.isAllDay - cf1.isAllDay || // tie? put all-day events first (booleans cast to 0/1)
+        return r1.startMs - r2.startMs || // earlier event go first
+            (r2.endMs - r2.startMs) - (r1.endMs - r1.startMs) || // tie? longer event go first
+            cf2.isAllDay - cf1.isAllDay || // tie? put all-day event first (booleans cast to 0/1)
             util_1.compareByFieldSpecs(f1.eventDef, f2.eventDef, this.view.eventOrderSpecs, f1.eventDef.miscProps, f2.eventDef.miscProps);
     };
     return EventRenderer;
@@ -5750,7 +5750,7 @@ var DateProfileGenerator = /** @class */ (function () {
         // or if the range is completely outside of the valid range.
         isValid = currentInfo.unzonedRange.intersectsWith(validUnzonedRange);
         return {
-            // constraint for where prev/next operations can go and where events can be dragged/resized to.
+            // constraint for where prev/next operations can go and where event can be dragged/resized to.
             // an object with optional start and end properties.
             validUnzonedRange: validUnzonedRange,
             // range the view is formally responsible for.
@@ -5759,8 +5759,8 @@ var DateProfileGenerator = /** @class */ (function () {
             // name of largest unit being displayed, like "month" or "week"
             currentRangeUnit: currentInfo.unit,
             isRangeAllDay: isRangeAllDay,
-            // dates that display events and accept drag-n-drop
-            // will be `null` if no dates accept events
+            // dates that display event and accept drag-n-drop
+            // will be `null` if no dates accept event
             activeUnzonedRange: activeUnzonedRange,
             // date range with a rendered skeleton
             // includes not-active days that need some sort of DOM
@@ -6348,7 +6348,7 @@ var DragListener = /** @class */ (function () {
     // Binding To DOM
     // -----------------------------------------------------------------------------------------------------------------
     DragListener.prototype.bindHandlers = function () {
-        // some browsers (Safari in iOS 10) don't allow preventDefault on touch events that are bound after touchstart,
+        // some browsers (Safari in iOS 10) don't allow preventDefault on touch event that are bound after touchstart,
         // so listen to the GlobalEmitter singleton, which is always bound, instead of the document directly.
         var globalEmitter = GlobalEmitter_1.default.get();
         if (this.isGeneric) {
@@ -7463,7 +7463,7 @@ var DayGrid = /** @class */ (function (_super) {
         var weekCalcFirstDoW;
         if (!isDayNumberVisible && !this.cellWeekNumbersVisible) {
             // no numbers in day cell (week number must be along the side)
-            return '<td/>'; //  will create an empty space above events :(
+            return '<td/>'; //  will create an empty space above event :(
         }
         classes = this.getDayClasses(date);
         classes.unshift('fc-day-top');
@@ -7543,9 +7543,9 @@ var DayGrid = /** @class */ (function (_super) {
     };
     /* Event Rendering
     ------------------------------------------------------------------------------------------------------------------*/
-    // Unrenders all events currently rendered on the grid
+    // Unrenders all event currently rendered on the grid
     DayGrid.prototype.executeEventUnrender = function () {
-        this.removeSegPopover(); // removes the "more.." events popover
+        this.removeSegPopover(); // removes the "more.." event popover
         _super.prototype.executeEventUnrender.call(this);
     };
     // Retrieves all rendered segment objects currently rendered on the grid
@@ -7595,7 +7595,7 @@ var DayGrid = /** @class */ (function (_super) {
             this.segPopover.hide(); // in handler, will call segPopover's removeElement
         }
     };
-    // Limits the number of "levels" (vertically stacking layers of events) for each row of the grid.
+    // Limits the number of "levels" (vertically stacking layers of event) for each row of the grid.
     // `levelLimit` can be false (don't limit), a number, or true (should be computed).
     DayGrid.prototype.limitRows = function (levelLimit) {
         var rowStructs = this.eventRenderer.rowStructs || [];
@@ -7776,7 +7776,7 @@ var DayGrid = /** @class */ (function (_super) {
             }
         });
     };
-    // Reveals the popover that displays all events within a cell
+    // Reveals the popover that displays all event within a cell
     DayGrid.prototype.showSegPopover = function (row, col, moreLink, segs) {
         var _this = this;
         var view = this.view;
@@ -7798,7 +7798,7 @@ var DayGrid = /** @class */ (function (_super) {
             viewportConstrain: this.opt('popoverViewportConstrain'),
             hide: function () {
                 // kill everything when the popover is hidden
-                // notify events to be removed
+                // notify event to be removed
                 if (_this.popoverSegs) {
                     _this.triggerBeforeEventSegsDestroyed(_this.popoverSegs);
                 }
@@ -7852,7 +7852,7 @@ var DayGrid = /** @class */ (function (_super) {
         }
         return content;
     };
-    // Given the events within an array of segment objects, reslice them to be in a single day
+    // Given the event within an array of segment objects, reslice them to be in a single day
     DayGrid.prototype.resliceDaySegs = function (segs, dayDate) {
         var dayStart = dayDate.clone();
         var dayEnd = dayStart.clone().add(1, 'days');
@@ -7877,7 +7877,7 @@ var DayGrid = /** @class */ (function (_super) {
         this.eventRenderer.sortEventSegs(newSegs);
         return newSegs;
     };
-    // Generates the text that should be inside a "more" link, given the number of events it represents
+    // Generates the text that should be inside a "more" link, given the number of event it represents
     DayGrid.prototype.getMoreLinkText = function (num) {
         var opt = this.opt('eventLimitText');
         if (typeof opt === 'function') {
@@ -7888,7 +7888,7 @@ var DayGrid = /** @class */ (function (_super) {
         }
     };
     // Returns segments within a given cell.
-    // If `startLevel` is specified, returns only events including and below that level. Otherwise returns all segs.
+    // If `startLevel` is specified, returns only event including and below that level. Otherwise returns all segs.
     DayGrid.prototype.getCellSegs = function (row, col, startLevel) {
         var segMatrix = this.eventRenderer.rowStructs[row].segMatrix;
         var level = startLevel || 0;
@@ -8448,7 +8448,7 @@ var Constraints = /** @class */ (function () {
             return this.buildCurrentBusinessFootprints(isAllDay);
         }
         else if (typeof constraintVal === 'object') {
-            eventInstances = this.parseEventDefToInstances(constraintVal); // handles recurring events
+            eventInstances = this.parseEventDefToInstances(constraintVal); // handles recurring event
             if (!eventInstances) { // invalid input. fallback to parsing footprint directly
                 return this.parseFootprints(constraintVal);
             }
@@ -10262,11 +10262,11 @@ var DateComponent = /** @class */ (function (_super) {
         });
         this.callChildren('hideEventsWithId', arguments);
     };
-    // Drag-n-Drop Rendering (for both events and external elements)
+    // Drag-n-Drop Rendering (for both event and external elements)
     // ---------------------------------------------------------------------------------------------------------------
     // Renders a visual indication of a event or external-element drag over the given drop zone.
     // If an external-element, seg will be `null`.
-    // Must return elements used for any mock events.
+    // Must return elements used for any mock event.
     DateComponent.prototype.renderDrag = function (eventFootprints, seg, isTouch) {
         var renderedHelper = false;
         this.iterChildren(function (child) {
@@ -11019,7 +11019,7 @@ var Calendar = /** @class */ (function () {
     };
     Calendar.prototype.windowResize = function (ev) {
         if (
-        // the purpose: so we don't process jqui "resize" events that have bubbled up
+        // the purpose: so we don't process jqui "resize" event that have bubbled up
         // cast to any because .target, which is Element, can't be compared to window for some reason.
         ev.target === window &&
             this.view &&
@@ -12013,7 +12013,7 @@ var EventDragging = /** @class */ (function (_super) {
         var _this = this;
         var view = this.view;
         var eventDef = seg.footprint.eventDef;
-        var eventInstance = seg.footprint.eventInstance; // null for inverse-background events
+        var eventInstance = seg.footprint.eventInstance; // null for inverse-background event
         if (this.dragListener) {
             return this.dragListener;
         }
@@ -12043,7 +12043,7 @@ var EventDragging = /** @class */ (function (_super) {
         var eventManager = calendar.eventManager;
         var el = seg.el;
         var eventDef = seg.footprint.eventDef;
-        var eventInstance = seg.footprint.eventInstance; // null for inverse-background events
+        var eventInstance = seg.footprint.eventInstance; // null for inverse-background event
         var isDragging;
         var mouseFollower; // A clone of the original element that will move with the mouse
         var eventDefMutation;
@@ -12566,7 +12566,7 @@ var AgendaView = /** @class */ (function (_super) {
         this.timeGrid.bottomRuleEl.hide(); // .show() will be called later if this <hr> is necessary
         this.scroller.clear(); // sets height to 'auto' and clears overflow
         util_1.uncompensateScroll(noScrollRowEls);
-        // limit number of events in the all-day area
+        // limit number of event in the all-day area
         if (this.dayGrid) {
             this.dayGrid.removeSegPopover(); // kill the "more" popover if displayed
             eventLimit = this.opt('eventLimit');
@@ -12642,7 +12642,7 @@ var AgendaView = /** @class */ (function (_super) {
         var timedEventsPayload = {};
         var id;
         var eventInstanceGroup;
-        // separate the events into all-day and timed
+        // separate the event into all-day and timed
         for (id in eventsPayload) {
             eventInstanceGroup = eventsPayload[id];
             if (eventInstanceGroup.getEventDef().isAllDay()) {
@@ -13494,7 +13494,7 @@ var TimeGridEventRenderer = /** @class */ (function (_super) {
         props.left = left * 100 + '%';
         props.right = right * 100 + '%';
         if (shouldOverlap && seg.forwardPressure) {
-            // add padding to the edge so that forward stacked events don't cover the resizer's icon
+            // add padding to the edge so that forward stacked event don't cover the resizer's icon
             props[isRTL ? 'marginLeft' : 'marginRight'] = 10 * 2; // 10 is a guesstimate of the icon's width
         }
         return props;
@@ -13673,7 +13673,7 @@ var DayGridEventRenderer = /** @class */ (function (_super) {
         return _this;
     }
     DayGridEventRenderer.prototype.renderBgRanges = function (eventRanges) {
-        // don't render timed background events
+        // don't render timed background event
         eventRanges = $.grep(eventRanges, function (eventRange) {
             return eventRange.eventDef.isAllDay();
         });
@@ -13696,7 +13696,7 @@ var DayGridEventRenderer = /** @class */ (function (_super) {
         }
         this.rowStructs = null;
     };
-    // Uses the given events array to generate <tbody> elements that should be appended to each row's content skeleton.
+    // Uses the given event array to generate <tbody> elements that should be appended to each row's content skeleton.
     // Returns an array of rowStruct objects (see the bottom of `renderSegRow`).
     // PRECONDITION: each segment shoud already have a rendered and assigned `.el`
     DayGridEventRenderer.prototype.renderSegRows = function (segs) {
@@ -13852,7 +13852,7 @@ var DayGridEventRenderer = /** @class */ (function (_super) {
         var timeText;
         var titleHtml;
         classes.unshift('fc-day-grid-event', 'fc-h-event');
-        // Only display a timed events time if it is the starting segment
+        // Only display a timed event time if it is the starting segment
         if (seg.isStart) {
             timeText = this.getTimeText(seg.footprint);
             if (timeText) {
@@ -13938,7 +13938,7 @@ var DayGridHelperRenderer = /** @class */ (function (_super) {
             }
             else {
                 skeletonTopEl = rowEl.find('.fc-content-skeleton tbody');
-                if (!skeletonTopEl.length) { // when no events
+                if (!skeletonTopEl.length) { // when no event
                     skeletonTopEl = rowEl.find('.fc-content-skeleton table');
                 }
                 skeletonTop = skeletonTopEl.position().top;
@@ -14342,7 +14342,7 @@ var ListEventPointing = /** @class */ (function (_super) {
     function ListEventPointing() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    // for events with a url, the whole <tr> should be clickable,
+    // for event with a url, the whole <tr> should be clickable,
     // but it's impossible to wrap with an <a> tag. simulate this.
     ListEventPointing.prototype.handleClick = function (seg, ev) {
         var url;
@@ -15102,7 +15102,7 @@ ViewRegistry_1.defineView('list', {
     defaults: {
         buttonText: 'list',
         listDayFormat: 'LL',
-        noEventsMessage: 'No events to display'
+        noEventsMessage: 'No event to display'
     }
 });
 ViewRegistry_1.defineView('listDay', {

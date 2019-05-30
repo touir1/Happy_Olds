@@ -99,15 +99,15 @@ define([
     var disableInputEvents = msie && msie <= 11;
 
     // Workaround for browsers which do not support the `input` event
-    // This will prevent double-triggering of events for browsers which support
-    // both the `keyup` and `input` events.
+    // This will prevent double-triggering of event for browsers which support
+    // both the `keyup` and `input` event.
     this.$selection.on(
       'input.searchcheck',
       '.select2-search--inline',
       function (evt) {
         // IE will trigger the `input` event when a placeholder is used on a
         // search box. To get around this issue, we are forced to ignore all
-        // `input` events in IE and keep using `keyup`.
+        // `input` event in IE and keep using `keyup`.
         if (disableInputEvents) {
           self.$selection.off('input.search input.searchcheck');
           return;
@@ -124,7 +124,7 @@ define([
       function (evt) {
         // IE will trigger the `input` event when a placeholder is used on a
         // search box. To get around this issue, we are forced to ignore all
-        // `input` events in IE and keep using `keyup`.
+        // `input` event in IE and keep using `keyup`.
         if (disableInputEvents && evt.type === 'input') {
           self.$selection.off('input.search input.searchcheck');
           return;
@@ -132,7 +132,7 @@ define([
 
         var key = evt.which;
 
-        // We can freely ignore events from modifier keys
+        // We can freely ignore event from modifier keys
         if (key == KEYS.SHIFT || key == KEYS.CTRL || key == KEYS.ALT) {
           return;
         }

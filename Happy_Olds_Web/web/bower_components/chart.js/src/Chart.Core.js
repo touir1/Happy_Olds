@@ -114,13 +114,13 @@
 			// Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
 			maintainAspectRatio: true,
 
-			// Boolean - Determines whether to draw tooltips on the canvas or not - attaches events to touchmove & mousemove
+			// Boolean - Determines whether to draw tooltips on the canvas or not - attaches event to touchmove & mousemove
 			showTooltips: true,
 
 			// Boolean - Determines whether to draw built-in tooltip or call custom tooltip function
 			customTooltips: false,
 
-			// Array - Array of string names to attach tooltip events
+			// Array - Array of string names to attach tooltip event
 			tooltipEvents: ["mousemove", "touchstart", "touchmove", "mouseout"],
 
 			// String - Tooltip background colour
@@ -746,7 +746,7 @@
 			}
 		},
 		bindEvents = helpers.bindEvents = function(chartInstance, arrayOfEvents, handler){
-			// Create the events object if it's not already present
+			// Create the event object if it's not already present
 			if (!chartInstance.events) chartInstance.events = {};
 
 			each(arrayOfEvents,function(eventName){

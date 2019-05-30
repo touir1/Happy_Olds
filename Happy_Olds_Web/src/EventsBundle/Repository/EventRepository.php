@@ -10,4 +10,11 @@ namespace EventsBundle\Repository;
  */
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myfindall($user)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(" SELECT m FROM EventsBundle:Event m WHERE m.id_user= :user ")
+        ->setParameter(':user',$user);
+        return $query->getResult();
+    }
 }

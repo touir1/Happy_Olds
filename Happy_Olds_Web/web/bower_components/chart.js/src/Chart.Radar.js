@@ -79,7 +79,7 @@
 
 			this.buildScale(data);
 
-			//Set up tooltip events on the chart
+			//Set up tooltip event on the chart
 			if (this.options.showTooltips){
 				helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
 					var activePointsCollection = (evt.type !== 'mouseout') ? this.getPointsAtEvent(evt) : [];

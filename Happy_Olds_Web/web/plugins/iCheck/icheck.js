@@ -183,7 +183,7 @@
         parent.css('position') == 'static' && parent.css('position', 'relative');
         operate(self, true, _update);
 
-        // Label events
+        // Label event
         if (label.length) {
           label.on(_click + '.i mouseover.i mouseout.i ' + _touch, function(event) {
             var type = event[_type],
@@ -219,7 +219,7 @@
             }
           });
         }
-          // Input events
+          // Input event
         self.on(_click + '.i focus.i blur.i keyup.i keydown.i keypress.i', function(event) {
           var type = event[_type],
             key = event.keyCode;
@@ -249,7 +249,7 @@
           }
         });
 
-        // Helper events
+        // Helper event
         helper.on(_click + ' mousedown mouseup mouseover mouseout ' + _touch, function(event) {
           var type = event[_type],
 
@@ -451,7 +451,7 @@
       if (callback) {
         input[_callback](callback);
       }
-        // Unbind events
+        // Unbind event
       input.off('.i').unwrap();
       $(_label + '[for="' + input[0].id + '"]').add(input.closest(_label)).off('.i');
     }

@@ -189,7 +189,7 @@ test('"remove" is an alias for "destroy"', function(){
     ok(called);
 });
 
-test('Does not block events', function(){
+test('Does not block event', function(){
     var clicks = 0;
     function handler(){
         clicks++;

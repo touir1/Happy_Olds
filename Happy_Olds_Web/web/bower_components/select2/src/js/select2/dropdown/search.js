@@ -35,8 +35,8 @@ define([
     });
 
     // Workaround for browsers which do not support the `input` event
-    // This will prevent double-triggering of events for browsers which support
-    // both the `keyup` and `input` events.
+    // This will prevent double-triggering of event for browsers which support
+    // both the `keyup` and `input` event.
     this.$search.on('input', function (evt) {
       // Unbind the duplicated `keyup` event
       $(this).off('keyup');
