@@ -2,6 +2,7 @@
 
 namespace ChatRoomBundle\Controller;
 
+use ChatRoomBundle\Entity\DiscussionGroupe;
 use ChatRoomBundle\Entity\Groupe;
 use ChatRoomBundle\Entity\GroupeSujet;
 use ChatRoomBundle\Entity\MembreGroupe;
@@ -9,8 +10,6 @@ use ChatRoomBundle\Entity\PublicationGroupe;
 use ChatRoomBundle\Form\GroupeType;
 use ChatRoomBundle\Form\PublicationGroupeType;
 use ChatRoomBundle\Utils\GroupeTypes;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\UserBundle\Model\Group;
 use HappyOldsMainBundle\Entity\User;
 use ChatRoomBundle\Utils\ChatRoomRoutes;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,11 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GroupeController extends UtilsController
 {
-
-    private static function user_mapping($user)
-    {
-
-    }
 
     public function __construct()
     {
@@ -81,7 +75,6 @@ class GroupeController extends UtilsController
         return $this->render( '@ChatRoom/Groupe/list.html.twig',[
             'data' => [
                 'routes' => $this->getRoutesAsUrls()
-                
             ],
             'liste' => $liste,
 
@@ -260,7 +253,7 @@ class GroupeController extends UtilsController
     }
 
     // add
-    private function add($groupe)
+    private function add(Groupe $groupe)
     {
         $groupe->setCreator($this->getUser());
         $member = new MembreGroupe();
@@ -269,6 +262,7 @@ class GroupeController extends UtilsController
         $member->setBanned(false);
         $member->setGroupe($groupe);
         $groupe->addMember($member);
+        $groupe->setDiscussion(new DiscussionGroupe());
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($groupe);

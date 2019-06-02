@@ -66,6 +66,11 @@ class Groupe
     private $publications;
 
     /**
+     * @ORM\OneToOne(targetEntity="DiscussionGroupe",mappedBy="groupe", cascade={"persist","remove"})
+     */
+    private $discussion;
+
+    /**
      * Get id
      *
      * @return int
@@ -281,5 +286,29 @@ class Groupe
     public function getSujet()
     {
         return $this->sujet;
+    }
+
+    /**
+     * Set discussion
+     *
+     * @param \ChatRoomBundle\Entity\DiscussionGroupe $discussion
+     *
+     * @return Groupe
+     */
+    public function setDiscussion(\ChatRoomBundle\Entity\DiscussionGroupe $discussion = null)
+    {
+        $this->discussion = $discussion;
+
+        return $this;
+    }
+
+    /**
+     * Get discussion
+     *
+     * @return \ChatRoomBundle\Entity\DiscussionGroupe
+     */
+    public function getDiscussion()
+    {
+        return $this->discussion;
     }
 }

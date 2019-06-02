@@ -1,6 +1,8 @@
 <?php
 
 namespace ChatRoomBundle\Repository;
+use ChatRoomBundle\Entity\Message;
+use ChatRoomBundle\Utils\MessagesResponse;
 
 /**
  * MessageRepository
@@ -10,4 +12,120 @@ namespace ChatRoomBundle\Repository;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLastTimestamp()
+    {
+        return $this->getEntityManager()
+            ->createQuery("select max(m.createdAt) result from ChatRoomBundle:Message m ")
+            ->getOneOrNullResult()["result"];
+    }
+
+    public function allMessages($user_id)
+    {
+        $result=$this->getEntityManager()
+            ->createQuery("SELECT m FROM ChatRoomBundle:Message m "
+                ."JOIN m.discussion d "
+                ."JOIN d.groupe g "
+                ."WHERE EXISTS( "
+                    ."SELECT 1 from ChatRoomBundle:MembreGroupe m2 "
+                    ."WHERE m2.groupe = g.id "
+                    ."AND m2.authorized = 1 "
+                    ."AND m2.banned != 1 "
+                    ."AND m2.user = :user "
+                .") ")
+            ->setParameter(':user',$user_id)
+            ->getResult();
+
+        $messagesResponse = new MessagesResponse();
+        $messagesResponse->setMessages($result);
+        $messagesResponse->setLastTimestamp(
+            $this->getLastTimestamp()
+        );
+
+        return $messagesResponse;
+    }
+
+    public function allMessagesByGroupe($user_id, $groupe_id)
+    {
+        $result=$this->getEntityManager()
+            ->createQuery("SELECT m FROM ChatRoomBundle:Message m "
+                ."JOIN m.discussion d "
+                ."JOIN d.groupe g "
+                ."WHERE g.id = :groupe "
+                ."AND EXISTS( "
+                    ."SELECT 1 from ChatRoomBundle:MembreGroupe m2 "
+                    ."WHERE m2.groupe = g.id "
+                    ."AND m2.authorized = 1 "
+                    ."AND m2.banned != 1 "
+                    ."AND m2.user = :user "
+                .") ")
+            ->setParameter(':user',$user_id)
+            ->setParameter(':groupe',$groupe_id)
+            ->getResult();
+
+        $messagesResponse = new MessagesResponse();
+        $messagesResponse->setMessages($result);
+        $messagesResponse->setLastTimestamp(
+            $this->getLastTimestamp()
+        );
+
+        return $messagesResponse;
+    }
+
+    public function newMessages($user_id,$timestamp)
+    {
+        $result=$this->getEntityManager()
+            ->createQuery("SELECT m FROM ChatRoomBundle:Message m "
+                ."JOIN m.discussion d "
+                ."JOIN d.groupe g "
+                ."WHERE m.createdAt > :timestamp "
+                ."AND EXISTS( "
+                    ."SELECT 1 from ChatRoomBundle:MembreGroupe m2 "
+                    ."WHERE m2.groupe = g.id "
+                    ."AND m2.authorized = 1 "
+                    ."AND m2.banned != 1 "
+                    ."AND m2.user = :user "
+                .") ")
+            ->setParameter(':user',$user_id)
+            ->setParameter(':timestamp',$timestamp)
+            ->getResult();
+
+        $messagesResponse = new MessagesResponse();
+        $messagesResponse->setMessages($result);
+        $messagesResponse->setLastTimestamp(
+            $this->getLastTimestamp()
+        );
+
+        return $messagesResponse;
+    }
+
+    public function newMessagesByGroupe($user_id,$groupe_id,$timestamp)
+    {
+        $result=$this->getEntityManager()
+            ->createQuery("SELECT m FROM ChatRoomBundle:Message m "
+                ."JOIN m.discussion d "
+                ."JOIN d.groupe g "
+                ."WHERE g.id = :groupe "
+                ."AND m.createdAt > :timestamp "
+                ."AND EXISTS( "
+                    ."SELECT 1 from ChatRoomBundle:MembreGroupe m2 "
+                    ."WHERE m2.groupe = g.id "
+                    ."AND m2.authorized = 1 "
+                    ."AND m2.banned != 1 "
+                    ."AND m2.user = :user "
+                .") ")
+            ->setParameter(':user',$user_id)
+            ->setParameter(':groupe',$groupe_id)
+            ->setParameter(':timestamp',$timestamp)
+            ->getResult();
+
+        $messagesResponse = new MessagesResponse();
+        $messagesResponse->setMessages($result);
+        $messagesResponse->setLastTimestamp(
+            $this->getLastTimestamp()
+        );
+
+        return $messagesResponse;
+    }
+
 }
+

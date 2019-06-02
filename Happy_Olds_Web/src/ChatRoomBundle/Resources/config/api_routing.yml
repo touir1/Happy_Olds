@@ -17,3 +17,7 @@ chat_room_comment:
 chat_room_publication:
     resource: "@ChatRoomBundle/Resources/config/api/publication_routing.yml"
     prefix:    /publications
+
+chat_room_message:
+    resource: "@ChatRoomBundle/Resources/config/api/messages_routing.yml"
+    prefix:    /messages

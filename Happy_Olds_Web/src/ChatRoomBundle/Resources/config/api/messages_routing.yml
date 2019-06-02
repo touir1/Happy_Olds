@@ -1,0 +1,23 @@
+chat_room_api_group_messages_last_timestamp:
+    path:     /lastTimestamp
+    defaults: { _controller: ChatRoomBundle:Message:_getLastTimestamp }
+
+chat_room_api_group_messages_all:
+    path:     /all
+    defaults: { _controller: ChatRoomBundle:Message:_allMessages }
+
+chat_room_api_group_messages_all_by_group:
+    path:     /all/group
+    defaults: { _controller: ChatRoomBundle:Message:_allMessagesByGroupe }
+
+chat_room_api_group_messages_new_by_group:
+    path:     /new/group
+    defaults: { _controller: ChatRoomBundle:Message:_newMessagesByGroupe }
+
+chat_room_api_group_messages_new:
+    path:     /new
+    defaults: { _controller: ChatRoomBundle:Message:_newMessages }
+
+chat_room_api_group_messages_send:
+    path:     /send
+    defaults: { _controller: ChatRoomBundle:Message:_send }

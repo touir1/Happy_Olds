@@ -20,6 +20,12 @@ abstract class ChatRoomRoutes
     public static function getApiArray()
     {
         return [
+            self::chat_room_api_group_messages_all,
+            self::chat_room_api_group_messages_all_by_group,
+            self::chat_room_api_group_messages_last_timestamp,
+            self::chat_room_api_group_messages_new,
+            self::chat_room_api_group_messages_new_by_group,
+            self::chat_room_api_group_messages_send,
             self::chat_room_api_comment_add,
             self::chat_room_api_group_add,
             self::chat_room_api_group_consult,
@@ -78,6 +84,13 @@ abstract class ChatRoomRoutes
     }
 
     /** API **/
+    // messages
+    const chat_room_api_group_messages_last_timestamp = 'chat_room_api_group_messages_last_timestamp';
+    const chat_room_api_group_messages_all = 'chat_room_api_group_messages_all';
+    const chat_room_api_group_messages_all_by_group = 'chat_room_api_group_messages_all_by_group';
+    const chat_room_api_group_messages_new_by_group = 'chat_room_api_group_messages_new_by_group';
+    const chat_room_api_group_messages_new = 'chat_room_api_group_messages_new';
+    const chat_room_api_group_messages_send = 'chat_room_api_group_messages_send';
     // comments
     const chat_room_api_comment_add = 'chat_room_api_comment_add';
     const chat_room_api_comment_remove = 'chat_room_api_comment_remove';

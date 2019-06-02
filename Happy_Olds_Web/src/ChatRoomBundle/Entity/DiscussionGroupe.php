@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class DiscussionGroupe extends Discussion
 {
     /**
-     * @ORM\OneToOne(targetEntity="Groupe")
+     * @ORM\OneToOne(targetEntity="Groupe", inversedBy="discussion")
      * @ORM\JoinColumn(name="groupe_id", referencedColumnName="id")
      */
     private $groupe;

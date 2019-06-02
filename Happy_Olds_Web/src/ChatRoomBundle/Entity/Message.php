@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Message
 {
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime("now");
+    }
+
     /**
      * @var int
      *
@@ -29,14 +35,7 @@ class Message
     private $texte;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pieceJointe", type="string", length=255)
-     */
-    private $pieceJointe;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Discussion", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="DiscussionGroupe", inversedBy="messages")
      * @ORM\JoinColumn(name="discussion_id", referencedColumnName="id")
      */
     private $discussion;
@@ -46,6 +45,23 @@ class Message
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+
+    /**
+     * Gets triggered only on insert
+
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+    }
 
 
     /**
@@ -83,37 +99,13 @@ class Message
     }
 
     /**
-     * Set pieceJointe
-     *
-     * @param string $pieceJointe
-     *
-     * @return Message
-     */
-    public function setPieceJointe($pieceJointe)
-    {
-        $this->pieceJointe = $pieceJointe;
-
-        return $this;
-    }
-
-    /**
-     * Get pieceJointe
-     *
-     * @return string
-     */
-    public function getPieceJointe()
-    {
-        return $this->pieceJointe;
-    }
-
-    /**
      * Set discussion
      *
-     * @param \ChatRoomBundle\Entity\Discussion $discussion
+     * @param \ChatRoomBundle\Entity\DiscussionGroupe $discussion
      *
      * @return Message
      */
-    public function setDiscussion(\ChatRoomBundle\Entity\Discussion $discussion = null)
+    public function setDiscussion(\ChatRoomBundle\Entity\DiscussionGroupe $discussion = null)
     {
         $this->discussion = $discussion;
 
@@ -123,7 +115,7 @@ class Message
     /**
      * Get discussion
      *
-     * @return \ChatRoomBundle\Entity\Discussion
+     * @return \ChatRoomBundle\Entity\DiscussionGroupe
      */
     public function getDiscussion()
     {
@@ -152,5 +144,29 @@ class Message
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Message
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }
