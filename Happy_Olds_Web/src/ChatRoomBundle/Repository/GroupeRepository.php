@@ -30,25 +30,38 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
-    public function findAllMineAccessible($user_id)
+    public function findAllMineAccessible($user_id,$titre,$type,$sujet)
     {
         //return $this->findAll();
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
-                ."WHERE g.creator = :member ")
-            ->setParameter(':member',$user_id);
+                ."WHERE g.creator = :member "
+                ."AND g.titre LIKE :titre "
+                ."AND (:type = 'all' OR g.type = :type) "
+                ."AND (:sujet = '0' OR g.sujet = :sujet) ")
+            ->setParameter(':member',$user_id)
+            ->setParameter(':titre',"%".$titre."%")
+            ->setParameter(':type',$type)
+            ->setParameter(':sujet',$sujet);
         return $query->getResult();
     }
 
-    public function findSubscribedAccessible($user_id)
+    public function findSubscribedAccessible($user_id,$titre,$type,$sujet)
     {
         //return $this->findAll();
         $query=$this->getEntityManager()
             ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
                 ."LEFT JOIN g.members m "
-                ."WHERE g.creator = :member "
-                ."OR (m.banned !=1 AND m.user = :member) ")
-            ->setParameter(':member',$user_id);
+                ."WHERE (g.creator = :member "
+                    ."OR (m.banned !=1 AND m.user = :member)"
+                .") "
+                ."AND g.titre LIKE :titre "
+                ."AND (:type = 'all' OR g.type = :type) "
+                ."AND (:sujet = '0' OR g.sujet = :sujet) ")
+            ->setParameter(':member',$user_id)
+            ->setParameter(':titre',"%".$titre."%")
+            ->setParameter(':type',$type)
+            ->setParameter(':sujet',$sujet);
         return $query->getResult();
     }
 
@@ -145,6 +158,41 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
                 .") "
                 ."AND g.id = :groupe "
                 ."AND g.creator != :member")
+            ->setParameter(":member",$user_id)
+            ->setParameter(":groupe",$groupe_id);
+        return $query->getOneOrNullResult()["result"] > 0;
+    }
+
+    public function checkIfAuthorizedToPublish($groupe_id, $user_id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT count(1) as result from ChatRoomBundle:Groupe g "
+                ."WHERE :member IN ( "
+                    ."SELECT u.id from ChatRoomBundle:MembreGroupe m2 "
+                    ."LEFT JOIN m2.user u "
+                    ."WHERE m2.groupe = :groupe "
+                    ."AND m2.authorized = 1 "
+                    ."ANd m2.banned != 1 "
+                .") "
+                ."AND g.id = :groupe ")
+            ->setParameter(":member",$user_id)
+            ->setParameter(":groupe",$groupe_id);
+        return $query->getOneOrNullResult()["result"] > 0;
+    }
+    public function checkIfAuthorizedToSeePublications($groupe_id, $user_id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT count(1) as result from ChatRoomBundle:Groupe g "
+                ."WHERE g.id = :groupe "
+                ."AND (
+                    :member IN ( "
+                        ."SELECT u.id from ChatRoomBundle:MembreGroupe m2 "
+                        ."LEFT JOIN m2.user u "
+                        ."WHERE m2.groupe = :groupe "
+                        ."AND m2.authorized = 1 "
+                        ."ANd m2.banned != 1 "
+                    .") OR g.type = 'public' "
+                .") ")
             ->setParameter(":member",$user_id)
             ->setParameter(":groupe",$groupe_id);
         return $query->getOneOrNullResult()["result"] > 0;

@@ -55,6 +55,7 @@
             {% endif %}
         </div>
         <br>
+        {% if publish %}
         <h2>Publications</h2>
         {#
         <table class="table table-bordered">
@@ -81,169 +82,171 @@
         </table>
         #}
 
-        <div class="box box-widget" style="width: 75%;left: 13%;">
-            {{ form_start(form,{'action': path('chat_room_publication_add',{'id':groupe.id}), 'method': 'POST'}) }}
-                <div class="box-header with-border">
-                    <div class="user-block">
-                        <img class="img-circle" src="{{ asset(app.user.webPath) }}" alt="User Image">
-                        <span class="username">Ajouter une publication</span>
-                        {#<span class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>#}
-                    </div>
-                    <!-- /.user-block -->
-                    <div class="box-tools">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <!-- /.box-tools -->
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <!-- post text -->
-                    <p id="publication-preview" class="with-emotes"></p>
-                    {{ form_widget(form.description, {'id':'new-publication','attr': {'class':'form-control wdt-emoji-open-on-colon using-emoji publication-input','placeholder':'Press enter to post publication','rows':'3'}}) }}
-                </div>
-
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="pull-left">Ajouter une pièce jointe: {{ form_widget(form.pieceJointe) }}</div> {{ form_widget(form.valider,{ 'label': 'Publier','attr': {'class': 'btn btn-default btn bg-aqua pull-right'} }) }}
-                </div>
-            {{ form_end(form) }}
-            <!-- /.box-footer -->
-        </div>
-
-        {% for p in groupe.publications | reverse %}
             <div class="box box-widget" style="width: 75%;left: 13%;">
-                <div class="box-header with-border">
-                    <div class="user-block">
-                        <img class="img-circle" src="{{ asset(p.user.webPath) }}" alt="User Image">
-                        <span class="username"><a href="#">{{ p.user.nom | upper }} {{ p.user.prenom | capitalize }}</a></span>
-                        <span href="{{ path('chat_room_publication_consult',{'id':p.id}) }}" class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>
-                    </div>
-                    <!-- /.user-block -->
-                    <div class="box-tools">
-                        <!--
-                        <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
-                            <i class="fa fa-circle-o"></i></button>
-                         -->
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!--
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        -->
-                    </div>
-                    <!-- /.box-tools -->
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <!-- post text -->
-                    <p class="with-emotes">{{ p.description }}</p>
-
-                    <!-- Attachment -->
-                    {% if not p.pieceJointe is empty and not p.pieceJointe.path is empty %}
-                        <div class="attachment-block clearfix">
-                            {#
-                            <iframe  width="100%"
-                                     height="300"  frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBoVSG3FplX2Ckbl672m4HWjnKK4WS5j2w&q={{ service.getUser().getVille() }}" >
-                            </iframe>
-                            #}
-                            {% if p.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg', 'image/bmp', 'image/webp'] %}
-                                <center>
-                                    <img class="publication_img" src="{{ asset(p.pieceJointe.webPath) }}" style="max-width: 100%;height: auto;" alt="{{ p.description }}">
-                                </center>
-                            {% elseif p.pieceJointe.mimeType in ['video/mp4','video/webm','video/ogg','video/x-msvideo','video/mpeg'] %}
-                                <center>
-                                    <video class="publication_video" style="max-width: 100%;height: auto;" controls>
-                                        <source src="{{ asset(p.pieceJointe.webPath) }}" type="{{ p.pieceJointe.mimeType }}">
-                                        Your browser does not support the video element.
-                                    </video>
-                                </center>
-                            {% elseif p.pieceJointe.mimeType in ['audio/mpeg', 'audio/ogg', 'audio/wav'] %}
-                                <center>
-                                    <audio controls>
-                                        <source src="{{ asset(p.pieceJointe.webPath) }}" type="{{ p.pieceJointe.mimeType }}">
-                                    </audio>
-                                </center>
-                            {% else %}
-                                <a href="{{ asset(p.pieceJointe.webPath) }}" download="{{ p.pieceJointe.realName }}">Télécharger: {{ p.pieceJointe.realName }}</a>
-                            {% endif %}
-                            <!-- /.attachment-pushed -->
+                {{ form_start(form,{'action': path('chat_room_publication_add',{'id':groupe.id}), 'method': 'POST'}) }}
+                    <div class="box-header with-border">
+                        <div class="user-block">
+                            <img class="img-circle" src="{{ asset(app.user.webPath) }}" alt="User Image">
+                            <span class="username">Ajouter une publication</span>
+                            {#<span class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>#}
                         </div>
-                    {% endif %}
-                    {% if app.user.id == p.user.id %}
-                        <a class="btn btn-default btn bg-olive btn-xs" href="{{ path('chat_room_publication_update',{'id': p.id}) }}"><i class="fa fa-share"></i> Modifier </a>
-                        <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('chat_room_publication_delete',{'id': p.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
-                    {% endif %}
-                    <!-- /.attachment-block -->
-                    <!-- Social sharing buttons -->
-                    <a href="{{ path('chat_room_publication_consult',{'id': p.id}) }}" class="pull-right text-muted" style="margin-left: 3px; cursor: pointer;"> <i class="fa fa-comments-o margin-r-5"></i> commentaires (<span id="nb-comments-{{ p.id }}">{{ p.commentaires.count }}</span>)</a>
-                </div>
+                        <!-- /.user-block -->
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!-- post text -->
+                        <p id="publication-preview" class="with-emotes"></p>
+                        {{ form_widget(form.description, {'id':'new-publication','attr': {'class':'form-control wdt-emoji-open-on-colon using-emoji publication-input','placeholder':'Press enter to post publication','rows':'3'}}) }}
+                    </div>
 
-                <!-- /.box-body -->
-                <div class="box-footer box-comments">
-                    {% set beginning = 0 %}
-                    {% if p.commentaires.count > 5 %}
-                        {% set beginning = p.commentaires.count - 5 %}
-                    {% endif %}
-                    {% for c in p.commentaires[beginning:] %}
-                        <div class="box-comment">
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="pull-left">Ajouter une pièce jointe: {{ form_widget(form.pieceJointe) }}</div> {{ form_widget(form.valider,{ 'label': 'Publier','attr': {'class': 'btn btn-default btn bg-aqua pull-right'} }) }}
+                    </div>
+                {{ form_end(form) }}
+                <!-- /.box-footer -->
+            </div>
+        {% endif %}
+        {% if seePublications %}
+            {% for p in groupe.publications | reverse %}
+                <div class="box box-widget" style="width: 75%;left: 13%;">
+                    <div class="box-header with-border">
+                        <div class="user-block">
+                            <img class="img-circle" src="{{ asset(p.user.webPath) }}" alt="User Image">
+                            <span class="username"><a href="#">{{ p.user.nom | upper }} {{ p.user.prenom | capitalize }}</a></span>
+                            <span href="{{ path('chat_room_publication_consult',{'id':p.id}) }}" class="description">publié le {{p.datePublication | date('Y-m-d h:m:s')  }}</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <div class="box-tools">
+                            <!--
+                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                                <i class="fa fa-circle-o"></i></button>
+                             -->
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <!--
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            -->
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!-- post text -->
+                        <p class="with-emotes">{{ p.description }}</p>
+
+                        <!-- Attachment -->
+                        {% if not p.pieceJointe is empty and not p.pieceJointe.path is empty %}
+                            <div class="attachment-block clearfix">
+                                {#
+                                <iframe  width="100%"
+                                         height="300"  frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBoVSG3FplX2Ckbl672m4HWjnKK4WS5j2w&q={{ service.getUser().getVille() }}" >
+                                </iframe>
+                                #}
+                                {% if p.pieceJointe.mimeType in ['image/png','image/gif','image/jpeg', 'image/bmp', 'image/webp'] %}
+                                    <center>
+                                        <img class="publication_img" src="{{ asset(p.pieceJointe.webPath) }}" style="max-width: 100%;height: auto;" alt="{{ p.description }}">
+                                    </center>
+                                {% elseif p.pieceJointe.mimeType in ['video/mp4','video/webm','video/ogg','video/x-msvideo','video/mpeg'] %}
+                                    <center>
+                                        <video class="publication_video" style="max-width: 100%;height: auto;" controls>
+                                            <source src="{{ asset(p.pieceJointe.webPath) }}" type="{{ p.pieceJointe.mimeType }}">
+                                            Your browser does not support the video element.
+                                        </video>
+                                    </center>
+                                {% elseif p.pieceJointe.mimeType in ['audio/mpeg', 'audio/ogg', 'audio/wav'] %}
+                                    <center>
+                                        <audio controls>
+                                            <source src="{{ asset(p.pieceJointe.webPath) }}" type="{{ p.pieceJointe.mimeType }}">
+                                        </audio>
+                                    </center>
+                                {% else %}
+                                    <a href="{{ asset(p.pieceJointe.webPath) }}" download="{{ p.pieceJointe.realName }}">Télécharger: {{ p.pieceJointe.realName }}</a>
+                                {% endif %}
+                                <!-- /.attachment-pushed -->
+                            </div>
+                        {% endif %}
+                        {% if app.user.id == p.user.id %}
+                            <a class="btn btn-default btn bg-olive btn-xs" href="{{ path('chat_room_publication_update',{'id': p.id}) }}"><i class="fa fa-share"></i> Modifier </a>
+                            <a class="btn  btn-default  btn-xs" style="background-color:#3c8dbc;color:#fff; " href="{{ path('chat_room_publication_delete',{'id': p.id}) }}"><i class="fa fa-trash"></i> Supprimer </a>
+                        {% endif %}
+                        <!-- /.attachment-block -->
+                        <!-- Social sharing buttons -->
+                        <a href="{{ path('chat_room_publication_consult',{'id': p.id}) }}" class="pull-right text-muted" style="margin-left: 3px; cursor: pointer;"> <i class="fa fa-comments-o margin-r-5"></i> commentaires (<span id="nb-comments-{{ p.id }}">{{ p.commentaires.count }}</span>)</a>
+                    </div>
+
+                    <!-- /.box-body -->
+                    <div class="box-footer box-comments">
+                        {% set beginning = 0 %}
+                        {% if p.commentaires.count > 5 %}
+                            {% set beginning = p.commentaires.count - 5 %}
+                        {% endif %}
+                        {% for c in p.commentaires[beginning:] %}
+                            <div class="box-comment">
+                                <!-- User image -->
+                                <img class="img-circle img-sm" src="{{ asset(c.user.webPath) }}" alt="User Image">
+
+                                <div class="comment-text">
+                              <span class="username">
+                                <a href="#">{{ c.user.nom | upper }} {{ c.user.prenom | capitalize }}</a>
+                                  <span class="text-muted pull-right">{{ c.dateCommentaire | date('Y-m-d h:m:s') }}</span>
+                              </span><!-- /.username -->
+                                    <div class="with-emotes">
+                                        {{ c.texte }}
+                                        {% if app.user.id == c.user.id %}
+                                            <a class="btn btn-default  btn-xs pull-right comment_remove" style="background-color:#3c8dbc;color:#fff; " data-id="{{ c.id }}"><i class="fa fa-trash" id="comment_i_{{ c.id }}"></i></a>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                                <!-- /.comment-text -->
+                            </div>
+                            <!-- /.box-comment -->
+                            <!-- /.box-comment -->
+                        {% endfor %}
+                        <!-- for added comments -->
+                        <div class="box-comment" id="new-comments-{{ p.id }}" hidden>
+
+                        </div>
+                        <div class="box-comment" id="box-comment-{{ p.id }}" hidden>
                             <!-- User image -->
-                            <img class="img-circle img-sm" src="{{ asset(c.user.webPath) }}" alt="User Image">
+                            <img class="img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="User Image">
 
                             <div class="comment-text">
-                          <span class="username">
-                            <a href="#">{{ c.user.nom | upper }} {{ c.user.prenom | capitalize }}</a>
-                              <span class="text-muted pull-right">{{ c.dateCommentaire | date('Y-m-d h:m:s') }}</span>
-                          </span><!-- /.username -->
-                                <div class="with-emotes">
-                                    {{ c.texte }}
-                                    {% if app.user.id == c.user.id %}
-                                        <a class="btn btn-default  btn-xs pull-right comment_remove" style="background-color:#3c8dbc;color:#fff; " data-id="{{ c.id }}"><i class="fa fa-trash" id="comment_i_{{ c.id }}"></i></a>
-                                    {% endif %}
+                                <span class="username">
+                                    <a href="#">{{ app.user.nom | upper }} {{ app.user.prenom | capitalize }}</a>
+                                    <span class="text-muted pull-right">{{ 'now' | date('Y-m-d h:m:s') }}</span>
+                                </span><!-- /.username -->
+                                <div>
+                                    <span id="emoji-preview-{{ p.id }}" class="with-emotes"></span>
+                                    <a id="remove-comment-{{ p.id }}" class="btn btn-default btn-xs pull-right"
+                                       style="background-color:#3c8dbc;color:#fff; display:none;" href="#"><i class="fa fa-trash"></i>
+                                    </a>
                                 </div>
-
                             </div>
                             <!-- /.comment-text -->
                         </div>
-                        <!-- /.box-comment -->
-                        <!-- /.box-comment -->
-                    {% endfor %}
-                    <!-- for added comments -->
-                    <div class="box-comment" id="new-comments-{{ p.id }}" hidden>
-
                     </div>
-                    <div class="box-comment" id="box-comment-{{ p.id }}" hidden>
-                        <!-- User image -->
-                        <img class="img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="User Image">
-
-                        <div class="comment-text">
-                            <span class="username">
-                                <a href="#">{{ app.user.nom | upper }} {{ app.user.prenom | capitalize }}</a>
-                                <span class="text-muted pull-right">{{ 'now' | date('Y-m-d h:m:s') }}</span>
-                            </span><!-- /.username -->
-                            <div>
-                                <span id="emoji-preview-{{ p.id }}" class="with-emotes"></span>
-                                <a id="remove-comment-{{ p.id }}" class="btn btn-default btn-xs pull-right"
-                                   style="background-color:#3c8dbc;color:#fff; display:none;" href="#"><i class="fa fa-trash"></i>
-                                </a>
+                    <!-- /.box-footer -->
+                    <div class="box-footer">
+                        <form action="#" method="post">
+                            <img class="img-responsive img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="Alt Text">
+                            <!-- .img-push is used to add margin to elements next to floating images -->
+                            <div class="img-push">
+                                <input type="text" name="commentaire" data-id="{{ p.id }}" class="form-control input-sm using-emoji comment-input" placeholder="Press enter to post comment">
                             </div>
-                        </div>
-                        <!-- /.comment-text -->
-                    </div>
-                </div>
-                <!-- /.box-footer -->
-                <div class="box-footer">
-                    <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="{{ asset(app.user.webPath) }}" alt="Alt Text">
-                        <!-- .img-push is used to add margin to elements next to floating images -->
-                        <div class="img-push">
-                            <input type="text" name="commentaire" data-id="{{ p.id }}" class="form-control input-sm using-emoji comment-input" placeholder="Press enter to post comment">
-                        </div>
 
-                    </form>
+                        </form>
+                    </div>
+                    <!-- /.box-footer -->
                 </div>
-                <!-- /.box-footer -->
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
     </section>
     <div class="wdt-emoji-popup">
         <a href="#" class="wdt-emoji-popup-mobile-closer"> × </a>

@@ -228,6 +228,10 @@ class GroupeController extends UtilsController
             ->checkIfAuthorizedToInvite($id,$this->getUser()->getId());
         $leave = $this->getDoctrine()->getRepository(Groupe::class)
             ->checkIfAuthorizedToLeave($id,$this->getUser()->getId());
+        $publish = $this->getDoctrine()->getRepository(Groupe::class)
+            ->checkIfAuthorizedToPublish($id,$this->getUser()->getId());
+        $seePublications = $this->getDoctrine()->getRepository(Groupe::class)
+            ->checkIfAuthorizedToSeePublications($id,$this->getUser()->getId());
 
         $form = $this->createForm(PublicationGroupeType::class, new PublicationGroupe());
 
@@ -240,6 +244,8 @@ class GroupeController extends UtilsController
             'join' => $join,
             'invite' => $invite,
             'leave' => $leave,
+            'publish' => $publish,
+            'seePublications' => $seePublications,
         ]);
     }
 

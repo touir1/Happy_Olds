@@ -17,6 +17,65 @@
     <section class="content">
         <br>
 
+        <div class="box box-widget collapsed-box">
+            <div class="box-header with-border" style="cursor: pointer;" data-widget="collapse">
+                <div>
+                    <h3 class="box-title">Filtre de recherche</h3>
+                </div>
+                <div class="box-tools">
+                    <!--
+                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                        <i class="fa fa-circle-o"></i></button>
+                     -->
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                    </button>
+                    <!--
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    -->
+                </div>
+            </div>
+            <div class="box-body">
+                <form action="{{ path('chat_room_group_subscribed_list') }}" method="post" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label for="titre" class="col-sm-2 control-label">Titre</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Titre" value="{{ titre }}" name="titre" id="titre">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type" class="col-sm-2 control-label">Type</label>
+
+                        <div class="col-sm-10">
+                            <select name="type" id="type" class="form-control">
+                                <option value="all" {% if type == "all" %}selected{% endif %}>Tous</option>
+                                {% for t in types %}
+                                    <option value="{{ t }}" {% if type == t %}selected{% endif %}>{{ t }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sujet" class="col-sm-2 control-label">Sujet</label>
+
+                        <div class="col-sm-10">
+                            <select name="sujet" id="sujet" class="form-control">
+                                <option value="0" {% if sujet == 0 %}selected{% endif %}>Tous</option>
+                                {% for s in sujets %}
+                                    <option value="{{ s.id }}" {% if sujet == s.id %}selected{% endif %}>{{ s.label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <input class="btn btn-info pull-right" type="submit" value="Rechercer">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        {#
         <div class="box">
             <form action="{{ path('chat_room_group_list') }}" method="post">
                 <table>
@@ -49,13 +108,13 @@
                     <tr></tr>
                     <tr>
                         <td></td><td><input class="btn btn-info" type="submit" value="Rechercer">
-                            {#<a class="btn" href="{{ path('chat_room_group_list') }}"><i class="fa fa-retweet"></i></a>#}
                         </td>
                     </tr>
                 </table>
             </form>
 
         </div>
+        #}
         <br>
 
         <table class="table table-bordered">
