@@ -34,10 +34,11 @@ class ReponseController extends Controller
         if ($form->isValid()){
             $em=$this->getDoctrine()->getManager();
             $em->flush();
-            return $this->redirectToRoute('medical_detail');
+            return $this->redirectToRoute('medical_detail',['id'=>$reponse->getQuestion()->getId()]);
         }
         return $this->render('@Medical/Question/reponse.html.twig',array(
             'form'=>$form->createView(),
+            'id'=>$id,
             'question' => $reponse->getQuestion()
         ));
     }

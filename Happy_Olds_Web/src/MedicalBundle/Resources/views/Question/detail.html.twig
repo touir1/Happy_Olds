@@ -13,7 +13,7 @@
             <div class="box-header with-border">
             <div class="box-tools">
 
-            {% if app.user.username %}
+            {% if app.user.id == i.user.id %}
 
                 <a href="{{ path('Reponse_supprimer',{'id':i.id}) }}" class="glyphicon glyphicon-trash"> </a> &nbsp &nbsp
                 <a href="{{ path('Reponse_modifier',{'id':i.id}) }}" class="glyphicon glyphicon-pencil"></a>

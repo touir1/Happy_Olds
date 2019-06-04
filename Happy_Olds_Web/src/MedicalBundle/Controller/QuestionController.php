@@ -74,7 +74,7 @@ class QuestionController extends Controller
             return $this->redirectToRoute('medical_affichage');
         }
         return $this->render('@Medical/Question/ajouter.html.twig',array(
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
         ));
     }
 
@@ -178,6 +178,7 @@ class QuestionController extends Controller
             ->listereponse($id);
         return $this->render( '@Medical/Question/detail.html.twig',array(
             'tab'=>$list,
+            'id'=>$id,
             'question' =>$question));
     }
 

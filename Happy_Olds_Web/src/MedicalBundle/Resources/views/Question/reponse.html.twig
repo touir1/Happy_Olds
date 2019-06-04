@@ -17,10 +17,8 @@
             </div>
 
             <div class="form-group">
-                <label class="text-muted">Desription de la question </label>
-                {{
-                question.text
-                }}
+                <label class="text-muted">Desription de la question :</label>
+                {{ question.text|raw }}
             </div>
         </div>
 
