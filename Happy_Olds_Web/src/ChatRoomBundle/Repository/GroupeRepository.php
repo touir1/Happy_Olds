@@ -184,8 +184,8 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()
             ->createQuery("SELECT count(1) as result from ChatRoomBundle:Groupe g "
                 ."WHERE g.id = :groupe "
-                ."AND (
-                    :member IN ( "
+                ."AND ("
+                    .":member IN ( "
                         ."SELECT u.id from ChatRoomBundle:MembreGroupe m2 "
                         ."LEFT JOIN m2.user u "
                         ."WHERE m2.groupe = :groupe "
