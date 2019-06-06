@@ -1,0 +1,27 @@
+{% extends 'baseadmin.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
+    <link href="{{ asset('ChatRoom/css/admin.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <section class="content-header">
+        <h1>
+            Divertissement
+            <small>groupes</small>
+        </h1>
+        {#
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-dashboard"></i> Administration divertissement</li>
+        </ol>
+        #}
+    </section>
+    <section class="content">
+
+
+        <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+    </section>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+{% endblock %}

@@ -1,5 +1,4 @@
 <html>
-<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +32,7 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<!--<div class="wrapper">-->
 
     <header class="main-header">
         <!-- Logo -->
@@ -71,7 +70,49 @@
                 <li><a href="#"><i class="fa fa-fw fa-child"></i> <span> User</span></a></li>
                 <li><a href="{{ path('services_list') }}"><i class="fa fa-fw fa-group"></i> <span>Service</span></a></li>
                 <li><a href="#"><i class="fa fa-fw fa-group"></i> <span>Forum Medical</span></a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-fw fa-leaf"></i>
+                        <span>Divertissement</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="display: none;">
+                        <li>
+                            <a href="{{ path('chat_room_admin_groups') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Gestion de groupes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('chat_room_admin_sujets') }}">
+                                <i class="fa fa-calendar"></i>
+                                <span>Gestion des sujets de groupes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('chat_room_admin_publications') }}">
+                                <i class="fa fa-camera"></i>
+                                <span>Gestion des publications</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('chat_room_admin_comments') }}">
+                                <i class="fa fa-comments"></i>
+                                <span>Gestion des commentaires</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('chat_room_admin_messages') }}">
+                                <i class="fa fa-envelope"></i>
+                                <span>Gestion des messages</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li><a href="#"><i class="fa fa-fw fa-group"></i> <span>Notification</span></a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-fw fa-sign-out"></i> <span>Déconnexion</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -86,6 +127,10 @@
 
 
         <!-- Main content -->
+        <div class="content container-fluid">
+            {% block body %}{% endblock %}
+        </div>
+        {#
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
@@ -93,6 +138,7 @@
                 </div>
             </div>
         </section>
+        #}
 
 
 
@@ -107,6 +153,7 @@
     </footer>
 
     <!-- Control Sidebar -->
+    {#
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -295,28 +342,30 @@
             <!-- /.tab-pane -->
         </div>
     </aside>
+
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
-</div>
+    #}
+<!--</div>-->
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- DataTables -->
-<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
-<script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
-<script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
+<script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- page script -->
 <script>
     $(function () {
@@ -331,6 +380,9 @@
         })
     })
 </script>
+
+{% block scripts %}{% endblock %}
+
 </body>
 </html>
 

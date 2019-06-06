@@ -64,7 +64,7 @@
                                     <span class="contact-status online"></span>
                                     <img src="{{ asset('ChatRoom/img/group_picture_white.png') }}" alt="" />
                                     <div class="meta">
-                                        <p class="name">{{ g.titre }} <span class="badge badge-pill badge-info pull-right">0</span></p>
+                                        <p class="name">{{ g.titre }}</p>
                                         <p class="preview" id="preview_{{ g.id }}">{% if g.discussion.messages | length > 0 %}{% if g.discussion.messages|last.user.id == app.user.id %}<span>You:</span> {% endif %}{{ g.discussion.messages|last.texte }}{% endif %}</p>
                                     </div>
                                 </div>

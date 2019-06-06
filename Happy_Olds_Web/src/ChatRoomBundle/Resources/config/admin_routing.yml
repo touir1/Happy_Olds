@@ -1,0 +1,23 @@
+chat_room_admin_homepage:
+      path:     /
+      defaults: { _controller: ChatRoomBundle:Admin:index }
+
+chat_room_admin_comments:
+      path:     /comments
+      defaults: { _controller: ChatRoomBundle:Admin:comments }
+
+chat_room_admin_groups:
+      path:     /groups
+      defaults: { _controller: ChatRoomBundle:Admin:groups }
+
+chat_room_admin_messages:
+      path:     /messages
+      defaults: { _controller: ChatRoomBundle:Admin:messages }
+
+chat_room_admin_publications:
+      path:     /publications
+      defaults: { _controller: ChatRoomBundle:Admin:publications }
+
+chat_room_admin_sujets:
+      path:     /sujets
+      defaults: { _controller: ChatRoomBundle:Admin:sujets }
