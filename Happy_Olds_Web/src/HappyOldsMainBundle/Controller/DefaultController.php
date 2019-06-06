@@ -380,6 +380,7 @@ class DefaultController extends Controller
          */
 
         return $this->json([
+            'userID'=>$user->getID(),
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
         ]);

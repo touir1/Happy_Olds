@@ -1,3 +1,6 @@
 all_service:
   path: service/all
   defaults: { _controller: "ServicesBundle:Api:all" }
+one_service:
+  path: service/{id}
+  defaults: { _controller: "ServicesBundle:Api:findone" }

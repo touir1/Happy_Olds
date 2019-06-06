@@ -18,7 +18,23 @@ class ApiController extends Controller
 {
     public function allAction(){
         $em = $this->getDoctrine()->getManager();
-        $services=$em->getRepository('ServicesBundle:Service')->find('3');
+        $services=$em->getRepository('ServicesBundle:Service')->findAll();
+
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $normalizers = array($normalizer);
+        $serializer=new Serializer($normalizers);
+
+        $formatted=$serializer->normalize($services);
+
+        return new JsonResponse($formatted);
+    }
+    public function findoneAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $services=$em->getRepository('ServicesBundle:Service')->find($id);
 
         $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceLimit(1);
