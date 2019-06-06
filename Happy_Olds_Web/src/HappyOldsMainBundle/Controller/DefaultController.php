@@ -383,6 +383,14 @@ class DefaultController extends Controller
             'userID'=>$user->getID(),
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'date_naissance' => $user->getDateNaissance(),
+            'scorefinal' => $user->getScorefinal(),
+            'job' => $user->getJob(),
+            'ville' => $user->getVille(),
+            'path' => $user->getPath(),
+            'file' => $user->getFile(),
         ]);
 
     }
