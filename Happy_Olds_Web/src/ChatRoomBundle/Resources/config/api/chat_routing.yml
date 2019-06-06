@@ -1,0 +1,3 @@
+chat_room_api_users_list:
+    path:     /users/list
+    defaults: { _controller: ChatRoomBundle:Chat:_usersList }

@@ -11,7 +11,26 @@
         activeConversation: $('.contact.active').data('id'),
         currentUser: dataFromView['currentUser'],
         waiting: false,
+        groups: dataFromView['groupes'],
+        socketPort: 3000,
+        socketAddress: 'http://127.0.0.1',
     };
+
+    var socket = io(config.socketAddress + ':' + config.socketPort);
+
+
+    socket.emit('subscribe',{
+        'user': config.currentUser,
+        'groups': config.groups
+    });
+
+    /*
+    socket.emit('message',{
+        message: 'hello world',
+        user: config.currentUser,
+        group: config.groups[0] ,
+    });
+    */
 
     //console.log(dataFromView);
 
@@ -77,6 +96,12 @@
         //wdtEmojiBundle.render(withEmotes[i].innerHTML)
         $('.contact.active .preview').html('<span>You: </span>' + message);
         $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, "fast");
+
+        socket.emit('message',{
+            message: message,
+            user: config.currentUser,
+            group: config.activeConversation,
+        });
 
         $.post(dataFromView['routes']['chat_room_api_group_messages_send'],{
             texte: message,
@@ -159,7 +184,49 @@
         });
     });
 
+    socket.on('messages',function(data){
+        console.log(data);
+        console.log(config);
+        if(data.user.id != config.currentUser)
+        {
+            if(data.group == config.activeConversation)
+            {
+                $('<li class="replies"><img src="/' + data.user.image + '" alt="" /><p>' + wdtEmojiBundle.render(data.message)
+                    + '<br><small style="font-style: italic;float: right;">' + data.user.nom.toUpperCase() + ' ' + Utils.capitalizeFirstLetter(data.user.prenom) + '</small></p></li>').appendTo($('.messages ul'));
+                //wdtEmojiBundle.render(withEmotes[i].innerHTML)
+                $('.contact.active .preview').html(data.message);
+                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+            }
+            else{
+                $('#preview_' + data.group).html(data.message);
+            }
+        }
+        /*
+        for (var i = 0; i < data.messages.length; i++) {
+            var m = data.messages[i];
+            //console.log('user sending: '+m.user.id);
+            //console.log('current user: '+config.currentUser);
+            if (m.user.id != config.currentUser) {
 
+                if (m.discussion.groupe_id == config.activeConversation) {
+                    $('<li class="replies"><img src="/' + m.user.image + '" alt="" /><p>' + wdtEmojiBundle.render(m.texte)
+                        + '<br><small style="font-style: italic;float: right;">' + m.user.nom.toUpperCase() + ' ' + Utils.capitalizeFirstLetter(m.user.prenom) + '</small></p></li>').appendTo($('.messages ul'));
+                    //wdtEmojiBundle.render(withEmotes[i].innerHTML)
+                    $('.contact.active .preview').html(m.texte);
+                    //$(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+                }
+                else {
+                    $('#preview_' + m.discussion.groupe_id).html(m.texte);
+                }
+            }
+        }
+        if(data.messages.length > 0) {
+            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+        }
+        */
+    });
+
+    /*
     setInterval(function(){
         if(!config.waiting) {
             //console.log('longPolling: now, lastTimestamp: ' + config.lastTimestamp);
@@ -195,5 +262,6 @@
             });
         }
     },config.longPollingInterval);
+    */
 
 })(jQuery);

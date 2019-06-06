@@ -20,6 +20,7 @@ abstract class ChatRoomRoutes
     public static function getApiArray()
     {
         return [
+            self::chat_room_api_users_list,
             self::chat_room_api_group_messages_all,
             self::chat_room_api_group_messages_all_by_group,
             self::chat_room_api_group_messages_last_timestamp,
@@ -84,6 +85,8 @@ abstract class ChatRoomRoutes
     }
 
     /** API **/
+    // chat
+    const chat_room_api_users_list = 'chat_room_api_users_list';
     // messages
     const chat_room_api_group_messages_last_timestamp = 'chat_room_api_group_messages_last_timestamp';
     const chat_room_api_group_messages_all = 'chat_room_api_group_messages_all';

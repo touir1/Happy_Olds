@@ -58,7 +58,9 @@
     "font-awesome": "^4.7.0",
     "Ionicons": "ionicons#^2.0.1",
     "jquery-ui": "1.11.4",
-    "wdt-emoji-bundle": "^0.2.1"
+    "wdt-emoji-bundle": "^0.2.1",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   },
   "resolutions": {
     "jquery": "^3.2.1"

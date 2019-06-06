@@ -64,7 +64,7 @@
                                     <span class="contact-status online"></span>
                                     <img src="{{ asset('ChatRoom/img/group_picture_white.png') }}" alt="" />
                                     <div class="meta">
-                                        <p class="name">{{ g.titre }}</p>
+                                        <p class="name">{{ g.titre }} <span class="badge badge-pill badge-info pull-right">0</span></p>
                                         <p class="preview" id="preview_{{ g.id }}">{% if g.discussion.messages | length > 0 %}{% if g.discussion.messages|last.user.id == app.user.id %}<span>You:</span> {% endif %}{{ g.discussion.messages|last.texte }}{% endif %}</p>
                                     </div>
                                 </div>
@@ -295,5 +295,6 @@
         wdtEmojiBundle.defaults.emojiSheets.apple = "{{ asset('bower_components/wdt-emoji-bundle/sheets/sheet_apple_64_indexed_128.png') }}";
     </script>
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('bower_components/socket.io-client/dist/socket.io.js') }}"></script>
     <script src="{{ asset('ChatRoom/js/chat/index.js') }}"></script>
 {% endblock %}
