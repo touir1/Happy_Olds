@@ -13,6 +13,8 @@ import java.util.Date;
  */
 public class User {
     private int id;
+    private String username;
+    private String role;
     private String nom;
     private String prenom;
     private Date date_naissance;
@@ -25,8 +27,10 @@ public class User {
     public User() {
     }
 
-    public User(int id, String nom, String prenom, Date date_naissance, int scorefinal, String job, String ville, String path, String file) {
+    public User(int id, String username, String role, String nom, String prenom, Date date_naissance, int scorefinal, String job, String ville, String path, String file) {
         this.id = id;
+        this.username = username;
+        this.role = role;
         this.nom = nom;
         this.prenom = prenom;
         this.date_naissance = date_naissance;
@@ -36,6 +40,8 @@ public class User {
         this.path = path;
         this.file = file;
     }
+
+    
 
     
     
@@ -110,6 +116,27 @@ public class User {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", username=" + username + ", role=" + role + ", nom=" + nom + ", prenom=" + prenom + ", date_naissance=" + date_naissance + ", scorefinal=" + scorefinal + ", job=" + job + ", ville=" + ville + ", path=" + path + ", file=" + file + '}';
     }
     
     
