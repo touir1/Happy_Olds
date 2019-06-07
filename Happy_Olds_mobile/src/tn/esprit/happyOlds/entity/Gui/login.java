@@ -34,7 +34,9 @@ public class login {
              UserController Us=new UserController();
              int response=Us.connection(Username.getText(),Password.getText());
              if(response==1){
-                 Dialog.show("c bn", "c bn", "OK", null);
+                 //Dialog.show("c bn", "c bn", "OK", null);
+                 Profil p= new Profil();
+                 p.getF().show();
              }/*else{
                  Dialog.show("Erreur", "verfier Login\\Mdp", "OK", null);
              }*/
