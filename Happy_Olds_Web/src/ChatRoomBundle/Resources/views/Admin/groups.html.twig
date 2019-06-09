@@ -17,6 +17,68 @@
     </section>
     <section class="content">
 
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Liste des groupes</h3>
+                <div class="col-sm-4 pull-right">
+                    <div id="filter_box">
+                        <form action="{{ path('chat_room_admin_groups') }}">
+                            <div class="input-group">
+                                <input name="filter" type="text" class="form-control input-sm" placeholder="Titre du groupe" value="{{ filter }}">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr role="row">
+                            <th>{{ knp_pagination_sortable(pagination, 'Id', 'g.id') }}</th>
+                            <th{% if pagination.isSorted('g.titre') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Titre', 'g.titre') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Description', 'g.description') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Type', 'g.type') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Sujet', 'g.sujet.label') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Créateur', 'g.creator.fullName') }}</th>
+                            <th>Actions</th>
+                    </thead>
+                    <tbody>
+                    {% for groupe in pagination %}
+                        <tr {% if loop.index is odd %}class="odd"{% else %}class="even"{% endif %}>
+                            <td>{{ groupe.id }}</td>
+                            <td>{{ groupe.titre }}</td>
+                            <td>{{ groupe.description }}</td>
+                            <td>{{ groupe.type }}</td>
+                            <td>{{ groupe.sujet.label }}</td>
+                            <td>{{ groupe.creator.fullName }}</td>
+                            <td>
+                                <a href="{{ path('chat_room_admin_group_consult',{'id':groupe.id}) }}" class="btn btn-sm btn-success glyphicon glyphicon-eye-open"> </a>&nbsp;
+                                <a href="{{ path('chat_room_admin_group_delete',{'id':groupe.id}) }}" class="btn btn-sm btn-danger glyphicon glyphicon-trash"> </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <div class="col-sm-5">
+                    <div class="dataTables_info">Affichage: {% if pagination.totalItemCount > 1 %}{{ (pagination.currentPageNumber -1) * pagination.itemNumberPerPage +1 }}{% else %}0{% endif %} jusqu'à {% if pagination.totalItemCount > (pagination.currentPageNumber * pagination.itemNumberPerPage) %}{{ pagination.currentPageNumber * pagination.itemNumberPerPage }}{% else %}{{ pagination.totalItemCount }}{% endif %} de {{ pagination.totalItemCount }} groupes</div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="navigation">
+                        <center>
+                            {{ knp_pagination_render(pagination) }}
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
     </section>
@@ -24,4 +86,5 @@
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/admin.js') }}"></script>
 {% endblock %}

@@ -75,6 +75,11 @@ class User extends BaseUser
      */
     private $file;
 
+    public function getFullName()
+    {
+        return strtoupper($this->getNom())." ".ucwords(strtolower($this->getPrenom()));
+    }
+
     /**
      * Get id
      *

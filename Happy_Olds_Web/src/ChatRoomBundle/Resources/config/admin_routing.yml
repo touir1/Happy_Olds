@@ -6,18 +6,58 @@ chat_room_admin_comments:
       path:     /comments
       defaults: { _controller: ChatRoomBundle:Admin:comments }
 
+chat_room_admin_commentaire_delete:
+      path:     /comment/delete
+      defaults: { _controller: ChatRoomBundle:Admin:commentaireDelete }
+
 chat_room_admin_groups:
       path:     /groups
       defaults: { _controller: ChatRoomBundle:Admin:groups }
+
+chat_room_admin_group_delete:
+      path:     /group/delete
+      defaults: { _controller: ChatRoomBundle:Admin:deleteGroup }
+
+chat_room_admin_group_consult:
+      path:     /group/consult
+      defaults: { _controller: ChatRoomBundle:Admin:consultGroup }
 
 chat_room_admin_messages:
       path:     /messages
       defaults: { _controller: ChatRoomBundle:Admin:messages }
 
+chat_room_admin_message_consult:
+      path:     /messageGroupe
+      defaults: { _controller: ChatRoomBundle:Admin:messageGroupeConsult }
+
+chat_room_admin_message_delete:
+      path:     /message/delete
+      defaults: { _controller: ChatRoomBundle:Admin:deleteMessage }
+
 chat_room_admin_publications:
       path:     /publications
       defaults: { _controller: ChatRoomBundle:Admin:publications }
 
+chat_room_admin_publication_consult:
+      path:     /publication/consult
+      defaults: { _controller: ChatRoomBundle:Admin:consultPublication }
+
+chat_room_admin_publication_delete:
+      path:     /publication/delete
+      defaults: { _controller: ChatRoomBundle:Admin:deletePublication }
+
 chat_room_admin_sujets:
       path:     /sujets
       defaults: { _controller: ChatRoomBundle:Admin:sujets }
+
+chat_room_admin_sujet_add:
+      path:     /sujet/add
+      defaults: { _controller: ChatRoomBundle:Admin:addSujet }
+
+chat_room_admin_sujet_update:
+      path:     /sujet/update
+      defaults: { _controller: ChatRoomBundle:Admin:updateSujet }
+
+chat_room_admin_sujet_delete:
+      path:     /sujet/delete
+      defaults: { _controller: ChatRoomBundle:Admin:deleteSujet }

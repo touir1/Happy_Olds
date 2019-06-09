@@ -1,0 +1,102 @@
+{% extends 'baseadmin.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('ChatRoom/css/utils.css') }}" rel="stylesheet">
+    <link href="{{ asset('ChatRoom/css/admin.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<section class="content-header">
+    <h1>
+        Divertissement
+        <small>groupes</small>
+    </h1>
+    {#
+    <ol class="breadcrumb">
+        <li class="active"><i class="fa fa-dashboard"></i> Administration divertissement</li>
+    </ol>
+    #}
+</section>
+<section class="content">
+    <div class="box">
+
+        <div class="box-header">
+            <br>
+            Description: {{ groupe.description }}<br>
+            Type: {{ groupe.type }}<br>
+            Sujet {{ groupe.sujet.label }}<br>
+            Créateur: {{ groupe.creator.fullName }}<br>
+
+            <div class="pull-right">
+                <a href="{{ path('chat_room_admin_message_consult',{'id':groupe.id}) }}" class="btn btn-sm btn-info"><i class="fa fa-envelope"></i> Messages</a>
+            </div>
+            <br>
+            <hr>
+
+            <h3 class="box-title">Liste des publications</h3>
+            <div class="col-sm-4 pull-right">
+                <div id="filter_box">
+                    <form action="{{ path('chat_room_admin_group_consult',{'id':groupe.id}) }}">
+                        <div class="input-group">
+                            <input name="filter" type="text" class="form-control input-sm" placeholder="Texte de la publication" value="{{ filter }}">
+                            <span class="input-group-btn">
+                                    <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+                                </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr role="row">
+                    <th>{{ knp_pagination_sortable(pagination, 'Id', 'p.id') }}</th>
+                    <th{% if pagination.isSorted('p.description') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Texte', 'p.description') }}</th>
+                    <th>Pièce jointe</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Date de publication', 'p.datePublication') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Groupe', 'p.groupe.titre') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Publié par', 'p.user.fullName') }}</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                {% for publication in pagination %}
+                    <tr {% if loop.index is odd %}class="odd"{% else %}class="even"{% endif %}>
+                        <td>{{ publication.id }}</td>
+                        <td>{{ publication.description }}</td>
+                        <td>{% if publication.pieceJointe is not null %}<a href="{{ asset(publication.pieceJointe.webPath) }}" target="_blank">{{ publication.pieceJointe.realName }}</a>{% endif %}</td>
+                        <td>{{ publication.datePublication | date('d/m/Y H:i:s') }}</td>
+                        <td><a href="{{ path('chat_room_admin_group_consult',{'id':publication.groupe.id}) }}" target="_blank">{{ publication.groupe.titre }}</a></td>
+                        <td>{{ publication.user.fullName }}</td>
+                        <td>
+                            <a href="{{ path('chat_room_admin_publication_consult',{'id':publication.id}) }}" class="btn btn-sm btn-success glyphicon glyphicon-eye-open"> </a>&nbsp;
+                            <a href="{{ path('chat_room_admin_publication_delete',{'id':publication.id}) }}" class="btn btn-sm btn-danger glyphicon glyphicon-trash"> </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <div class="col-sm-5">
+                <div class="dataTables_info">Affichage: {% if pagination.totalItemCount > 1 %}{{ (pagination.currentPageNumber -1) * pagination.itemNumberPerPage +1 }}{% else %}0{% endif %} jusqu'à {% if pagination.totalItemCount > (pagination.currentPageNumber * pagination.itemNumberPerPage) %}{{ pagination.currentPageNumber * pagination.itemNumberPerPage }}{% else %}{{ pagination.totalItemCount }}{% endif %} de {{ pagination.totalItemCount }} publications</div>
+            </div>
+            <div class="col-sm-7">
+                <div class="navigation">
+                    <center>
+                        {{ knp_pagination_render(pagination) }}
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-twig="{{ data | json_encode | e('html_attr') }}" id="data_twig"></div>
+</section>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('ChatRoom/js/utils.js') }}"></script>
+    <script src="{{ asset('ChatRoom/js/admin.js') }}"></script>
+{% endblock %}

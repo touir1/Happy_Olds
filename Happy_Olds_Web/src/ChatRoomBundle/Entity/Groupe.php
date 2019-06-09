@@ -61,7 +61,7 @@ class Groupe
     private $creator;
 
     /**
-     * @ORM\OneToMany(targetEntity="PublicationGroupe", mappedBy="groupe")
+     * @ORM\OneToMany(targetEntity="PublicationGroupe", mappedBy="groupe", cascade={"remove"})
      */
     private $publications;
 

@@ -25,7 +25,7 @@ abstract class Discussion
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="discussion")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="discussion", cascade={"persist","remove"})
      */
     private $messages;
 

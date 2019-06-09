@@ -7,18 +7,22 @@
     <section class="content-header">
         <h1>
             Divertissement
-            <small>commentaires</small>
+            <small>publications</small>
         </h1>
-        {#
-        <ol class="breadcrumb">
-            <li class="active"><i class="fa fa-dashboard"></i> Administration divertissement</li>
-        </ol>
-        #}
+
     </section>
     <section class="content">
         <div class="box">
 
             <div class="box-header">
+                <br>
+                Texte: {{ publication.description }}<br>
+                Publié par: {{ publication.user.fullname }}<br>
+                Pièce jointe: {% if publication.pieceJointe is not null %}<a href="{{ asset(publication.pieceJointe.webPath) }}" target="_blank">{{ publication.pieceJointe.realName }}</a>{% endif %}<br>
+                Publié le: {{ publication.datePublication | date('d/m/Y H:i:s') }}<br>
+                Publié dans le groupe: <a href="{{ path('chat_room_admin_group_consult',{'id':publication.groupe.id}) }}" target="_blank">{{ publication.groupe.titre }}</a><br>
+                <br>
+                <hr>
 
                 <h3 class="box-title">Liste des commentaires</h3>
                 <div class="col-sm-4 pull-right">

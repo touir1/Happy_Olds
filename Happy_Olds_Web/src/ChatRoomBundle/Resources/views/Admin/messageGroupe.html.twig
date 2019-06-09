@@ -7,7 +7,7 @@
     <section class="content-header">
         <h1>
             Divertissement
-            <small>messages</small>
+            <small>groupes</small>
         </h1>
         {#
         <ol class="breadcrumb">
@@ -19,11 +19,22 @@
         <div class="box">
 
             <div class="box-header">
+                <br>
+                Description: {{ groupe.description }}<br>
+                Type: {{ groupe.type }}<br>
+                Sujet {{ groupe.sujet.label }}<br>
+                Créateur: {{ groupe.creator.fullName }}<br>
+
+                <div class="pull-right">
+                    <a href="{{ path('chat_room_admin_group_consult',{'id':groupe.id}) }}" class="btn btn-sm btn-info"><i class="fa fa-camera"></i> Publications</a>
+                </div>
+                <br>
+                <hr>
 
                 <h3 class="box-title">Liste des messages</h3>
                 <div class="col-sm-4 pull-right">
                     <div id="filter_box">
-                        <form action="{{ path('chat_room_admin_messages') }}">
+                        <form action="{{ path('chat_room_admin_message_consult',{'id':groupe.id}) }}">
                             <div class="input-group">
                                 <input name="filter" type="text" class="form-control input-sm" placeholder="Texte du message" value="{{ filter }}">
                                 <span class="input-group-btn">
