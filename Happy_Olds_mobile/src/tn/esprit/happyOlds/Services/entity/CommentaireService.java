@@ -15,12 +15,12 @@ public class CommentaireService {
      private int id;
      private String Texte;
      private User User;
-     private Service Service;
+     private int Service;
 
     public CommentaireService() {
     }
 
-    public CommentaireService(int id, String Texte, User User, Service Service) {
+    public CommentaireService(int id, String Texte, User User, int Service) {
         this.id = id;
         this.Texte = Texte;
         this.User = User;
@@ -51,12 +51,17 @@ public class CommentaireService {
         this.User = User;
     }
 
-    public Service getService() {
+    public int getService() {
         return Service;
     }
 
-    public void setService(Service Service) {
+    public void setService(int Service) {
         this.Service = Service;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentaireService{" + "id=" + id + ", Texte=" + Texte + ", User=" + User + ", Service=" + Service + '}';
     }
      
 }

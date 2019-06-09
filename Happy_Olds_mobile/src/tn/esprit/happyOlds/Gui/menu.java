@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.esprit.happyOlds.entity.Gui;
+package tn.esprit.happyOlds.Gui;
 
 import com.codename1.ui.Form;
+import tn.esprit.happyOlds.Services.Gui.Services;
+import tn.esprit.happyOlds.controller.UserController;
 
 /**
  *
@@ -19,7 +21,8 @@ public class menu {
              p.getF().show();
          });
          f.getToolbar().addCommandToSideMenu("Services", null, (e)->{
-             //About.show();
+             Services S = new Services();
+             S.getF().show();
          });
         f.getToolbar().addCommandToSideMenu("Forum Medical", null, (e)->{
             //cnx.show();
@@ -31,7 +34,9 @@ public class menu {
             //cnx.show();
         });
         f.getToolbar().addCommandToSideMenu("Logout", null, (e)->{
-            //cnx.show();
+            login l = new login();
+            
+            l.getF().show();
         });
     }
     

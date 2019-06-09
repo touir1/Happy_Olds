@@ -110,6 +110,11 @@ public class Service {
     public void setCommenatires(List<CommentaireService> Commenatires) {
         this.Commenatires = Commenatires;
     }
+
+    @Override
+    public String toString() {
+        return "Service{" + "id=" + id + ", description=" + description + ", Valider=" + Valider + ", Date=" + Date + ", Type=" + Type + ", User=" + User + ", UserAssocie=" + UserAssocie + ", Postuler=" + Postuler + ", Commenatires=" + Commenatires + '}';
+    }
     
     
     

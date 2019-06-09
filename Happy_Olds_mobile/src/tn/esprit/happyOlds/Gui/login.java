@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.esprit.happyOlds.entity.Gui;
+package tn.esprit.happyOlds.Gui;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
-import tn.esprit.happyOlds.entity.controller.UserController;
+import tn.esprit.happyOlds.controller.UserController;
 
 /**
  *

@@ -13,10 +13,10 @@ import tn.esprit.happyOlds.entity.User;
  */
 public class Postuler {
     private int id ;
-    private Service service;
+    private int service;
     private User User;
 
-    public Postuler(int id, Service service, User User) {
+    public Postuler(int id, int service, User User) {
         this.id = id;
         this.service = service;
         this.User = User;
@@ -33,11 +33,11 @@ public class Postuler {
         this.id = id;
     }
 
-    public Service getService() {
+    public int getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(int service) {
         this.service = service;
     }
 
@@ -47,6 +47,11 @@ public class Postuler {
 
     public void setUser(User User) {
         this.User = User;
+    }
+
+    @Override
+    public String toString() {
+        return "Postuler{" + "id=" + id + ", service=" + service + ", User=" + User + '}';
     }
     
     
