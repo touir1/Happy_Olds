@@ -9,6 +9,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
+import com.codename1.ui.util.Resources;
 import tn.esprit.happyOlds.controller.UserController;
 
 /**
@@ -20,12 +21,11 @@ public class login {
     TextField Username;
     TextField Password;
     Button connexion;
-   
-
+    
     public login() {
          f = new Form("Happy olds ");
-         Username = new TextField("", "Name");
-         Password = new TextField("", "Password");
+         Username = new TextField("", "Name",20,TextField.ANY);
+         Password = new TextField("", "Password",20,TextField.PASSWORD);
          connexion = new Button("connexion");
          f.add(Username);
          f.add(Password);

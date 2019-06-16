@@ -20,7 +20,7 @@ import tn.esprit.happyOlds.controller.UserController;
 public class MyApplication {
 
     private Form current;
-    private Resources theme;
+    private static Resources theme;
 
     public void init(Object context) {
         theme = UIManager.initFirstTheme("/theme");
@@ -57,12 +57,12 @@ public class MyApplication {
     public void destroy() {
     }
 
-    public Resources getTheme() {
+    public static Resources getTheme() {
         return theme;
     }
 
-    public void setTheme(Resources theme) {
-        this.theme = theme;
+    public static void setTheme(Resources theme) {
+        MyApplication.theme = theme;
     }
     
 

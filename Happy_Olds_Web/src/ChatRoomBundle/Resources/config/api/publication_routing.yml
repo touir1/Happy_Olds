@@ -13,3 +13,7 @@ chat_room_api_publication_consult:
 chat_room_api_publication_update:
     path:      /update
     defaults: { _controller: ChatRoomBundle:PublicationGroupe:_update }
+
+chat_room_api_publication_list:
+    path:      /list
+    defaults: { _controller: ChatRoomBundle:Default:_index }

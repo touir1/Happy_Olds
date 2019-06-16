@@ -6,7 +6,7 @@ var config = {
 	users: [],
 };
 
-var sql = require('./db.js'),
+var //sql = require('./db.js'),
 	request = require('request'),
 	_ = require('lodash'),
 	express = require('express'),
@@ -32,12 +32,8 @@ app.use(bodyParser.json());
 server.listen(port, () => {
 	console.log('Server listening at port %d', port);
 
-	request.get(config.serverUrl + ':'+config.serverPort+'/api/entertainment/chatRoom/users/list', { json: true }, (err, res, body) => {
-		if (err) { return console.log(err); }
-		//console.log(body.url);
-		config.users = body;
-		//console.log(body.explanation);
-	});
+    updateUserList();
+	setInterval(updateUserList,30000);
 });
 
 io.on('connection', function (socket) {
@@ -75,6 +71,15 @@ function handleSubscription(socket,user,groupList){
 		socket.join(group);
 	}
 
+}
+
+function  updateUserList(){
+    request.get(config.serverUrl + ':'+config.serverPort+'/api/entertainment/chatRoom/users/list', { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+        //console.log(body.url);
+        config.users = body;
+        //console.log(body.explanation);
+    });
 }
 
 
