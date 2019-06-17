@@ -15,11 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 class PublicationGroupeController extends UtilsController
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-        // this is an object to remove params from json when serialized
-        $this->callbacks = [
+    public static function getJsonDataMapping(){
+        return [
             'groupe' => function($object){
                 return [
                     "id" => $object->getId(),
@@ -52,6 +49,13 @@ class PublicationGroupeController extends UtilsController
                 return array_map($mapping,$o->getValues());
             }
         ];
+    }
+
+    public function __construct()
+    {
+        parent::__construct();
+        // this is an object to remove params from json when serialized
+        $this->callbacks = self::getJsonDataMapping();
 
     }
 

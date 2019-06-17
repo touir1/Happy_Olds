@@ -4,6 +4,7 @@ namespace ChatRoomBundle\Controller;
 
 use ChatRoomBundle\Entity\PublicationGroupe;
 use ChatRoomBundle\Utils\ChatRoomRoutes;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends UtilsController
 {
@@ -23,6 +24,8 @@ class DefaultController extends UtilsController
                     "id" => $object->getId(),
                     "nom" => $object->getNom(),
                     "prenom" => $object->getPrenom(),
+                    "username" => $object->getUsername(),
+                    "fullName" => $object->getFullName(),
                 ];
             },
             'pieceJointe' => function($object){
@@ -66,11 +69,26 @@ class DefaultController extends UtilsController
         ]);
     }
 
-    public function _indexAction()
+    public function _indexAction(Request $request)
     {
+        $index = $request->get('index');
+        $pageSize = $request->get('page_size');
+
+        if(!isset($index) || is_null($index)) $index = 1;
+        if(!isset($pageSize) || is_null($pageSize)) $pageSize = 10;
+
+
         $publications = $this->getDoctrine()->getRepository(PublicationGroupe::class)
             ->findAllSubscribed($this->getUser()->getId());
 
-        return $this->getJsonResponse($publications,[]);
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $publications,
+            $request->get('page',$index),
+            $pageSize
+        );
+
+        return $this->getJsonResponse($pagination,[]);
     }
 }

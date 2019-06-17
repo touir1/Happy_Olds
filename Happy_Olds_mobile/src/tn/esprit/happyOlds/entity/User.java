@@ -23,6 +23,15 @@ public class User {
     private String ville;
     public String path;
     private String file;
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public User() {
     }

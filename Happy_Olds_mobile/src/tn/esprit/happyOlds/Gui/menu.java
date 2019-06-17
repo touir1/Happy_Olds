@@ -6,7 +6,7 @@
 package tn.esprit.happyOlds.Gui;
 
 import com.codename1.ui.Form;
-import tn.esprit.happyOlds.Divertissement.Gui.Divertissement;
+import tn.esprit.happyOlds.Divertissement.Gui.DivertissementGui;
 import tn.esprit.happyOlds.Services.Gui.Services;
 import tn.esprit.happyOlds.controller.UserController;
 
@@ -32,7 +32,7 @@ public class menu {
             //cnx.show();
         });
         f.getToolbar().addCommandToSideMenu("Divertissement", null, (e)->{
-            Divertissement divertissement = new Divertissement();
+            DivertissementGui divertissement = new DivertissementGui(f);
              divertissement.getForm().show();
         });
         f.getToolbar().addCommandToSideMenu("Se déconnecter", null, (e)->{

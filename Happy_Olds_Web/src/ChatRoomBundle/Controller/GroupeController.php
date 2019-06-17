@@ -10,6 +10,7 @@ use ChatRoomBundle\Entity\PublicationGroupe;
 use ChatRoomBundle\Form\GroupeType;
 use ChatRoomBundle\Form\PublicationGroupeType;
 use ChatRoomBundle\Utils\GroupeTypes;
+use ChatRoomBundle\Utils\JsonEntityMapping;
 use HappyOldsMainBundle\Entity\User;
 use ChatRoomBundle\Utils\ChatRoomRoutes;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,17 +26,42 @@ class GroupeController extends UtilsController
 
         $this->callbacks = [
             'members' => function($object){
-                return $object->count();
+                $members = [];
+                $mapping = function($member){
+                    return [
+                        "id" => $member->getId(),
+                        "banned" => $member->getBanned(),
+                        "authorized" => $member->getAuthorized(),
+                        "user" => [
+                            "id" => $member->getUser()->getId(),
+                            "nom" => $member->getUser()->getNom(),
+                            "prenom" => $member->getUser()->getPrenom(),
+                            "username" => $member->getUser()->getUsername(),
+                            "fullName" => $member->getUser()->getFullName(),
+                        ],
+                        "groupe" => [
+                            "id" => $member->getGroupe()->getId(),
+                        ],
+                    ];
+                };
+                return array_map($mapping,$object->getValues());
+
             },
             'creator' => function($object){
                 return [
                     "id" => $object->getId(),
                     "nom" => $object->getNom(),
                     "prenom" => $object->getPrenom(),
+                    "username" => $object->getUsername(),
+                    "fullName" => $object->getFullName(),
                 ];
             },
             'publications' => function($object){
-                return $object->count();
+                //return $object->count();
+                $mapping = function($el){
+                    return JsonEntityMapping::Publication($el);
+                };
+                return array_map($mapping,$object->getValues());
             },
             'sujet' => function($object){
                 return [
@@ -43,6 +69,11 @@ class GroupeController extends UtilsController
                     "label" => $object->getLabel(),
                 ];
             },
+            'discussion' => function($object){
+                return [
+                    "id" => $object->getId(),
+                ];
+            }
 
         ];
 
