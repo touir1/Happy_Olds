@@ -10,6 +10,7 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Dialog;
 
 import com.codename1.ui.events.ActionListener;
 import java.io.IOException;
@@ -34,6 +35,7 @@ import tn.esprit.happyOlds.entity.User;
  */
 public class ServicesController {
     int response=-1;
+     String resp="";
     public List<Service> getServices(){
        List<Service>AllServices= new ArrayList<>(); 
        ConnectionRequest con = new ConnectionRequest();
@@ -365,5 +367,25 @@ public class ServicesController {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return s;
     }
+     public String addService(int idUser,String Desc,String type){
+        
+      ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://127.0.0.1:8000/api/services/add?user="+idUser+"&description="+Desc+"&type="+type); 
+         con.addResponseListener(k-> {
+           
+                    resp = new String(con.getResponseData());
+                    System.out.println(response);
+                  /* if(response.trim().equals("invalid")){
+                     Dialog.show("erreur", "404 parametre invalide", "ok",null);
+                    }
+                    else{
+                         LblDesc.setText(response);
+                    }
+       
+                   }*/
+         });
+        NetworkManager.getInstance().addToQueueAndWait(con);//pour etablir la conx
+        return resp;
+     }
 }
  

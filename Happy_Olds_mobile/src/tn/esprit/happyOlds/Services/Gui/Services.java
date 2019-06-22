@@ -68,7 +68,8 @@ public class Services {
                  f.getToolbar().addCommandToOverflowMenu("demander un service",null,(err)->{
                   
                         
-                        System.out.println("Bonjour");
+                         addService a= new addService();
+                         a.getF1().show();
                     
            
            });

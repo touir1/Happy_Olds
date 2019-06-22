@@ -9,8 +9,11 @@
 namespace ServicesBundle\Controller;
 
 
+use HappyOldsMainBundle\Entity\User;
+use ServicesBundle\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -46,6 +49,22 @@ class ApiController extends Controller
 
         $formatted=$serializer->normalize($services);
 
+        return new JsonResponse($formatted);
+    }
+
+    public function fawziaction(Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $service = new Service();
+        $date= new \DateTime();
+        $service->setDate($date);
+        $service->setType($request->get('type'));
+        $service->setDescription($request->get('description'));
+        $user=$em->getRepository(User::class)->find($request->get('user'));
+        $service->setUser($user);
+        $em->persist($service);
+        $em->flush();
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($service);
         return new JsonResponse($formatted);
     }
 }
