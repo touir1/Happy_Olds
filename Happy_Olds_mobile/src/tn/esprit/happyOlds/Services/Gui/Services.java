@@ -90,8 +90,9 @@ public class Services {
         cnt2.add(lbDE);
         MyApplication my= new MyApplication();
          Label lblimg = new Label();
+         Image red = Image.createImage(50, 50);  
         if(s.getUser().getPath()!=null){
-           Image red = Image.createImage(50, 50);  
+           
 
             EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
@@ -103,9 +104,12 @@ public class Services {
          
             cnt1.add(BorderLayout.WEST, img); }
         else{    
-            Image red = Image.createImage("http://127.0.0.1:8000/dist/img/default-avatar.png");
-            ImageViewer img = new ImageViewer(red);
-             lblimg.setIcon(red);
+             EncodedImage enc = EncodedImage.
+                    createFromImage(red, false);
+             URLImage urlIm = URLImage.
+                     createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
+            ImageViewer img = new ImageViewer(urlIm);
+            
             cnt1.add(BorderLayout.WEST, img);
                 
 

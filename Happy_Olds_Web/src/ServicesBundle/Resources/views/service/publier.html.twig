@@ -4,8 +4,8 @@
      <div class="box box-widget" style="width: 50%;left: 26%;">
          <div class="box-header with-border">
              <div class="user-block">
-                 {% if(app.user.WebPath != null) %}
-                     <img src="{{ asset(app.user.WebPath) }}" class="img-circle" alt="User Image">
+                 {% if(service.user.WebPath != null) %}
+                     <img src="{{ asset(service.user.WebPath) }}" class="img-circle" alt="User Image">
                  {% else %}
                      <img src="{{ asset('dist/img/default-avatar.png') }}" class="img-circle" alt="User Image">
                  {% endif %}
