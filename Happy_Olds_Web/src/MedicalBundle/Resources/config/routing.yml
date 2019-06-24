@@ -37,12 +37,3 @@ Reponse_supprimer:
 Reponse_modifier:
     path:     /update
     defaults: { _controller: MedicalBundle:Reponse:update }
-Question_list:
-    path:     /list
-    defaults: { _controller: "MedicalBundle:Question:list" }
-    methods:  [GET, POST]
-
-Question_DeleteAdm:
-    path:     /list
-    defaults: { _controller: "MedicalBundle:Question:DeleteAdm" }
-    methods:  [GET, POST]

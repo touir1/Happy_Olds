@@ -7,6 +7,7 @@ package tn.esprit.happyOlds.Gui;
 
 import com.codename1.ui.Form;
 import tn.esprit.happyOlds.Divertissement.Gui.DivertissementGui;
+import tn.esprit.happyOlds.Medical.Gui.Medical;
 import tn.esprit.happyOlds.Services.Gui.Services;
 import tn.esprit.happyOlds.controller.UserController;
 
@@ -27,6 +28,8 @@ public class menu {
          });
         f.getToolbar().addCommandToSideMenu("Forum Medical", null, (e)->{
             //cnx.show();
+            Medical medical = new Medical();
+            medical.getForm().show();
         });
         f.getToolbar().addCommandToSideMenu("Evénements", null, (e)->{
             //cnx.show();
