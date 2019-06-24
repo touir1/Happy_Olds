@@ -10,7 +10,9 @@ import com.codename1.components.SpanLabel;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.Log;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
@@ -60,15 +62,16 @@ public class Services {
         for(int i=0;i<lstServices.size();i++){
             try {
                 f.add(addItem(lstServices.get(i)));
+                System.out.println("Path "+ lstServices.get(i).getUser().getPath());
             } catch (IOException ex) {
               ex.getMessage();
             }
         }
-          if (UserController.userConnectee.getRole().equals("ROLE_JEUNE")){
+          if (UserController.userConnectee.getRole().equals("ROLE_AGE")){
                  f.getToolbar().addCommandToOverflowMenu("demander un service",null,(err)->{
                   
                         
-                         addService a= new addService();
+                         AddService a=new AddService();
                          a.getF1().show();
                     
            
@@ -86,26 +89,28 @@ public class Services {
         cnt2.add(lblusername);
         cnt2.add(lbDE);
         MyApplication my= new MyApplication();
-        Label lblimg = new Label("icon");
-       /* if(s.getUser().getPath()==null){
+         Label lblimg = new Label();
+        if(s.getUser().getPath()!=null){
+           Image red = Image.createImage(50, 50);  
+
             EncodedImage enc = EncodedImage.
-                    createFromImage(theme.getImage("round.png"), false);
-            /*URLImage urlIm = URLImage.
-                    createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/uploads/documents/"+s.getUser().getPath());*/
-          /*  ImageViewer img = new ImageViewer(enc);
-            F1.add(img);
-        }
+                    createFromImage(red, false);
+             URLImage urlIm = URLImage.
+                    createToStorage(enc, "Img" + s.getId(), "http://127.0.0.1:8000/uploads/documents/"+s.getUser().getPath()); 
+            //Image red = Image.createImage("file:///C:/wamp64/www/Happy_Olds/Happy_Olds_Web/web/uploads/documents/"+s.getUser().getPath());  
+            
+             ImageViewer img = new ImageViewer(urlIm);
+         
+            cnt1.add(BorderLayout.WEST, img); }
         else{    
-            EncodedImage enc = EncodedImage.
-                    createFromImage(theme.getImage("round.png"), false);
-            /*URLImage urlIm = URLImage.
-                    createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/uploads/documents/avatarH.jpg");*/
-          /*  ImageViewer img = new ImageViewer(enc);
-            F1.add(img);
+            Image red = Image.createImage("http://127.0.0.1:8000/dist/img/default-avatar.png");
+            ImageViewer img = new ImageViewer(red);
+             lblimg.setIcon(red);
+            cnt1.add(BorderLayout.WEST, img);
                 
 
-        }*/
-        cnt1.add(BorderLayout.WEST, lblimg);
+        }
+        
         cnt1.add(BorderLayout.CENTER, cnt2);
         lbDE.addPointerPressedListener((e)->{
         F1 = new Form(s.getType().toString(),BoxLayout.y());
@@ -126,6 +131,32 @@ public class Services {
              F1.add(lb);
              F1.add(lbtype);
              F1.add(lbldate);
+             Button Postuler= new Button("Postuler");
+             Postuler.addActionListener(l->{
+                int trouve=0,i=0;
+                while(i<s.getPostuler().size()&& trouve==0){
+                    if(s.getPostuler().get(i).getUser().getId()==UserController.userConnectee.getId()){
+                        trouve=1;
+                        i++;
+                    }
+                    i++;
+                }
+                if(trouve==0){
+                    String rep=sc.PostulerService(UserController.userConnectee.getId(), s.getId());
+                    if(!rep.isEmpty()){
+                         Dialog.show("Message", "félicitation! Votre candidature a bien été enregistrée  ", "OK", null);
+                         Services services= new Services();
+                          services.getF().show();
+                    }
+                }
+                else{
+                    Dialog.show("Message", UserController.userConnectee.getUsername()+" Vous avez déja postuler à ce service ", "OK", null);
+                   
+                }
+             });
+             if(UserController.userConnectee.getRole().equals("ROLE_JEUNE")){
+             F1.add(Postuler);
+             }
              Label lblcom = new Label("Commentaires :");
              F1.add(lblcom);
              for(int i=0;i<s.getCommenatires().size();i++){

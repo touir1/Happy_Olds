@@ -10,6 +10,7 @@ namespace ServicesBundle\Controller;
 
 
 use HappyOldsMainBundle\Entity\User;
+use ServicesBundle\Entity\Postuler;
 use ServicesBundle\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -64,6 +65,32 @@ class ApiController extends Controller
         $em->persist($service);
         $em->flush();
         $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($service);
+        return new JsonResponse($formatted);
+    }
+    public function postulerAction(Request $request){
+        $idUser=$request->get('idUser');
+        $idService=$request->get('idService');
+        $user=$this->getDoctrine()->getRepository(User::class)->find($idUser);
+        $service=$this->getDoctrine()->getRepository(Service::class)->find($idService);
+        $postuler= new Postuler();
+        $postuler->setUser($user);
+        $postuler->setService($service);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postuler);
+        $em->flush();
+        $service->addPostuler($postuler);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($service);
+        $em->flush();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $normalizers = array($normalizer);
+        $serializer=new Serializer($normalizers);
+
         $formatted=$serializer->normalize($service);
         return new JsonResponse($formatted);
     }

@@ -103,6 +103,8 @@ class Postuler implements NotifiableInterface
         $notification=New Notification();
         $notification->setTitle(  $this->getUser()->getUsername()." a postuler a votre service ")
             ->setRoute('services_condidat')
+            ->setDescription("#")
+
             ->setParameters(array('id'=>$this->getService()->getId()));
         $builder->addNotification($notification);
 

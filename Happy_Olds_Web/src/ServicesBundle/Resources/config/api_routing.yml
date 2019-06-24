@@ -7,3 +7,6 @@ one_service:
 new_service:
   path: add
   defaults: { _controller: "ServicesBundle:Api:fawzi" }
+postuler_service:
+  path: postuler
+  defaults: { _controller: "ServicesBundle:Api:postuler" }

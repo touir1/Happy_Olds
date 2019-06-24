@@ -44,7 +44,7 @@ public class UserController {
                 System.out.println(role);
                 Double id=(Double)user.get("userID");
                 Double score=(Double)user.get("scorefinal");
-                userConnectee.setUsername("username");
+                userConnectee.setUsername(user.get("username").toString());
                 userConnectee.setRole(role.get(0).toString());
                 userConnectee.setId(id.intValue());
                 userConnectee.setNom(user.get("nom").toString());

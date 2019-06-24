@@ -371,21 +371,38 @@ public class ServicesController {
         
       ConnectionRequest con = new ConnectionRequest();
         con.setUrl("http://127.0.0.1:8000/api/services/add?user="+idUser+"&description="+Desc+"&type="+type); 
-         con.addResponseListener(k-> {
-           
-                    resp = new String(con.getResponseData());
-                    System.out.println(response);
-                  /* if(response.trim().equals("invalid")){
-                     Dialog.show("erreur", "404 parametre invalide", "ok",null);
-                    }
-                    else{
-                         LblDesc.setText(response);
-                    }
-       
-                   }*/
-         });
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                try {
+                     resp = new String(con.getResponseData());
+                    System.out.println(resp);
+                 }
+                catch(Exception e){
+                e.getMessage();
+                }
+            }
+            }); 
+        NetworkManager.getInstance().addToQueueAndWait(con);//pour etablir la conx
+        return resp;
+     }
+       public String PostulerService(int idUser,int idService){
+        
+      ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://127.0.0.1:8000/api/services/postuler?idUser="+idUser+"&idService="+idService); 
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                try {
+                     resp = new String(con.getResponseData());
+                    System.out.println(resp);
+                 }
+                catch(Exception e){
+                e.getMessage();
+                }
+            }
+            }); 
         NetworkManager.getInstance().addToQueueAndWait(con);//pour etablir la conx
         return resp;
      }
 }
- 

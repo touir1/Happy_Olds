@@ -4,8 +4,11 @@
         <div class="box box-widget" style="width: 50%;left: 26%;">
             <div class="box-header with-border">
                 <div class="user-block">
-                    <img class="img-circle" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
-                    <span class="username"><a href="#">{{ service.user.Username }}</a></span>
+                    {% if(app.user.WebPath != null) %}
+                        <img src="{{ asset(app.user.WebPath) }}" class="img-circle" alt="User Image">
+                    {% else %}
+                        <img src="{{ asset('dist/img/default-avatar.png') }}" class="img-circle" alt="User Image">
+                    {% endif %}                    <span class="username"><a href="#">{{ service.user.Username }}</a></span>
                     <span class="description">publié le  {{service.date|date('Y-m-d h:m:s')  }}</span>
                 </div>
                 <!-- /.user-block -->
@@ -38,7 +41,7 @@
 
 
 
-                    <span class="pull-right text-muted" style="margin-left: 3px;"> 2 comments</span>
+                    <span class="pull-right text-muted" style="margin-left: 3px;"> {{ service.commentaires|length }} comments</span>
 
 
             </div>
@@ -48,8 +51,11 @@
                 {% for c in service.commentaires %}
                     <div class="box-comment">
                         <!-- User image -->
-                        <img class="img-circle img-sm" src="{{ asset('/dist/img/user3-128x128.jpg') }}" alt="User Image">
-
+                        {% if(c.user.WebPath != null) %}
+                            <img src="{{ asset(c.user.WebPath) }}" class="img-circle img-sm" alt="User Image">
+                        {% else %}
+                            <img src="{{ asset('dist/img/default-avatar.png') }}" class="img-circle img-sm" alt="User Image">
+                        {% endif %}
                         <div class="comment-text">
                       <span class="username">
                         {{ c.user.username }}
@@ -64,15 +70,7 @@
                 {% endfor %}
             </div>
             <!-- /.box-footer -->
-            <div class="box-footer">
-                <form action="#" method="post">
-                    <img class="img-responsive img-circle img-sm" src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="Alt Text">
-                    <!-- .img-push is used to add margin to elements next to floating images -->
-                    <div class="img-push">
-                        <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                    </div>
-                </form>
-            </div>
+
             <!-- /.box-footer -->
         </div>
     {% endfor %}
