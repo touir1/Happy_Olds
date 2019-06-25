@@ -10,4 +10,10 @@ namespace HappyOldsMainBundle\Repository;
  */
 class NotificationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByV($v){
+        $query = $this->getEntityManager()
+            ->createQuery("Select n from HappyOldsMainBundle:Notification n where n.parameters like :k ")
+            ->setParameter('k','%'.$v.'%');
+        return $query->getResult();
+    }
 }

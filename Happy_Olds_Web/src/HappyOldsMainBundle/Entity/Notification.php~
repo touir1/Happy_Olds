@@ -28,8 +28,12 @@ class Notification extends BaseNotification implements \JsonSerializable
      * @ORM\Column(name="idUser", type="integer")
      */
     private $idUser;
-
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idElement", type="integer")
+     */
+    private $idElement;
     /**
      * Get id
      *
@@ -46,19 +50,7 @@ class Notification extends BaseNotification implements \JsonSerializable
         // TODO: Implement jsonSerialize() method.
         return get_object_vars($this);
     }
-    /**
-     * Set seen
-     *
-     * @param boolean $seen
-     *
-     * @return boolean
-     */
-    public function setSeen($seen)
-    {
-        $this->seen = $seen;
 
-        return $this;
-    }
 
     /**
      * Set idUser

@@ -2,6 +2,7 @@
 
 namespace ServicesBundle\Controller;
 
+use HappyOldsMainBundle\Entity\Notification;
 use HappyOldsMainBundle\Entity\User;
 use ServicesBundle\Entity\CommentaireService;
 use ServicesBundle\Entity\Postuler;
@@ -104,8 +105,22 @@ class ServiceController extends Controller
     }
     public function listcondidatAction(Request $req){
         $id=$req->get('id');
+        $fromNotif=null;
+        $fromNotif=$req->get('fromNotif');
+        if($fromNotif!= null){
+            $v=$req->get('v');
+           $notif=$this->getDoctrine()->getRepository(Notification::class)->findByV($v);
 
-        $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+            $notif->setSeen(true);
+            $em=$this->getDoctrine()->getManager()->persist($notif);
+            $em->flush();
+            $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+
+        }
+        else{
+            $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
+
+        }
 
        return $this->render('@Services/service/listCondidature.html.twig',array(
             'service' => $service

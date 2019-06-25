@@ -10,4 +10,5 @@ namespace ServicesBundle\Repository;
  */
 class NotificationServiceRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }
