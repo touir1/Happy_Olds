@@ -18,6 +18,12 @@ import java.util.List;
  * @author touir
  */
 public class Utils {
+    
+    
+    public static final String serverUrl = "http://127.0.0.1:8000";
+    public static final String apiUrl = serverUrl+"/api";
+    
+    
     private static ObjectMapper mapper; 
     public static ObjectMapper getMapperInstance(){
         if(mapper != null) return mapper;

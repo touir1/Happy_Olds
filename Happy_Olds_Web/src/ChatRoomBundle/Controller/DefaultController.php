@@ -91,4 +91,28 @@ class DefaultController extends UtilsController
 
         return $this->getJsonResponse($pagination,[]);
     }
+
+    public function _indexGroupeAction(Request $request)
+    {
+        $index = $request->get('index');
+        $pageSize = $request->get('page_size');
+        $groupe = $request->get('groupe');
+
+        if(!isset($index) || is_null($index)) $index = 1;
+        if(!isset($pageSize) || is_null($pageSize)) $pageSize = 10;
+
+
+        $publications = $this->getDoctrine()->getRepository(PublicationGroupe::class)
+            ->findByGroupAccessible($groupe,$this->getUser()->getId());
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $publications,
+            $request->get('page',$index),
+            $pageSize
+        );
+
+        return $this->getJsonResponse($pagination,[]);
+    }
 }
