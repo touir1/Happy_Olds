@@ -20,6 +20,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import java.io.IOException;
 import tn.esprit.happyOlds.Medical.entity.Question;
 import tn.esprit.happyOlds.MyApplication;
+import tn.esprit.happyOlds.controller.UserController;
 import tn.esprit.happyOlds.entity.User;
 
 /**
@@ -35,19 +36,14 @@ public class Profil {
         //menu 
         menu m=new menu();
         m.addmenu(f);
-       
-    }
-
-    public Container addItem(User u) throws IOException {
-        
-        Container cnt1 = new Container(new BorderLayout());
-        Label lblusername = new Label(u.getUsername());
-        TextField scoref = new TextField(u.getScorefinal());
-        Label lbrole= new Label(u.getRole());
-        Label lbnom = new Label(u.getNom());
-        Label lbprenom = new Label(u.getPrenom());
-        Label lbville = new Label(u.getVille());
-        Label lbjob = new Label(u.getJob());
+         Container cnt1 = new Container(new BorderLayout());
+        Label lblusername = new Label(UserController.userConnectee.getUsername());
+        TextField scoref = new TextField(UserController.userConnectee.getScorefinal());
+        Label lbrole= new Label(UserController.userConnectee.getRole());
+        Label lbnom = new Label(UserController.userConnectee.getNom());
+        Label lbprenom = new Label(UserController.userConnectee.getPrenom());
+        Label lbville = new Label(UserController.userConnectee.getVille());
+        Label lbjob = new Label(UserController.userConnectee.getJob());
         
         lblusername.setSize(new Dimension(20, 20));
         lbrole.setSize(new Dimension (20,20));
@@ -67,13 +63,13 @@ public class Profil {
         MyApplication my= new MyApplication();
          Label lblimg = new Label();
     Image red = Image.createImage(50, 50);  
-        if(u.getPath()!=null){
+        if(UserController.userConnectee.getPath()!=null){
            
 
             EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
              URLImage urlIm = URLImage.
-                    createToStorage(enc, "Img" + u.getId(), "http://127.0.0.1:8000/uploads/documents/"+u.getPath()); 
+                    createToStorage(enc, "Img" + UserController.userConnectee.getId(), "http://127.0.0.1:8000/uploads/documents/"+UserController.userConnectee.getPath()); 
             //Image red = Image.createImage("file:///C:/wamp64/www/Happy_Olds/Happy_Olds_Web/web/uploads/documents/"+s.getUser().getPath());  
             
              ImageViewer img = new ImageViewer(urlIm);
@@ -83,7 +79,7 @@ public class Profil {
              EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
              URLImage urlIm = URLImage.
-                     createToStorage(enc, "Img" + u.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
+                     createToStorage(enc, "Img" + UserController.userConnectee.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
             ImageViewer img = new ImageViewer(urlIm);
             
             cnt1.add(BorderLayout.WEST, img);
@@ -92,9 +88,10 @@ public class Profil {
         }
         cnt1.add(BorderLayout.CENTER, cnt2);
         f.add(cnt1);
-           return cnt1;
-          
+       
     }
+
+  
     
     
     public Form getF() {

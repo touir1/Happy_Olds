@@ -5,5 +5,5 @@ one_question:
   path: /{id}
   defaults: { _controller: "MedicalBundle:api:findone" }
 new_souel:
-  path: add
+  path: add/add
   defaults: { _controller: "MedicalBundle:api:add" }

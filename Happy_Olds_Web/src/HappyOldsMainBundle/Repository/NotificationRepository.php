@@ -14,6 +14,6 @@ class NotificationRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()
             ->createQuery("Select n from HappyOldsMainBundle:Notification n where n.parameters like :k ")
             ->setParameter('k','%'.$v.'%');
-        return $query->getResult();
+        return $query->getOneOrNullResult();
     }
 }

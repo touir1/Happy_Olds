@@ -246,13 +246,17 @@ public class MedicalController {
        public String addQuestion(int idUser,String text,String titre,String sujet){
         
       ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://127.0.0.1:8000/api/medical/add?user="+idUser+"&sujet="+sujet+"&titre="+titre+"&description="+text); 
+           System.out.println(idUser);
+           System.out.println(text);
+           System.out.println(titre);
+           System.out.println(sujet);
+        con.setUrl("http://127.0.0.1:8000/api/medical/add/add?user="+idUser+"&sujet="+sujet+"&titre="+titre+"&text="+text); 
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 try {
                      resp = new String(con.getResponseData());
-                    System.out.println(resp);
+                    //System.out.println(resp);
                  }
                 catch(Exception e){
                 e.getMessage();

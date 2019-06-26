@@ -112,7 +112,8 @@ class ServiceController extends Controller
            $notif=$this->getDoctrine()->getRepository(Notification::class)->findByV($v);
 
             $notif->setSeen(true);
-            $em=$this->getDoctrine()->getManager()->persist($notif);
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($notif);
             $em->flush();
             $service=$this->getDoctrine()->getRepository(Service::class)->find($id);
 

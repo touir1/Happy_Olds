@@ -2,7 +2,10 @@
 
 namespace MedicalBundle\Controller;
 
+use HappyOldsMainBundle\Entity\User;
+use http\Env\Request;
 use MedicalBundle\Entity\Question;
+use MedicalBundle\Entity\Sujet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -44,20 +47,23 @@ class apiController extends Controller
         return new JsonResponse($formatted);
     }
 
-    public function addaction(Request $request){
+    public function addAction(\Symfony\Component\HttpFoundation\Request $request){
         $em=$this->getDoctrine()->getManager();
+
         $question = new Question();
         $date= new \DateTime();
         $question->setDateQ($date);
-        $question->setSujet($request->get('sujet'));
+        $sujetS=$request->get('sujet');
+        $sujet=$em->getRepository(Sujet::class)->findBy(array('type'=>$sujetS));
+        $question->setSujet($sujet[0]);
         $question->setTitre($request->get('titre'));
         $question->setText($request->get('text'));
         $user=$em->getRepository(User::class)->find($request->get('user'));
         $question->setUser($user);
         $em->persist($question);
         $em->flush();
-        $serializer= new Serializer([new ObjectNormalizer()]);
-        $formatted=$serializer->normalize($question);
-        return new JsonResponse($formatted);
+         $serializer= new Serializer([new ObjectNormalizer()]);
+         $formatted=$serializer->normalize($question);
+        return new JsonResponse($question);
     }
 }
