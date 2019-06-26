@@ -154,16 +154,30 @@ class PublicationGroupeController extends UtilsController
 
     public function _addAction(Request $request)
     {
-        $groupe_id = $request->get('id');
+        $groupe_id = $request->get('groupe');
 
-        $publication = $this->getObjectFromRequest($request,PublicationGroupe::class);
-
+        $publication = new PublicationGroupe();
+        $publication->setDescription($request->get('description'));
+        $publication->setUser($this->getUser());
+        $publication->setDatePublication(new \DateTime());
         $groupe = $this->getDoctrine()->getRepository(Groupe::class)
             ->consult($groupe_id,$this->getUser()->getId());
+        $publication->setGroupe($groupe);
 
-        if(isset($groupe) && !is_null($groupe) && isset($publication) && !is_null($groupe))
+        //$publication = $this->getObjectFromRequest($request,PublicationGroupe::class);
+        //var_dump($publication);
+        //die();
+
+        /*
+        $groupe = $this->getDoctrine()->getRepository(Groupe::class)
+            ->consult($groupe_id,$this->getUser()->getId());
+        */
+
+        //if(isset($groupe) && !is_null($groupe) && isset($publication) && !is_null($publication))
+        if(isset($publication) && !is_null($publication))
         {
-            $publication->setGroupe($groupe);
+            //$publication->setGroupe($groupe);
+            $publication->setUser($this->getUser());
 
             $this->add($publication);
 

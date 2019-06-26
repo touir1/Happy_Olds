@@ -8,6 +8,7 @@ package tn.esprit.happyOlds.Divertissement.controller;
 import com.codename1.ui.Button;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -22,6 +23,12 @@ public class Utils {
     
     public static final String serverUrl = "http://127.0.0.1:8000";
     public static final String apiUrl = serverUrl+"/api";
+    
+    public static final class Mimes {
+        public static final String[] IMAGE_MIMES = {"image/png","image/gif","image/jpeg", "image/bmp", "image/webp"};
+        public static final String[] VIDEO_MIMES = {"video/mp4","video/webm","video/ogg","video/x-msvideo","video/mpeg"};
+        public static final String[] AUDIO_MIMES = {"audio/mpeg", "audio/ogg", "audio/wav"};
+    }
     
     
     private static ObjectMapper mapper; 
@@ -59,4 +66,11 @@ public class Utils {
         hyperlinkButton.getAllStyles().setFgColor(0x0000FF);
         return hyperlinkButton;
     }
+    
+    public static <T extends Object> String objectToJson(T object) throws JsonProcessingException{
+        ObjectMapper mapper = Utils.getMapperInstance();
+        return mapper.writeValueAsString(object);
+    }
+    
+    
 }

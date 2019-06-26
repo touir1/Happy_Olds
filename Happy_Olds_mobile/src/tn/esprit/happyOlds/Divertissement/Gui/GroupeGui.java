@@ -6,26 +6,37 @@
 package tn.esprit.happyOlds.Divertissement.Gui;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.components.InfiniteProgress;
+import com.codename1.components.SpanLabel;
 import com.codename1.ui.BrowserComponent;
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.Font;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
+import com.codename1.ui.TextField;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import static tn.esprit.happyOlds.Divertissement.Gui.DivertissementGui.getChangeMediaScript;
 import tn.esprit.happyOlds.Divertissement.controller.DivertissementController;
 import tn.esprit.happyOlds.Divertissement.controller.GroupeController;
+import tn.esprit.happyOlds.Divertissement.controller.PublicationController;
 import tn.esprit.happyOlds.Divertissement.controller.Utils;
 import tn.esprit.happyOlds.Divertissement.entity.Groupe;
 import tn.esprit.happyOlds.Divertissement.entity.Publication;
+import tn.esprit.happyOlds.controller.UserController;
 
 /**
  *
@@ -37,10 +48,6 @@ public class GroupeGui extends CustomGui{
     private Groupe groupe;
     
     private static int index, pageSize;
-    
-    private final String[] IMAGE_MIMES = {"image/png","image/gif","image/jpeg", "image/bmp", "image/webp"};
-    private final String[] VIDEO_MIMES = {"video/mp4","video/webm","video/ogg","video/x-msvideo","video/mpeg"};
-    private final String[] AUDIO_MIMES = {"audio/mpeg", "audio/ogg", "audio/wav"};
     
     public static String getChangeMediaScript(String mediaUrl,String mimeType)
     {
@@ -63,6 +70,14 @@ public class GroupeGui extends CustomGui{
         super("Groupe - "+nomGroupe,caller);
         this.groupeId = groupId;
         
+        refreshView();
+        
+        
+    }
+    
+    private void refreshView(){
+        form.removeAll();
+        
         BoxLayout boxLayout = new BoxLayout(BoxLayout.Y_AXIS);
         form.setLayout(boxLayout);
         
@@ -83,20 +98,37 @@ public class GroupeGui extends CustomGui{
             
         });
         
+        Container groupeContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         Container publicationsContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         Container buttonContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         
+        form.add(groupeContainer);
         form.add(publicationsContainer);
         form.add(buttonContainer);
         
         index = 1;
         pageSize = 10;
         
+        /*
         new Thread(() -> {
             groupe = GroupeController.findGroupe(groupeId);
             
+            groupeContainer.add(addGroupItem(groupe));
+        }).start();
+        */
+        
+        form.show();
+        
+        new Thread(() -> {
+            // start loading
+            Dialog ip = new InfiniteProgress().showInfiniteBlocking();
+            
+            groupe = GroupeController.findGroupe(groupeId);
+            
+            groupeContainer.add(addGroupItem(groupe));
+            
             // get list of publications
-            List<Publication> listPublication = DivertissementController.getPublications(index, pageSize, groupId);
+            List<Publication> listPublication = DivertissementController.getPublications(index, pageSize, groupeId);
             for (Publication pub : listPublication) {
                 publicationsContainer.add(addItem(pub));
             }
@@ -104,33 +136,94 @@ public class GroupeGui extends CustomGui{
             
             Button getMoreButton = Utils.getHyperlinkButton("Afficher plus ...");
             getMoreButton.addActionListener(e -> {
-                List<Publication> more = DivertissementController.getPublications(index, pageSize, groupId);
+                System.out.println("show more");
+                // loading
+                Dialog ip2 = new InfiniteProgress().showInfiniteBlocking();
+                List<Publication> more = DivertissementController.getPublications(index, pageSize, groupeId);
                 for (Publication pub : more) {
                     publicationsContainer.add(addItem(pub));
                 }
                 index++;
+                if(pageSize > more.size()){
+                    getMoreButton.setVisible(false);
+                }
+                // end loading
+                ip2.dispose();
             });
             buttonContainer.add(getMoreButton);
+            
+            // stop loading
+            ip.dispose();
         }).start();
     }
     
+    private Container addGroupItem(Groupe groupe){
+        Container container = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        
+        Label description = new Label("Description: "+groupe.getDescription());
+        Label type = new Label("Type: "+groupe.getType());
+        Label sujet = new Label("Sujet: "+groupe.getSujet().getLabel());
+        Label creator = new Label("Créateur: "+groupe.getCreator().getFullName());
+        
+        container.addAll(description,type,sujet,creator);
+        ImageViewer separator = new ImageViewer(theme.getImage("separator.png"));
+        container.add(separator);
+        
+        TextField textPublication = new TextField("","Description", 80, TextArea.ANY);
+        textPublication.setSingleLineTextArea(false);
+        Button sendPublication = new Button("Publier");
+        sendPublication.addActionListener(e -> {
+            Publication publication = new Publication();
+            Groupe groupe2 = new Groupe();
+            groupe2.setId(groupeId);
+            publication.setGroupe(groupe2);
+            publication.setDatePublication(new Date());
+            publication.setDescription(textPublication.getText());
+            
+            PublicationController.sendPublication(publication);
+            textPublication.clear();
+            
+            Dialog.show("Success", "Publication réussite", "OK",null);
+            refreshView();
+        });
+        FlowLayout fwl = new FlowLayout(Component.RIGHT);
+        Container publierContainer = new Container(fwl);
+        publierContainer.addAll(textPublication,sendPublication);
+        
+        container.add(publierContainer);
+        
+        return container;
+    }
+    
     private Container addItem(Publication publication) {
+        Font mediumItalicSystemFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_ITALIC, Font.SIZE_LARGE);
+        
         Container cnt1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         Container cnt3 = new Container(new BoxLayout(BoxLayout.X_AXIS));
         Label lblusername = new Label(publication.getUser().getFullName());
+        lblusername.getUnselectedStyle().setFont(mediumItalicSystemFont);
         //lblusername.setSize(new Dimension(20, 20));
-        Label lbDE = new Label(publication.getDescription());
+        SpanLabel lbDE = new SpanLabel(publication.getDescription());
+
         //lbDE.setSize(new Dimension(20, 20));
         Container cnt2 = new Container(BoxLayout.y());
         cnt3.add(lblusername);
         cnt2.add(lbDE);
+        
+        ImageViewer /*separatorTop = new ImageViewer(theme.getImage("separator_top.png")),
+                separatorBottom = new ImageViewer(theme.getImage("separator_bottom.png")),*/
+                separatorMiddle = new ImageViewer(theme.getImage("separator.png"));
+        //cnt1.add(separatorTop);
+        cnt1.add(separatorMiddle);
         cnt1.add(cnt3);
+        //cnt1.add(separatorMiddle);
         cnt1.add(cnt2);
+        //cnt1.add(separatorBottom);
         
         if(publication.getPieceJointe() != null && publication.getPieceJointe().getWebPath() != null
                 && !"".equals(publication.getPieceJointe().getWebPath().trim()))
         {
-            if(Arrays.asList(IMAGE_MIMES).contains(publication.getPieceJointe().getMimeType())){
+            if(Arrays.asList(Utils.Mimes.IMAGE_MIMES).contains(publication.getPieceJointe().getMimeType())){
             
                 EncodedImage enc=EncodedImage.
                     createFromImage(theme.getImage("loading.png"), false);
@@ -139,7 +232,7 @@ public class GroupeGui extends CustomGui{
                 ImageViewer imgV=new ImageViewer(image);
                 cnt2.add(imgV);
             }
-            else if(Arrays.asList(VIDEO_MIMES).contains(publication.getPieceJointe().getMimeType()))
+            else if(Arrays.asList(Utils.Mimes.VIDEO_MIMES).contains(publication.getPieceJointe().getMimeType()))
             {
                 //ImageViewer imgV=new ImageViewer(theme.getImage("not_supported.png"));
                 //cnt2.add(imgV);
@@ -195,7 +288,7 @@ public class GroupeGui extends CustomGui{
                 */
                 
             }
-            else if(Arrays.asList(AUDIO_MIMES).contains(publication.getPieceJointe().getMimeType()))
+            else if(Arrays.asList(Utils.Mimes.AUDIO_MIMES).contains(publication.getPieceJointe().getMimeType()))
             {
                 BrowserComponent browser = new BrowserComponent(){
                     @Override
