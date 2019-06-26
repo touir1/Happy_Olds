@@ -2,6 +2,7 @@
 
 namespace MedicalBundle\Controller;
 
+use MedicalBundle\Entity\Question;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -28,7 +29,7 @@ class apiController extends Controller
     }
     public function findoneAction($id){
         $em = $this->getDoctrine()->getManager();
-        $questions=$em->getRepository('MediacalBundle:Question')->find($id);
+        $questions=$em->getRepository('MedicalBundle:Question')->find($id);
 
         $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceLimit(1);
@@ -40,6 +41,23 @@ class apiController extends Controller
 
         $formatted=$serializer->normalize($questions);
 
+        return new JsonResponse($formatted);
+    }
+
+    public function addaction(Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $question = new Question();
+        $date= new \DateTime();
+        $question->setDateQ($date);
+        $question->setSujet($request->get('sujet'));
+        $question->setTitre($request->get('titre'));
+        $question->setText($request->get('text'));
+        $user=$em->getRepository(User::class)->find($request->get('user'));
+        $question->setUser($user);
+        $em->persist($question);
+        $em->flush();
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($question);
         return new JsonResponse($formatted);
     }
 }

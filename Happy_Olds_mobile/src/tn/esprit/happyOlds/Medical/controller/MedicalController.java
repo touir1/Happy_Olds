@@ -28,6 +28,7 @@ import tn.esprit.happyOlds.entity.User;
  */
 public class MedicalController {
  int response=-1;
+ String resp="";
     public List<Question> getQuestion(){
        List<Question>AllQuestion= new ArrayList<>(); 
        ConnectionRequest con = new ConnectionRequest();
@@ -242,5 +243,24 @@ public class MedicalController {
         return q;
     }
 
+       public String addQuestion(int idUser,String text,String titre,String sujet){
+        
+      ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://127.0.0.1:8000/api/medical/add?user="+idUser+"&sujet="+sujet+"&titre="+titre+"&description="+text); 
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                try {
+                     resp = new String(con.getResponseData());
+                    System.out.println(resp);
+                 }
+                catch(Exception e){
+                e.getMessage();
+                }
+            }
+            }); 
+        NetworkManager.getInstance().addToQueueAndWait(con);//pour etablir la conx
+        return resp;
+     }
 }
                 

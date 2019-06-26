@@ -9,6 +9,8 @@ import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkManager;
+import java.util.Date;
+import java.util.LinkedHashMap;
 
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class UserController {
                 userConnectee.setFile(user.get("file").toString());}
                 if(user.get("path")!=null){
                 userConnectee.setPath(user.get("path").toString());}
-                
+                 
                response=1;
                 }catch (Exception ex) {
                     System.out.println(ex.getMessage());

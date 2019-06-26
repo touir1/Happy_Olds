@@ -4,3 +4,6 @@ all_question:
 one_question:
   path: /{id}
   defaults: { _controller: "MedicalBundle:api:findone" }
+new_question:
+  path: add
+  defaults: { _controller: "MedicalBundle:Api:add" }

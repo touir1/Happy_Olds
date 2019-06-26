@@ -24,7 +24,12 @@
             </div>
             <div class="box-comment">
                 <!-- User image -->
-                <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+                {% if(question.user.WebPath != null) %}
+                    <img src="{{ asset(question.user.WebPath) }}" class="img-circle" alt="User Image">
+                {% else %}
+                    <img src="{{ asset('dist/img/default-avatar.png') }}" class="img-circle" alt="User Image">
+                {% endif %}
+                {#<img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">#}
 
                 <div class="comment-text">
 
