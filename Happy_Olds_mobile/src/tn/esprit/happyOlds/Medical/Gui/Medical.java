@@ -54,53 +54,9 @@ public class Medical {
         this.controller = new MedicalController();
         
         form.getToolbar().addCommandToOverflowMenu("Ajouter question",null,(err)->{
-       
-         TextField titre;
-         TextField text;
-         ComboBox<String> sujet;
-   
-          Button Valider;
-          
-            Form1 = new Form("Ajouter question ");
-         //menu 
-        Container cnt2 = new Container(BoxLayout.y());
-         titre  = new TextField("", "titre", 10, TextArea.ANY);
-        text  = new TextField("", "Description", 20, TextArea.ANY);
-     
-         sujet = new ComboBox<String>();
-          sujet.addItem("type de question");
-         sujet.addItem("ventre");
-         sujet.addItem("autre");
-        
-         Valider = new Button("Valider");
-          cnt2.add(sujet);
-         cnt2.add(titre);
-         cnt2.add(text);
-         cnt2.add(Valider);
-         Valider.addActionListener(e->{
-            if(!sujet.getSelectedItem().equals(sujet.getSelectedItem().equals("Type de question"))&&(!titre.getText().isEmpty())&&(!text.getText().isEmpty())){
-                MedicalController Mc=new MedicalController();
-                String response=Mc.addQuestion(UserController.userConnectee.getId(),text.getText(),titre.getText(),sujet.getSelectedItem());
-                System.out.println(response);
-                    if(!response.isEmpty()){
-                        Dialog.show("Message", "Question ajoutée", "OK", null);
-                       Question q=new Question();
-                        form.show();
-                    }
-             }
-            else{
-                       Dialog.show("Message", "Verifier les champs ", "OK", null);  
-                    }
-        });
-         Form1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
-              Question q=new Question();
-             
-                form.show();
-          
-            });
-         Form1.add(cnt2);
-         Form1.show();
-         
+      
+            addQuestion q = new addQuestion();
+            q.getF1().show();
      
     });
             
