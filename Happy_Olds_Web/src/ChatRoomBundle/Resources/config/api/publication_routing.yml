@@ -17,3 +17,7 @@ chat_room_api_publication_update:
 chat_room_api_publication_list:
     path:      /list
     defaults: { _controller: ChatRoomBundle:Default:_index }
+
+chat_room_api_publication_list_group:
+    path:       /list/group
+    defaults: { _controller: ChatRoomBundle:Default:_indexGroupe }

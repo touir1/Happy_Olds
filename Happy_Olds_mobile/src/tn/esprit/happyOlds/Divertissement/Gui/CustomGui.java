@@ -42,6 +42,7 @@ public class CustomGui {
         
         this.caller = caller;
         
+        /*
         if(caller != null){
             Button back = Utils.getHyperlinkButton("Back");
             back.addActionListener(e -> {
@@ -51,5 +52,6 @@ public class CustomGui {
             container.add(back);
             form.add(container);
         }
+        */
     }
 }

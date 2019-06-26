@@ -9,7 +9,7 @@ package tn.esprit.happyOlds.Divertissement.entity;
  *
  * @author touir
  */
-class Sujet {
+public class Sujet {
     private int id;
     private String label;
 

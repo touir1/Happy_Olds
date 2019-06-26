@@ -40,16 +40,7 @@ import tn.esprit.happyOlds.controller.UserController;
  */
 public class Services {
     Form f,F1;
-    private Resources theme;
-      public void init(Object context) {
-        //theme = UIManager.initFirstTheme("C:\\wamp64\\www\\Happy_Olds\\Happy_Olds_mobile\\src");
-
-        // Enable Toolbar on all Forms by default
-        Toolbar.setGlobalToolbar(true);
-
-        // Pro only feature
-        Log.bindCrashProtection(true);
-    }
+   
     public Services(){
         List<Service> lstServices=new ArrayList<>();
         
@@ -91,14 +82,14 @@ public class Services {
         MyApplication my= new MyApplication();
          Label lblimg = new Label();
          Image red = Image.createImage(50, 50);  
+         
         if(s.getUser().getPath()!=null){
            
 
             EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
              URLImage urlIm = URLImage.
-                    createToStorage(enc, "Img" + s.getId(), "http://127.0.0.1:8000/uploads/documents/"+s.getUser().getPath()); 
-            //Image red = Image.createImage("file:///C:/wamp64/www/Happy_Olds/Happy_Olds_Web/web/uploads/documents/"+s.getUser().getPath());  
+                    createToStorage(enc, "Img" + s.getId(), "http://127.0.0.1:8000/uploads/documents/"+s.getUser().getPath(),URLImage.RESIZE_SCALE_TO_FILL); 
             
              ImageViewer img = new ImageViewer(urlIm);
          
@@ -107,7 +98,7 @@ public class Services {
              EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
              URLImage urlIm = URLImage.
-                     createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
+                     createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png",URLImage.RESIZE_SCALE_TO_FILL);
             ImageViewer img = new ImageViewer(urlIm);
             
             cnt1.add(BorderLayout.WEST, img);
@@ -117,24 +108,36 @@ public class Services {
         
         cnt1.add(BorderLayout.CENTER, cnt2);
         lbDE.addPointerPressedListener((e)->{
-        F1 = new Form(s.getType().toString(),BoxLayout.y());
-            /*EncodedImage enc = EncodedImage.
-                    createFromImage(theme.getImage("round.png"), false);
-            URLImage urlIm = URLImage.
-                    createToStorage(enc, "Img" + c.getId(), c.getUrlImage());
-            ImageViewer img = new ImageViewer(urlIm);
-            F1.add(img);*/
+        F1 = new Form(s.getType(),BoxLayout.y());
+             if(s.getUser().getPath()!=null){
+                    EncodedImage enc = EncodedImage.
+                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
+                    
+                URLImage urlIm = URLImage.
+                       createToStorage(enc, "Img" + s.getId(), "http://127.0.0.1:8000/uploads/documents/"+s.getUser().getPath(),URLImage.RESIZE_SCALE); 
+
+                ImageViewer img = new ImageViewer(urlIm);
+         
+            F1.add(img); }
+              else{
+                     EncodedImage enc = EncodedImage.
+                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
+              URLImage urlIm = URLImage.
+                      createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png",URLImage.RESIZE_SCALE);
+             ImageViewer img = new ImageViewer(urlIm);
+            
+            F1.add(img);
+              }
             Service service= new Service();
             ServicesController sc = new ServicesController();
             service=sc.getService(s.getId());
              Label lusername = new Label(s.getUser().getUsername());
-             SpanLabel lb = new SpanLabel(s.getDescription());
-             Label lbtype = new Label(s.getType());
-             Label lbldate = new Label(s.getDate().toString());
+             lusername.setTextPosition(3);
+             SpanLabel lb = new SpanLabel("Description: "+s.getDescription());
+             Label lbtype = new Label("Type: "+s.getType());
              F1.add(lusername);
              F1.add(lb);
              F1.add(lbtype);
-             F1.add(lbldate);
              Button Postuler= new Button("Postuler");
              Postuler.addActionListener(l->{
                 int trouve=0,i=0;
@@ -163,7 +166,29 @@ public class Services {
              }
              Label lblcom = new Label("Commentaires :");
              F1.add(lblcom);
+           
              for(int i=0;i<s.getCommenatires().size();i++){
+                   Container Cimg= new Container(new BorderLayout());
+              Container Ccom = new Container(BoxLayout.y());
+              if(s.getCommenatires().get(i).getUser().getPath()!=null){
+                    EncodedImage enc = EncodedImage.
+                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
+                    
+                URLImage urlIm = URLImage.
+                       createToStorage(enc, "Img" + s.getId(), "http://127.0.0.1:8000/uploads/documents/"+s.getCommenatires().get(i).getUser().getPath(),URLImage.RESIZE_SCALE); 
+
+                ImageViewer img = new ImageViewer(urlIm);
+         
+            Cimg.add(BorderLayout.WEST, img); }
+              else{
+                     EncodedImage enc = EncodedImage.
+                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
+              URLImage urlIm = URLImage.
+                      createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png",URLImage.RESIZE_SCALE);
+             ImageViewer img = new ImageViewer(urlIm);
+            
+            Cimg.add(BorderLayout.WEST, img);
+              }
                 /* EncodedImage enc = EncodedImage.
                     createFromImage(theme.getImage("round.png"), false);
             URLImage urlIm = URLImage.
@@ -172,8 +197,11 @@ public class Services {
                 SpanLabel cUsername = new SpanLabel(s.getCommenatires().get(i).getUser().getUsername());
                 
                  SpanLabel ctexte = new SpanLabel(s.getCommenatires().get(i).getTexte());
-                 F1.add(cUsername);
-                 F1.add(ctexte);
+                 Ccom.add(cUsername);
+                 Ccom.add(ctexte);
+                 Cimg.add(BorderLayout.CENTER, Ccom);
+                 F1.add(Cimg);
+                 
              }
              
              F1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {

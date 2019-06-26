@@ -6,7 +6,8 @@
      * and you can use it this way
      */
     function OnNotificationPushed(data) {
-        console.log("data",data);}
+        console.log("data",data);
+    }
 </script>
 <li class="dropdown notifications-menu">
     <!-- Menu toggle button -->
@@ -23,7 +24,7 @@
                 {% for notif in notifications %}
 
                 <li><!-- start notification -->
-                    <a href="{{ path(notif.Route,notif.Parameters) }}">
+                    <a href="{{ path(notif.Route,notif.Parameters) }}" onclick="onclicknotif(notif.Route,notif.Parameters);">
                         <i class="fa fa-users text-aqua"></i> {{ notif.title }}
 
                     </a>

@@ -24,6 +24,7 @@ public class GroupeController extends CustomController{
         con.addResponseListener(e -> {
             try {
                 String json=new String(con.getResponseData());
+                System.out.println(json);
                 dataContainer.setData(Utils.mapObject(json, Groupe.class));
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());

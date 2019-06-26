@@ -42,4 +42,24 @@ public class DivertissementController extends CustomController{
         NetworkManager.getInstance().addToQueueAndWait(con);
         return result;
     }
+    
+    public static List<Publication> getPublications(int index, int pageSize, int groupeId)
+    {
+        List<Publication> result = new ArrayList<>();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(serverUrl+"/entertainment/publications/list/group");  
+        con.addArgument("index", Integer.toString(index));
+        con.addArgument("page_size", Integer.toString(pageSize));
+        con.addArgument("groupe", Integer.toString(groupeId));
+        con.addResponseListener(e -> {
+            try {
+                String json=new String(con.getResponseData());
+                result.addAll(Utils.mapList(json, Publication.class));
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return result;
+    }
 }
