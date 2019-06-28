@@ -2,6 +2,7 @@
 
 namespace MedicalBundle\Controller;
 
+use HappyOldsMainBundle\Entity\Notification;
 use MedicalBundle\Entity\Question;
 use MedicalBundle\Entity\Reponse;
 use MedicalBundle\Form\QuestionType;
@@ -172,6 +173,17 @@ class QuestionController extends Controller
 
     public function detailAction(Request $req){
         $id=$req->get('id');
+        $fromNotif=null;
+        $fromNotif=$req->get('fromNotif');
+        if($fromNotif!= null){
+            $v=$req->get('v');
+            $notif=$this->getDoctrine()->getRepository(Notification::class)->findByV($v);
+
+            $notif->setSeen(true);
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($notif);
+            $em->flush();
+        }
         $question=$this->getDoctrine()->getRepository(Question::class)->find($id);
         $list=$this->getDoctrine()
             ->getRepository(Question::class)

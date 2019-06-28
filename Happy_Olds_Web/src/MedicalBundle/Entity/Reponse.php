@@ -171,7 +171,10 @@ class Reponse implements NotifiableInterface
         $notification->setTitle("Nouvelle reponse")
             ->setDescription($this->getText())
             ->setRoute('medical_detail')
-            ->setParameters(array('id'=>$this->getQuestion()->getId()));
+            ->setDescription("#")
+            ->setIdUser($this->getQuestion()->getUser()->getId())
+            ->setParameters(array('id'=>$this->getQuestion()->getId(),'fromNotif'=>'true','v'=>rand()));
+
         $builder->addNotification($notification);
 
         return $builder ;
@@ -184,7 +187,8 @@ class Reponse implements NotifiableInterface
         $notification->setTitle("mise à jour reponse")
             ->setDescription($this->getText())
             ->setRoute('medical_detail')
-            ->setParameters(array('id'=>$this->getQuestion()->getId()));
+            ->setDescription("#")
+            ->setParameters(array('id'=>$this->getQuestion()->getId(),'fromNotif'=>'true','v'=>rand()));
         $builder->addNotification($notification);
 
         return $builder ;

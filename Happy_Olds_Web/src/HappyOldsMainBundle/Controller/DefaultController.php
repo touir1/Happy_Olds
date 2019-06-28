@@ -428,7 +428,7 @@ class DefaultController extends Controller
         return $this->render('@HappyOldsMain/UtilityPages/403.html.twig');
     }
     public function getnotificationAction(){
-        $notification=$this->getDoctrine()->getManager()->getRepository(Notification::class)->findBy(array('idUser'=>$this->getUser()->getId()));
+        $notification=$this->getDoctrine()->getManager()->getRepository(Notification::class)->findBy(array('idUser'=>$this->getUser()->getId(),'seen'=>'0'));
         return $this->render('@HappyOldsMain/default/notif.html.twig',
             array('notifications'=>$notification));
 

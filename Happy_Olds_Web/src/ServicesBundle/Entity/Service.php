@@ -4,6 +4,8 @@ namespace ServicesBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use SBC\NotificationsBundle\Builder\NotificationBuilder;
+use SBC\NotificationsBundle\Model\NotifiableInterface;
 
 
 /**
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="service")
  * @ORM\Entity(repositoryClass="ServicesBundle\Repository\ServiceRepository")
  */
-class Service implements  \JsonSerializable
+class Service implements NotifiableInterface
 {
     /**
      * @var int
@@ -306,5 +308,35 @@ class Service implements  \JsonSerializable
             "iduser"        => $this->getUser()->getId(),
             //"userassocier"    => $this->getUserAssocie()->getId(),
         ];
+    }
+
+    /**
+     * Build notifications on entity creation
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnCreate(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnCreate() method.
+    }
+
+    /**
+     * Build notifications on entity update
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnUpdate(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnUpdate() method.
+    }
+
+    /**
+     * Build notifications on entity delete
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnDelete(NotificationBuilder $builder)
+    {
+        // TODO: Implement notificationsOnDelete() method.
     }
 }
