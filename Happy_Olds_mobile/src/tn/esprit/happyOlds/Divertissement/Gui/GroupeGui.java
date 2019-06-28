@@ -67,7 +67,7 @@ public class GroupeGui extends CustomGui{
     }
     
     public GroupeGui(Form caller, int groupId, String nomGroupe){
-        super("Groupe - "+nomGroupe,caller);
+        super("Groupe - "+nomGroupe,caller,false);
         this.groupeId = groupId;
         
         refreshView();
@@ -91,11 +91,20 @@ public class GroupeGui extends CustomGui{
             
         });
         */
-        form.getToolbar().addCommandToOverflowMenu("mes inscriptions aux groupes",null,(err)->{
+        form.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
+              caller.showBack();
+        });
+        
+        form.getToolbar().addCommandToOverflowMenu("File d'actualités",null,(err)->{
+            DivertissementGui divertissementGui = new DivertissementGui(form);
+            divertissementGui.getForm().show();
+        });
+        form.getToolbar().addCommandToOverflowMenu("Mes inscriptions aux groupes",null,(err)->{
             
         });
-        form.getToolbar().addCommandToOverflowMenu("Conversations",null,(err)->{
-            
+        form.getToolbar().addCommandToOverflowMenu("Mes groupes",null,(err)->{
+            MyGroupeGui myGroupeGui = new MyGroupeGui(form);
+            myGroupeGui.getForm().show();
         });
         
         Container groupeContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));

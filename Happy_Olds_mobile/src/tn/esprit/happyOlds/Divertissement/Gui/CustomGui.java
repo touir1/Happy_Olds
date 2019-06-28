@@ -34,9 +34,10 @@ public class CustomGui {
         return caller;
     }
     
-    public CustomGui(String formTitle, Form caller){
+    public CustomGui(String formTitle, Form caller, boolean withMenu){
         this.form = new Form(formTitle);
-        new menu().addmenu(this.form);
+        
+        if(withMenu) new menu().addmenu(this.form);
         
         this.theme = MyApplication.getTheme();
         

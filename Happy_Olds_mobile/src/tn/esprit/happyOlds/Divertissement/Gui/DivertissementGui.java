@@ -46,7 +46,7 @@ public class DivertissementGui extends CustomGui{
     private static List<BrowserComponent> browsers;
     
     public DivertissementGui(Form caller) {
-        super("Divertissement",caller);
+        super("Divertissement",caller,true);
         
         BoxLayout boxLayout = new BoxLayout(BoxLayout.Y_AXIS);
         form.setLayout(boxLayout);
@@ -61,11 +61,12 @@ public class DivertissementGui extends CustomGui{
             
         });
         */
-        form.getToolbar().addCommandToOverflowMenu("mes inscriptions aux groupes",null,(err)->{
+        form.getToolbar().addCommandToOverflowMenu("Mes inscriptions aux groupes",null,(err)->{
             
         });
-        form.getToolbar().addCommandToOverflowMenu("Conversations",null,(err)->{
-            
+        form.getToolbar().addCommandToOverflowMenu("Mes groupes",null,(err)->{
+            MyGroupeGui myGroupeGui = new MyGroupeGui(form);
+            myGroupeGui.getForm().show();
         });
         
         Container publicationsContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));

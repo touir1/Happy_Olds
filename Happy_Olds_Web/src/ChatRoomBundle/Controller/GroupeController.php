@@ -174,16 +174,30 @@ class GroupeController extends UtilsController
     // liste json
     public function _myListAction(Request $request)
     {
-        $titre = $request->get('titre');
-        $type = $request->get('type');
-        $sujet = $request->get('sujet');
+        $titre = $request->get('filter');
+        $index = $request->get('index');
+        $pageSize = $request->get('pageSize');
+        $type = "all";
+        $sujet = "0";
 
         if(!isset($titre) || is_null($titre)) $titre = "";
-        if(!isset($type) || is_null($type)) $type="all";
-        if(!isset($sujet) || is_null($sujet)) $sujet="0";
+        if(!isset($index) || is_null($index)) $index=1;
+        if(!isset($pageSize) || is_null($pageSize)) $pageSize=10;
+
+        //var_dump([$titre,$index,$pageSize,$type,$sujet]);
+        //die();
+
         $liste = $this->myListAccessible($titre,$type,$sujet);
 
-        return $this->getJsonResponse($liste,[]);
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $liste,
+            $request->get('page',$index),
+            $pageSize
+        );
+
+        return $this->getJsonResponse($pagination,[]);
         //return $this->json($liste);
     }
 
