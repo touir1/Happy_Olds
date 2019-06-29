@@ -66,7 +66,7 @@ class Question
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Reponse", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Reponse", mappedBy="question", cascade={"persist","remove"})
      */
     private $reponses;
 

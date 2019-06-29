@@ -1,9 +1,8 @@
 Question_list:
     path:     /list
     defaults: { _controller: "MedicalBundle:Question:list" }
-    methods:  [GET, POST]
+
 
 Question_DeleteAdm:
-    path:     /list
+    path:     /del
     defaults: { _controller: "MedicalBundle:Question:DeleteAdm" }
-    methods:  [GET, POST]
