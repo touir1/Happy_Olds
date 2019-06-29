@@ -57,23 +57,6 @@ class DefaultController extends Controller
         }
     }
 
-    public function modifierAction(Request $req){
-        //etape 0: recap de l'objet à modifier (on a recup par id)
-        $id=$req->get('id');
-        $question=$this->getDoctrine()->getRepository(Question::class)->find($id);
-        //1.a :la préparation du formulaire
-        $form =$this->createForm(QuestionType::class,$question);
-        //2.a recup des données deja modifié
-        $form=$form->handleRequest($req);
-        if ($form->isValid()){
-            $em=$this->getDoctrine()->getManager();
-            $em->flush();
-            return $this->redirectToRoute('medical_affichage');
-        }
-        return $this->render('@Medical/Question/ajouter.html.twig',array(
-            'form'=>$form->createView()
-        ));
-    }
     public function profilAction(Request $req){
         //etape 0: recap de l'objet à modifier (on a recup par id)
         //$id=$this->getUser()->getId();
