@@ -106,28 +106,7 @@ public class EventsController {
 }
     
     public String addEvent(int idUser,String titre,String description, int nbrParticipant, Date dateDebut, Date dateFin, String privilege, String ville){
-        /*
-        String datetimeString = "Tue Apr 10 15:19:06 CEST 2018";
-        String from_format = "E MMM dd HH:mm:ss z yyyy";
-        String to_format = "yyyy-MM-dd";
-        DateTimeFormatter from_formatter = DateTimeFormatter.ofPattern(from_format);
-        DateTimeFormatter to_formatter = DateTimeFormatter.ofPattern(to_format);
-        LocalDateTime ldt = LocalDateTime.parse(datetimeString, from_formatter);
-        
-        System.out.println(ldt.format(to_formatter));
-        */
-        /*SimpleDateFormat dt = new SimpleDateFormat();
-        String dateDS =dt.format(dateDebut);
-        String dateFS =dt.format(dateFin);
-        System.out.println(dateDS);
-         try {
-             dt.applyPattern("yyyy-MM-dd HH:mm:ss");
-             Date dateD = dt.parse(dateDS);
-             
-              Date dateF = dt.parse(dateFS);
-              System.out.println(dateD);
-        
-       */
+   
      ConnectionRequest con = new ConnectionRequest();
         con.setUrl("http://127.0.0.1:8000/api/events/add");
         // ?titre="+titre+"&description="+description+"&nbrParticipant="+nbrParticipant+"&privilege="+privilege+"&ville="+ville+"&user="+idUser

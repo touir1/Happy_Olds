@@ -49,7 +49,7 @@ public class EventsAffiche {
             }
         }
           if (UserController.userConnectee.getRole().equals("ROLE_AGE")){
-                f.getToolbar().addCommandToOverflowMenu("demander un service",null,(err)->{
+                f.getToolbar().addCommandToOverflowMenu("Ajouter un événement",null,(err)->{
                   
                         
                          AddEvents a=new AddEvents();
@@ -88,7 +88,7 @@ public class EventsAffiche {
              EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
              URLImage urlIm = URLImage.
-                     createToStorage(enc, "Img" + e.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png",URLImage.RESIZE_SCALE_TO_FILL);
+                     createToStorage(enc, "Img" + e.getId(),"http://127.0.0.1:8000/dist/img/Def_eve.png",URLImage.RESIZE_SCALE_TO_FILL);
             ImageViewer img = new ImageViewer(urlIm);
             
             cnt1.add(BorderLayout.WEST, img);
@@ -113,14 +113,12 @@ public class EventsAffiche {
                      EncodedImage enc = EncodedImage.
                        createFromImage(MyApplication.getTheme().getImage("round.png"), false);
               URLImage urlIm = URLImage.
-                      createToStorage(enc, "Img" + e.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png",URLImage.RESIZE_SCALE);
+                      createToStorage(enc, "Img" + e.getId(),"http://127.0.0.1:8000/dist/img/Def_eve.png",URLImage.RESIZE_SCALE);
              ImageViewer img = new ImageViewer(urlIm);
             
             F1.add(img);
               }
-        /*    Service service= new Service();
-            ServicesController sc = new ServicesController();
-            service=sc.getService(s.getId());*/
+
           
              SpanLabel lb = new SpanLabel("Description: "+e.getDescription());
              SpanLabel lb1 = new SpanLabel("ville: "+e.getVille());
@@ -128,71 +126,7 @@ public class EventsAffiche {
              F1.add(lb);
              F1.add(lb1);
              F1.add(lbtype);
-            /* Button Postuler= new Button("Postuler");
-             Postuler.addActionListener(l->{
-                int trouve=0,i=0;
-                while(i<s.getPostuler().size()&& trouve==0){
-                    if(s.getPostuler().get(i).getUser().getId()==UserController.userConnectee.getId()){
-                        trouve=1;
-                        i++;
-                    }
-                    i++;
-                }
-                if(trouve==0){
-                    String rep=sc.PostulerService(UserController.userConnectee.getId(), s.getId());
-                    if(!rep.isEmpty()){
-                         Dialog.show("Message", "félicitation! Votre candidature a bien été enregistrée  ", "OK", null);
-                         Services services= new Services();
-                          services.getF().show();
-                    }
-                }
-                else{
-                    Dialog.show("Message", UserController.userConnectee.getUsername()+" Vous avez déja postuler à ce service ", "OK", null);
-                   
-                }
-             });
-             if(UserController.userConnectee.getRole().equals("ROLE_JEUNE")){
-             F1.add(Postuler);
-             }
-             Label lblcom = new Label("Commentaires :");
-             F1.add(lblcom);
-           
-             for(int i=0;i<s.getCommenatires().size();i++){
-                   Container Cimg= new Container(new BorderLayout());
-              Container Ccom = new Container(BoxLayout.y());
-              if(s.getCommenatires().get(i).getUser().getPath()!=null){
-                    EncodedImage enc = EncodedImage.
-                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
-                    
-                URLImage urlIm = URLImage.
-                       createToStorage(enc, "Img" + s.getId(), "http://127.0.0.1:8000/uploads/documents/"+s.getCommenatires().get(i).getUser().getPath(),URLImage.RESIZE_SCALE); 
-
-                ImageViewer img = new ImageViewer(urlIm);
-         
-            Cimg.add(BorderLayout.WEST, img); }
-              else{
-                     EncodedImage enc = EncodedImage.
-                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
-              URLImage urlIm = URLImage.
-                      createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png",URLImage.RESIZE_SCALE);
-             ImageViewer img = new ImageViewer(urlIm);
             
-            Cimg.add(BorderLayout.WEST, img);
-              }
-                /* EncodedImage enc = EncodedImage.
-                    createFromImage(theme.getImage("round.png"), false);
-            URLImage urlIm = URLImage.
-                    createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/uploads/documents/avatarH.jpg");
-            ImageViewer img = new ImageViewer(urlIm);*/
-             /*   SpanLabel cUsername = new SpanLabel(s.getCommenatires().get(i).getUser().getUsername());
-                
-                 SpanLabel ctexte = new SpanLabel(s.getCommenatires().get(i).getTexte());
-                 Ccom.add(cUsername);
-                 Ccom.add(ctexte);
-                 Cimg.add(BorderLayout.CENTER, Ccom);
-                 F1.add(Cimg); 
-                 
-             }*/
              
              F1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
                 f.show();

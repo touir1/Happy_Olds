@@ -52,9 +52,9 @@ public class AddEvents {
         Container cnt2 = new Container(BoxLayout.y());
         lbltitle = new TextField("");
         desc = new TextField("", "Description", 20, TextArea.ANY);
-         lblnbrParticipant = new TextField("");
-         lblprivilege = new TextField("");
-       lblville = new TextField("");
+         lblnbrParticipant = new TextField("", "nbrParticipant");
+         lblprivilege = new TextField("","lieu");
+      
          dateDebut = new Picker();
         dateDebut.setType(Display.PICKER_TYPE_DATE_AND_TIME);
         dateDebut.setDate(new Date());
@@ -98,7 +98,6 @@ public class AddEvents {
          cnt2.add(desc);
         cnt2.add(lblnbrParticipant);
         cnt2.add(lblprivilege);
-        cnt2.add(lblville);
         cnt2.add(dateDebut);
         cnt2.add(dateFin);
         cnt2.add(autre);

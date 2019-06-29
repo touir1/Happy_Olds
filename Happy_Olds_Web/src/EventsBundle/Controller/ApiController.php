@@ -42,7 +42,7 @@ public function allAction(){
         $event->setNbrParticipant($request->get('nbrParticipant'));
         $event->setNbrDispo($event->getNbrParticipant());
         $event->setParticipant(0);
-        $event->setPrivilege($request->get('privilege'));
+        $event->setLieu($request->get('privilege'));
         $event->setVille($request->get('ville'));
         $datedeb = new \DateTime();
         $datedeb->setDate($request->get('deb_year'),$request->get('deb_month'),$request->get('deb_day'));
