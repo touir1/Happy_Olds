@@ -4,6 +4,7 @@ namespace ServicesBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use HappyOldsMainBundle\Entity\Notification;
 use SBC\NotificationsBundle\Builder\NotificationBuilder;
 use SBC\NotificationsBundle\Model\NotifiableInterface;
 
@@ -328,6 +329,18 @@ class Service implements NotifiableInterface
     public function notificationsOnUpdate(NotificationBuilder $builder)
     {
         // TODO: Implement notificationsOnUpdate() method.
+        if($this->getUserAssocie()!=null){
+            $notification=New Notification();
+            $notification->setTitle(  $this->getUser()->getUsername()." a accepter  votre condidature ")
+                ->setRoute('services_publier')
+                ->setDescription("#")
+                ->setIdUser($this->getUserAssocie()->getId())
+
+                ->setParameters(array('id'=>$this->getUserAssocie()->getId(),'fromNotif'=>'true','v'=>rand()));
+            $builder->addNotification($notification);
+
+            return $builder ;
+        }
     }
 
     /**
