@@ -7,6 +7,9 @@
         <label class="text-muted" id="ckeditor"> Description </label>
         <div class="form-control" disabled="disabled"> {{ question.text|raw }}</div>
         <br>
+        {% if question.path != null %}
+        <a href="http://127.0.0.1:8000/uploads/documents/{{ question.path }}" >pièce jointe</a>
+        {% endif %}
     </div>
         {% for i in question.reponses %}
         <div class="box-footer box-comments">

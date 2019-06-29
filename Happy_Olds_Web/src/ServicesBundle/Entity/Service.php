@@ -319,6 +319,7 @@ class Service implements NotifiableInterface
     public function notificationsOnCreate(NotificationBuilder $builder)
     {
         // TODO: Implement notificationsOnCreate() method.
+        return $builder ;
     }
 
     /**
