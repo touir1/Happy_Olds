@@ -6,9 +6,13 @@
 
         <!-- Profile Image -->
         <div class="box box-danger">
-                <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="Photo de profil de l'utilisateur">
-                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }}</p> </font></font></h3>
             <div class="box-body box-profile">
+                {% if(app.user.WebPath != null) %}
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset(app.user.WebPath) }}" alt="Photo de profil de l'utilisateur">
+                {% else %}
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/default-avatar.png') }}" alt="Photo de profil de l'utilisateur">
+                {% endif %}
+                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }}</p> </font></font></h3>
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
                         <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
@@ -20,12 +24,12 @@
                         <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_affiche') }}/>
                         Mes événements</li>
                     <li class="list-group-item">
-                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_voir') }}/>
                         Voter pour les événements
                     </li>
                     <li class="list-group-item">
-                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
-                        Statistiques</li>
+                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }} />
+                        Recherche </li>
                 </ul>
             </div></div></div>
     <div class="col-md-9">
@@ -50,9 +54,9 @@
                             <p>{{ event.description }}</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="fa fa-fw fa-group"></i>
                         </div>
-                        <a href="{{ path('event_show', { 'id': event.id }) }}" class="small-box-footer">
+                        <a href="{{ path('event_show4', { 'id': event.id }) }}" class="small-box-footer">
                             Consulter  <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>

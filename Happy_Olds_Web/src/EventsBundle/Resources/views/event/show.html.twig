@@ -3,53 +3,42 @@
 {% block body %}
 
 <link rel="stylesheet" type="text/css" href="AdminLTE.css" />
-<div class="col-md-3">
+    <div class="col-md-3">
 
-    <!-- Profile Image -->
-    <div class="box box-danger">
-        <div class="box-body box-profile">
-            {% if(app.user.WebPath != null) %}
-                <img class="profile-user-img img-responsive img-circle" src="{{ asset(app.user.WebPath) }}" alt="Photo de profil de l'utilisateur">
-            {% else %}
-                <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/default-avatar.png') }}" alt="Photo de profil de l'utilisateur">
-
-            {% endif %}
-                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }} </p>  </font></font></h3>
-            <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
-                    Tout les événements</li>
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_venir') }}/>
-                    Avenir</li>
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_affiche') }}/>
-                    Mes événements</li>
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_voir') }}/>
-                    Voter pour les événements
-                </li>
-
-            </ul>
-        </div></div></div>
+        <!-- Profile Image -->
+        <div class="box box-danger">
+            <div class="box-body box-profile">
+                {% if(app.user.WebPath != null) %}
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset(app.user.WebPath) }}" alt="Photo de profil de l'utilisateur">
+                {% else %}
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/default-avatar.png') }}" alt="Photo de profil de l'utilisateur">
+                {% endif %}
+                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }}</p> </font></font></h3>
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                        Tout les événements</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_venir') }}/>
+                        Avenir</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_affiche') }}/>
+                        Mes événements</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_voir') }}/>
+                        Voter pour les événements
+                    </li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }} />
+                        Recherche </li>
+                </ul>
+            </div></div></div>
 <div class="col-md-9">
     <div class="box box-danger">
         <div class="box-header with-border">
-            <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">L'événement</font></font></h3>
+            <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">L'événement</h1></font></font></h3>
         </div>
-        {% if event.Participant != event.nbrParticipant %}
-            {% set test = 'false' %}
-            {% for p in event.Participants %}
-            {% if p.getUser().getId()  == app.user.id%}
-                {% set test = 'true' %}
-            {% endif %}
-            {% endfor %}
-            {% if test!='true' %}
-            <a  class="btn btn-danger" href="{{ path('event_participer', {'id':event.id}) }}">Participer</a>
-            {% else %}
-            <a>{{ app.user.username }} vous avez déja participer a ce evénement</a>
-            {% endif %}
-        {% endif %}
+
 
 
     <h5 align="right"><a href="{{ path('event_index') }}">Retour à la liste</a></h5>
@@ -66,27 +55,49 @@
         <input type="submit" value="Delete" >
         {{ form_end(delete_form) }}</h5-->
 
+        {% if event.Participant != event.nbrParticipant %}
+            {% set test = 'false' %}
+            {% for p in event.Participants %}
+                {% if p.getUser().getId()  == app.user.id%}
+                    {% set test = 'true' %}
+                {% endif %}
+            {% endfor %}
+            {% if test!='true' %}
+        <h5 align="right"><a  class="btn btn-danger" href="{{ path('event_participer', {'id':event.id}) }}">Participer</a></h5>
+            {% else %}
+                <h5 align="right"><a>{{ app.user.username }} vous avez participer à l'événement</a></h5>
+                <h5 align="right"><a  class="btn btn-danger" href="{{ path('event_annuler', {'id':event.id}) }}">Annuler</a></h5>
 
-        <TABLE CELLSPACING=10 CELLPADDING=10 width="80%">
+                {% endif %}
+
+        {% endif %}
+
+<div>
+        <TABLE CELLSPACING=10 CELLPADDING=10 width="80%" align="center">
 
            <TR>
-                <TD ROWSPAN=2 COLSPAN=2 align="center"><img width="250px" height="250px" src="{{ asset(event.webPath) }}" /></TD>
+                <TD ROWSPAN=2 COLSPAN=2 align="center">
+                    {% if(event.WebPath != null) %}
+                        <img class="profile-user-img img-responsive img-circle" src="{{ asset(event.WebPath) }}" alt="Photo de profil de l'utilisateur">
+                    {% else %}
+                        <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/Def_eve.png') }}" alt="Photo de profil de l'utilisateur">
+                    {% endif %}
+                    </TD>
                 <TH COLSPAN=2 align="center">Titre de l'événement : {{ event.titre }} </TH>
             </TR>
             <TR>
                 <TH align="center">Nombre de place disponible : <br>{{ event.nbrDispo }}</TH>
                 <TH align="center">Nombre des participants : <br>{{ event.Participant }}</TH>
             </TR></TABLE>
-        <br><br><br>
-
-    <table align="center" width="100%" >
-        <tbody>
+        <br><br><br></div>
+<div>
+    <table align="center" width="90%" height="100%">
             <tr>
                 <th>Numéro</th>
                 <td>{{ event.id }}</td>
             </tr>
             <tr>
-                <th>Titre</th>
+                <th> Titre</th>
                 <td>{{ event.titre }}</td>
             </tr>
             <tr>
@@ -114,11 +125,10 @@
                 <td>{{ event.lieu }}</td>
             </tr>
 
-        </tbody>
     </table>
 
 
-
+<div>
         {{ socialButtons( { 'facebook': {'locale':'fr_FR', 'send':true}} ) }}
         {{ 3|rating(5) }}
 
@@ -130,27 +140,7 @@
     <!-- Button trigger modal -->
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Partager sur</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{ socialButtons( { 'facebook': {'locale':'fr_FR', 'send':true}} ) }}
-                    {{ twitterButton() }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
 

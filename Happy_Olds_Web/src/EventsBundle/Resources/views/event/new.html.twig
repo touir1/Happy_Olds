@@ -3,48 +3,51 @@
 {% block body %}
 
 <link rel="stylesheet" type="text/css" href="AdminLTE.css" />
-<div class="col-md-3">
 
-    <!-- Profile Image -->
-    <div class="box box-danger">
-        <div class="box-body box-profile">
-                <!--img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="Photo de profil de l'utilisateur"-->
-            {% if(app.user.WebPath != null) %}
-                <img class="profile-user-img img-responsive img-circle" src="{{ asset(app.user.WebPath) }}" alt="Photo de profil de l'utilisateur">
-            {% else %}
-                <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/default-avatar.png') }}" alt="Photo de profil de l'utilisateur">
 
-            {% endif %}
+    <div class="col-md-3">
 
-            <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }}</p> </font></font></h3>
-            <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
-                    Tout les événements</li>
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_venir') }}/>
-                    Avenir</li>
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_affiche') }}/>
-                    Mes événements</li>
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
-                    Voter pour les événements
-                </li>
-
-            </ul>
-        </div></div></div>
+        <!-- Profile Image -->
+        <div class="box box-danger">
+            <div class="box-body box-profile">
+                {% if(app.user.WebPath != null) %}
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset(app.user.WebPath) }}" alt="Photo de profil de l'utilisateur">
+                {% else %}
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/default-avatar.png') }}" alt="Photo de profil de l'utilisateur">
+                {% endif %}
+                <h3 class="profile-username text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <p> {{ app.user.nom }} {{ app.user.prenom }}</p> </font></font></h3>
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
+                        Tout les événements</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_venir') }}/>
+                        Avenir</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_affiche') }}/>
+                        Mes événements</li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_voir') }}/>
+                        Voter pour les événements
+                    </li>
+                    <li class="list-group-item">
+                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }} />
+                        Recherche </li>
+                </ul>
+            </div></div></div>
 <div class="col-md-9">
     <div class="box box-danger">
         <div class="box-header with-border">
-            <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Ajouter un nouveau évenement</h1></font></font></h3>
+            <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        <h1 class="title">Ajouter un nouveau évenement</h1></font></font></h3>
         </div>
 
 
 
         <h5 align="right"><a href="{{ path('event_index') }}">Retour à la liste</a></h5>
 
-<table style=" width: 50%">
+<table width= "90%" , align="center">
+    <tr><td>
     {{ form_start(form) }}
 
             <div class="form-group">
@@ -91,11 +94,12 @@
             }}
         </div>
             <br><br>
-        <table valign="center" size="50%">
-        <tr><th>Date de fin</th>
+        <table align="center" size="50%">
+           <tr> <th>Date de début : </th>
+            <td width="50%">{{ form_widget(form.dateDebut) }}</td>
+        <th>Date de fin : </th>
             <td>{{ form_widget(form.dateFin) }}</td>
-            <th align="left">Date de fin</th>
-            <td>{{ form_widget(form.dateDebut) }}</td>
+
         </tr></table>
 
 <br><br>
@@ -104,19 +108,20 @@
 
 <table>
             <tr><th><div class="form-group">
-                        <label class="text-muted">Photo</label></div><th><td>{{ form_widget(form.file) }}</td></tr></table>
+                        <label class="text-muted">Photo : </label></div><th><td>{{ form_widget(form.file) }}</td></tr></table>
 <br><br>
-
-        <div class="form-group">
+<table valign="right"><tr>
+        <div class="form-group" align="right">
             {{
-            form_widget(form.Valider, {'attr' : {'class' : 'btn btn-block btn-danger','style':'width: 12%;'}})
+            form_widget(form.Valider, {'attr' : {'class' : 'btn btn-block btn-danger','style':'width: 12%'}})
             }}
-        </div>
+        </div></tr></table>
 
 
 
 
     {{ form_end(form) }}
+        </td></tr>
 </table>
     </div></div></div>
 {% endblock %}

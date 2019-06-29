@@ -184,15 +184,65 @@ class EventController extends Controller
 
         return $this->redirectToRoute('event_show',array('id'=>$event->getId()));
     }
+    public function annulerAction(Request $request)
+    {
+        $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $event = $this->getDoctrine()->getRepository(Event::class)
+            ->find($id);
+        $event->setNbrDispo($event->getNbrDispo()+1);
+        $event->setParticipant($event->getParticipant() - 1);
+        $em->persist($event);
+        $Participer = new Participer();
+
+        $Participer->getUser($this->getUser());
+        $Participer->getEvent($event);
+       // $Participer->getId();
+        $em->remove($Participer);
+        $em->persist($Participer);
+        $em->flush();
+
+        return $this->redirectToRoute('event_show',array('id'=>$event->getId()));
+    }
+
     public function venirAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $events = $em->getRepository('EventsBundle:Event')->findAll();
+       // $events = $em->getRepository('EventsBundle:Event')->findAll();
+        $events = $em->getRepository('EventsBundle:Event')
+            ->participIn($this->getUser()->getId());
 
         return $this->render('@Events/event/venir.html.twig', array(
             'events' => $events,
         ));
+
+    }
+
+    public function show4Action(Event $event)
+    {
+        $deleteForm = $this->createDeleteForm($event);
+
+        $rate = new Rate();
+
+        $form = $this->createForm(RateType::class,$rate);
+
+        return $this->render('@Events/event/show4.html.twig', array(
+            'event' => $event,
+            'delete_form' => $deleteForm->createView(),
+            'rating_form' => $form->createView()
+        ));
+    }
+
+    public function delete3Action(Request $request){
+        //etape 0 :
+        $id=$request->get( 'id');
+        $event=$this->getDoctrine()->getRepository( Event::class)->find($id);
+
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
+        return $this->redirectToRoute( 'event_affiche');
     }
 
 

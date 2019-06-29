@@ -4,9 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/Services/Gui/AddService.java</file>
-            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/Services/Gui/Services.java</file>
-            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/Medical/Gui/Medical.java</file>
-            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/Gui/login.java</file>
+            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/events/gui/AddEvents.java</file>
+            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/Gui/menu.java</file>
+            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/events/gui/EventsAffiche.java</file>
+            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/events/entities/Events.java</file>
+            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/Services/controller/ServicesController.java</file>
+            <file>file:/C:/wamp64/www/Happy_Olds/Happy_Olds_mobile/src/tn/esprit/happyOlds/events/controller/EventsController.java</file>
         </group>
     </open-files>
 </project-private>
