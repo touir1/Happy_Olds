@@ -7,6 +7,7 @@ package tn.esprit.happyOlds.Gui;
 
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Form;
@@ -40,10 +41,12 @@ public class Profil {
          Label lusername = new Label ("Username : ");
          Label lscore = new Label ("Score final : ");
          Label lville = new Label ("Ville : ");
+         Label ldatenaiss = new Label ("Date de naissance : ");
          Label ljob = new Label ("Job : ");
          Label lnom = new Label ("Nom : ");
          Label lprenom = new Label ("Prenom : ");
          Label lrole = new Label ("Role : ");
+         SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
          
         Label lblusername = new Label(UserController.userConnectee.getUsername());
         Integer var = UserController.userConnectee.getScorefinal();
@@ -54,6 +57,7 @@ public class Profil {
         Label lbprenom = new Label(UserController.userConnectee.getPrenom());
         Label lbville = new Label(UserController.userConnectee.getVille());
         Label lbjob = new Label(UserController.userConnectee.getJob());
+        Label lbdatenaissance = new Label(dt1.format(UserController.userConnectee.getDate_naissance()));
         
         lblusername.setSize(new Dimension(20, 20));
         lbrole.setSize(new Dimension (20,20));
@@ -65,6 +69,7 @@ public class Profil {
         Container cnt3 = new Container(BoxLayout.y());
         cnt2.add(lblusername);
         cnt2.add(scoref);
+        cnt2.add(lbdatenaissance);
         cnt2.add(lbrole);
         cnt2.add(lbnom);
         cnt2.add(lbprenom);
@@ -72,6 +77,7 @@ public class Profil {
         cnt2.add(lbjob);
         cnt3.add(lusername);
         cnt3.add(lscore);
+        cnt3.add(ldatenaiss);
         cnt3.add(lrole);
         cnt3.add(lnom);
         cnt3.add(lprenom);
