@@ -15,7 +15,20 @@ class CommentaireChatController extends UtilsController
         parent::__construct();
         // this is an object to remove params from json when serialized
         $this->callbacks = [
-
+            'publication' => function($obj){
+                return [
+                    'id' => $obj->getId()
+                ];
+            },
+            'user' => function($object){
+                return [
+                    "id" => $object->getId(),
+                    "nom" => $object->getNom(),
+                    "prenom" => $object->getPrenom(),
+                    "username" => $object->getUsername(),
+                    "fullName" => $object->getFullName(),
+                ];
+            },
         ];
 
     }
@@ -94,5 +107,32 @@ class CommentaireChatController extends UtilsController
         return $this->redirectToRoute(ChatRoomRoutes::chat_room_publication_consult, [
             'id' => $id_publication
         ]);
+    }
+
+    private function listComments($publicationId){
+        return $this->getDoctrine()->getRepository(CommentaireChat::class)
+            ->findAllComments($publicationId);
+    }
+
+    public function _listCommentsAction(Request $request){
+        $index = $request->get('index');
+        $pageSize = $request->get('pageSize');
+        $publicationId = $request->get('publicationId');
+
+        if(!isset($index) || is_null($index)) $index = 1;
+        if(!isset($pageSize) || is_null($pageSize)) $pageSize = 10;
+
+        $liste = $this->listComments($publicationId);
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $liste,
+            $request->get('page',$index),
+            $pageSize
+        );
+
+        return $this->getJsonResponse($pagination,[]);
+        //return $this->json($liste);
     }
 }

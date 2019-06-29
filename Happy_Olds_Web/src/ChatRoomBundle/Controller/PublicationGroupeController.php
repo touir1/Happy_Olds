@@ -31,6 +31,7 @@ class PublicationGroupeController extends UtilsController
                 ];
             },
             'pieceJointe' => function($object){
+                if (!isset($object) ||is_null($object)) return null;
                 return [
                     "id" => $object->getId(),
                     "realName" => $object->getRealName(),

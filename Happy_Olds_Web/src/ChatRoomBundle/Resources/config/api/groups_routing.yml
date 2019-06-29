@@ -10,6 +10,10 @@ chat_room_api_group_subscribed_list:
     path:     /subscribedGroups
     defaults: { _controller: ChatRoomBundle:Groupe:_subscribedList }
 
+chat_room_api_group_subscribed_list_accessible:
+    path:     /subscribedAccessibleGroups
+    defaults: { _controller: ChatRoomBundle:Groupe:_listInscriptionGroupsAccessible }
+
 chat_room_api_group_consult:
     path:     /group
     defaults: { _controller: ChatRoomBundle:Groupe:_consult }

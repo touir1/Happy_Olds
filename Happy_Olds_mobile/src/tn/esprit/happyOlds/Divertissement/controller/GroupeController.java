@@ -56,4 +56,25 @@ public class GroupeController extends CustomController{
         NetworkManager.getInstance().addToQueueAndWait(con);
         return result;
     }
+    
+    public static List<Groupe> getMyInscriptionGroupes(int index, int pageSize, String filter)
+    {
+        List<Groupe> result = new ArrayList<>();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(serverUrl+"/entertainment/groups/subscribedAccessibleGroups");  
+        con.addArgument("filter", filter);
+        con.addArgument("index", Integer.toString(index));
+        con.addArgument("pageSize", Integer.toString(pageSize));
+        con.addResponseListener(e -> {
+            try {
+                String json=new String(con.getResponseData());
+                System.out.println(json);
+                result.addAll(Utils.mapList(json, Groupe.class));
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return result;
+    }
 }

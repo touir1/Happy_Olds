@@ -62,7 +62,8 @@ public class DivertissementGui extends CustomGui{
         });
         */
         form.getToolbar().addCommandToOverflowMenu("Mes inscriptions aux groupes",null,(err)->{
-            
+            MyInscriptionGroupeGui myInscriptionGui = new MyInscriptionGroupeGui(form);
+            myInscriptionGui.getForm().show();
         });
         form.getToolbar().addCommandToOverflowMenu("Mes groupes",null,(err)->{
             MyGroupeGui myGroupeGui = new MyGroupeGui(form);
@@ -276,9 +277,18 @@ public class DivertissementGui extends CustomGui{
             }
         }
         
-        lbDE.addPointerPressedListener((e)->{
-            
+        Button clickEventButton = new Button();
+        clickEventButton.addActionListener(e -> {
+            PublicationGui publicationGui = new PublicationGui(form,publication.getId());
+            publicationGui.getForm().show();
         });
+        lbDE.setLeadComponent(clickEventButton);
+        /*
+        lbDE.addPointerPressedListener((e)->{
+            PublicationGui publicationGui = new PublicationGui(form,publication.getId());
+            publicationGui.getForm().show();
+        });
+        */
 
         return cnt1;
     }

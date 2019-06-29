@@ -40,7 +40,7 @@ import tn.esprit.happyOlds.Divertissement.entity.Publication;
  *
  * @author touir
  */
-public class MyGroupeGui extends CustomGui{
+public class MyInscriptionGroupeGui extends CustomGui{
     
     private static int index, pageSize;
     
@@ -48,8 +48,8 @@ public class MyGroupeGui extends CustomGui{
     private Container groupesContainer;
     private String filter;
     
-    public MyGroupeGui(Form caller){
-        super("Mes groupes",caller,true);
+    public MyInscriptionGroupeGui(Form caller){
+        super("Liste des inscriptions",caller,true);
         
         this.filter = "";
         
@@ -59,9 +59,9 @@ public class MyGroupeGui extends CustomGui{
             DivertissementGui divertissementGui = new DivertissementGui(form);
             divertissementGui.getForm().show();
         });
-        form.getToolbar().addCommandToOverflowMenu("Mes inscriptions au groupes",null,(err)->{
-            MyInscriptionGroupeGui myInscriptionGui = new MyInscriptionGroupeGui(form);
-            myInscriptionGui.getForm().show();
+        form.getToolbar().addCommandToOverflowMenu("Mes groupes",null,(err)->{
+            MyGroupeGui myGroupeGui = new MyGroupeGui(form);
+            myGroupeGui.getForm().show();
         });
         
         Container searchContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
@@ -78,7 +78,7 @@ public class MyGroupeGui extends CustomGui{
             System.out.println("show more");
             // loading
             Dialog ip2 = new InfiniteProgress().showInfiniteBlocking();
-            List<Groupe> more = GroupeController.getMyGroupes(index, pageSize, "");
+            List<Groupe> more = GroupeController.getMyInscriptionGroupes(index, pageSize, "");
             for (Groupe groupe : more) {
                 groupesContainer.add(addItem(groupe));
             }
@@ -109,7 +109,7 @@ public class MyGroupeGui extends CustomGui{
         new Thread(() -> {
             // start loading
             Dialog ip = new InfiniteProgress().showInfiniteBlocking();
-            groupes = GroupeController.getMyGroupes(index, pageSize, filter);
+            groupes = GroupeController.getMyInscriptionGroupes(index, pageSize, filter);
             
             for (Groupe groupe : groupes) {
                 groupesContainer.add(addItem(groupe));

@@ -10,4 +10,14 @@ namespace ChatRoomBundle\Repository;
  */
 class CommentaireChatRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllComments($idPublication)
+    {
+        //return $this->findAll();
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT c FROM ChatRoomBundle:CommentaireChat c "
+                ."WHERE c.publication = :idPublication "
+                ."ORDER BY c.dateCommentaire DESC ")
+            ->setParameter(':idPublication',$idPublication);
+        return $query->getResult();
+    }
 }

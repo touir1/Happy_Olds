@@ -77,6 +77,23 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function findAllSubscribed($user_id,$titre,$type,$sujet)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT g FROM ChatRoomBundle:Groupe g "
+                ."LEFT JOIN g.members m "
+                ."WHERE (g.creator = :member "
+                ."OR (m.banned !=1 AND m.authorized = 1 AND m.user = :member)) "
+                ."AND g.titre LIKE :titre "
+                ."AND (:type = 'all' OR g.type = :type) "
+                ."AND (:sujet = '0' OR g.sujet = :sujet) ")
+            ->setParameter(':member',$user_id)
+            ->setParameter(':titre',"%".$titre."%")
+            ->setParameter(':type',$type)
+            ->setParameter(':sujet',$sujet);
+        return $query->getResult();
+    }
+
     public function consult($groupe_id,$user_id)
     {
         $query=$this->getEntityManager()

@@ -133,6 +133,45 @@ class GroupeController extends UtilsController
         //return $this->json($liste);
     }
 
+    private function listInscriptionGroupsAccessible($titre,$type,$sujet)
+    {
+        return $this->getDoctrine()->getRepository(Groupe::class)
+            ->findAllSubscribed($this->getUser()->getId(),$titre,$type,$sujet);
+    }
+
+    public function _listInscriptionGroupsAccessibleAction(Request $request)
+    {
+        $titre = $request->get('filter');
+        $index = $request->get('index');
+        $pageSize = $request->get('pageSize');
+        $type = "all";
+        $sujet = "0";
+
+        if(!isset($titre) || is_null($titre)) $titre = "";
+        if(!isset($index) || is_null($index)) $index=1;
+        if(!isset($pageSize) || is_null($pageSize)) $pageSize=10;
+
+        //var_dump([$titre,$index,$pageSize,$type,$sujet]);
+        //die();
+
+        $liste = $this->listInscriptionGroupsAccessible($titre,$type,$sujet);
+
+        //var_dump($liste);
+        //die();
+
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $liste,
+            $request->get('page',$index),
+            $pageSize
+        );
+
+        return $this->getJsonResponse($pagination,[]);
+        //return $this->json($liste);
+    }
+
     // get list of authorized groups
     private function myListAccessible($titre,$type,$sujet)
     {

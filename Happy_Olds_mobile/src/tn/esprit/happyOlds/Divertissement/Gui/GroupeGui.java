@@ -70,14 +70,6 @@ public class GroupeGui extends CustomGui{
         super("Groupe - "+nomGroupe,caller,false);
         this.groupeId = groupId;
         
-        refreshView();
-        
-        
-    }
-    
-    private void refreshView(){
-        form.removeAll();
-        
         BoxLayout boxLayout = new BoxLayout(BoxLayout.Y_AXIS);
         form.setLayout(boxLayout);
         
@@ -106,6 +98,16 @@ public class GroupeGui extends CustomGui{
             MyGroupeGui myGroupeGui = new MyGroupeGui(form);
             myGroupeGui.getForm().show();
         });
+        
+        refreshView();
+        
+        
+    }
+    
+    private void refreshView(){
+        form.removeAll();
+        
+        browsers = new ArrayList<>();
         
         Container groupeContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         Container publicationsContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
@@ -189,9 +191,12 @@ public class GroupeGui extends CustomGui{
             publication.setDatePublication(new Date());
             publication.setDescription(textPublication.getText());
             
+            // start loading
+            Dialog ip = new InfiniteProgress().showInfiniteBlocking();
             PublicationController.sendPublication(publication);
             textPublication.clear();
             
+            ip.dispose();
             Dialog.show("Success", "Publication réussite", "OK",null);
             refreshView();
         });
@@ -356,9 +361,18 @@ public class GroupeGui extends CustomGui{
             }
         }
         
-        lbDE.addPointerPressedListener((e)->{
-            
+        Button clickEventButton = new Button();
+        clickEventButton.addActionListener(e -> {
+            PublicationGui publicationGui = new PublicationGui(form,publication.getId());
+            publicationGui.getForm().show();
         });
+        lbDE.setLeadComponent(clickEventButton);
+        /*
+        lbDE.addPointerPressedListener((e)->{
+            PublicationGui publicationGui = new PublicationGui(form,publication.getId());
+            publicationGui.getForm().show();
+        });
+        */
 
         return cnt1;
     }
