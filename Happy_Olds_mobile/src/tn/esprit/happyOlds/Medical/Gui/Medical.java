@@ -92,7 +92,6 @@ public class Medical {
         Container cnt2 = new Container(BoxLayout.y());
         cnt2.add(lblusername);
         cnt2.add(lbDET);
-        MyApplication my= new MyApplication();
          Label lblimg = new Label();
     Image red = Image.createImage(50, 50);  
         if(q.getUser().getPath()!=null){
@@ -123,10 +122,10 @@ public class Medical {
             
             F1 = new Form(q.getTitre(),BoxLayout.y());
             Container cnt7 = new Container(new BorderLayout());
-            Container cnt3 = new Container(new BorderLayout());
-            Container cnt4 = new Container(BoxLayout.y());
+            
+            
              Container cnt5 = new Container(BoxLayout.y());
-             Container cnt6 = new Container(new BorderLayout());
+            
             Label lrep = new Label ("Réponses : ");
             Label ldesc = new Label ("Description : ");
             cnt5.add(ldesc);
@@ -135,57 +134,51 @@ public class Medical {
        lbDE.setSize(new Dimension(50, 50));
             cnt5.add(lbDE);
              cnt5.add(lrep);
-            for(int i=0;i<q.getReponse().size();i++){
-                 SpanLabel cUsername = new SpanLabel(q.getReponse().get(i).getUser().getUsername());
-                
-                 SpanLabel ctexte = new SpanLabel(q.getReponse().get(i).getText().replace("<p>","").replace("</p>","").replace("&#39;", "'").replace("&nbsp;"," ").replace("&eacute;","é").replace("&eacute;","é").replace("&agrave;", "à"));
-                 cnt4.add(cUsername);
-                 cnt4.add(ctexte);
-               /* System.out.println(q.getReponse().get(i).getText());*/
-            
-      Image red1 = Image.createImage(50, 50);  
-        if(q.getUser().getPath()!=null){
-           
+              F1.add(cnt5);
+             for(int i=0;i<q.getReponse().size();i++){
+                   Container Cimg= new Container(new BorderLayout());
+              Container CRep = new Container(BoxLayout.y());
+              if(q.getReponse().get(i).getUser().getPath()!=null){
+                    EncodedImage enc = EncodedImage.
+                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
+                    
+                URLImage urlIm = URLImage.
+                       createToStorage(enc, "Img" + q.getId(), "http://127.0.0.1:8000/uploads/documents/"+q.getReponse().get(i).getUser().getPath(),URLImage.RESIZE_SCALE); 
 
-            EncodedImage enc = EncodedImage.
-                    createFromImage(red1, false);
-             URLImage urlIm = URLImage.
-                    createToStorage(enc, "Img" + q.getId(), "http://127.0.0.1:8000/uploads/documents/"+q.getUser().getPath()); 
-            //Image red = Image.createImage("file:///C:/wamp64/www/Happy_Olds/Happy_Olds_Web/web/uploads/documents/"+s.getUser().getPath());  
-            
-             ImageViewer img = new ImageViewer(urlIm);
+                ImageViewer img = new ImageViewer(urlIm);
          
-            cnt6.add(BorderLayout.WEST, img); }
-        else{    
-             EncodedImage enc = EncodedImage.
-                    createFromImage(red, false);
-             URLImage urlIm = URLImage.
-                     createToStorage(enc, "Img" + q.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
-            ImageViewer img = new ImageViewer(urlIm);
+            Cimg.add(BorderLayout.WEST, img); }
+              else{
+                     EncodedImage enc = EncodedImage.
+                       createFromImage(MyApplication.getTheme().getImage("round.png"), false);
+              URLImage urlIm = URLImage.
+                      createToStorage(enc, "Img" + q.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png",URLImage.RESIZE_SCALE);
+             ImageViewer img = new ImageViewer(urlIm);
             
-            cnt6.add(BorderLayout.WEST, img);
+            Cimg.add(BorderLayout.WEST, img);
+              }
+                /* EncodedImage enc = EncodedImage.
+                    createFromImage(theme.getImage("round.png"), false);
+            URLImage urlIm = URLImage.
+                    createToStorage(enc, "Img" + s.getId(),"http://127.0.0.1:8000/uploads/documents/avatarH.jpg");
+            ImageViewer img = new ImageViewer(urlIm);*/
+                SpanLabel cUsername = new SpanLabel(q.getReponse().get(i).getUser().getUsername());
                 
-
-        }
-        cnt3.add(BorderLayout.WEST,cnt6);
-            }
-        cnt7.add(BorderLayout.WEST, cnt5);
-         cnt3.add(BorderLayout.CENTER, cnt4);
-       
-            F1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
-                form.show();
-          
-            });
-           
-             F1.add(cnt7);
-           F1.add(cnt3);
+                 SpanLabel ctexte = new SpanLabel(q.getReponse().get(i).getText().replace("<p>","").replace("</p>",""));
+                 CRep.add(cUsername);
+                 CRep.add(ctexte);
+                 Cimg.add(BorderLayout.CENTER, CRep);
+                 F1.add(Cimg);
+                 
+             }
              
+            
              F1.show();
              
-             F1.getToolbar().addCommandToOverflowMenu("Ajouter reponse",null,(err)->{
-             addReponse r = new addReponse(q.getId());
-            r.getF1().show(); 
-        });
+            F1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
+                f.show();
+          
+            });
             
 
         });

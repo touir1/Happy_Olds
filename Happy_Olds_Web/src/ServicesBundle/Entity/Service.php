@@ -69,12 +69,12 @@ class Service implements NotifiableInterface
 
     /**
      * One product has many features. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="Postuler", mappedBy="service")
+     * @ORM\OneToMany(targetEntity="Postuler", mappedBy="service",cascade={"persist","remove"})
      */
      private $postuler;
     /**
      * One product has many features. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="CommentaireService", mappedBy="service")
+     * @ORM\OneToMany(targetEntity="CommentaireService", mappedBy="service",cascade={"persist","remove"})
      */
     private $commentaires;
     public function __construct() {
@@ -351,5 +351,6 @@ class Service implements NotifiableInterface
     public function notificationsOnDelete(NotificationBuilder $builder)
     {
         // TODO: Implement notificationsOnDelete() method.
+        return $builder ;
     }
 }

@@ -1,4 +1,0 @@
-services_DeleteAdm:
-    path:     /list
-    defaults: { _controller: "ServicesBundle:Service:DeleteAdm" }
-    methods:  [GET, POST]

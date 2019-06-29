@@ -35,11 +35,11 @@ class ServiceController extends Controller
        // $em = $this->getDoctrine()->getManager();
 
         //$services = $em->getRepository('ServicesBundle:Service')->findAll();
-        $connected_user_role=$this->getUser()->getRole();
-        if($connected_user_role=="ROLE_AGE"||$connected_user_role=="ROLE_JEUNE")
+       // $connected_user_role=$this->getUser()->getRole();
+       // if($connected_user_role=="ROLE_AGE"||$connected_user_role=="ROLE_JEUNE")
 
-        {return $this->redirectToRoute('forbidden_403');}
-        else {
+        //{return $this->redirectToRoute('forbidden_403');}
+       // else {
             $em = $this->get('doctrine.orm.entity_manager');
             $query = $em->createQuery("Select s from ServicesBundle:Service s");
             $paginator = $this->get('knp_paginator');
@@ -54,7 +54,7 @@ class ServiceController extends Controller
                 'services' => $pagination
             ));
         }
-    }
+    
     public function publierAction()
     {
         $em = $this->getDoctrine()->getManager();
