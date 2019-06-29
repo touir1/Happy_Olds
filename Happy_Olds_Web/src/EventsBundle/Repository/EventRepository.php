@@ -17,4 +17,13 @@ class EventRepository extends \Doctrine\ORM\EntityRepository
         ->setParameter(':user',$user);
         return $query->getResult();
     }
+
+    public function participedIn($user){
+        $query=$this->getEntityManager()
+            ->createQuery(" SELECT e FROM EventsBundle:Event e "
+                ." LEFT JOIN e.Participants p "
+                ." WHERE p.user = :user and e.dateFin < current_date() ")
+            ->setParameter(':user',$user);
+        return $query->getResult();
+    }
 }

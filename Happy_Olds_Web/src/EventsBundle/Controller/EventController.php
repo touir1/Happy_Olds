@@ -2,6 +2,7 @@
 
 namespace EventsBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EventsBundle\Entity\Event;
 use EventsBundle\Entity\Participer;
 use EventsBundle\Entity\Rate;
@@ -82,7 +83,9 @@ class EventController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $events = $em->getRepository('EventsBundle:Event')->findAll();
+        $events = $em->getRepository('EventsBundle:Event')
+            ->participedIn($this->getUser()->getId());
+
 
         return $this->render('@Events/event/voir.html.twig', array(
             'events' => $events,

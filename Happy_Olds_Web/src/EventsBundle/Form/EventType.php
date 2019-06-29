@@ -20,7 +20,7 @@ class EventType extends AbstractType
             ->add('nbrParticipant')
             ->add('dateDebut')
             ->add('dateFin')
-            ->add('privilege')
+            ->add('lieu')
             ->add('file')
             ->add('Valider',SubmitType::class)
             ->add('ville',choiceType::class, array(
