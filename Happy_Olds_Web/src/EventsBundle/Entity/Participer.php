@@ -5,12 +5,12 @@ namespace EventsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Rate
+ * Participer
  *
- * @ORM\Table(name="rate")
- * @ORM\Entity(repositoryClass="EventsBundle\Repository\RateRepository")
+ * @ORM\Table(name="participer")
+ * @ORM\Entity(repositoryClass="EventsBundle\Repository\ParticiperRepository")
  */
-class Rate
+class Participer
 {
     /**
      * @var int
@@ -21,26 +21,26 @@ class Rate
      */
     private $id;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="note", type="float")
-     */
-    private $note;
+
+
+
+
+
+
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Event")
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="event_id",referencedColumnName="id")
      */
-    private $event;
 
+    private $event;
     /**
      * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
      */
+
     private $user;
-
-
     /**
      * Get id
      *
@@ -51,36 +51,16 @@ class Rate
         return $this->id;
     }
 
-    /**
-     * Set note
-     *
-     * @param float $note
-     *
-     * @return Rate
-     */
-    public function setNote($note)
-    {
-        $this->note = $note;
 
-        return $this;
-    }
 
-    /**
-     * Get note
-     *
-     * @return float
-     */
-    public function getNote()
-    {
-        return $this->note;
-    }
+
 
     /**
      * Set event
      *
      * @param \EventsBundle\Entity\Event $event
      *
-     * @return Rate
+     * @return Participer
      */
     public function setEvent(\EventsBundle\Entity\Event $event = null)
     {
@@ -104,7 +84,7 @@ class Rate
      *
      * @param \HappyOldsMainBundle\Entity\User $user
      *
-     * @return Rate
+     * @return Participer
      */
     public function setUser(\HappyOldsMainBundle\Entity\User $user = null)
     {

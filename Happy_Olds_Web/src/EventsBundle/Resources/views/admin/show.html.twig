@@ -1,0 +1,57 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+    <h5 align="right"><a href="{{ path('event_affiche2') }}">Retour à la liste</a></h5>
+
+<TABLE CELLSPACING=10 CELLPADDING=10 width="80%" >
+
+    <TR>
+        <TD ROWSPAN=2 COLSPAN=2 align="center"><img width="250px" height="250px" src="../../dist/img/photo2.png" /></TD>
+        <TH COLSPAN=2 align="center">Titre de l'événement : {{ event.titre }} </TH>
+    </TR>
+    <TR>
+        <TH align="center">Nombre de place disponible : <br>{{ event.nbrParticipant }}</TH>
+        <TH align="center">Nombre des participants : <br>{{ event.nbrParticipant }}</TH>
+    </TR></TABLE>
+<br><br><br>
+
+<table align="center" width="80%" >
+    <tbody>
+    <tr>
+        <th>Numéro</th>
+        <td>{{ event.id }}</td>
+    </tr>
+    <tr>
+        <th>Titre</th>
+        <td>{{ event.titre }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ event.description }}</td>
+    </tr>
+    <tr>
+        <th>Nombre participant</th>
+        <td>{{ event.nbrParticipant }}</td>
+    </tr>
+    <tr>
+        <th>Date de début</th>
+        <td>{% if event.dateDebut %}{{ event.dateDebut|date('Y-m-d H:i:s') }}{% endif %}</td>
+    </tr>
+    <tr>
+        <th>Date de fin</th>
+        <td>{% if event.dateFin %}{{ event.dateFin|date('Y-m-d H:i:s') }}{% endif %}</td>
+    </tr>
+    <tr>
+        <th>Privilége</th>
+        <td>{{ event.privilege }}</td>
+    </tr>
+    <tr>
+        <th>Privilége</th>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+    </div>
+{% endblock %}

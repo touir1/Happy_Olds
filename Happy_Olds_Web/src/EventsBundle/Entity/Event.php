@@ -2,7 +2,10 @@
 
 namespace EventsBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Event
@@ -46,6 +49,21 @@ class Event
      */
     private $nbrParticipant;
 
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbrDispo", type="integer")
+     */
+    private $nbrDispo;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Participant", type="integer")
+     */
+    private $Participant;
     /**
      * @var \DateTime
      *
@@ -63,9 +81,36 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="privilege", type="string", length=255)
+     * @ORM\Column(name="lieu", type="string", length=255)
      */
-    private $privilege;
+    private $lieu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=255)
+     */
+    private $ville;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $path;
+
+    /**
+     * *@Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Participer", mappedBy="event")
+     */
+    private $Participants;
+    public function __construct() {
+        $this->Participants = new ArrayCollection();
+    }
+
 
 
     /**
@@ -198,29 +243,7 @@ class Event
         return $this->dateFin;
     }
 
-    /**
-     * Set privilege
-     *
-     * @param string $privilege
-     *
-     * @return Event
-     */
-    public function setPrivilege($privilege)
-    {
-        $this->privilege = $privilege;
 
-        return $this;
-    }
-
-    /**
-     * Get privilege
-     *
-     * @return string
-     */
-    public function getPrivilege()
-    {
-        return $this->privilege;
-    }
 
     /**
      * Set id_user
@@ -246,5 +269,235 @@ class Event
     {
 
         return $this->id_user;
+    }
+
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/documents';
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+
+        $filePath = md5(uniqid($this->getIdUser()."_profil",true)).".".
+            $this->getFile()->guessClientExtension();
+
+        $this->getFile()->move(
+            $this->getUploadRootDir(),$filePath
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->path = $filePath;
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Event
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     *
+     * @return Event
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set nbrDispo
+     *
+     * @param integer $nbrDispo
+     *
+     * @return Event
+     */
+    public function setNbrDispo($nbrDispo)
+    {
+        $this->nbrDispo = $nbrDispo;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrDispo
+     *
+     * @return integer
+     */
+    public function getNbrDispo()
+    {
+        return $this->nbrDispo;
+    }
+
+    /**
+     * Set participant
+     *
+     * @param integer $participant
+     *
+     * @return Event
+     */
+    public function setParticipant($participant)
+    {
+        $this->Participant = $participant;
+
+        return $this;
+    }
+
+    /**
+     * Get participant
+     *
+     * @return integer
+     */
+    public function getParticipant()
+    {
+        return $this->Participant;
+    }
+
+    /**
+     * Add participant
+     *
+     * @param \EventsBundle\Entity\Participer $participant
+     *
+     * @return Event
+     */
+    public function addParticipant(\EventsBundle\Entity\Participer $participant)
+    {
+        $this->Participants[] = $participant;
+
+        return $this;
+    }
+
+    /**
+     * Remove participant
+     *
+     * @param \EventsBundle\Entity\Participer $participant
+     */
+    public function removeParticipant(\EventsBundle\Entity\Participer $participant)
+    {
+        $this->Participants->removeElement($participant);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParticipants()
+    {
+        return $this->Participants;
+    }
+
+    /**
+     * Set lieu
+     *
+     * @param string $lieu
+     *
+     * @return Event
+     */
+    public function setLieu($lieu)
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    /**
+     * Get lieu
+     *
+     * @return string
+     */
+    public function getLieu()
+    {
+        return $this->lieu;
     }
 }

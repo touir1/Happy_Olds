@@ -3,6 +3,7 @@
 namespace EventsBundle\Controller;
 
 use EventsBundle\Entity\Event;
+use EventsBundle\Entity\Participer;
 use EventsBundle\Entity\Rate;
 use EventsBundle\Form\RateType;
 use HappyOldsMainBundle\Entity\User;
@@ -43,7 +44,10 @@ class EventController extends Controller
         if ($form->isSubmitted() && $form->isValid() ) {
             $em = $this->getDoctrine()->getManager();
             $event->setIdUser($this->getUser());
+            $event->upload();
+            $event->setParticipant(0);
             $em->persist($event);
+            $event->setNbrDispo($event->getNbrParticipant());
             $em->flush();
 
             return $this->redirectToRoute('event_show', array('id' => $event->getId()));
@@ -88,7 +92,15 @@ class EventController extends Controller
     {
         $deleteForm = $this->createDeleteForm($event);
 
-        $rate = new Rate();
+        $rate = $this->getDoctrine()->getRepository(Rate::class)
+            ->findOneBy(['user' => $this->getUser(),'event' => $event]);
+
+        //var_dump($rate);
+        //die();
+
+        if(!isset($rate) || is_null($rate)){
+            $rate = new Rate();
+        }
 
         $form = $this->createForm(RateType::class,$rate);
 
@@ -151,7 +163,24 @@ class EventController extends Controller
             'events' => $events,
         ));
     }
+    public function participerAction(Request $request)
+    {
+        $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $event = $this->getDoctrine()->getRepository(Event::class)
+            ->find($id);
+        $event->setNbrDispo($event->getNbrDispo()-1);
+        $event->setParticipant($event->getParticipant() + 1);
+        $em->persist($event);
+        $Participer = new Participer();
 
+        $Participer->setUser($this->getUser());
+        $Participer->setEvent($event);
+        $em->persist($Participer);
+        $em->flush();
+
+        return $this->redirectToRoute('event_show',array('id'=>$event->getId()));
+    }
     public function venirAction()
     {
         $em = $this->getDoctrine()->getManager();

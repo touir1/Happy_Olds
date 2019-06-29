@@ -34,6 +34,12 @@ class Rate
      */
     private $event;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -68,5 +74,28 @@ class Rate
     {
         return $this->note;
     }
-}
 
+    /**
+     * Set event
+     *
+     * @param \EventsBundle\Entity\Event $event
+     *
+     * @return Rate
+     */
+    public function setEvent(\EventsBundle\Entity\Event $event = null)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return \EventsBundle\Entity\Event
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+}

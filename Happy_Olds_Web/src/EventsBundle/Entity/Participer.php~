@@ -1,0 +1,142 @@
+<?php
+
+namespace EventsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Participer
+ *
+ * @ORM\Table(name="participer")
+ * @ORM\Entity(repositoryClass="EventsBundle\Repository\ParticiperRepository")
+ */
+class Participer
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbrParticipant", type="integer")
+     */
+    private $nbrParticipant;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbrDispo", type="integer")
+     */
+    private $nbrDispo;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Participant", type="integer")
+     */
+    private $participant;
+
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Event")
+     * @ORM\JoinColumn(name="event_id",referencedColumnName="id")
+     */
+
+    private $event;
+    /**
+     * @ORM\ManyToOne(targetEntity="\HappyOldsMainBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     */
+
+    private $user;
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nbrParticipant
+     *
+     * @param integer $nbrParticipant
+     *
+     * @return Participer
+     */
+    public function setNbrParticipant($nbrParticipant)
+    {
+        $this->nbrParticipant = $nbrParticipant;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrParticipant
+     *
+     * @return int
+     */
+    public function getNbrParticipant()
+    {
+        return $this->nbrParticipant;
+    }
+
+    /**
+     * Set nbrDispo
+     *
+     * @param integer $nbrDispo
+     *
+     * @return Participer
+     */
+    public function setNbrDispo($nbrDispo)
+    {
+        $this->nbrDispo = $nbrDispo;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrDispo
+     *
+     * @return int
+     */
+    public function getNbrDispo()
+    {
+        return $this->nbrDispo;
+    }
+
+    /**
+     * Set participant
+     *
+     * @param integer $participant
+     *
+     * @return Participer
+     */
+    public function setParticipant($participant)
+    {
+        $this->participant = $participant;
+
+        return $this;
+    }
+
+    /**
+     * Get participant
+     *
+     * @return int
+     */
+    public function getParticipant()
+    {
+        return $this->participant;
+    }
+}
+

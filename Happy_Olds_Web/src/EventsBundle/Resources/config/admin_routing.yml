@@ -1,0 +1,11 @@
+event_affiche2:
+        path:     /affiche2
+        defaults: { _controller: EventsBundle:EventAdmin:affiche2 }
+
+event_delete2:
+        path:     /delete2
+        defaults: { _controller: EventsBundle:EventAdmin:delete2 }
+
+event_show2:
+        path:     /show2
+        defaults: { _controller: EventsBundle:EventAdmin:show2 }

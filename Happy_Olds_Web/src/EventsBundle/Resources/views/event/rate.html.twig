@@ -38,9 +38,10 @@
                 <h5 align="right"><a href="{{ path('event_voir') }}">Retour à la liste</a></h5>
                 <!--h5 align="right"><a href="{{ path('event_edit', { 'id': event.id }) }}">Modifier l'évenement</a></h5 -->
                 <!--h5 align="right"><a href="{{ path('event_delete', { 'id': event.id }) }}">Supprimer l'évenement</a></h5 -->
-                <h5 align="right">{{ form_start(rating_form) }}
-                    <!--input type="submit" value="Delete" -->
-                    {{ form_end(rating_form) }}</h5>
+                <h5 align="right">{{ form_start(rating_form,{'action': path('event_note',{ 'id': event.id })}) }}
+                        <input type="submit" value="notez l'évènement" >
+                    {{ form_end(rating_form) }}
+                    </h5>
 
 
 
@@ -71,8 +72,8 @@
                         <td>{% if event.dateFin %}{{ event.dateFin|date('Y-m-d H:i:s') }}{% endif %}</td>
                     </tr>
                     <tr>
-                        <th>Privilége</th>
-                        <td>{{ event.privilege }}</td>
+                        <th>Lie</th>
+                        <td>{{ event.lieu }}</td>
                     </tr>
 
                     </tbody>

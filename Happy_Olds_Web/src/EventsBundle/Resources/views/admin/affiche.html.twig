@@ -1,0 +1,23 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+        <h2 align="center">Liste des événements</h2>
+    <table width="100%">
+
+    <tr><td>idenfiant</td>
+        <td>Titre</td>
+        <td>Nombre Participants</td><td>Consulter</td><td>Supprimer</td>
+{% for m in liste %}
+
+    <tr><td>{{ m.id }}</td>
+        <td>{{ m.titre }}</td>
+        <td>{{ m.nbrParticipant }}</td>
+            <td><a href="{{  path('event_show2',{'id':m.id }) }}">Consulter</a></td>
+        <td><a href="{{  path('event_delete2',{'id':m.id }) }}">Delete</a></td>
+        </tr>
+
+{% endfor %}
+    </table>
+    </div>
+{% endblock %}

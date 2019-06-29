@@ -1,0 +1,7 @@
+all_events:
+  path:  /all
+  defaults: {_controller: "EventsBundle:Api:all"}
+
+add_events:
+  path:  /add
+  defaults: {_controller: "EventsBundle:Api:add"}

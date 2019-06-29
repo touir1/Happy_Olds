@@ -3,6 +3,7 @@
 {% block body %}
 
 <link rel="stylesheet" type="text/css" href="AdminLTE.css" />
+
 <div class="col-md-3">
 
     <!-- Profile Image -->
@@ -25,43 +26,74 @@
                     <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
                     Voter pour les événements
                 </li>
-                <li class="list-group-item">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }}/>
-                    Statistiques</li>
             </ul>
-        </div></div></div>
-<div class="col-md-9">
-    <div class="box box-danger">
-        <div class="box-header with-border">
-            <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Modifier l'événement</h1></font></font></h3>
-        </div>
+            </div></div></div></div>>
+    <div class="col-md-9">
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Modifier l'évenement</h1></font></font></h3>
+            </div>
+
     <h5 align="right"><a href="{{ path('event_index') }}">Back to the list</a></h5>
 <h5 align="right">{{ form_start(delete_form) }}
     <input type="submit" value="Delete">
     {{ form_end(delete_form) }}</h5>
 
-<table align="center">
-    {{ form_start(edit_form) }}
-    <tr>
-        <th>Titre *:</th>
-        <td>{{ form_widget(edit_form.titre) }}</td>
-    </tr>
-    <tr>
-        <th>Description *:</th>
-        <td>{{ form_widget(edit_form.description) }}</td>
-    </tr>
-    <tr>
-        <th>Nombre de participant *:</th>
-        <td>{{ form_widget(edit_form.nbrParticipant) }}</td>
-    </tr>
-    <tr>
-        <th>Date de début *:</th>
-        <td>{{ form_widget(edit_form.dateDebut) }}</td>
-        <th>Date de fin *:</th>
-        <td>{{ form_widget(edit_form.dateFin) }}</td>
-    </tr>
-    <tr><th> Privilége *:</th><td>{{  form_widget(edit_form.privilege) }}</td></tr>
+            <div class="form-group">
+                <label class="text-muted">Titre : </label>
+                {{
+                form_widget(edit_form.titre, {'attr' : {'class' : 'form-control', 'rows':'1',
+                    'placeholder': 'Tapez le titre'}})
+                }}
+            </div>
+            <div class="form-group">
+                <label class="text-muted">Description : </label>
 
+                {{
+
+                form_widget(edit_form.description, {'attr' : {'class' : 'form-control', 'rows':'3','id':'editor1','name':' editor1',
+                    'placeholder': 'Enter la description ...'}})
+                }}
+            </div>
+
+            <div class="form-group">
+                <label class="text-muted">Nombre des participants : </label>
+                {{
+                form_widget(edit_form.nbrParticipant, {'attr' : {'class' : 'form-control', 'rows':'1',
+                    'placeholder': 'Tapez le nombre'}})
+                }}
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="text-muted">Ville </label>
+                {{
+                form_widget(edit_form.ville, {'attr' : {'class' : 'form-control',
+                    'placeholder': 'Ville...' }})
+                }}
+            </div>
+
+            <div class="form-group">
+                <label class="text-muted">Lieu </label>
+                {{
+                form_widget(edit_form.lieu, {'attr' : {'class' : 'form-control', 'rows':'1',
+                    'placeholder': 'Emplacement'}})
+                }}
+            </div>
+            <br><br>
+            <table valign="center" size="50%">
+                <tr><th>Date de fin</th>
+                    <td>{{ form_widget(edit_form.dateFin) }}</td>
+                    <th align="left">Date de fin</th>
+                    <td>{{ form_widget(edit_form.dateDebut) }}</td>
+                    <td>{{ form_widget(edit_form.dateDebut) }}</td>
+                </tr></table>
+
+
+    {{ form_start(edit_form) }}
+
+    <table align="center">
 <br>
      <tr><th></th><th><input type="submit" value="Modifier" /></th>
             </tr>

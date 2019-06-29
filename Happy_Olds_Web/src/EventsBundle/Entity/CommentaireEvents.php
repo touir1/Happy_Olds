@@ -10,8 +10,23 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="commentaire_events")
  * @ORM\Entity(repositoryClass="EventsBundle\Repository\CommentaireEventsRepository")
  */
-class CommentaireEvents
+class CommentaireEvents extends \HappyOldsMainBundle\Entity\Commentaire
 {
+    /**
+     * @return mixed
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * @param mixed $event
+     */
+    public function setEvent( \EventsBundle\Entity\Event $event = null)
+    {
+        $this->event = $event;
+    }
     /**
      * @var int
      *
@@ -20,7 +35,12 @@ class CommentaireEvents
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    /**
+     * @ORM\ManyToOne(targetEntity="Event")
+     * @ORM\JoinColumn(name="event_id",referencedColumnName="id")
+     */
 
+    private $event;
 
     /**
      * Get id

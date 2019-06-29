@@ -4,41 +4,50 @@ event_index:
     methods:  GET
 
 event_show:
-    path:     /{id}/show
+    path:     /{id}/show/
     defaults: { _controller: "EventsBundle:Event:show" }
     methods:  GET
 
 event_new:
-    path:     /new
+    path:     /new/
     defaults: { _controller: "EventsBundle:Event:new" }
     methods:  [GET, POST]
 
 event_edit:
-    path:     /{id}/edit
+    path:     /{id}/edit/
     defaults: { _controller: "EventsBundle:Event:edit" }
     methods:  [GET, POST]
 
 event_delete:
-    path:     /{id}/delete
+    path:     /{id}/delete/
     defaults: { _controller: "EventsBundle:Event:delete" }
     methods:  DELETE
 
 event_affiche:
-    path:     /affiche
+    path:     /affiche/
     defaults: { _controller: "EventsBundle:Event:affiche" }
     methods:  GET
 
 event_voir:
-    path:     /voir
+    path:     /voir/
     defaults: { _controller: "EventsBundle:Event:voir" }
     methods:  GET
 
 event_rate:
-    path:     /{id}/rate
+    path:     /{id}/rate/
     defaults: { _controller: "EventsBundle:Event:rate" }
     methods:  GET
 
 event_venir:
-    path:     /venir
+    path:     /venir/
     defaults: { _controller: "EventsBundle:Event:venir" }
     methods:  GET
+
+event_note:
+    path:     /note/
+    defaults: { _controller: "EventsBundle:Rate:ajout" }
+    methods:  POST
+
+event_participer:
+    path:     /participer/
+    defaults: { _controller: "EventsBundle:Event:participer" }

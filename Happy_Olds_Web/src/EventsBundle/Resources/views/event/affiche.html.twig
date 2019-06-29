@@ -40,7 +40,7 @@
     </ul-->
             <h5 align="right"><a href="{{ path('event_new') }}">Creation d'un nouveau évenement</a></h5>
             <table align="center" border="0" width="75%" >
-                {% for event in events %}
+                {% for event in events|reverse %}
                     <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
                     <div class="small-box bg-red">
