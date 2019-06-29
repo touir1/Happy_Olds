@@ -5,6 +5,7 @@ namespace MedicalBundle\Controller;
 use HappyOldsMainBundle\Entity\User;
 use http\Env\Request;
 use MedicalBundle\Entity\Question;
+use MedicalBundle\Entity\Reponse;
 use MedicalBundle\Entity\Sujet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -62,8 +63,40 @@ class apiController extends Controller
         $question->setUser($user);
         $em->persist($question);
         $em->flush();
-         $serializer= new Serializer([new ObjectNormalizer()]);
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizers = array($normalizer);
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $serializer=new Serializer($normalizers);
          $formatted=$serializer->normalize($question);
-        return new JsonResponse($question);
+        return new JsonResponse($formatted);
+    }
+
+
+    public function newAction(\Symfony\Component\HttpFoundation\Request $request){
+        $idUser=$request->get('idUser');
+        $idQuestion=$request->get('idQuestion');
+        $user=$this->getDoctrine()->getRepository(User::class)->find($idUser);
+        $question=$this->getDoctrine()->getRepository(Question::class)->find($idQuestion);
+        $reponse= new Reponse();
+        $reponse->setUser($user);
+        $date= new \DateTime();
+        $reponse->setDateR($date);
+        $reponse->setQuestion($question);
+        $reponse->setText($request->get('text'));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($reponse);
+        $em->flush();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizers = array($normalizer);
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $serializer=new Serializer($normalizers);
+        $formatted=$serializer->normalize($reponse);
+        return new JsonResponse($formatted);
     }
 }

@@ -266,5 +266,32 @@ public class MedicalController {
         NetworkManager.getInstance().addToQueueAndWait(con);//pour etablir la conx
         return resp;
      }
+       
+     public String newReponse(int idUser,int question,String text){
+        
+      ConnectionRequest con = new ConnectionRequest();
+           System.out.println(idUser);
+           System.out.println(question);
+           System.out.println(text);
+       
+        con.setUrl("http://127.0.0.1:8000/api/medical/new/new"); 
+        con.addArgument("idUser", Integer.toString(idUser));
+        con.addArgument("idQuestion", Integer.toString(question));
+        con.addArgument("text", text);
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                try {
+                     resp = new String(con.getResponseData());
+                    //System.out.println(resp);
+                 }
+                catch(Exception e){
+                e.getMessage();
+                }
+            }
+            }); 
+        NetworkManager.getInstance().addToQueueAndWait(con);//pour etablir la conx
+        return resp;
+     }  
 }
                 

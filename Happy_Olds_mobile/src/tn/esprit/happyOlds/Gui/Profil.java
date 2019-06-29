@@ -37,8 +37,18 @@ public class Profil {
         menu m=new menu();
         m.addmenu(f);
          Container cnt1 = new Container(new BorderLayout());
+         Label lusername = new Label ("Username : ");
+         Label lscore = new Label ("Score final : ");
+         Label lville = new Label ("Ville : ");
+         Label ljob = new Label ("Job : ");
+         Label lnom = new Label ("Nom : ");
+         Label lprenom = new Label ("Prenom : ");
+         Label lrole = new Label ("Role : ");
+         
         Label lblusername = new Label(UserController.userConnectee.getUsername());
-        TextField scoref = new TextField(UserController.userConnectee.getScorefinal());
+        Integer var = UserController.userConnectee.getScorefinal();
+        String test = var.toString();
+        Label scoref = new Label(test);
         Label lbrole= new Label(UserController.userConnectee.getRole());
         Label lbnom = new Label(UserController.userConnectee.getNom());
         Label lbprenom = new Label(UserController.userConnectee.getPrenom());
@@ -52,6 +62,7 @@ public class Profil {
            lbville.setSize(new Dimension (20,20));
             lbjob.setSize(new Dimension (20,20));
         Container cnt2 = new Container(BoxLayout.y());
+        Container cnt3 = new Container(BoxLayout.y());
         cnt2.add(lblusername);
         cnt2.add(scoref);
         cnt2.add(lbrole);
@@ -59,7 +70,13 @@ public class Profil {
         cnt2.add(lbprenom);
         cnt2.add(lbville);
         cnt2.add(lbjob);
-        
+        cnt3.add(lusername);
+        cnt3.add(lscore);
+        cnt3.add(lrole);
+        cnt3.add(lnom);
+        cnt3.add(lprenom);
+        cnt3.add(lville);
+        cnt3.add(ljob);
         MyApplication my= new MyApplication();
          Label lblimg = new Label();
     Image red = Image.createImage(50, 50);  
@@ -74,7 +91,7 @@ public class Profil {
             
              ImageViewer img = new ImageViewer(urlIm);
          
-            cnt1.add(BorderLayout.WEST, img); }
+            cnt1.add(BorderLayout.NORTH, img); }
         else{    
              EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
@@ -82,11 +99,12 @@ public class Profil {
                      createToStorage(enc, "Img" + UserController.userConnectee.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
             ImageViewer img = new ImageViewer(urlIm);
             
-            cnt1.add(BorderLayout.WEST, img);
+            cnt1.add(BorderLayout.NORTH, img);
                 
 
         }
-        cnt1.add(BorderLayout.CENTER, cnt2);
+        cnt1.add(BorderLayout.EAST, cnt2);
+        cnt1.add(BorderLayout.WEST, cnt3);
         f.add(cnt1);
        
     }

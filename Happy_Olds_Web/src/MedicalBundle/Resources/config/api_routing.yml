@@ -7,3 +7,7 @@ one_question:
 new_souel:
   path: add/add
   defaults: { _controller: "MedicalBundle:api:add" }
+new_reponse:
+  path: new/new
+  defaults: { _controller: "MedicalBundle:api:new" }
+

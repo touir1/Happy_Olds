@@ -32,15 +32,17 @@
             <br>
             <center>
             <div>
-               {# {% if questions.user.roles=='agee' %}#}
+                {# {% if "AGE" in app.user.getRoles %}#}
 
-                <a href="{{ path('medical_ajouter') }}" class="btn btn-danger btn-lg" style="display:inline-block;">Ajouter une question</a>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                <a href="{{ path('medical_historique') }}" class="btn btn-danger btn-lg"
-                   style="display:inline-block;">Historique</a>
-               {# {% endif %}#}
+     {% if app.user.role =="ROLE_AGE" %}
 
-           {# <a href="{{ path('medical_ajouter') }}"> <input type="button" value="Ajouter une question" class="btn btn-block btn-danger btn-lg" style="width:14%"></a>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-            <a href="{{ path('medical_historique') }}" ><input type="button" value="Historique" class="btn btn-block btn-danger btn-lg" style="width:8%"></a> #}
+<a href="{{ path('medical_ajouter') }}" class="btn btn-danger btn-lg" style="display:inline-block;">Ajouter une question</a>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<a href="{{ path('medical_historique') }}" class="btn btn-danger btn-lg"
+ style="display:inline-block;">Historique</a>
+{% endif %}
+
+{# <a href="{{ path('medical_ajouter') }}"> <input type="button" value="Ajouter une question" class="btn btn-block btn-danger btn-lg" style="width:14%"></a>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<a href="{{ path('medical_historique') }}" ><input type="button" value="Historique" class="btn btn-block btn-danger btn-lg" style="width:8%"></a> #}
             </div>
             </center>
             <br>

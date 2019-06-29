@@ -52,7 +52,7 @@ public class Medical {
        form =new Form("Forum medical");
         this.theme = MyApplication.getTheme(); 
         this.controller = new MedicalController();
-        
+        if (UserController.userConnectee.getRole().equals("ROLE_AGE")){
         form.getToolbar().addCommandToOverflowMenu("Ajouter question",null,(err)->{
       
             addQuestion q = new addQuestion();
@@ -60,7 +60,7 @@ public class Medical {
      
     });
             
-        
+        } 
    
       List<Question> lstQuestion=new ArrayList<>();
         
@@ -87,13 +87,11 @@ public class Medical {
         lblusername.setSize(new Dimension(20, 20));
         Label lbDET = new Label(q.getTitre());
         lbDET.setSize(new Dimension(20, 20));
-        SpanLabel lbDE = new SpanLabel(q.getDescription().replace("<p>","").replace("</p>","").replace("&#39;", "'").replace("&nbsp;"," ").replace("&eacute;","é").replace("&agrave;", "à"));
-       lbDE.setSize(new Dimension(40, 40));
+        
         
         Container cnt2 = new Container(BoxLayout.y());
         cnt2.add(lblusername);
         cnt2.add(lbDET);
-        cnt2.add(lbDE);
         MyApplication my= new MyApplication();
          Label lblimg = new Label();
     Image red = Image.createImage(50, 50);  
@@ -122,10 +120,21 @@ public class Medical {
         }
         cnt1.add(BorderLayout.CENTER, cnt2);
         lbDET.addPointerPressedListener((e)->{
+            
             F1 = new Form(q.getTitre(),BoxLayout.y());
+            Container cnt7 = new Container(new BorderLayout());
             Container cnt3 = new Container(new BorderLayout());
             Container cnt4 = new Container(BoxLayout.y());
+             Container cnt5 = new Container(BoxLayout.y());
+             Container cnt6 = new Container(new BorderLayout());
+            Label lrep = new Label ("Réponses : ");
+            Label ldesc = new Label ("Description : ");
+            cnt5.add(ldesc);
             
+        SpanLabel lbDE = new SpanLabel(q.getDescription().replace("<p>","").replace("</p>","").replace("&#39;", "'").replace("&nbsp;"," ").replace("&eacute;","é").replace("&agrave;", "à"));
+       lbDE.setSize(new Dimension(50, 50));
+            cnt5.add(lbDE);
+             cnt5.add(lrep);
             for(int i=0;i<q.getReponse().size();i++){
                  SpanLabel cUsername = new SpanLabel(q.getReponse().get(i).getUser().getUsername());
                 
@@ -133,7 +142,7 @@ public class Medical {
                  cnt4.add(cUsername);
                  cnt4.add(ctexte);
                /* System.out.println(q.getReponse().get(i).getText());*/
-            }
+            
       Image red1 = Image.createImage(50, 50);  
         if(q.getUser().getPath()!=null){
            
@@ -146,7 +155,7 @@ public class Medical {
             
              ImageViewer img = new ImageViewer(urlIm);
          
-            cnt3.add(BorderLayout.WEST, img); }
+            cnt6.add(BorderLayout.WEST, img); }
         else{    
              EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
@@ -154,25 +163,29 @@ public class Medical {
                      createToStorage(enc, "Img" + q.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
             ImageViewer img = new ImageViewer(urlIm);
             
-            cnt3.add(BorderLayout.WEST, img);
+            cnt6.add(BorderLayout.WEST, img);
                 
 
         }
-        
-        cnt3.add(BorderLayout.CENTER, cnt4);
-             
+        cnt3.add(BorderLayout.WEST,cnt6);
+            }
+        cnt7.add(BorderLayout.WEST, cnt5);
+         cnt3.add(BorderLayout.CENTER, cnt4);
+       
             F1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
                 form.show();
           
             });
-             
+           
+             F1.add(cnt7);
            F1.add(cnt3);
              
              F1.show();
              
-           form.getToolbar().addCommandToOverflowMenu("Ajouter reponse",null,(err)->{
-            
-        }); 
+             F1.getToolbar().addCommandToOverflowMenu("Ajouter reponse",null,(err)->{
+             addReponse r = new addReponse(q.getId());
+            r.getF1().show(); 
+        });
             
 
         });
