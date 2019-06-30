@@ -1,0 +1,52 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+<div class="box-header">
+
+    <br>
+    <div class="col-sm-4 pull-right">
+        <div id="filter_box">
+            <form action="{{ path('sujet_new') }}">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-plus"></i> Ajouter</button>
+                                </span>
+                </div>
+            </form>
+        </div>
+    </div>
+<br>
+    <br>
+    <br>
+    <h3 class="box-title">Liste des sujets</h3>
+    <div class="box-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr role="row">
+                <th{% if sujets.isSorted('s.type') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(sujets, 'Type', 's.type') }}</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+            {% for sujet in sujets %}
+                <tr {% if loop.index is odd %}class="odd"{% else %}class="even"{% endif %}>
+                    <td><span>{{ sujet.type }}</span><input type="text" value="{{ sujet.type }}" hidden></td>
+                    <td>
+                        <a data-toggle="modal" data-label="{{ sujet.type }}" data-id="{{ sujet.id }}" class="sujet_update_btn btn btn-sm btn-warning glyphicon glyphicon-pencil" href="{{ path('sujet_update',{'id':sujet.id}) }}"></a>
+                        <a href="{{ path('sujet_delete',{'id':sujet.id}) }}" class="btn btn-sm btn-danger glyphicon glyphicon-trash"> </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="col-sm-7">
+        <div class="navigation">
+            <center>
+                {{ knp_pagination_render(sujets) }}
+            </center>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

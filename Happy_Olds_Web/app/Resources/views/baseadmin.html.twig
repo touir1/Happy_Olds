@@ -69,7 +69,30 @@
                 <li class="active"><a href="#"><i class="fa fa-fw fa-home"></i> <span>Accueil</span></a></li>
                 <li><a href="#"><i class="fa fa-fw fa-child"></i> <span> User</span></a></li>
                 <li><a href="{{ path('services_list') }}"><i class="fa fa-fw fa-group"></i> <span>Service</span></a></li>
-                <li><a href="{{ path('Question_list') }}"><i class="fa fa-fw fa-group"></i> <span>Forum Medical</span></a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-fw fa-leaf"></i>
+                        <span>Forum Medical</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="display: none;">
+                        <li>
+                            <a href="{{ path('Question_list') }}">
+                                <i class=""></i>
+                                <span>Liste des questions </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sujet_show') }}">
+                                <i class=""></i>
+                                <span>Liste des sujets</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-fw fa-leaf"></i>

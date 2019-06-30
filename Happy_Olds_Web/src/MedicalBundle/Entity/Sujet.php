@@ -29,6 +29,12 @@ class Sujet
     private $type;
 
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="sujet", cascade={"persist","remove"})
+     */
+    private $question;
+
     /**
      * Get id
      *

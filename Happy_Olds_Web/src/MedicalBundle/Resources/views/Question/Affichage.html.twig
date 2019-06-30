@@ -52,7 +52,7 @@
             <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <tr>
-                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ knp_pagination_sortable(questions, 'Numéro', 'q.id') }}</font></font></th>
+
                         <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ knp_pagination_sortable(questions, 'Questions', 'q.titre') }}</font></font></th>
                         <th colspan="4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actions</font></font></th>
 
@@ -61,7 +61,7 @@
                     {% for i in questions %}
 
                         <tr>
-                              <td> {{ i.getid() }} </td>
+
                                <td> {{ i.gettitre() }} </td>
 
                             {% if app.user.id == i.user.id%}
@@ -80,7 +80,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Numéro</font></font></th>
+
                         <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Questions</font></font></th>
                         <th colspan="4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actions</font></font></th>
                     </tr>

@@ -6,3 +6,20 @@ Question_list:
 Question_DeleteAdm:
     path:     /del
     defaults: { _controller: "MedicalBundle:Question:DeleteAdm" }
+
+sujet_new:
+    path:     /new
+    defaults: { _controller: "MedicalBundle:Sujet:new" }
+
+sujet_update:
+    path:     /update
+    defaults: { _controller: "MedicalBundle:Sujet:update" }
+
+sujet_delete:
+    path:     /delete
+    defaults: { _controller: "MedicalBundle:Sujet:delete" }
+
+sujet_show:
+    path:     /show
+    defaults: { _controller: "MedicalBundle:Sujet:show" }
+
