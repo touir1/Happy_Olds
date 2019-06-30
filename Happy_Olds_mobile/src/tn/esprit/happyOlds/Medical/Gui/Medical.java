@@ -29,6 +29,7 @@ import tn.esprit.happyOlds.Medical.controller.MedicalController;
 import tn.esprit.happyOlds.Gui.menu;
 import tn.esprit.happyOlds.Medical.controller.MedicalController;
 import tn.esprit.happyOlds.Medical.entity.Question;
+import tn.esprit.happyOlds.Medical.entity.Reponse;
 import tn.esprit.happyOlds.MyApplication;
 import tn.esprit.happyOlds.controller.UserController;
 
@@ -176,7 +177,14 @@ public class Medical {
              F1.show();
              
             F1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
-                f.show();
+                form.show();
+          
+            });
+            
+            F1.getToolbar().addCommandToRightBar("Réponse", null, (ev) -> {
+                
+                addReponse r = new addReponse(q.getId());
+               r.getF1().show();
           
             });
             

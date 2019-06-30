@@ -23,6 +23,7 @@ import tn.esprit.happyOlds.controller.UserController;
 public class addReponse {
      Form F1;
 
+
     public Form getF1() {
         return F1;
     }
@@ -33,7 +34,9 @@ public class addReponse {
  
          TextField text;
          
-      public addReponse(int idq){
+       
+         
+    public addReponse(int idq){
           
            F1= new Form ("Ajouter une réponse");
         Container cnt2 = new Container(BoxLayout.y());
@@ -61,7 +64,7 @@ public class addReponse {
         });
          F1.getToolbar().addCommandToLeftBar("Back", null, (ev) -> {
                Medical q=new Medical();
-                     q.getForm().show();
+                     q.getF().show();
              
            });
          F1.add(cnt2);
