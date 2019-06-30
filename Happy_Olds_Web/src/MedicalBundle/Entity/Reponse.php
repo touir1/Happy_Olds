@@ -188,6 +188,7 @@ class Reponse implements NotifiableInterface
             ->setDescription($this->getText())
             ->setRoute('medical_detail')
             ->setDescription("#")
+            ->setIdUser($this->getQuestion()->getUser()->getId())
             ->setParameters(array('id'=>$this->getQuestion()->getId(),'fromNotif'=>'true','v'=>rand()));
         $builder->addNotification($notification);
 
