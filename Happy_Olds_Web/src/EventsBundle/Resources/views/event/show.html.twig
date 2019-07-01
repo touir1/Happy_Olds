@@ -55,24 +55,28 @@
         <input type="submit" value="Delete" >
         {{ form_end(delete_form) }}</h5-->
 
-
-    {% if event.Participant != event.nbrParticipant %}
+        <h5 align="right">
+            {#<a class="btn btn-danger" href="{{ path('event_participer', {'id':event.id}) }}">Participer</a></h5>
+#}
+        {#{% if event.Participant != event.nbrParticipant %}#}
             {% set test = 'false' %}
             {% for p in event.Participants %}
                 {% if p.getUser().getId()  == app.user.id%}
                     {% set test ='true' %}
                 {% endif %}
+            {% endfor %}
             {% if test != 'true' %}
                 <h5 align="right">
                     <a class="btn btn-danger" href="{{ path('event_participer', {'id':event.id}) }}">Participer</a></h5>
 
             {% else %}
                 <!--h5 align="right"><a>{{ app.user.username }} vous avez participer à l'événement</a></h5-->
-                <h5 align="right"><a  class="btn btn-danger" href="{{ path('event_annuler', {'id':event.id}) }}">Annuler</a></h5>
+                <h5 align="right">
+                    <a  class="btn btn-danger" href="{{ path('event_annuler', {'id':event.id}) }}">Annuler</a></h5>
 
                 {% endif %}
-            {% endfor %}
-        {% endif %}
+
+        {#{% endif %}#}
 
 <div>
         <TABLE CELLSPACING=10 CELLPADDING=10 width="80%" align="center">
@@ -88,7 +92,7 @@
                 <TH COLSPAN=2 align="center">Titre de l'événement : {{ event.titre }} </TH>
             </TR>
             <TR>
-                <TH align="center">Nombre de place disponible : <br>{{ event.nbrDispo }}</TH>
+                <TH align="center">Nombre de place disponible : <br>{{ event.NbrDispo }}</TH>
                 <TH align="center">Nombre des participants : <br>{{ event.Participant }}</TH>
             </TR></TABLE>
         <br><br><br></div>

@@ -175,7 +175,7 @@ class EventController extends Controller
         $em = $this->getDoctrine()->getManager();
         $event = $this->getDoctrine()->getRepository(Event::class)
             ->find($id);
-        $event->setNbrDispo($event->getNbrDispo()-1);
+        $event->setNbrDispo($event->getNbrDispo() -1);
         $event->setParticipant($event->getParticipant() + 1);
         $em->persist($event);
         $Participer = new Participer();
@@ -189,25 +189,28 @@ class EventController extends Controller
     }
     public function annulerAction(Request $request)
     {   $id = $request->get('id');
+         $Participer =$this->getDoctrine()->getRepository(Participer::class)
+             ->findBy(array('event' =>$id));
         $em = $this->getDoctrine()->getManager();
         $event = $this->getDoctrine()->getRepository(Event::class)
-       ->find($id);
+       ->find($Participer[0]->getEvent());
         $event->setNbrDispo($event->getnbrDispo()+1);
         $event->setParticipant($event->getParticipant() - 1);
+
+
+
         $em->persist($event);
+        $em->remove($Participer[0]);
 
-        $Participer = new Participer();
 
-        foreach($event->getParticipants() as $participant){
-            if($participant->getuser()->getId() == $this->getUser()->getId()){
-                $em->remove($participant);
-            }
-        }
-     //   $em->remove($Participer);
-        $em->persist($Participer);
+
         $em->flush();
-
-        return $this->redirectToRoute('event_show',array('id'=>$event->getId()));
+        return $this->redirectToRoute('event_index');
+        /*
+        return $this->redirectToRoute('event_show',[
+            'id'=>$event->getId()
+        ]);
+        */
     }
 
     public function venirAction()
