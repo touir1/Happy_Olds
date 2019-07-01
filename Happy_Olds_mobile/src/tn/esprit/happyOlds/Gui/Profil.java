@@ -86,6 +86,7 @@ public class Profil {
         MyApplication my= new MyApplication();
          Label lblimg = new Label();
     Image red = Image.createImage(50, 50);  
+        System.err.println(UserController.userConnectee.getPath());
         if(UserController.userConnectee.getPath()!=null){
            
 
@@ -102,7 +103,7 @@ public class Profil {
              EncodedImage enc = EncodedImage.
                     createFromImage(red, false);
              URLImage urlIm = URLImage.
-                     createToStorage(enc, "Img" + UserController.userConnectee.getId(),"http://127.0.0.1:8000/dist/img/default-avatar.png");
+                     createToStorage(enc, "ImgAvatar","http://127.0.0.1:8000/dist/img/default-avatar.png");
             ImageViewer img = new ImageViewer(urlIm);
             
             cnt1.add(BorderLayout.NORTH, img);

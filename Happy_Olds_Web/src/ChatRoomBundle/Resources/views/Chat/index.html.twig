@@ -184,7 +184,7 @@
                 <div class="content">
                     <div class="contact-profile">
                         <img src="{{ asset('ChatRoom/img/group_picture_black.png') }}" alt="" />
-                        <p id="open_conversation">{{ groupes|first.titre }}</p>
+                        <p id="open_conversation">{% if groupes |length > 0 %}{{ groupes|first.titre }}{% endif %}</p>
                         <!--
                         <div class="social-media">
                             <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -196,13 +196,14 @@
                     <div class="messages">
                         <div class="loader" hidden></div>
                         <ul id="messages_box">
-
-                            {% for m in groupes|first.discussion.messages %}
-                            <li class="{% if m.user.id == app.user.id %}sent{% else %}replies{% endif %}">
-                                <img src="{{ asset(m.user.webPath) }}" alt="" />
-                                <p class="with-emotes">{{  m.texte }}{% if m.user.id != app.user.id %}<br><small style="font-style: italic;float: right;">{{ m.user.nom | upper }} {{ m.user.prenom | capitalize }}</small>{% endif %}</p>
-                            </li>
-                            {% endfor %}
+                            {% if groupes |length > 0 %}
+                                {% for m in groupes|first.discussion.messages %}
+                                <li class="{% if m.user.id == app.user.id %}sent{% else %}replies{% endif %}">
+                                    <img src="{{ asset(m.user.webPath) }}" alt="" />
+                                    <p class="with-emotes">{{  m.texte }}{% if m.user.id != app.user.id %}<br><small style="font-style: italic;float: right;">{{ m.user.nom | upper }} {{ m.user.prenom | capitalize }}</small>{% endif %}</p>
+                                </li>
+                                {% endfor %}
+                            {% endif %}
 
                             <!--
                             <li class="replies">

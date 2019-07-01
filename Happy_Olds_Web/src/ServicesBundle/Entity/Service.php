@@ -342,6 +342,7 @@ class Service implements NotifiableInterface
 
             return $builder ;
         }
+        return $builder ;
     }
 
     /**
