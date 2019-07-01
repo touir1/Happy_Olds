@@ -107,6 +107,7 @@ class Event
      * @ORM\OneToMany(targetEntity="Participer", mappedBy="event")
      */
     private $Participants;
+
     public function __construct() {
         $this->Participants = new ArrayCollection();
     }

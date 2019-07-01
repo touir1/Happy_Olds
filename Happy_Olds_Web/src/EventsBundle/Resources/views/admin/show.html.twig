@@ -8,12 +8,17 @@
 <TABLE CELLSPACING=10 CELLPADDING=10 width="80%" >
 
     <TR>
-        <TD ROWSPAN=2 COLSPAN=2 align="center"><img width="250px" height="250px" src="../../dist/img/photo2.png" /></TD>
+        <TD ROWSPAN=2 COLSPAN=2 align="center">
+            {% if(event.WebPath != null) %}
+                <img class="profile-user-img img-responsive img-circle" src="{{ asset(event.WebPath) }}" alt="Photo de profil de l'utilisateur">
+            {% else %}
+                <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/Def_eve.png') }}" alt="Photo de profil de l'utilisateur">
+            {% endif %}
         <TH COLSPAN=2 align="center">Titre de l'événement : {{ event.titre }} </TH>
     </TR>
     <TR>
-        <TH align="center">Nombre de place disponible : <br>{{ event.nbrParticipant }}</TH>
-        <TH align="center">Nombre des participants : <br>{{ event.nbrParticipant }}</TH>
+        <TH align="center">Nombre de place disponible : <br>{{ event.nbrDispo }}</TH>
+        <TH align="center">Nombre des participants : <br>{{ event.Participant }}</TH>
     </TR></TABLE>
 <br><br><br>
 
@@ -44,8 +49,8 @@
         <td>{% if event.dateFin %}{{ event.dateFin|date('Y-m-d H:i:s') }}{% endif %}</td>
     </tr>
     <tr>
-        <th>Privilége</th>
-        <td>{{ event.privilege }}</td>
+        <th>lieu</th>
+        <td>{{ event.lieu }}</td>
     </tr>
     <tr>
         <th>Privilége</th>

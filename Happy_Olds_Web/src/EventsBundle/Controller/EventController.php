@@ -69,6 +69,9 @@ class EventController extends Controller
         $deleteForm = $this->createDeleteForm($event);
 
         $rate = new Rate();
+        $em = $this->getDoctrine()->getManager();
+        $event->setNbrDispo($event->getNbrParticipant());
+        $em->flush();
 
         $form = $this->createForm(RateType::class,$rate);
 
@@ -126,7 +129,7 @@ class EventController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('event_edit', array('id' => $event->getId()));
+            return $this->redirectToRoute('event_show4', array('id' => $event->getId()));
         }
 
         return $this->render('@Events/event/edit.html.twig', array(
@@ -185,20 +188,22 @@ class EventController extends Controller
         return $this->redirectToRoute('event_show',array('id'=>$event->getId()));
     }
     public function annulerAction(Request $request)
-    {
-        $id = $request->get('id');
+    {   $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
         $event = $this->getDoctrine()->getRepository(Event::class)
-            ->find($id);
-        $event->setNbrDispo($event->getNbrDispo()+1);
+       ->find($id);
+        $event->setNbrDispo($event->getnbrDispo()+1);
         $event->setParticipant($event->getParticipant() - 1);
         $em->persist($event);
+
         $Participer = new Participer();
 
-        $Participer->getUser($this->getUser());
-        $Participer->getEvent($event);
-       // $Participer->getId();
-        $em->remove($Participer);
+        foreach($event->getParticipants() as $participant){
+            if($participant->getuser()->getId() == $this->getUser()->getId()){
+                $em->remove($participant);
+            }
+        }
+     //   $em->remove($Participer);
         $em->persist($Participer);
         $em->flush();
 
@@ -224,6 +229,9 @@ class EventController extends Controller
         $deleteForm = $this->createDeleteForm($event);
 
         $rate = new Rate();
+        $em = $this->getDoctrine()->getManager();
+        $event->setNbrDispo($event->getNbrParticipant());
+        $em->flush();
 
         $form = $this->createForm(RateType::class,$rate);
 
@@ -233,16 +241,41 @@ class EventController extends Controller
             'rating_form' => $form->createView()
         ));
     }
+    public function delete3Action(Request $request)
+    {
+        $id = $request->get('id');
+        $events = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->find($id);
+            $doctrineManager = $this->getDoctrine()->getManager();
 
-    public function delete3Action(Request $request){
-        //etape 0 :
-        $id=$request->get( 'id');
-        $event=$this->getDoctrine()->getRepository( Event::class)->find($id);
+            $doctrineManager->remove($events);
 
-        $em=$this->getDoctrine()->getManager();
-        $em->remove($event);
-        $em->flush();
+            $doctrineManager->flush();
+
+
         return $this->redirectToRoute( 'event_affiche');
+    }
+
+
+    public function rechercherAction(Request $request)
+    {
+        $events=$this->getDoctrine()
+            ->getRepository(  Event::class)
+            ->findAll();
+        $titre=$request->get('titre');
+
+        if(isset($titre))
+        {
+            $events=$this->getDoctrine()->getRepository( Event::class)
+                ->trouver($titre);
+
+
+        }
+
+
+            return $this->render('@Events/event/rechercher.html.twig', array(
+                'events' => $events));
     }
 
 

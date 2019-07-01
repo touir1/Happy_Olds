@@ -36,7 +36,6 @@ class EventAdminController extends Controller
         //etape 0 :
         $id=$request->get( 'id');
         $event=$this->getDoctrine()->getRepository( Event::class)->find($id);
-
         $em=$this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();

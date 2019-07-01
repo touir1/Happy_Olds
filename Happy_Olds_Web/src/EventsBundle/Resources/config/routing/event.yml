@@ -65,3 +65,7 @@ event_delete3:
         path:     /delete3/
         defaults: { _controller: "EventsBundle:Event:delete3" }
 
+event_rechercher:
+        path:     /rechercher/
+        defaults: { _controller: "EventsBundle:Event:rechercher" }
+

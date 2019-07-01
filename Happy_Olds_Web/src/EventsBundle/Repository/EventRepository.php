@@ -30,8 +30,17 @@ class EventRepository extends \Doctrine\ORM\EntityRepository
         $query=$this->getEntityManager()
             ->createQuery(" SELECT e FROM EventsBundle:Event e "
                 ." LEFT JOIN e.Participants p "
-                ." WHERE p.user = :user and e.dateDebut > current_date() ")
+                ." WHERE p.user = :user and e.dateDebut >= current_date() ")
             ->setParameter(':user',$user);
+        return $query->getResult();
+    }
+
+
+    public function trouver($titre)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(" SELECT m FROM EventsBundle:Event m WHERE m.titre='$titre' 
+                              ");
         return $query->getResult();
     }
 

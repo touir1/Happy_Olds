@@ -29,7 +29,7 @@
                         Voter pour les événements
                     </li>
                     <li class="list-group-item">
-                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }} />
+                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_rechercher') }} />
                         Recherche </li>
                 </ul>
             </div></div></div>
@@ -55,21 +55,23 @@
         <input type="submit" value="Delete" >
         {{ form_end(delete_form) }}</h5-->
 
-        {% if event.Participant != event.nbrParticipant %}
+
+    {% if event.Participant != event.nbrParticipant %}
             {% set test = 'false' %}
             {% for p in event.Participants %}
                 {% if p.getUser().getId()  == app.user.id%}
-                    {% set test = 'true' %}
+                    {% set test ='true' %}
                 {% endif %}
-            {% endfor %}
-            {% if test!='true' %}
-        <h5 align="right"><a  class="btn btn-danger" href="{{ path('event_participer', {'id':event.id}) }}">Participer</a></h5>
+            {% if test != 'true' %}
+                <h5 align="right">
+                    <a class="btn btn-danger" href="{{ path('event_participer', {'id':event.id}) }}">Participer</a></h5>
+
             {% else %}
-                <h5 align="right"><a>{{ app.user.username }} vous avez participer à l'événement</a></h5>
+                <!--h5 align="right"><a>{{ app.user.username }} vous avez participer à l'événement</a></h5-->
                 <h5 align="right"><a  class="btn btn-danger" href="{{ path('event_annuler', {'id':event.id}) }}">Annuler</a></h5>
 
                 {% endif %}
-
+            {% endfor %}
         {% endif %}
 
 <div>
@@ -95,11 +97,11 @@
             <tr>
                 <th>Numéro</th>
                 <td>{{ event.id }}</td>
-            </tr>
+            </tr><tr></tr>
             <tr>
                 <th> Titre</th>
                 <td>{{ event.titre }}</td>
-            </tr>
+            </tr><tr></tr>
             <tr>
                 <th>Description</th>
                 <td>{{ event.description }}</td>
@@ -128,12 +130,13 @@
     </table>
 
 
-<div>
-        {{ socialButtons( { 'facebook': {'locale':'fr_FR', 'send':true}} ) }}
-        {{ 3|rating(5) }}
+    {{ socialButtons( { 'facebook': {'locale':'fr_FR', 'send':true}} ) }}
+    <br><br>
 
-        {{ form_start(rating_form) }}
-        {{ form_end(rating_form) }}
+</div></div>
+<div>
+
+
 
     </div></div>
 
@@ -149,19 +152,7 @@
 
 
 
-    <!--ul>
-        <li>
-            <a href="{{ path('event_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('event_edit', { 'id': event.id }) }}">Edit</a>
-        </li>
-        <li >
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete" >
-            {{ form_end(delete_form) }}
-        </li>
-    </ul-->
+
 
 
 

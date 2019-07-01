@@ -22,16 +22,9 @@ class Participer
     private $id;
 
 
-
-
-
-
-
-
-
     /**
-     * @ORM\ManyToOne(targetEntity="Event")
-     * @ORM\JoinColumn(name="event_id",referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Event",cascade={"remove"})
+     * @ORM\JoinColumn(name="event_id",referencedColumnName="id", onDelete="CASCADE")
      */
 
     private $event;

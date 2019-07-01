@@ -28,7 +28,7 @@
                         Voter pour les événements
                     </li>
                     <li class="list-group-item">
-                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }} />
+                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_rechercher') }} />
                         Recherche </li>
                 </ul>
             </div></div></div>
@@ -37,8 +37,10 @@
         <div class="box-header with-border">
             <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Liste des évenements</h1></font></font></h3>
         </div>
+        <h5 align="right"><a href="{{ path('event_new') }}">Creation d'un nouveau évenement</a></h5>
+
         {% for event in events %}
-        <table align="center" border="0" width="75%" >
+
 
                 <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
@@ -56,7 +58,7 @@
                 </div>
                 </div>
 
-        </table> {% endfor %}
+         {% endfor %}</div></div>
 
         <!--ul>
 
@@ -64,20 +66,8 @@
            <h5 align="right"><a href="{{ path('event_new') }}">Create a new event</a></h5>
         </li>
     </ul-->
-        <h5 align="right"><a href="{{ path('event_new') }}">Creation d'un nouveau évenement</a></h5>
 
 
-                        </div></div></div></div></div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /. box -->
-                </div>
 
 
-    </div></div></div>
-    <!--ul>
-        <li>
-            <a href="{{ path('event_new') }}">Create a new event</a>
-        </li>
-    </ul-->
 {% endblock %}

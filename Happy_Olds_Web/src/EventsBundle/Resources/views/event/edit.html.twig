@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<link rel="stylesheet" type="text/css" href="AdminLTE.css" />
+    <link rel="stylesheet" type="text/css" href="AdminLTE.css" />
 
     <div class="col-md-3">
 
@@ -30,94 +30,94 @@
                         Voter pour les événements
                     </li>
                     <li class="list-group-item">
-                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_index') }} />
+                        <font style="vertical-align: inherit; "><font style="vertical-align: inherit;"></font></font><a href={{ path('event_rechercher') }} />
                         Recherche </li>
                 </ul>
             </div></div></div>
-    <div class="col-md-9">
-        <div class="box box-danger">
-            <div class="box-header with-border">
-                <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Modifier l'évenement</h1></font></font></h3>
-            </div>
+<div class="col-md-9">
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Modifier l'évenement</h1></font></font></h3>
+        </div>
 
+        <h5 align="right"><a href="{{ path('event_show4', {'id':event.id}) }}">Retour à la description</a></h5>
 
-            <table width= "90%" , align="center">
-                <h5 align="right"><a href="{{ path('event_show4', {'id':event.id}) }}">Retour à la description</a></h5>
-                <tr><td>
+        <table width= "90%" , align="center">
+        {{ form_start(edit_form) }}
+        <tr><td>
+                <div class="form-group">
+                    <label class="text-muted">Titre : </label>
+                    {{
+                    form_widget(edit_form.titre, {'attr' : {'class' : 'form-control', 'rows':'1',
+                        'placeholder': 'Tapez le titre'}})
+                    }}
+                </div>
+                <div class="form-group">
+                    <label class="text-muted">Description : </label>
 
-            <div class="form-group">
-                <label class="text-muted">Titre : </label>
-                {{
-                form_widget(edit_form.titre, {'attr' : {'class' : 'form-control', 'rows':'1',
-                    'placeholder': 'Tapez le titre'}})
-                }}
-            </div>
-            <div class="form-group">
-                <label class="text-muted">Description : </label>
+                    {{
 
-                {{
+                    form_widget(edit_form.description, {'attr' : {'class' : 'form-control', 'rows':'3','id':'editor1','name':' editor1',
+                        'placeholder': 'Enter la description ...'}})
+                    }}
+                </div>
 
-                form_widget(edit_form.description, {'attr' : {'class' : 'form-control', 'rows':'3','id':'editor1','name':' editor1',
-                    'placeholder': 'Enter la description ...'}})
-                }}
-            </div>
-
-            <div class="form-group">
-                <label class="text-muted">Nombre des participants : </label>
-                {{
-                form_widget(edit_form.nbrParticipant, {'attr' : {'class' : 'form-control', 'rows':'1',
-                    'placeholder': 'Tapez le nombre'}})
-                }}
-            </div>
-
-
-
-            <div class="form-group">
-                <label class="text-muted">Ville </label>
-                {{
-                form_widget(edit_form.ville, {'attr' : {'class' : 'form-control',
-                    'placeholder': 'Ville...' }})
-                }}
-            </div>
-
-            <div class="form-group">
-                <label class="text-muted">Lieu </label>
-                {{
-                form_widget(edit_form.lieu, {'attr' : {'class' : 'form-control', 'rows':'1',
-                    'placeholder': 'Emplacement'}})
-                }}
-            </div>
-
-                        <br><br>
-                        <table align="center" size="50%">
-                            <tr> <th>Date de début : </th>
-                                <td width="50%">{{ form_widget(edit_form.dateDebut) }}</td>
-                                <th>Date de fin : </th>
-                                <td>{{ form_widget(edit_form.dateFin) }}</td>
-
-                            </tr></table>
-
-    {{ form_start(edit_form) }}
-
-                        <br><br>
+                <div class="form-group">
+                    <label class="text-muted">Nombre des participants : </label>
+                    {{
+                    form_widget(edit_form.nbrParticipant, {'attr' : {'class' : 'form-control', 'rows':'1',
+                        'placeholder': 'Tapez le nombre'}})
+                    }}
+                </div>
 
 
 
-                        <table>
+                <div class="form-group">
+                    <label class="text-muted">Ville </label>
+                    {{
+                    form_widget(edit_form.ville, {'attr' : {'class' : 'form-control',
+                        'placeholder': 'Ville...' }})
+                    }}
+                </div>
 
-    <table align="center">
-<br>
-     <tr><th></th><th><input type="submit" value="Modifier" /></th>
-            </tr>
+                <div class="form-group">
+                    <label class="text-muted">Lieu </label>
+                    {{
+                    form_widget(edit_form.lieu, {'attr' : {'class' : 'form-control', 'rows':'1',
+                        'placeholder': 'Emplacement'}})
+                    }}
+                </div>
+
+                <br><br>
+                <table align="center" size="50%">
+                    <tr> <th>Date de début : </th>
+                        <td width="50%">{{ form_widget(edit_form.dateDebut) }}</td>
+                        <th>Date de fin : </th>
+                        <td>{{ form_widget(edit_form.dateFin) }}</td></tr>
+    </table>
 
 
-</table>
+                <!--table>
+                    <tr><th><div class="form-group">
+                                <label class="text-muted">Photo : </label></div><th><td>{{ form_widget(edit_form.file) }}</td></tr></table-->
+                <br><br>
+                <table valign="right"><tr>
+                        <div class="form-group" align="right">
+                            {{
+                            form_widget(edit_form.Valider, {'attr' : {'class' : 'btn btn-block btn-danger','style':'width: 12%'}})
+                            }}
+                        </div></tr></table>
+            </td></tr></table>
 
+    {{ form_end(edit_form) }}
 
 
 
 
-</div></div></div>
+
+
+
+
 
 
     <ul>
@@ -132,3 +132,27 @@
     </ul>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

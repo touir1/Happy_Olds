@@ -7,12 +7,16 @@
 
     <tr><td>idenfiant</td>
         <td>Titre</td>
-        <td>Nombre Participants</td><td>Consulter</td><td>Supprimer</td>
+        <td>Nombre Participants</td><td>Status</td><td>Consulter</td><td>Supprimer</td>
 {% for m in liste %}
 
     <tr><td>{{ m.id }}</td>
         <td>{{ m.titre }}</td>
-        <td>{{ m.nbrParticipant }}</td>
+        <td>{{ m.Participant }}</td>
+
+    {% if m.dateDebut >= 'current_date' %} <td>Prochainement</td>
+    {% else %} <td>Non disponible</td>
+{% endif %}
             <td><a href="{{  path('event_show2',{'id':m.id }) }}">Consulter</a></td>
         <td><a href="{{  path('event_delete2',{'id':m.id }) }}">Delete</a></td>
         </tr>
