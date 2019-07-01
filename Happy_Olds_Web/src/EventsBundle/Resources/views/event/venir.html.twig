@@ -36,16 +36,19 @@
     <div class="box box-danger">
         <div class="box-header with-border">
             <h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><h1 class="title">Liste des évenements</h1></font></font></h3>
-        </div>
+
         <h5 align="right"><a href="{{ path('event_new') }}">Creation d'un nouveau évenement</a></h5>
-
+        </div>
+    <br><br>
+        <table align="center" border="0" width="75%" >
+            <tr></tr>
         {% for event in events %}
-
 
                 <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
+
                         <h3> {{ event.titre }}</h3>
                         <p>{{ event.description }}</p>
                     </div>
@@ -55,10 +58,11 @@
                     <a href="{{ path('event_show', { 'id': event.id }) }}" class="small-box-footer">
                         Consulter  <i class="fa fa-arrow-circle-right"></i>
                     </a>
-                </div>
-                </div>
 
-         {% endfor %}</div></div>
+                </div>
+                </div>
+        {% endfor %}</table>
+        </div></div>
 
         <!--ul>
 
