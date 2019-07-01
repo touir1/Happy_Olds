@@ -141,10 +141,7 @@ public class EventsController {
             }
             }); 
         NetworkManager.getInstance().addToQueueAndWait(con);//pour etablir la conx
-    /*     
-    } catch (ParseException ex) {
-             Logger.getLogger(EventsController.class.getName()).log(Level.SEVERE, null, ex);
-         }*/
+    
         return resp;
      }
 }
