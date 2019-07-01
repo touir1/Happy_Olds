@@ -34,7 +34,7 @@ public class EventsAffiche {
     public EventsAffiche(){
         List<Events> lstEvents=new ArrayList<>();
         
-         f = new Form("Events");
+         f = new Form("Events",BoxLayout.y());
          //menu 
          menu m=new menu();
          m.addmenu(f);
@@ -62,7 +62,8 @@ public class EventsAffiche {
  public Container addItem(Events e) throws IOException {
         
         Container cnt1 = new Container(new BorderLayout());
-        Label lbltitle = new Label(e.getId_user().getUsername());
+        Label lbltitle = new Label(e.getTitre());
+        
        
         Label lbnbparticipant = new Label(e.getParticipant()+"/"+e.getNbrParticipant());
         
